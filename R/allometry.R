@@ -75,7 +75,7 @@ apply_eq <- function(data,eqn_id) {
     eqn <- sol_equation(eqn_id)
     cidx <- resolve_cols(data,eqn) ## column indices of data
     if (any(is.na(cidx)))
-        stop(sprintf("could not find required inputs (%s) in data",paste(eqn$inputs[[1]]$property[is.na(cidx)],collapse=", ")))
+        stop(sprintf("could not find required input properties (%s) in data",paste(eqn$inputs[[1]]$property[is.na(cidx)],collapse=", ")))
     data2 <- as.data.frame(data[,cidx])
     ## convert units, if necessary
     for (i in seq_len(cidx))
@@ -106,9 +106,9 @@ resolve_cols <- function(data,eqn) {
     data <- as.data.frame(data)
     data_props <- vapply(seq_len(ncol(data)),function(j)sp_or_na(data[,j]),FUN.VALUE="")
     vapply(eqn$inputs[[1]]$property,function(z) {
-        ##reqclass <- sol_properties_data$class_name[sol_properties_data$property==z]
-        which_or_na(data_props==z)
-        ##which_or_na(vapply(seq_len(ncol(data)),function(j) inherits(data %>% pull(j),reqclass),FUN.VALUE=TRUE))
+        tmp <- which_or_na(data_props==z)
+        if (length(tmp)>1) stop("data has multiple columns of property ",z,", don't know which one to use")
+        tmp
     },FUN.VALUE=1)
 }
 
