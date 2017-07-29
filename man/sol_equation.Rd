@@ -2,12 +2,18 @@
 % Please edit documentation in R/equations.R
 \name{sol_equation}
 \alias{sol_equation}
+\alias{sol_equations}
+\alias{print.sol_equation}
 \title{Allometric equations}
 \usage{
 sol_equation(id)
+
+sol_equations(id)
+
+\method{print}{sol_equation}(x, ...)
 }
 \arguments{
-\item{id}{string: the identifier of the equation. If omitted, all equations will be returned}
+\item{id}{string: the identifier of the equation to return}
 }
 \value{
 data.frame
@@ -16,7 +22,7 @@ data.frame
 Allometric equations
 }
 \examples{
-sol_equation()
+sol_equations()
 sol_equation("342218_ML_Roel2000")
 
 }

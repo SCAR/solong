@@ -3,6 +3,7 @@
 export("%>%")
 export(sol_allometry)
 export(sol_equation)
+export(sol_equations)
 export(sol_get_property)
 export(sol_properties)
 export(sol_set_property)
