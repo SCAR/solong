@@ -151,3 +151,8 @@ tryCatch(
 )
 #> [1] "could not find required inputs (otolith length) in data"
 ```
+
+Taxonomy
+--------
+
+Equations are registered against *taxon\_name* and *taxon\_aphia\_id* (the species identifier in the World Register of Marine Species). The *taxon\_aphia\_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.

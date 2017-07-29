@@ -108,3 +108,9 @@ tryCatch(
   error=function(e) conditionMessage(e)
 )
 ```
+
+## Taxonomy
+
+Equations are registered against *taxon_name* and *taxon_aphia_id* (the species identifier in the World Register of Marine Species). The *taxon_aphia_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.
+
+
