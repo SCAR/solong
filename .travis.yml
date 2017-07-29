@@ -4,5 +4,6 @@ language: R
 sudo: false
 cache: packages
 
-env:
-- _R_CHECK_FORCE_SUGGESTS_=false
+before_install:
+  - sudo apt-get -qq update
+  - sudo apt-get install -y libudunits2-dev
