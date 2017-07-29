@@ -42,7 +42,6 @@ filter.sol_equation <- function(.data,...) {
 }
 
 
-#' @rdname sol_equation
 #' @method print sol_equation
 print.sol_equation <- function(x,...) {
     for (i in seq_len(nrow(x))) {

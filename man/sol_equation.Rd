@@ -3,14 +3,11 @@
 \name{sol_equation}
 \alias{sol_equation}
 \alias{sol_equations}
-\alias{print.sol_equation}
 \title{Allometric equations}
 \usage{
 sol_equation(id)
 
 sol_equations(id)
-
-\method{print}{sol_equation}(x, ...)
 }
 \arguments{
 \item{id}{string: the identifier of the equation to return}
