@@ -1,0 +1,113 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
+
+# solong
+
+```{r include=FALSE}
+##[![Travis-CI Build Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong)
+##[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong)
+```
+
+Overview
+--------
+
+This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements.
+
+
+Installing
+----------
+
+```{r, eval=FALSE}
+install.packages("devtools")
+library(devtools)
+install_github("SCAR/solong")
+```
+
+Usage
+-----
+
+```{r include=FALSE}
+devtools::load_all()
+library(dplyr)
+```
+
+
+```{r eval=FALSE,message=FALSE, warning=FALSE}
+library(solong)
+library(dplyr)
+```
+
+
+Let's say we have some measurements of *Architeuthis dux* squid beaks:
+
+```{r}
+x <- data.frame(LRL=c(11.3,13.9),species=c("Architeuthis dux"),
+  stringsAsFactors=FALSE)
+x
+```
+
+It doesn't matter what the column names are, but we do need to set the properties of the columns so that `solong` can find the appropriate data to use in each allometric equation. Here we've measured lower rostral length, so:
+
+```{r}
+x$LRL <- sol_set_property(x$LRL,"lower rostral length")
+```
+
+Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
+
+```{r}
+sol_equation() %>%
+  filter(taxon_name=="Architeuthis dux") %>%
+  select(equation_id,inputs,return_property,return_units)
+```
+
+Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
+
+This equation can be applied to to all rows:
+```{r}
+sol_allometry(x,c("342218_ML_Roel2000"))
+```
+
+Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
+```{r}
+xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
+xa
+```
+
+The `allometric_value` column contains the values that have been estimated, and the `allometric_property` column gives the name of the property that has been estimated.
+
+We can also see that the returned `allometric_value` is of that specific property, with appropriate units:
+```{r}
+sol_get_property(xa$allometric_value)
+units(xa$allometric_value)
+```
+
+If we try to apply equations that relate to different properties, we will get a warning:
+```{r}
+xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
+xa
+```
+
+And while the `allometric_property` column still says which property was estimated for each row, the property type of the returned `allometric_value` will not be set, because there are a mixture of them in this column:
+```{r}
+sol_get_property(xa$allometric_value)
+```
+
+What happens if we don't have the required information in our data to use a particular equation? The `234631_SL~OL_WiMc1990` equation is for fish length, and requires otolith length (not present in our test data).
+
+```{r}
+tryCatch(
+  sol_allometry(x,"234631_SL~OL_WiMc1990"),
+  error=function(e) conditionMessage(e)
+)
+```
