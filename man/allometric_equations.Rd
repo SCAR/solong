@@ -13,7 +13,7 @@
   \item{inputs}{a data.frame specifying (in order) the inputs to the equation, with columns 'property' (the property name of the measurement needed, e.g. 'lower rostral length'), and 'units' (the units of the measurement needed, e.g. 'mm')}
   \item{return_property}{the name of the body size characteristic that is estimated by this equation (e.g. 'mass')}
   \item{return_units}{the units of measurement of the returned property}
-  \item{reliability}{a data.frame with indicators of the reliability of the equation: reliability_type (a description of how the reliability was assessed, e.g. 'R^2' or 'N' the sample size used by the authors of the equation) and reliability (its value)}
+  \item{reliability}{a data.frame with indicators of the reliability of the equation: type (a description of how the reliability was assessed, e.g. 'R^2' or 'N' the sample size used by the authors of the equation) and value (its value)}
   \item{notes}{notes}
   \item{reference}{the source of the equation}
 }}

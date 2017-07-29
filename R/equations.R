@@ -33,10 +33,10 @@ add_eq_class <- function(z) {
     z
 }
 
+## so as not to lose class info when subsetting
 `[.sol_equation` <- function(x,i,j,...) {
     add_eq_class(NextMethod("["))
 }
-
 filter.sol_equation <- function(.data,...) {
     add_eq_class(NextMethod("filter"))
 }
