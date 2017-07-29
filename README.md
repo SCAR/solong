@@ -3,7 +3,7 @@
 solong
 ======
 
-[![Travis-CI Build Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong)
+[![Travis-CI Build Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong) [![codecov](https://codecov.io/gh/SCAR/solong/branch/master/graph/badge.svg)](https://codecov.io/gh/SCAR/solong)
 
 Overview
 --------
@@ -149,7 +149,7 @@ tryCatch(
   sol_allometry(x,"234631_SL~OL_WiMc1990"),
   error=function(e) conditionMessage(e)
 )
-#> [1] "could not find required inputs (otolith length) in data"
+#> [1] "could not find required input properties (otolith length) in data"
 ```
 
 Packaged equations
