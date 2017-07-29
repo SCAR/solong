@@ -1075,8 +1075,7 @@ alleq_wm <- function(id) {
            "234631_SL~OL_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
                                        taxon_aphia_id=234631,
                                        equation=function(...)56.16975*(...)-39.7831,
-                                       inputs=tibble(property="otolith length",
-                                       units="mm"),
+                                       inputs=tibble(property="otolith length",units="mm"),
                                        return_property="standard length",
                                        return_units="mm",
                                        reliability=tribble(~type,~value,
@@ -1086,14 +1085,60 @@ alleq_wm <- function(id) {
            "234631_SL~OW_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
                                        taxon_aphia_id=234631,
                                        equation=function(...)115.7744*(...)-47.0855,
-                                       inputs=tibble(property="otolith width",
-                                       units="mm"),
+                                       inputs=tibble(property="otolith width",units="mm"),
                                        return_property="standard length",
                                        return_units="mm",
                                        reliability=tribble(~type,~value,
                                                            "N",17,
                                                            "R^2",0.95^2),
                                        reference=refs$WiMc1990),
+           "234631_mass~SL_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
+                                          taxon_aphia_id=234631,
+                                          equation=function(...)(1.05e-06)*(...^3.446),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",196,
+                                                              "R^2",0.993^2),
+                                          reference=refs$WiMc1990),
+
+           ## "Photichthys argenteus" valid name is Phosichthys argenteus
+           ## Aphia ID 220007
+           ## only raw data (N=4) given in WiMc1990
+
+           ## Krefftichthys anderssoni
+           "234641_SL~OL_WiMc1990"=list(taxon_name="Krefftichthys anderssoni",
+                                        taxon_aphia_id=234641,
+                                        equation=function(...)41.21040*(...)-13.8900,
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",28,
+                                                            "R^2",0.962^2),
+                                        reference=refs$WiMc1990),
+           "234641_SL~OW_WiMc1990"=list(taxon_name="Krefftichthys anderssoni",
+                                        taxon_aphia_id=234641,
+                                        equation=function(...)47.28366*(...)-9.10800,
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",28,
+                                                            "R^2",0.94^2),
+                                        reference=refs$WiMc1990),
+           "234641_mass~SL_WiMc1990"=list(taxon_name="Krefftichthys anderssoni",
+                                          taxon_aphia_id=234641,
+                                          equation=function(...)(3.220e-06)*(...^3.296),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",28,
+                                                              "R^2",0.981^2),
+                                          reference=refs$WiMc1990),
+
 
            stop("unrecognized equation ID: ",id))
 }
@@ -1316,7 +1361,14 @@ build_allometry_df <- function() {
 
     ## Williams & McEldowney 1990 otoliths
     ## Bathylagus antarcticus
-    x <- bind_rows(x,alleq_tbl("234631_SL~OL_WiMc1990"),alleq_tbl("234631_SL~OW_WiMc1990"))
+    x <- bind_rows(x,alleq_tbl("234631_SL~OL_WiMc1990"),
+                   alleq_tbl("234631_SL~OW_WiMc1990"),
+                   alleq_tbl("234631_mass~SL_WiMc1990"))
+
+    ## Krefftichthys anderssoni
+    x <- bind_rows(x,alleq_tbl("234641_SL~OL_WiMc1990"),
+                   alleq_tbl("234641_SL~OW_WiMc1990"),
+                   alleq_tbl("234641_mass~SL_WiMc1990"))
 
     x
 }
