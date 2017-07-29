@@ -7,21 +7,21 @@ library(assertthat)
 refs <- list(
     XC="Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Clar1986="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",##"Clarke MR (1986) A handbook for the identification of cephalopod beaks. Clarendon Press, Oxford",
-    Roel2000="Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    LuWi1994="Lu & Williams (1994) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Rodh1990="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Clar1962b="Clarke (1962b) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Roel2000="Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Roeleveld MAC (2000) Giant squid beaks: implications for systematics. Journal of the Marine Biological Association of the UK 80: 185-187
+    LuWi1994="Lu CC, Williams R (1994) Contribution to the biology of squid in the Prydz Bay region, Antarctica. Antarctic Science 6: 223-229",
+    Rodh1990="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Rodhouse PG, Prince PA, Clarke MR, Murray AWA (1990) Cephalopod prey of the grey-headed albatross Diomedea chrysostoma. Marine Biology 104: 353-362
+    Clar1962b="Clarke (1962b) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Clarke M (1962b) The identification of cephalopod "beaks" and the relationship between beak size and total body weight. Bulletin of the British Museum of Natural History B 8(10), 421-480
     LuIc2002="Lu CC & Ickeringill R (2002) Cephalopod beak identification and biomass estimation techniques: tools for dietary studies of southern Australian finfishes. Museum Victoria Science Reports 6:1-65",
-    BASunpub="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Piat2001="Piatkowski et al. (2001) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    RoYe1990="Rodhouse & Yeatman (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    SaHa2000="Santos & Haimovici (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    BrKl1987="Brown & Klages (1987) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Jack1995="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Cherunpub="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    BASUnpub="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Piat2001="Piatkowski U, P\uFCtz K, Heinemann H (2001) Cephalopod prey of king penguins (Aptenodytes patagonicus) breeding at Volunteer Beach, Falkland Islands, during austral winter 1996. Fisheries Research 52:79-90. doi:10.1016/S0165-7836(01)00232-6",
+    RoYe1990="Rodhouse & Yeatman (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Rodhouse PG, Yeatman J (1990) Redescription of Martialia hyadesi Rochbrune and Mabille, 1889 (Mollusca: Cephalopoda) from the Southern Ocean. Bulletin of the British Museum of Natural History (Zoology) 56: 135-143
+    SaHa2000="Santos & Haimovici (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Santos RA, Haimovici M (2000) The Argentine short-finned squid Illex argentinus in the food webs of southern Brazil. Sarsia 85: 49-60
+    BrKl1987="Brown & Klages (1987) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Brown CR, Klages NT (1987) Seasonal and annual variation in diets of macaroni (Eudyptes chrysolophus chrysolophus) and southern rockhopper (E. chrysocome chrysocome) penguins at sub-Antarctic Marion Island. Journal of Zoology, London 212: 7-28
+    Jack1995="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Jackson GD (1995) The use of beaks as tools for biomass estimation in the deepwater squid Moroteuthis ingens (Cephalopoda: Onychoteuthidae) in New Zealand waters. Polar Biology 15: 9-14
+    CherUnpub="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Grog2000="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009",
-    Collunpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Smal1993="Smale et al. (1993) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    CollUnpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Smal1993="Smale et al. (1993) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293
     Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government")
 
@@ -172,7 +172,9 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(type="N",value=25),
+                                     reliability=tribble(~type,~value,
+                                                         "N",25,
+                                                         "R^2",0.96),
                                      reference=refs$LuWi1994),
            "325297_mass_LuWi1994"=list(taxon_name="Galiteuthis glacialis",
                                        taxon_aphia_id=325297,
@@ -181,7 +183,9 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(type="N",value=25),
+                                       reliability=tribble(~type,~value,
+                                                           "N",25,
+                                                           "R^2",0.94),
                                        reference=refs$LuWi1994),
 
            ## Taonius spp. formulas
@@ -480,22 +484,22 @@ alleq_xc <- function(id) {
 
            ## Lepidoteuthis grimaldii
            ## ML=36.2LRL ; ln M=-0.17+3.0ln LRL (British Antarctic Survey, unpublished data)
-           "140193_ML_BASunpub"=list(taxon_name="Lepidoteuthis grimaldii",
+           "140193_ML_BASUnpub"=list(taxon_name="Lepidoteuthis grimaldii",
                                      taxon_aphia_id=140193,
                                      equation=function(...)36.2*...,
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reference=refs$BASunpub),
-           "140193_mass_BASunpub"=list(taxon_name="Lepidoteuthis grimaldii",
+                                     reference=refs$BASUnpub),
+           "140193_mass_BASUnpub"=list(taxon_name="Lepidoteuthis grimaldii",
                                        taxon_aphia_id=140193,
                                        equation=function(...)exp(-0.17+3.0*log(...)),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reference=refs$BASunpub),
+                                       reference=refs$BASUnpub),
 
            ## ML=-10.60+50.57LRL (n=2, using total weight of preserved specimens) (Lu & Ickeringill
            ## 2002) but this relationship is obviously not strong
@@ -514,7 +518,7 @@ alleq_xc <- function(id) {
 
            ## Loligo gahi (accepted name Doryteuthis (Amerigo) gahi)
            ## ln ML= 4.23+1.01lnLRL ; ln M=2.25+2.39lnLRL (n=446) (British Antarctic Survey, unpublished data)
-           "410351_ML_BASunpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
+           "410351_ML_HatfUnpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
                                      taxon_aphia_id=410351,
                                      equation=function(...)exp(4.23+1.01*log(...)),
                                      inputs=tibble(property="lower rostral length",
@@ -522,8 +526,8 @@ alleq_xc <- function(id) {
                                      return_property="mantle length",
                                      return_units="mm",
                                      reliability=tibble(type="N",value=446),
-                                     reference=refs$BASunpub),
-           "410351_mass_BASunpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
+                                     reference=paste0("Hatfield (pers. comm.) in ",refs$Piat2001)),
+           "410351_mass_HatfUnpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
                                        taxon_aphia_id=410351,
                                        equation=function(...)exp(2.25+2.39*log(...)),
                                        inputs=tibble(property="lower rostral length",
@@ -531,7 +535,7 @@ alleq_xc <- function(id) {
                                        return_property="mass",
                                        return_units="g",
                                        reliability=tibble(type="N",value=446),
-                                       reference=refs$BASunpub),
+                                       reference=paste0("Hatfield (pers. comm.) in ",refs$Piat2001)),
 
            ## Lycoteuthis lorigera
            ## ML=-13.04+34.56LRL; ln M= 0.32+3.00lnLRL (n=45 for ML and M, using total weight
@@ -564,7 +568,7 @@ alleq_xc <- function(id) {
            ## Mastigoteuthis psychrophila
            ## ML=94.424+6.203LRL ; log M=0.701+1.779logLRL (n=19 for ML and M) (British
            ## Antarctic Survey, unpublished data)
-           "341904_ML_BASunpub"=list(taxon_name="Mastigoteuthis psychrophila",
+           "341904_ML_BASUnpub"=list(taxon_name="Mastigoteuthis psychrophila",
                                      taxon_aphia_id=341904,
                                      equation=function(...)94.424+6.203*...,
                                      inputs=tibble(property="lower rostral length",
@@ -572,8 +576,8 @@ alleq_xc <- function(id) {
                                      return_property="mantle length",
                                      return_units="mm",
                                      reliability=tibble(type="N",value=19),
-                                     reference=refs$BASunpub),
-           "341904_mass_BASunpub"=list(taxon_name="Mastigoteuthis psychrophila",
+                                     reference=refs$BASUnpub),
+           "341904_mass_BASUnpub"=list(taxon_name="Mastigoteuthis psychrophila",
                                        taxon_aphia_id=341904,
                                        equation=function(...)exp(0.701+1.779*log(...)),
                                        inputs=tibble(property="lower rostral length",
@@ -581,7 +585,7 @@ alleq_xc <- function(id) {
                                        return_property="mass",
                                        return_units="g",
                                        reliability=tibble(type="N",value=19),
-                                       reference=refs$BASunpub),
+                                       reference=refs$BASUnpub),
 
 
            ## Alluroteuthis antarcticus
@@ -782,7 +786,7 @@ alleq_xc <- function(id) {
            ## Moroteuthis knipovitchi (valid name is Filippovia knipovitchi)
            ## ML=-105.707+62.369LRL; ln M=-0.881+3.798lnLRL (n=7 for ML, n=5 for M) (Cherel,
            ## unpublished data)
-           "550403_ML_Cherunpub"=list(taxon_name="Filippovia knipovitchi",
+           "550403_ML_CherUnpub"=list(taxon_name="Filippovia knipovitchi",
                                       taxon_aphia_id=550403,
                                       equation=function(...)-105.707+62.369*...,
                                       inputs=tibble(property="lower rostral length",
@@ -790,8 +794,8 @@ alleq_xc <- function(id) {
                                       return_property="mantle length",
                                       return_units="mm",
                                       reliability=tibble(type="N",value=7),
-                                      reference=refs$Cherunpub),
-           "550403_mass_Cherunpub"=list(taxon_name="Filippovia knipovitchi",
+                                      reference=refs$CherUnpub),
+           "550403_mass_CherUnpub"=list(taxon_name="Filippovia knipovitchi",
                                         taxon_aphia_id=550403,
                                         equation=function(...)exp(-0.881+3.798*log(...)),
                                         inputs=tibble(property="lower rostral length",
@@ -799,7 +803,7 @@ alleq_xc <- function(id) {
                                         return_property="mass",
                                         return_units="g",
                                         reliability=tibble(type="N",value=5),
-                                        reference=refs$Cherunpub),
+                                        reference=refs$CherUnpub),
 
 
     ## Moroteuthis robsoni (valid name Onykia robsoni)
@@ -907,20 +911,20 @@ alleq_xc <- function(id) {
 
            ## Haliphron atlanticus
            ## Ln M=2.5+1.45ln LRL (British Antarctic Survey, unpublished data)
-           "341781_mass_BASunpub"=list(taxon_name="Haliphron atlanticus",
+           "341781_mass_BASUnpub"=list(taxon_name="Haliphron atlanticus",
                                        taxon_aphia_id=341781,
                                        equation=function(...)exp(2.5+1.45*log(...)),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reference=refs$BASunpub),
+                                       reference=refs$BASUnpub),
 
 
            ## Pareledone turqueti
            ## ML=17.70487+ 13.32812LHL; LnM =0.689269+2.542938LnLHL (n=7 for ML, n=23 for
            ## M), where LHL= lower hood length (in mm) (Collins, unpublished data)
-           "239393_ML_Collunpub"=list(taxon_name="Pareledone turqueti",
+           "239393_ML_CollUnpub"=list(taxon_name="Pareledone turqueti",
                                       taxon_aphia_id=239393,
                                       equation=function(...)17.70487+13.32812*...,
                                       inputs=tibble(property="lower hood length",
@@ -929,8 +933,8 @@ alleq_xc <- function(id) {
                                       return_units="mm",
                                       reliability=tribble(~type,~value,
                                                          "N",7),
-                                      reference=refs$Collunpub),
-           "239393_mass_Collunpub"=list(taxon_name="Pareledone turqueti",
+                                      reference=refs$CollUnpub),
+           "239393_mass_CollUnpub"=list(taxon_name="Pareledone turqueti",
                                       taxon_aphia_id=239393,
                                       equation=function(...)exp(0.689269+2.542938*log(...)),
                                       inputs=tibble(property="lower hood length",
@@ -939,13 +943,13 @@ alleq_xc <- function(id) {
                                       return_units="g",
                                       reliability=tribble(~type,~value,
                                                          "N",23),
-                                      reference=refs$Collunpub),
+                                      reference=refs$CollUnpub),
 
 
            ## Adelieledone polymorpha
            ## ML= -7,426229508+25,16393443LHL; Ln M =1,077552+3,200449LnLHL
            ##  (n=3 for ML, n= 39 for M) (Collins, unpublished data)
-           "325319_ML_Collunpub"=list(taxon_name="Adelieledone polymorpha",
+           "325319_ML_CollUnpub"=list(taxon_name="Adelieledone polymorpha",
                                       taxon_aphia_id=325319,
                                       equation=function(...)-7.426229508+25.16393443*...,
                                       inputs=tibble(property="lower hood length",
@@ -954,8 +958,8 @@ alleq_xc <- function(id) {
                                       return_units="mm",
                                       reliability=tribble(~type,~value,
                                                          "N",3),
-                                      reference=refs$Collunpub),
-           "325319_mass_Collunpub"=list(taxon_name="Adelieledone polymorpha",
+                                      reference=refs$CollUnpub),
+           "325319_mass_CollUnpub"=list(taxon_name="Adelieledone polymorpha",
                                         taxon_aphia_id=325319,
                                         equation=function(...)exp(1.077552+3.200449*log(...)),
                                         inputs=tibble(property="lower hood length",
@@ -964,12 +968,12 @@ alleq_xc <- function(id) {
                                         return_units="g",
                                         reliability=tribble(~type,~value,
                                                             "N",39),
-                                        reference=refs$Collunpub),
+                                        reference=refs$CollUnpub),
 
            ## Benthoctopus thielei (valid name is Muusoctopus thielei)
            ## ML = 7.398+12.569LHL; lnM= 0.471+2.706lnLHL (n=48 for ML and M) (Cherel,
            ## unpublished data)
-           "884005_ML_Cherunpub"=list(taxon_name="Muusoctopus thielei",
+           "884005_ML_CherUnpub"=list(taxon_name="Muusoctopus thielei",
                                       taxon_aphia_id=884005,
                                       equation=function(...)7.398+12.569*...,
                                       inputs=tibble(property="lower hood length",
@@ -978,8 +982,8 @@ alleq_xc <- function(id) {
                                       return_units="mm",
                                       reliability=tribble(~type,~value,
                                                          "N",48),
-                                      reference=refs$Cherunpub),
-           "884005_mass_Cherunpub"=list(taxon_name="Muusoctopus thielei",
+                                      reference=refs$CherUnpub),
+           "884005_mass_CherUnpub"=list(taxon_name="Muusoctopus thielei",
                                         taxon_aphia_id=884005,
                                         equation=function(...)exp(0.471+2.706*log(...)),
                                         inputs=tibble(property="lower hood length",
@@ -988,12 +992,12 @@ alleq_xc <- function(id) {
                                         return_units="g",
                                         reliability=tribble(~type,~value,
                                                             "N",48),
-                                        reference=refs$Cherunpub),
+                                        reference=refs$CherUnpub),
 
            ## Graneledone gonzalezi
            ## ML = 5.047+13.004LHL; lnM= 0.288+2.967lnLHL (n=54 for ML and M) (Cherel,
            ## unpublished data)
-           "342224_ML_Cherunpub"=list(taxon_name="Graneledone gonzalezi",
+           "342224_ML_CherUnpub"=list(taxon_name="Graneledone gonzalezi",
                                       taxon_aphia_id=342224,
                                       equation=function(...)5.047+13.004*...,
                                       inputs=tibble(property="lower hood length",
@@ -1002,8 +1006,8 @@ alleq_xc <- function(id) {
                                       return_units="mm",
                                       reliability=tribble(~type,~value,
                                                          "N",54),
-                                      reference=refs$Cherunpub),
-           "342224_mass_Cherunpub"=list(taxon_name="Graneledone gonzalezi",
+                                      reference=refs$CherUnpub),
+           "342224_mass_CherUnpub"=list(taxon_name="Graneledone gonzalezi",
                                         taxon_aphia_id=342224,
                                         equation=function(...)exp(0.288+2.967*log(...)),
                                         inputs=tibble(property="lower hood length",
@@ -1012,7 +1016,7 @@ alleq_xc <- function(id) {
                                         return_units="g",
                                         reliability=tribble(~type,~value,
                                                             "N",54),
-                                        reference=refs$Cherunpub),
+                                        reference=refs$CherUnpub),
 
            ## Opisthoteuthis sp.
            ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
@@ -1213,22 +1217,22 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("341867_ML_LuIc2002"),alleq_tbl("341867_mass_LuIc2002"))
 
     ## Lepidoteuthis grimaldii
-    x <- bind_rows(x,alleq_tbl("140193_ML_BASunpub"),alleq_tbl("140193_mass_BASunpub"),alleq_tbl("140193_ML_LuIc2002"))
+    x <- bind_rows(x,alleq_tbl("140193_ML_BASUnpub"),alleq_tbl("140193_mass_BASUnpub"),alleq_tbl("140193_ML_LuIc2002"))
 
     ## Loligo gahi (accepted name Doryteuthis (Amerigo) gahi)
-    x <- bind_rows(x,alleq_tbl("410351_ML_BASunpub"),alleq_tbl("410351_mass_BASunpub"))
+    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub"),alleq_tbl("410351_mass_HatfUnpub"))
     ## also with common name alternatives
-    x <- bind_rows(x,alleq_tbl("410351_ML_BASunpub",taxon_name="Loligo gahi"),
-                   alleq_tbl("410351_mass_BASunpub",taxon_name="Loligo gahi"))
-    x <- bind_rows(x,alleq_tbl("410351_ML_BASunpub",taxon_name="Doryteuthis gahi"),
-                   alleq_tbl("410351_mass_BASunpub",taxon_name="Doryteuthis gahi"))
+    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",taxon_name="Loligo gahi"),
+                   alleq_tbl("410351_mass_HatfUnpub",taxon_name="Loligo gahi"))
+    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",taxon_name="Doryteuthis gahi"),
+                   alleq_tbl("410351_mass_HatfUnpub",taxon_name="Doryteuthis gahi"))
 
 
     ## Lycoteuthis lorigera
     x <- bind_rows(x,alleq_tbl("342361_ML_LuIc2002"),alleq_tbl("342361_mass_LuIc2002"))
 
     ## Mastigoteuthis psychrophila
-    x <- bind_rows(x,alleq_tbl("341904_ML_BASunpub"),alleq_tbl("341904_mass_BASunpub"))
+    x <- bind_rows(x,alleq_tbl("341904_ML_BASUnpub"),alleq_tbl("341904_mass_BASUnpub"))
 
     ## ?Mastigoteuthis A (Clarke) (no specific equations)
 
@@ -1260,9 +1264,9 @@ build_allometry_df <- function() {
                    alleq_tbl("410381M_mass_Jack1995"),alleq_tbl("410381F_mass_Jack1995"))
 
     ## Moroteuthis knipovitchi (valid name is Filippovia knipovitchi)
-    x <- bind_rows(x,alleq_tbl("550403_ML_Cherunpub"),alleq_tbl("550403_mass_Cherunpub"))
-    x <- bind_rows(x,alleq_tbl("550403_ML_Cherunpub",taxon_name="Moroteuthis knipovitchi"),
-                   alleq_tbl("550403_mass_Cherunpub",taxon_name="Moroteuthis knipovitchi"))
+    x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub"),alleq_tbl("550403_mass_CherUnpub"))
+    x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub",taxon_name="Moroteuthis knipovitchi"),
+                   alleq_tbl("550403_mass_CherUnpub",taxon_name="Moroteuthis knipovitchi"))
 
     ## Moroteuthis robsoni (valid name Onykia robsoni)
     x <- bind_rows(x,alleq_tbl("410384_ML_LuIc2002"),alleq_tbl("410384_mass_LuIc2002"))
@@ -1285,23 +1289,23 @@ build_allometry_df <- function() {
     ## Oegopsida sp. A (Cherel) (no allometric equations available)
 
     ## Haliphron atlanticus
-    x <- bind_rows(x,alleq_tbl("341781_mass_BASunpub"))
+    x <- bind_rows(x,alleq_tbl("341781_mass_BASUnpub"))
 
     ## Cirrata sp. A (Cherel) (no allometric equations available)
 
     ## Pareledone turqueti
-    x <- bind_rows(x,alleq_tbl("239393_ML_Collunpub"),alleq_tbl("239393_mass_Collunpub"))
+    x <- bind_rows(x,alleq_tbl("239393_ML_CollUnpub"),alleq_tbl("239393_mass_CollUnpub"))
 
     ## Adelieledone polymorpha
-    x <- bind_rows(x,alleq_tbl("325319_ML_Collunpub"),alleq_tbl("325319_mass_Collunpub"))
+    x <- bind_rows(x,alleq_tbl("325319_ML_CollUnpub"),alleq_tbl("325319_mass_CollUnpub"))
 
     ## Benthoctopus thielei (valid name is Muusoctopus thielei)
-    x <- bind_rows(x,alleq_tbl("884005_ML_Cherunpub"),alleq_tbl("884005_mass_Cherunpub"))
-    x <- bind_rows(x,alleq_tbl("884005_ML_Cherunpub",taxon_name="Benthoctopus thielei"),
-                   alleq_tbl("884005_mass_Cherunpub",taxon_name="Benthoctopus thielei"))
+    x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub"),alleq_tbl("884005_mass_CherUnpub"))
+    x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub",taxon_name="Benthoctopus thielei"),
+                   alleq_tbl("884005_mass_CherUnpub",taxon_name="Benthoctopus thielei"))
 
     ## Graneledone gonzalezi
-    x <- bind_rows(x,alleq_tbl("342224_ML_Cherunpub"),alleq_tbl("342224_mass_Cherunpub"))
+    x <- bind_rows(x,alleq_tbl("342224_ML_CherUnpub"),alleq_tbl("342224_mass_CherUnpub"))
 
     ## Opisthoteuthis sp.
     ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
