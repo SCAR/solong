@@ -109,6 +109,13 @@ tryCatch(
 )
 ```
 
+## Packaged equations
+
+```{r include=FALSE}
+eN <- sol_equations() %>% mutate(is_fish=grepl("WiMc1990",equation_id)) %>% group_by(is_fish,return_property) %>% summarize(N=n())
+```
+The package currently includes `r sum(eN$N)` equations, covering cephalopods and fish.
+
 ## Taxonomy
 
 Equations are registered against *taxon_name* and *taxon_aphia_id* (the species identifier in the World Register of Marine Species). The *taxon_aphia_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.

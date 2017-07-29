@@ -152,6 +152,11 @@ tryCatch(
 #> [1] "could not find required inputs (otolith length) in data"
 ```
 
+Packaged equations
+------------------
+
+The package currently includes 110 equations, covering cephalopods and fish.
+
 Taxonomy
 --------
 
