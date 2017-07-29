@@ -68,7 +68,8 @@ sol_properties <- function(prop) {
 
 ## so as not to lose class info when subsetting
 `[.sol_property` <- function(x,i,...) {
-  r <- NextMethod("[")
-  mostattributes(r) <- attributes(x)
-  r
+    cls <- intersect(class(x),sol_properties()$class_name)
+    r <- NextMethod("[")
+    class(r) <- c("sol_property",cls,class(r))
+    r
 }
