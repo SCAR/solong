@@ -66,7 +66,7 @@ print.sol_equation <- function(x,...) {
         if ("reliability" %in% names(x)) {
             rel <- x$reliability[i][[1]]
             for (j in seq_len(nrow(rel)))
-                cat("  indicator of reliability: ",rel$reliability_type[j],"=",rel$reliability[j],"\n",sep="")
+                cat("  indicator of reliability: ",rel$type[j],"=",rel$value[j],"\n",sep="")
         }
         if ("notes" %in% names(x) && nzchar(x$notes[i]))
             cat("  notes: ",x$notes[i],"\n",sep="")

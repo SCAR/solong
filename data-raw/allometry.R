@@ -3,6 +3,28 @@ library(assertthat)
 
 ## define each unique equation, along with its nominal taxon and reference
 ## cephalopod equations from Xavier & Cherel
+
+refs <- list(
+    XC="Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Clar1986="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",##"Clarke MR (1986) A handbook for the identification of cephalopod beaks. Clarendon Press, Oxford",
+    Roel2000="Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    LuWi1994="Lu & Williams (1994) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Rodh1990="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Clar1962b="Clarke (1962b) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    LuIc2002="Lu CC & Ickeringill R (2002) Cephalopod beak identification and biomass estimation techniques: tools for dietary studies of southern Australian finfishes. Museum Victoria Science Reports 6:1-65",
+    BASunpub="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Piat2001="Piatkowski et al. (2001) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    RoYe1990="Rodhouse & Yeatman (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    SaHa2000="Santos & Haimovici (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    BrKl1987="Brown & Klages (1987) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Jack1995="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Cherunpub="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Grog2000="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009",
+    Collunpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Smal1993="Smale et al. (1993) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
+    Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
+    WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government")
+
 alleq_xc <- function(id) {
     switch(id,
            ## Ancistrocheirus lesueuri
@@ -14,8 +36,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=23),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=23),
+                                     reference=refs$Clar1986),
            "138747_mass_Clar1986"=list(taxon_name="Ancistrocheirus lesueuri",
                                        taxon_aphia_id=138747,
                                        equation=function(...)exp(-0.194+3.56*log(...)),
@@ -23,8 +45,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=21),
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=21),
+                                       reference=refs$Clar1986),
            ## Architeuthis dux
            ## ML=-55.6+59.31LRL ; ln M=-1.773+4.57ln LRL (n=11 for ML; n=9 for M) (Clarke 1986)
            ## For relationships between ML and LRL, ML=10((LRL/11.2)+1.723214286) (n=43) might be
@@ -37,8 +59,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=11),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=11),
+                                     reference=refs$Clar1986),
            "342218_mass_Clar1986"=list(taxon_name="Architeuthis dux",
                                        taxon_aphia_id=342218,
                                        equation=function(...)exp(-1.773+4.57*log(...)),
@@ -46,8 +68,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=9),
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=9),
+                                       reference=refs$Clar1986),
            "342218_ML_Roel2000"=list(taxon_name="Architeuthis dux",
                                      taxon_aphia_id=342218,
                                      equation=function(...)10^((.../11.2)+1.723214286),
@@ -55,8 +77,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=43),
-                                     reference="Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=43),
+                                     reference=refs$Roel2000),
            ## Bathyteuthis abyssicola
            ## ML=1.68+51.59LRL; ln M=2.855+3.38ln LRL (n=17 for both ML and M) (Clarke 1986)
            "138848_ML_Clar1986"=list(taxon_name="Bathyteuthis abyssicola",
@@ -66,8 +88,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=17),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=17),
+                                     reference=refs$Clar1986),
            "138848_mass_Clar1986"=list(taxon_name="Bathyteuthis abyssicola",
                                        taxon_aphia_id=138848,
                                        equation=function(...)exp(2.855+3.38*log(...)),
@@ -75,8 +97,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=17),
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=17),
+                                       reference=refs$Clar1986),
 
            ## Batoteuthis skolops (no specific equations)
            ## May use formulas for close families
@@ -89,8 +111,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=23),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=23),
+                                     reference=refs$Clar1986),
            "137777_mass_Clar1986"=list(taxon_name="Chiroteuthis",
                                      taxon_aphia_id=137777,
                                      equation=function(...)exp(-0.241+2.7*log(...)),
@@ -98,8 +120,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=14),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=14),
+                                     reference=refs$Clar1986),
            ## ML=-1.8+29.08LRL ; ln M=0.184+2.88ln LRL (n=47 for ML, n=45 for M) (Clarke 1986),
            ## based on Mastigoteuthis spp. formulas
            "138168_ML_Clar1986"=list(taxon_name="Mastigoteuthis",
@@ -109,8 +131,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=47),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=47),
+                                     reference=refs$Clar1986),
            "138168_mass_Clar1986"=list(taxon_name="Mastigoteuthis",
                                      taxon_aphia_id=138168,
                                      equation=function(...)exp(0.184+2.88*log(...)),
@@ -118,8 +140,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=45),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=45),
+                                     reference=refs$Clar1986),
 
            ## for the species of the family Brachioteuthidae
            ## ML= 16.31+20.18LRL ; ln M=0.55+1.41ln LRL (n= 11 for both ML and M) (Clarke 1986)
@@ -130,8 +152,8 @@ alleq_xc <- function(id) {
                                     units="mm"),
                                     return_property="mantle length",
                                     return_units="mm",
-                                    reliability=tibble(reliability_type="N",reliability=11),
-                                    reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                    reliability=tibble(type="N",value=11),
+                                    reference=refs$Clar1986),
            "11758_mass_Clar1986"=list(taxon_name="Brachioteuthidae",
                                       taxon_aphia_id=11758,
                                       equation=function(...)exp(0.55+1.41*log(...)),
@@ -139,8 +161,8 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mass",
                                       return_units="g",
-                                      reliability=tibble(reliability_type="N",reliability=11),
-                                      reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reliability=tibble(type="N",value=11),
+                                      reference=refs$Clar1986),
            ## Galiteuthis glacialis
            ##ML=6.676+83.785LRL; log M= 0.415+2.20 log LRL (n=25 for ML and M) (Lu & Williams 1994)
            "325297_ML_LuWi1994"=list(taxon_name="Galiteuthis glacialis",
@@ -150,8 +172,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=25),
-                                     reference="Lu & Williams (1994) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=25),
+                                     reference=refs$LuWi1994),
            "325297_mass_LuWi1994"=list(taxon_name="Galiteuthis glacialis",
                                        taxon_aphia_id=325297,
                                        equation=function(...)exp(0.415+2.20*log(...)),
@@ -159,8 +181,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=25),
-                                       reference="Lu & Williams (1994) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=25),
+                                       reference=refs$LuWi1994),
 
            ## Taonius spp. formulas
            ## ML=-12.3+61.43LRL ; ln M=0.786+2.19 ln LRL (n=72 for ML, n=74 for M) (Rodhouse et al. 1990)
@@ -171,8 +193,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=72),
-                                     reference="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=72),
+                                     reference=refs$Rodh1990),
            "137853_mass_Rodh1990"=list(taxon_name="Taonius",
                                      taxon_aphia_id=137853,
                                      equation=function(...)exp(0.786+2.19*log(...)),
@@ -180,8 +202,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=74),
-                                     reference="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=74),
+                                     reference=refs$Rodh1990),
 
            ## Teuthowenia pellucida
            ## ML=22.27+29.90LRL ; ln M=0.71+1.94 ln LRL (n=41 for ML and M) (Rodhouse et al. 1990)
@@ -192,8 +214,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=41),
-                                     reference="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=41),
+                                     reference=refs$Rodh1990),
            "341823_mass_Rodh1990"=list(taxon_name="Teuthowenia pellucida",
                                      taxon_aphia_id=341823,
                                      equation=function(...)exp(0.71+1.94*log(...)),
@@ -201,8 +223,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=41),
-                                     reference="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=41),
+                                     reference=refs$Rodh1990),
 
            ## Mesonychoteuthis hamiltoni
            ## ML=-12.3+61.43LRL (n=72) (Rodhouse et al. 1990), although the relationship is weak and
@@ -214,9 +236,9 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=72),
+                                     reliability=tibble(type="N",value=72),
                                      notes="Noted by Xavier & Cherel: the relationship is weak and therefore evaluate carefully if it applies well to your data",
-                                     reference="Rodhouse et al. (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reference=refs$Rodh1990),
 
            ## family Cranchiidae:
            ## ln M=ln 3.24 + 2.80 ln LRL (Clarke 1962b).
@@ -227,7 +249,7 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mass",
                                       return_units="g",
-                                      reference="Clarke (1962b) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Clar1962b),
 
            ## Cycloteuthis akimushkini
            "341824_ML_Clar1986"=list(taxon_name="Cycloteuthis akimushkini",
@@ -237,7 +259,7 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reference=refs$Clar1986),
            "341824_mass_Clar1986"=list(taxon_name="Cycloteuthis akimushkini",
                                      taxon_aphia_id=341824,
                                      equation=function(...)exp(1.89+1.95*log(...)),
@@ -245,7 +267,7 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reference=refs$Clar1986),
 
            ## Gonatus spp.
            "138036_ML_Clar1986"=list(taxon_name="Gonatus",
@@ -255,8 +277,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=17),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=17),
+                                     reference=refs$Clar1986),
            "138036_mass_Clar1986"=list(taxon_name="Gonatus",
                                        taxon_aphia_id=138036,
                                        equation=function(...)exp(-0.655+3.33*log(...)),
@@ -264,8 +286,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=20),
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=20),
+                                       reference=refs$Clar1986),
 
            ## The following equations is better for small beaks/specimens:
            ## ML=12.82+19.02LRL ; ln M=0.086+2.13ln LRL (Clarke 1986)
@@ -277,7 +299,7 @@ alleq_xc <- function(id) {
                                           return_property="mantle length",
                                           return_units="mm",
                                           notes="Noted by Xavier & Cherel: This equation is better for small beaks/specimens",
-                                          reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                          reference=refs$Clar1986),
            "138036small_mass_Clar1986"=list(taxon_name="Gonatus",
                                             taxon_aphia_id=138036,
                                             equation=function(...)exp(0.086+2.13*log(...)),
@@ -286,7 +308,7 @@ alleq_xc <- function(id) {
                                             return_property="mass",
                                             return_units="g",
                                             notes="Noted by Xavier & Cherel: This equation is better for small beaks/specimens",
-                                            reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                            reference=refs$Clar1986),
 
            ## Histioteuthis bonnellii corpuscula (valid name Histioteuthis bonnellii)
            ## ML=17.1+8.99LRL (n=19) (Clarke 1986)
@@ -297,8 +319,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=19),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=19),
+                                     reference=refs$Clar1986),
            ## ML=1.82+15.24LRL; ln M= 1.16+2.70lnLRL (n=21 for ML and M, using total
            ## weight of preserved specimens) (Lu & Ickeringill 2002)
            "140111_ML_LuIc2002"=list(taxon_name="Histioteuthis bonnellii",
@@ -308,8 +330,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=21),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",21,
+                                                         "R^2",0.93),
+                                     reference=refs$LuIc2002),
            "140111_mass_LuIc2002"=list(taxon_name="Histioteuthis bonnellii",
                                      taxon_aphia_id=140111,
                                      equation=function(...)exp(1.16+2.70*log(...)),
@@ -317,9 +341,11 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=21),
-                                     notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",21,
+                                                         "R^2",0.86),
+                                     notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                     reference=refs$LuIc2002),
 
            ## Histioteuthis macrohista
            ## ML=2.36+14.46LRL; ln M= 1.16+2.72lnLRL (n=8 for ML and for M, using total
@@ -331,8 +357,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=8),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",8,
+                                                         "R^2",0.96),
+                                     reference=refs$LuIc2002),
            "341870_mass_LuIc2002"=list(taxon_name="Histioteuthis macrohista",
                                        taxon_aphia_id=341870,
                                        equation=function(...)exp(1.16+2.72*log(...)),
@@ -340,9 +368,11 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=8),
-                                       notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                       reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tribble(~type,~value,
+                                                           "N",8,
+                                                           "R^2",0.96),
+                                       notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                       reference=refs$LuIc2002),
 
            ## Histioteuthis miranda
            ## ML=-7.0+25.82LRL ; ln M=1.783+2.44ln LRL (n=27 for ML, n=14 for M) (Clarke
@@ -354,8 +384,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=27),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=27),
+                                     reference=refs$Clar1986),
            "341871_mass_Clar1986"=list(taxon_name="Histioteuthis miranda",
                                        taxon_aphia_id=341871,
                                        equation=function(...)exp(1.783+2.44*log(...)),
@@ -363,8 +393,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=14),
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=14),
+                                       reference=refs$Clar1986),
 
            ## ML=-26.51+34.21LRL; ln M= 0.86+3.04lnLRL (n=31 for ML, n=22 for M, using
            ## total weight of preserved specimens) (Lu & Ickeringill 2002)
@@ -375,18 +405,22 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=31),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",31,
+                                                         "R^2",0.86),
+                                     reference=refs$LuIc2002),
            "341871_mass_LuIc2002"=list(taxon_name="Histioteuthis miranda",
-                                                taxon_aphia_id=341871,
-                                                equation=function(...)exp(0.86+3.04*log(...)),
-                                                inputs=tibble(property="lower rostral length",
-                                                units="mm"),
-                                                return_property="mass",
-                                                return_units="g",
-                                                reliability=tibble(reliability_type="N",reliability=22),
-                                                notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                                reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       taxon_aphia_id=341871,
+                                       equation=function(...)exp(0.86+3.04*log(...)),
+                                       inputs=tibble(property="lower rostral length",
+                                                     units="mm"),
+                                       return_property="mass",
+                                       return_units="g",
+                                       reliability=tribble(~type,~value,
+                                                         "N",22,
+                                                         "R^2",0.95),
+                                       notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                       reference=refs$LuIc2002),
 
            ## Histioteuthis atlantica
            ## ML=-10.42+25.66LRL; ln M= 1.49+2.45lnLRL (n=21 for ML, n=19 for M, using
@@ -398,8 +432,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=21),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",21,
+                                                         "R^2",0.89),
+                                     reference=refs$LuIc2002),
            "341864_mass_LuIc2002"=list(taxon_name="Histioteuthis atlantica",
                                      taxon_aphia_id=341864,
                                      equation=function(...)exp(1.49+2.45*log(...)),
@@ -407,9 +443,11 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=19),
-                                     notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",19,
+                                                         "R^2",0.91),
+                                     notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                     reference=refs$LuIc2002),
 
            ## Histioteuthis eltaninae
            ## ML=-3.65+24.48LRL; ln M= 0.33+3.11lnLRL (n=6 for ML, n=5 for M, using total
@@ -421,8 +459,11 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=6),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",6,
+                                                         "R^2",0.99),
+                                     notes="Noted by Lu & Ickeringill: no mature specimens examined.",
+                                     reference=refs$LuIc2002),
            "341867_mass_LuIc2002"=list(taxon_name="Histioteuthis eltaninae",
                                      taxon_aphia_id=341867,
                                      equation=function(...)exp(0.33+3.11*log(...)),
@@ -430,9 +471,11 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mass",
                                      return_units="g",
-                                     reliability=tibble(reliability_type="N",reliability=5),
-                                     notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",5,
+                                                         "R^2",0.79),
+                                     notes="Noted by Lu & Ickeringill: no mature specimens examined. Used total weight of preserved specimens",
+                                     reference=refs$LuIc2002),
 
 
            ## Lepidoteuthis grimaldii
@@ -444,7 +487,7 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reference=refs$BASunpub),
            "140193_mass_BASunpub"=list(taxon_name="Lepidoteuthis grimaldii",
                                        taxon_aphia_id=140193,
                                        equation=function(...)exp(-0.17+3.0*log(...)),
@@ -452,7 +495,7 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reference=refs$BASunpub),
 
            ## ML=-10.60+50.57LRL (n=2, using total weight of preserved specimens) (Lu & Ickeringill
            ## 2002) but this relationship is obviously not strong
@@ -463,8 +506,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=2),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",2,
+                                                         "R^2",1.0),
+                                     reference=refs$LuIc2002),
 
 
            ## Loligo gahi (accepted name Doryteuthis (Amerigo) gahi)
@@ -476,8 +521,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=446),
-                                     reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=446),
+                                     reference=refs$BASunpub),
            "410351_mass_BASunpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
                                        taxon_aphia_id=410351,
                                        equation=function(...)exp(2.25+2.39*log(...)),
@@ -485,8 +530,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=446),
-                                       reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=446),
+                                       reference=refs$BASunpub),
 
            ## Lycoteuthis lorigera
            ## ML=-13.04+34.56LRL; ln M= 0.32+3.00lnLRL (n=45 for ML and M, using total weight
@@ -498,8 +543,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=45),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",45,
+                                                         "R^2",0.92),
+                                     reference=refs$LuIc2002),
            "342361_mass_LuIc2002"=list(taxon_name="Lycoteuthis lorigera",
                                        taxon_aphia_id=342361,
                                        equation=function(...)exp(0.32+3.00*log(...)),
@@ -507,9 +554,11 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=45),
-                                       notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                       reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tribble(~type,~value,
+                                                           "N",45,
+                                                           "R^2",0.95),
+                                       notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                       reference=refs$LuIc2002),
 
 
            ## Mastigoteuthis psychrophila
@@ -522,8 +571,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=19),
-                                     reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=19),
+                                     reference=refs$BASunpub),
            "341904_mass_BASunpub"=list(taxon_name="Mastigoteuthis psychrophila",
                                        taxon_aphia_id=341904,
                                        equation=function(...)exp(0.701+1.779*log(...)),
@@ -531,8 +580,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=19),
-                                       reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=19),
+                                       reference=refs$BASunpub),
 
 
            ## Alluroteuthis antarcticus
@@ -544,8 +593,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=22),
-                                     reference="Piatkowski et al. (2001) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=22),
+                                     reference=refs$Piat2001),
            "325302_mass_Piat2001"=list(taxon_name="Alluroteuthis antarcticus",
                                        taxon_aphia_id=325302,
                                        equation=function(...)exp(1.229+2.944*log(...)),
@@ -553,8 +602,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=22),
-                                       reference="Piatkowski et al. (2001) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=22),
+                                       reference=refs$Piat2001),
 
 
            ## Taningia danae
@@ -566,8 +615,8 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tibble(reliability_type="N",reliability=15),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reliability=tibble(type="N",value=15),
+                                     reference=refs$Clar1986),
            "140609_mass_Clark1986"=list(taxon_name="Taningia danae",
                                         taxon_aphia_id=140609,
                                         equation=function(...)exp(-0.874+3.42*log(...)),
@@ -575,8 +624,8 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tibble(reliability_type="N",reliability=15),
-                                        reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reliability=tibble(type="N",value=15),
+                                        reference=refs$Clar1986),
 
            ## Octopoteuthis sp.
            ## ML=-0.4+17.33LRL; ln M=0.166+2.31ln LRL (n=30 for ML, n=22 M) (Clarke 1986)
@@ -587,8 +636,8 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tibble(reliability_type="N",reliability=30),
-                                      reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reliability=tibble(type="N",value=30),
+                                      reference=refs$Clar1986),
            "138271_mass_Clark1986"=list(taxon_name="Octopoteuthis",
                                         taxon_aphia_id=138271,
                                         equation=function(...)exp(0.166+2.31*log(...)),
@@ -596,8 +645,8 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tibble(reliability_type="N",reliability=22),
-                                        reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reliability=tibble(type="N",value=22),
+                                        reference=refs$Clar1986),
 
            ## Martialia hyadesi
            ## ML= 102.0+29.47LRL ; ln M=2.405+2.012 ln LRL (n=67 for ML and M) (Rodhouse
@@ -609,8 +658,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=67),
-                                     reference="Rodhouse & Yeatman (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=67),
+                                     reference=refs$RoYe1990),
            "325305_mass_RoYe1990"=list(taxon_name="Martialia hyadesi",
                                        taxon_aphia_id=325305,
                                        equation=function(...)exp(2.405+2.012*log(...)),
@@ -618,8 +667,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=67),
-                                       reference="Rodhouse & Yeatman (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=67),
+                                       reference=refs$RoYe1990),
 
            ## Illex argentinus
            ## ML=-12.228+55.187LRL ; M=2.2750 LRL3.1210 (n=131for ML and M) (Santos & Haimovici 2000)
@@ -630,8 +679,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=131),
-                                     reference="Santos & Haimovici (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=131),
+                                     reference=refs$SaHa2000),
            "342064_mass_SaHa2000"=list(taxon_name="Illex argentinus",
                                        taxon_aphia_id=342064,
                                        equation=function(...)2.2750*(...^3.1210),
@@ -639,8 +688,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=131),
-                                       reference="Santos & Haimovici (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=131),
+                                       reference=refs$SaHa2000),
 
 
            ## Todarodes sp.
@@ -652,7 +701,7 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reference=refs$Clar1986),
            "138281_mass_Clar1986"=list(taxon_name="Todarodes",
                                        taxon_aphia_id=138281,
                                        equation=function(...)exp(0.783+2.83*log(...)),
@@ -660,7 +709,7 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reference=refs$Clar1986),
 
            ## Kondakovia longimana
            ## ML=-22.348+37.318LRL ; M=0.713LRL3.152 (n=13 for ML; n=22 for M) (Brown &
@@ -672,8 +721,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=13),
-                                     reference="Brown & Klages (1987) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=13),
+                                     reference=refs$BrKl1987),
            "325308_mass_BrKl1987"=list(taxon_name="Kondakovia longimana",
                                        taxon_aphia_id=325308,
                                        equation=function(...)0.713*(...^3.152),
@@ -681,8 +730,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=22),
-                                       reference="Brown & Klages (1987) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=22),
+                                       reference=refs$BrKl1987),
 
            ## Moroteuthis ingens (valid name Onykia ingens)
            ## (Jackson 1995):
@@ -694,9 +743,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tibble(reliability_type="N",reliability=82),
+                                      reliability=tibble(type="N",value=82),
                                       notes="Applies to male animals",
-                                      reference="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Jack1995),
            "410381F_ML_Jack1995"=list(taxon_name="Onykia ingens",
                                       taxon_aphia_id=410381,
                                       equation=function(...)-27.84+44.63*...,
@@ -704,9 +753,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tibble(reliability_type="N",reliability=68),
+                                      reliability=tibble(type="N",value=68),
                                       notes="Applies to female animals",
-                                      reference="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Jack1995),
            ## Males: logM= 1.22+1.80logLRL (n=82); females: logM= 0.15+3.25logLRL (n=68)
            "410381M_mass_Jack1995"=list(taxon_name="Onykia ingens",
                                         taxon_aphia_id=410381,
@@ -715,9 +764,9 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tibble(reliability_type="N",reliability=82),
+                                        reliability=tibble(type="N",value=82),
                                         notes="Applies to male animals",
-                                        reference="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reference=refs$Jack1995),
            "410381F_mass_Jack1995"=list(taxon_name="Onykia ingens",
                                         taxon_aphia_id=410381,
                                         equation=function(...)exp(0.15+3.25*log(...)),
@@ -725,9 +774,9 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tibble(reliability_type="N",reliability=68),
+                                        reliability=tibble(type="N",value=68),
                                         notes="Applies to female animals",
-                                        reference="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reference=refs$Jack1995),
 
 
            ## Moroteuthis knipovitchi (valid name is Filippovia knipovitchi)
@@ -740,8 +789,8 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tibble(reliability_type="N",reliability=7),
-                                      reference="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reliability=tibble(type="N",value=7),
+                                      reference=refs$Cherunpub),
            "550403_mass_Cherunpub"=list(taxon_name="Filippovia knipovitchi",
                                         taxon_aphia_id=550403,
                                         equation=function(...)exp(-0.881+3.798*log(...)),
@@ -749,8 +798,8 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tibble(reliability_type="N",reliability=5),
-                                        reference="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reliability=tibble(type="N",value=5),
+                                        reference=refs$Cherunpub),
 
 
     ## Moroteuthis robsoni (valid name Onykia robsoni)
@@ -763,8 +812,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=8),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",8,
+                                                         "R^2",0.87),
+                                     reference=refs$LuIc2002),
            "410384_mass_LuIc2002"=list(taxon_name="Onykia robsoni",
                                        taxon_aphia_id=410384,
                                        equation=function(...)exp(-9.15+8.07*log(...)),
@@ -772,9 +823,11 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=6),
-                                       notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                       reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tribble(~type,~value,
+                                                           "N",6,
+                                                           "R^2",0.94),
+                                       notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                       reference=refs$LuIc2002),
 
 
            ## Onychoteuthis banksii
@@ -787,8 +840,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=10),
-                                     reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tribble(~type,~value,
+                                                         "N",10,
+                                                         "R^2",0.86),
+                                     reference=refs$LuIc2002),
            "140649_mass_LuIc2002"=list(taxon_name="Onychoteuthis banksii",
                                        taxon_aphia_id=140649,
                                        equation=function(...)exp(-0.04+2.80*log(...)),
@@ -796,9 +851,11 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=10),
-                                       notes="Noted by Xavier & Cherel: used total weight of preserved specimens",
-                                       reference="Lu & Ickeringill (2002) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tribble(~type,~value,
+                                                           "N",10,
+                                                           "R^2",0.94),
+                                       notes="Noted by Lu & Ickeringill: used total weight of preserved specimens",
+                                       reference=refs$LuIc2002),
 
            ## Pholidoteuthis massyae
            ## ML=11.3+41.09LRL ; ln M=0.976+2.83ln LRL (n=12 for ML, n=15 for M) (Clarke 1986)
@@ -809,8 +866,8 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(reliability_type="N",reliability=12),
-                                     reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reliability=tibble(type="N",value=12),
+                                     reference=refs$Clar1986),
            "410388_mass_Clar1986"=list(taxon_name="Pholidoteuthis massyae",
                                        taxon_aphia_id=410388,
                                        equation=function(...)exp(0.976+2.83*log(...)),
@@ -818,8 +875,8 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(reliability_type="N",reliability=15),
-                                       reference="Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reliability=tibble(type="N",value=15),
+                                       reference=refs$Clar1986),
 
            ## Psychroteuthis glacialis
            ## ML= 50.6895LRL-8.6008LRL2+1.0823LRL3-8.7019 (n=211, R^2=0.93) ; ln M = 0.3422+2.1380
@@ -832,10 +889,10 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tribble(~reliability_type,~reliability,
+                                     reliability=tribble(~type,~value,
                                                          "N",211,
                                                          "R^2",0.93),
-                                     reference="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009"),
+                                     reference=refs$Grog2000),
            "325312_mass_Grog2000"=list(taxon_name="Psychroteuthis glacialis",
                                        taxon_aphia_id=325312,
                                        equation=function(...)exp(0.3422+2.1380*log(...)+0.2214*(log(...)^3)^3),
@@ -843,10 +900,10 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tribble(~reliability_type,~reliability,
+                                       reliability=tribble(~type,~value,
                                                            "N",211,
                                                            "R^2",0.95),
-                                       reference="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009"),
+                                       reference=refs$Grog2000),
 
            ## Haliphron atlanticus
            ## Ln M=2.5+1.45ln LRL (British Antarctic Survey, unpublished data)
@@ -857,7 +914,7 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reference="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reference=refs$BASunpub),
 
 
            ## Pareledone turqueti
@@ -870,9 +927,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tribble(~reliability_type,~reliability,
+                                      reliability=tribble(~type,~value,
                                                          "N",7),
-                                      reference="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Collunpub),
            "239393_mass_Collunpub"=list(taxon_name="Pareledone turqueti",
                                       taxon_aphia_id=239393,
                                       equation=function(...)exp(0.689269+2.542938*log(...)),
@@ -880,9 +937,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mass",
                                       return_units="g",
-                                      reliability=tribble(~reliability_type,~reliability,
+                                      reliability=tribble(~type,~value,
                                                          "N",23),
-                                      reference="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Collunpub),
 
 
            ## Adelieledone polymorpha
@@ -895,9 +952,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tribble(~reliability_type,~reliability,
+                                      reliability=tribble(~type,~value,
                                                          "N",3),
-                                      reference="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Collunpub),
            "325319_mass_Collunpub"=list(taxon_name="Adelieledone polymorpha",
                                         taxon_aphia_id=325319,
                                         equation=function(...)exp(1.077552+3.200449*log(...)),
@@ -905,9 +962,9 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tribble(~reliability_type,~reliability,
+                                        reliability=tribble(~type,~value,
                                                             "N",39),
-                                        reference="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reference=refs$Collunpub),
 
            ## Benthoctopus thielei (valid name is Muusoctopus thielei)
            ## ML = 7.398+12.569LHL; lnM= 0.471+2.706lnLHL (n=48 for ML and M) (Cherel,
@@ -919,9 +976,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tribble(~reliability_type,~reliability,
+                                      reliability=tribble(~type,~value,
                                                          "N",48),
-                                      reference="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Cherunpub),
            "884005_mass_Cherunpub"=list(taxon_name="Muusoctopus thielei",
                                         taxon_aphia_id=884005,
                                         equation=function(...)exp(0.471+2.706*log(...)),
@@ -929,9 +986,9 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tribble(~reliability_type,~reliability,
+                                        reliability=tribble(~type,~value,
                                                             "N",48),
-                                        reference="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reference=refs$Cherunpub),
 
            ## Graneledone gonzalezi
            ## ML = 5.047+13.004LHL; lnM= 0.288+2.967lnLHL (n=54 for ML and M) (Cherel,
@@ -943,9 +1000,9 @@ alleq_xc <- function(id) {
                                       units="mm"),
                                       return_property="mantle length",
                                       return_units="mm",
-                                      reliability=tribble(~reliability_type,~reliability,
+                                      reliability=tribble(~type,~value,
                                                          "N",54),
-                                      reference="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                      reference=refs$Cherunpub),
            "342224_mass_Cherunpub"=list(taxon_name="Graneledone gonzalezi",
                                         taxon_aphia_id=342224,
                                         equation=function(...)exp(0.288+2.967*log(...)),
@@ -953,9 +1010,9 @@ alleq_xc <- function(id) {
                                         units="mm"),
                                         return_property="mass",
                                         return_units="g",
-                                        reliability=tribble(~reliability_type,~reliability,
+                                        reliability=tribble(~type,~value,
                                                             "N",54),
-                                        reference="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                        reference=refs$Cherunpub),
 
            ## Opisthoteuthis sp.
            ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
@@ -967,9 +1024,9 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tribble(~reliability_type,~reliability,
+                                     reliability=tribble(~type,~value,
                                                          "N",13),
-                                     reference="Smale et al. (1993) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                     reference=refs$Smal1993),
            "138294_mass_Smal1993"=list(taxon_name="Opisthoteuthis",
                                        taxon_aphia_id=138294,
                                        equation=function(...)exp(0.5893+0.2413*...),
@@ -977,10 +1034,31 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tribble(~reliability_type,~reliability,
+                                       reliability=tribble(~type,~value,
                                                            "N",9),
-                                       reference="Smale et al. (1993) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp."),
+                                       reference=refs$Smal1993),
 
+           ## Nototodarus sloanii
+           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
+                                     taxon_aphia_id=342378,
+                                     equation=function(...)168.83*log(...)+25.52,
+                                     inputs=tibble(property="lower rostral length",units="mm"),
+                                     return_property="mantle length",
+                                     return_units="mm",
+                                     reliability=tribble(~type,~value,
+                                                         "N",170,
+                                                         "R^2",0.90),
+                                     reference=refs$Jack1996),
+           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
+                                     taxon_aphia_id=342378,
+                                     equation=function(...)236.10*...-512.99,
+                                     inputs=tibble(property="lower rostral length",units="mm"),
+                                     return_property="mass",
+                                     return_units="g",
+                                     reliability=tribble(~type,~value,
+                                                         "N",170,
+                                                         "R^2",0.90),
+                                     reference=refs$Jack1996),
 
            stop("unrecognized equation ID: ",id))
 }
@@ -997,10 +1075,10 @@ alleq_wm <- function(id) {
                                        units="mm"),
                                        return_property="standard length",
                                        return_units="mm",
-                                       reliability=tribble(~reliability_type,~reliability,
+                                       reliability=tribble(~type,~value,
                                                            "N",17,
                                                            "R^2",0.875^2),
-                                       reference="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government"),
+                                       reference=refs$WiMc1990),
            "234631_SL~OW_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
                                        taxon_aphia_id=234631,
                                        equation=function(...)115.7744*(...)-47.0855,
@@ -1008,10 +1086,10 @@ alleq_wm <- function(id) {
                                        units="mm"),
                                        return_property="standard length",
                                        return_units="mm",
-                                       reliability=tribble(~reliability_type,~reliability,
+                                       reliability=tribble(~type,~value,
                                                            "N",17,
                                                            "R^2",0.95^2),
-                                       reference="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government"),
+                                       reference=refs$WiMc1990),
 
            stop("unrecognized equation ID: ",id))
 }
@@ -1032,7 +1110,7 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     if (missing(notes)) {
         notes <- if (is.null(thiseq$notes)) "" else thiseq$notes
     }
-    if (is.null(thiseq$reliability)) thiseq$reliability <- tibble(reliability_type=character(),reliability=numeric())
+    if (is.null(thiseq$reliability)) thiseq$reliability <- tibble(type=character(),value=numeric())
 
     tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
             id,taxon_name,taxon_aphia_id,thiseq$equation,thiseq$inputs,thiseq$return_property,thiseq$return_units,thiseq$reliability,notes,reference)
