@@ -65,8 +65,7 @@ Now we can apply allometric equations to our data. What equations do we have ava
 
 ```{r}
 sol_equations() %>%
-  filter(taxon_name=="Architeuthis dux") %>%
-  select(equation_id,inputs,return_property,return_units)
+  filter(taxon_name=="Architeuthis dux")
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.

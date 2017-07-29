@@ -37,6 +37,10 @@ add_eq_class <- function(z) {
     add_eq_class(NextMethod("["))
 }
 
+filter.sol_equation <- function(.data,...) {
+    add_eq_class(NextMethod("filter"))
+}
+
 
 #' @rdname sol_equation
 #' @method print sol_equation

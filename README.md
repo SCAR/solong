@@ -48,14 +48,31 @@ Now we can apply allometric equations to our data. What equations do we have ava
 
 ``` r
 sol_equations() %>%
-  filter(taxon_name=="Architeuthis dux") %>%
-  select(equation_id,inputs,return_property,return_units)
-#> # A tibble: 3 x 4
-#>            equation_id           inputs return_property return_units
-#>                  <chr>           <list>           <chr>        <chr>
-#> 1   342218_ML_Clar1986 <tibble [1 x 2]>   mantle length           mm
-#> 2 342218_mass_Clar1986 <tibble [1 x 2]>            mass            g
-#> 3   342218_ML_Roel2000 <tibble [1 x 2]>   mantle length           mm
+  filter(taxon_name=="Architeuthis dux")
+#> equation_id: 342218_ML_Clar1986
+#>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
+#>   equation: function (...) -55.6 + 59.31 * ...
+#>   it takes as input 1: lower rostral length (units: mm)
+#>   it estimates: mantle length (units: mm)
+#>   indicator of reliability: N=11
+#>   reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> equation_id: 342218_mass_Clar1986
+#>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
+#>   equation: function (...) exp(-1.773 + 4.57 * log(...))
+#>   it takes as input 1: lower rostral length (units: mm)
+#>   it estimates: mass (units: g)
+#>   indicator of reliability: N=9
+#>   reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> equation_id: 342218_ML_Roel2000
+#>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
+#>   equation: function (...) 10^((.../11.2) + 1.723214286)
+#>   it takes as input 1: lower rostral length (units: mm)
+#>   it estimates: mantle length (units: mm)
+#>   indicator of reliability: N=43
+#>   notes: Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one
+#>   reference: Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
