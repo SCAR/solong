@@ -47,7 +47,7 @@ x$LRL <- sol_set_property(x$LRL,"lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ``` r
-sol_equation() %>%
+sol_equations() %>%
   filter(taxon_name=="Architeuthis dux") %>%
   select(equation_id,inputs,return_property,return_units)
 #> # A tibble: 3 x 4
