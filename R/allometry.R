@@ -81,8 +81,6 @@ sol_allometry <- function(data,equation_id) {
 #'
 #' @return x, with units removed
 #'
-#' @seealso \code{\link{units::units}}
-#'
 #' @examples
 #' x <- data.frame(LRL=c(11.3,13.9),species=c("Architeuthis dux"),
 #'   stringsAsFactors=FALSE)

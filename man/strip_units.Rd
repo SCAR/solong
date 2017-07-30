@@ -26,6 +26,3 @@ strip_units(xa$allometric_value)
 
 
 }
-\seealso{
-\code{\link{units::units}}
-}
