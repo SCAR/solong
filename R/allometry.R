@@ -50,7 +50,7 @@ sol_allometry <- function(data,equation_id) {
         idx <- grp_id==gid
         apply_eq(data[idx,],equation_id[idx][1])
     })
-    chk <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="")
+    chk <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
     out <- do.call(rbind,out) %>%
         arrange_(~SAVE_ROW_ID) %>%
         select_(~-SAVE_ROW_ID)
@@ -73,10 +73,10 @@ apply_eq <- function(data,eqn_id) {
     assert_that(is.data.frame(data))
     assert_that(is.string(eqn_id))
     eqn <- sol_equation(eqn_id)
-    cidx <- resolve_cols(data,eqn) ## column indices of data
+    cidx <- resolve_cols(data,eqn) ## column indices into data of the required inputs. NA if required input property not found
     if (any(is.na(cidx)))
         stop(sprintf("could not find required input properties (%s) in data",paste(eqn$inputs[[1]]$property[is.na(cidx)],collapse=", ")))
-    data2 <- as.data.frame(data[,cidx])
+    data2 <- as.data.frame(data)[,cidx,drop=FALSE]
     ## convert units, if necessary
     for (i in seq_len(cidx))
         units(data2[,i]) <- ud_units[[eqn$inputs[[1]]$units[i]]]
@@ -102,13 +102,13 @@ which_or_na <- function(x) if (length(which(x))>0) which(x) else NA
 #
 # @return numeric vector, where each entry is the index of the column of data that corresponds to the nth required input, or NA if the matching column was not present
 resolve_cols <- function(data,eqn) {
-    sp_or_na <- function(z) {tmp <- sol_get_property(z); if (length(tmp)>0) tmp else NA_character_}
     data <- as.data.frame(data)
-    data_props <- vapply(seq_len(ncol(data)),function(j)sp_or_na(data[,j]),FUN.VALUE="")
+    data_props <- vapply(seq_len(ncol(data)),function(j)sp_or_na(data[,j]),FUN.VALUE="",USE.NAMES=FALSE)
     vapply(eqn$inputs[[1]]$property,function(z) {
         tmp <- which_or_na(data_props==z)
         if (length(tmp)>1) stop("data has multiple columns of property ",z,", don't know which one to use")
         tmp
-    },FUN.VALUE=1)
+    },FUN.VALUE=1,USE.NAMES=FALSE)
 }
 
+sp_or_na <- function(z) {tmp <- sol_get_property(z); if (length(tmp)>0) tmp else NA_character_}

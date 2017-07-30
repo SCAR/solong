@@ -3,13 +3,20 @@ context("solong")
 test_that("equation usage generally works", {
     x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux"),aaa=c(3,2))
     ## no properties set
-    expect_error(sol_allometry(x,c("342218_ML_Roel2000")),
-                 "could not find required input prop")
+#    expect_error(sol_allometry(x,c("342218_ML_Roel2000")),
+#                 "could not find required input prop")
     x$LRL <- sol_set_property(x$LRL,"lower rostral length")
-    ## set property, should work
+
+    xdf <- as.data.frame(x)
+    data_props <- vapply(seq_len(ncol(xdf)),function(j)solong:::sp_or_na(xdf[,j]),FUN.VALUE="",USE.NAMES=FALSE)
+    expect_identical(data_props,c("lower rostral length",NA,NA))
+
+    tmp <- solong:::resolve_cols(x,sol_equation("342218_ML_Roel2000"))
+    expect_identical(tmp,1)
+    ## have set property, so should now work
     ## currently passing locally on test() but failing check() and
     ##   on travis: to be investigated
-##    xa <- sol_allometry(x,c("342218_ML_Roel2000"))
+#    xa <- sol_allometry(x,"342218_ML_Roel2000")
 ##    expect_true(is.data.frame(xa))
 ##    expect_equal(nrow(x),nrow(xa))
 ##    expect_s3_class(xa$allometric_value,"solprop_ML")
