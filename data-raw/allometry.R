@@ -15,13 +15,13 @@ refs <- list(
     BASUnpub="BAS (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Piat2001="Piatkowski U, P\uFCtz K, Heinemann H (2001) Cephalopod prey of king penguins (Aptenodytes patagonicus) breeding at Volunteer Beach, Falkland Islands, during austral winter 1996. Fisheries Research 52:79-90. doi:10.1016/S0165-7836(01)00232-6",
     RoYe1990="Rodhouse & Yeatman (1990) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Rodhouse PG, Yeatman J (1990) Redescription of Martialia hyadesi Rochbrune and Mabille, 1889 (Mollusca: Cephalopoda) from the Southern Ocean. Bulletin of the British Museum of Natural History (Zoology) 56: 135-143
-    SaHa2000="Santos & Haimovici (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Santos RA, Haimovici M (2000) The Argentine short-finned squid Illex argentinus in the food webs of southern Brazil. Sarsia 85: 49-60
+    SaHa2000="Santos RA, Haimovici M (2000) The Argentine short-finned squid Illex argentinus in the food webs of southern Brazil. Sarsia 85: 49-60",
     BrKl1987="Brown & Klages (1987) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Brown CR, Klages NT (1987) Seasonal and annual variation in diets of macaroni (Eudyptes chrysolophus chrysolophus) and southern rockhopper (E. chrysocome chrysocome) penguins at sub-Antarctic Marion Island. Journal of Zoology, London 212: 7-28
     Jack1995="Jackson (1995) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Jackson GD (1995) The use of beaks as tools for biomass estimation in the deepwater squid Moroteuthis ingens (Cephalopoda: Onychoteuthidae) in New Zealand waters. Polar Biology 15: 9-14
     CherUnpub="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Grog2000="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009",
     CollUnpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Smal1993="Smale et al. (1993) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.", ##Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293
+    Smal1993="Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293",
     Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government")
 
@@ -683,7 +683,9 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(type="N",value=131),
+                                     reliability=tribble(~type,~value,
+                                                         "N",131,
+                                                         "R^2",0.989^2),
                                      reference=refs$SaHa2000),
            "342064_mass_SaHa2000"=list(taxon_name="Illex argentinus",
                                        taxon_aphia_id=342064,
@@ -692,7 +694,9 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(type="N",value=131),
+                                       reliability=tribble(~type,~value,
+                                                           "N",131,
+                                                           "R^2",0.996^2),
                                        reference=refs$SaHa2000),
 
 
@@ -725,7 +729,9 @@ alleq_xc <- function(id) {
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
-                                     reliability=tibble(type="N",value=13),
+                                     reliability=tribble(~type,~value,
+                                                         "N",13,
+                                                         "R^2",0.95),
                                      reference=refs$BrKl1987),
            "325308_mass_BrKl1987"=list(taxon_name="Kondakovia longimana",
                                        taxon_aphia_id=325308,
@@ -734,7 +740,9 @@ alleq_xc <- function(id) {
                                        units="mm"),
                                        return_property="mass",
                                        return_units="g",
-                                       reliability=tibble(type="N",value=22),
+                                       reliability=tribble(~type,~value,
+                                                           "N",22,
+                                                           "R^2",0.99),
                                        reference=refs$BrKl1987),
 
            ## Moroteuthis ingens (valid name Onykia ingens)
@@ -1029,7 +1037,19 @@ alleq_xc <- function(id) {
                                      return_property="mantle length",
                                      return_units="mm",
                                      reliability=tribble(~type,~value,
-                                                         "N",13),
+                                                         "N",13,
+                                                         "R^2",0.89),
+                                     reference=refs$Smal1993),
+           "138294_HL_Smal1993"=list(taxon_name="Opisthoteuthis",
+                                     taxon_aphia_id=138294,
+                                     equation=function(...)-0.3360+0.5619*...,
+                                     inputs=tibble(property="crest length",
+                                     units="mm"),
+                                     return_property="hood length",
+                                     return_units="mm",
+                                     reliability=tribble(~type,~value,
+                                                         "N",16,
+                                                         "R^2",0.94),
                                      reference=refs$Smal1993),
            "138294_mass_Smal1993"=list(taxon_name="Opisthoteuthis",
                                        taxon_aphia_id=138294,
@@ -1039,7 +1059,8 @@ alleq_xc <- function(id) {
                                        return_property="mass",
                                        return_units="g",
                                        reliability=tribble(~type,~value,
-                                                           "N",9),
+                                                           "N",9,
+                                                           "R^2",0.82),
                                        reference=refs$Smal1993),
 
            ## Nototodarus sloanii
@@ -1140,6 +1161,24 @@ alleq_wm <- function(id) {
                                           reference=refs$WiMc1990),
 
 
+           ## Brown and Klages 1987
+           ## OD = otolith diameter. OD , SL, TL all mm. M in g
+           ##The general relationship relating standard length to total length in myctophid fish was:
+           ##SL = 0.17+0.80 TL (r2 = 0.97, S.D. = 0.018)
+           ##Protomyctophurn tenisoni and P. normani
+           ##OD = 0.3 +0.027 SL (r2 = 0.85, n = 46)
+           ##M = 1.282e-05 TL^2.868(r2 = 0.90, n = 28)
+           ##Kreftichthys anderssoni
+           ##OD = 0.416+0.022 SL (r2 = 0.88, n = 27)
+           ##M = 5.36e-06 TL^3.080 (r2 = 0.90, n = 16)
+           ##Electrona carlshergi and E. suhaspera
+           ##OD = 0.254 + 0.042 SL (r2 = 0.9 1, n = 90)
+           ##M = 7.43e-06 SL^3.159 ( r2 = 0.90, n = 60)
+           ##Notothenia magellanica (Hecht & Cooper, 1986)
+           ##TL = 30.96 OD^1.801 (r2 = 0.75, n = 82)
+           ##M = 2.19e-05 TL^3.00 (r2 = 0.99, n = 133)
+
+
            stop("unrecognized equation ID: ",id))
 }
 
@@ -1206,9 +1245,12 @@ build_allometry_df <- function() {
     ## Taonius sp. (Clarke) (no specific equations)
 
     ## Taonius sp
+    ## Note that this is given as Taonius pavo in Rodhouse et al. 1990, but Taonius sp. in X&C
     x <- bind_rows(x,alleq_tbl("137853_ML_Rodh1990"),alleq_tbl("137853_mass_Rodh1990"))
 
     ## Teuthowenia pellucida
+    ## Note that the Rodhouse et al 1990 paper does NOT have equations for T.p.
+    ## this info taken from X&C
     x <- bind_rows(x,alleq_tbl("341823_ML_Rodh1990"),alleq_tbl("341823_mass_Rodh1990"))
 
     ## Mesonychoteuthis hamiltoni
@@ -1355,7 +1397,9 @@ build_allometry_df <- function() {
     ## Opisthoteuthis sp.
     ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
     ## et al. 1993) where CL = Crest length (in mm)
-    x <- bind_rows(x,alleq_tbl("138294_ML_Smal1993"),alleq_tbl("138294_mass_Smal1993"))
+    x <- bind_rows(x,alleq_tbl("138294_ML_Smal1993"),
+                   alleq_tbl("138294_HL_Smal1993"),
+                   alleq_tbl("138294_mass_Smal1993"))
 
     ## Stauroteuthis gilchristi (no allometric equations available)
 
@@ -1380,4 +1424,4 @@ allometric_equations <- build_allometry_df()
 assert_that(all(grepl("mass",allometric_equations$equation_id[allometric_equations$return_property=="mass"])))
 assert_that(all(grepl("ML",allometric_equations$equation_id[allometric_equations$return_property=="mantle length"])))
 
-use_data(allometric_equations,internal=FALSE,overwrite=TRUE)
+devtools::use_data(allometric_equations,internal=FALSE,overwrite=TRUE)
