@@ -12,7 +12,7 @@ sol_allometry(data, equation_id)
 \item{equation_id}{string or character: the identifier of the equation to apply. Either a single string (that equation will be applied to all rows of the data) or a character vector with length matching the number of rows of the data}
 }
 \value{
-something
+the input data frame, augmented with columns "allometric_property", "allometric_value", "allometric_value_lower", and "allometric_value_upper"
 }
 \description{
 Apply allometric equations

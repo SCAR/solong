@@ -5,7 +5,7 @@ globalVariables("allometric_equations") # To make R CMD Check happy
 #' @param data data.frame: input data
 #' @param equation_id string or character: the identifier of the equation to apply. Either a single string (that equation will be applied to all rows of the data) or a character vector with length matching the number of rows of the data
 #'
-#' @return something
+#' @return the input data frame, augmented with columns "allometric_property", "allometric_value", "allometric_value_lower", and "allometric_value_upper"
 #'
 #' @seealso \code{\link{allometric_equations}}
 #'
@@ -64,9 +64,36 @@ sol_allometry <- function(data,equation_id) {
         out$allometric_value <- strip_units(out$allometric_value)
         out$allometric_value <- sol_set_property(out$allometric_value,NULL)
     }
+    ## placeholders for upper and lower limits, not currently populated
+    out$allometric_value_lower <- NA
+    attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
+    out$allometric_value_upper <- NA
+    attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
     out
 }
 
+
+#' Remove the units from an object
+#'
+#' A convenience function to remove the units assigned to an object.
+#'
+#' @param x object: with units
+#'
+#' @return x, with units removed
+#'
+#' @seealso \code{\link{units::units}}
+#'
+#' @examples
+#' x <- data.frame(LRL=c(11.3,13.9),species=c("Architeuthis dux"),
+#'   stringsAsFactors=FALSE)
+#' x$LRL <- sol_set_property(x$LRL,"lower rostral length")
+#' ## apply an allometric equation
+#' xa <- sol_allometry(x,c("342218_ML_Roel2000"))
+#'
+#' strip_units(xa$allometric_value)
+#'
+#'
+#' @export
 strip_units <- function(x) {
     class(x) <- setdiff(class(x),"units")
     attr(x,"units") <- NULL
