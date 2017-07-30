@@ -1161,6 +1161,73 @@ alleq_wm <- function(id) {
                                                               "R^2",0.981^2),
                                           reference=refs$WiMc1990),
 
+           ## Protomyctophum bolini
+           "234714_SL~OL_WiMc1990"=list(taxon_name="Protomyctophum bolini",
+                                        taxon_aphia_id=234714,
+                                        equation=function(...)26.90736*...-5.68285,
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",31,
+                                                            "R^2",0.733^2),
+                                        reference=refs$WiMc1990),
+           "234714_SL~OW_WiMc1990"=list(taxon_name="Protomyctophum bolini",
+                                        taxon_aphia_id=234714,
+                                        equation=function(...)27.02152*...-6.38535,
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",31,
+                                                            "R^2",0.880^2),
+                                        reference=refs$WiMc1990),
+           "234714_mass~SL_WiMc1990"=list(taxon_name="Protomyctophum bolini",
+                                          taxon_aphia_id=234714,
+                                          equation=function(...)2.34e-05*(...^2.859),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",36,
+                                                              "R^2",0.981^2),
+                                          reference=refs$WiMc1990),
+
+           ## Protomyctophum parallelum
+           ## no equations, n=8 data only
+
+           ## Electrona antarctica
+           "217697_SL~OL_WiMc1990"=list(taxon_name="Electrona antarctica",
+                                        taxon_aphia_id=217697,
+                                        equation=function(...)42.69686*...+0.278033,
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",86,
+                                                            "R^2",0.984^2),
+                                        reference=refs$WiMc1990),
+           "217697_SL~OW_WiMc1990"=list(taxon_name="Electrona antarctica",
+                                        taxon_aphia_id=217697,
+                                        equation=function(...)33.30505*...+2.023806,
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",85,
+                                                            "R^2",0.988^2),
+                                        reference=refs$WiMc1990),
+           "217697_mass~SL_WiMc1990"=list(taxon_name="Electrona antarctica",
+                                          taxon_aphia_id=217697,
+                                          equation=function(...)9.53e-06*(...^3.080),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",227,
+                                                              "R^2",0.988^2),
+                                          reference=refs$WiMc1990),
+
 
            ## Pleuragramma antarctica
            "712788_SL~OL_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
@@ -1194,6 +1261,13 @@ alleq_wm <- function(id) {
                                                             "R^2",0.992^2),
                                         reference=refs$WiMc1990),
 
+           ## Bayesian length-weight: a=0.00575 (0.00309 - 0.01073), b=3.18 (3.01 - 3.35), in cm Total Length, based on LWR estimates for this species & (Sub)family-body (Ref. 93245).
+           ## Froese, R., J. Thorson and R.B. Reyes Jr., 2013. A Bayesian approach for estimating length-weight relationships in fishes. J. Appl. Ichthyol. (2013):1-7.
+           ## also http://oceanrep.geomar.de/21875/
+           ## W=a*(TL^b)
+
+
+
            ## Brown and Klages 1987
            ## OD = otolith diameter. OD , SL, TL all mm. M in g
            ##The general relationship relating standard length to total length in myctophid fish was:
@@ -1201,7 +1275,7 @@ alleq_wm <- function(id) {
            ##Protomyctophum tenisoni and P. normani
            ##OD = 0.3 +0.027 SL (r2 = 0.85, n = 46)
            ##M = 1.282e-05 TL^2.868(r2 = 0.90, n = 28)
-           ##Kreftichthys anderssoni
+           ##Krefftichthys anderssoni
            ##OD = 0.416+0.022 SL (r2 = 0.88, n = 27)
            ##M = 5.36e-06 TL^3.080 (r2 = 0.90, n = 16)
            ##Electrona carlsbergi and E. subaspera
@@ -1470,6 +1544,15 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990",taxon_name="Pleuragramma antarcticum"),
                    alleq_tbl("712788_SL~OW_WiMc1990",taxon_name="Pleuragramma antarcticum"),
                    alleq_tbl("712788_mass~SL_WiMc1990",taxon_name="Pleuragramma antarcticum"))
+    ## Protomyctophum bolini
+    x <- bind_rows(x,alleq_tbl("234714_SL~OL_WiMc1990"),
+                   alleq_tbl("234714_SL~OW_WiMc1990"),
+                   alleq_tbl("234714_mass~SL_WiMc1990"))
+
+    ## Electrona antarctica
+    x <- bind_rows(x,alleq_tbl("217697_SL~OL_WiMc1990"),
+                   alleq_tbl("217697_SL~OW_WiMc1990"),
+                   alleq_tbl("217697_mass~SL_WiMc1990"))
 
     ## Leptonychotes weddellii
     x <- bind_rows(x,alleq_tbl("195932_mass_GaBu1988"))
