@@ -46,15 +46,20 @@ sol_allometry <- function(data,equation_id) {
         mutate_(equation_id=~equation_id,
                 SAVE_ROW_ID=~seq_len(n()))
     grp_id <- group_indices_(data,~equation_id)
+    eqru <- function(eqid) sol_equation(eqid)$return_units
+    use_property_units <- length(unique(grp_id))>1 && length(unique(vapply(unique(equation_id),eqru,FUN.VALUE="")))>1
+    ## if we have different return units for the equations being used,
+    ## we'll convert the returned value's units to the default for the property in question
+    ## otherwise when we combine the chunks with rbind, the values don't get converted for different units
     out <- lapply(unique(grp_id),function(gid) {
         idx <- grp_id==gid
-        apply_eq(data[idx,],equation_id[idx][1])
+        apply_eq(data[idx,],equation_id[idx][1],use_property_units=use_property_units)
     })
-    chk <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
+    chk_prop <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
     out <- do.call(rbind,out) %>%
         arrange_(~SAVE_ROW_ID) %>%
         select_(~-SAVE_ROW_ID)
-    if (length(unique(chk))!=1) {
+    if (length(unique(chk_prop))!=1) {
         warning("return values are not all of the same property")
         out$allometric_value <- strip_units(out$allometric_value)
         out$allometric_value <- sol_set_property(out$allometric_value,NULL)
@@ -69,7 +74,7 @@ strip_units <- function(x) {
 }
 
 ## augment data with output of equation
-apply_eq <- function(data,eqn_id) {
+apply_eq <- function(data,eqn_id,use_property_units=FALSE) {
     assert_that(is.data.frame(data))
     assert_that(is.string(eqn_id))
     eqn <- sol_equation(eqn_id)
@@ -78,7 +83,7 @@ apply_eq <- function(data,eqn_id) {
         stop(sprintf("could not find required input properties (%s) in data",paste(eqn$inputs[[1]]$property[is.na(cidx)],collapse=", ")))
     data2 <- as.data.frame(data)[,cidx,drop=FALSE]
     ## convert units, if necessary
-    for (i in seq_len(cidx))
+    for (i in seq_len(ncol(data2)))
         units(data2[,i]) <- ud_units[[eqn$inputs[[1]]$units[i]]]
     ## now remove units, so that equation can just be applied without getting upset by e.g. ^2 operations
     data2 <- lapply(seq_len(ncol(data2)),function(z)strip_units(data2[,z]))
@@ -86,9 +91,13 @@ apply_eq <- function(data,eqn_id) {
     out <- unclass(do.call(eqn$equation[[1]],data2)) %>%
         sol_set_property(eqn$return_property,with_units=eqn$return_units)
     ## we've set the units to whatever the equation's return units are
-    ## now convert to the default units for the property
-    ## this will help enforce consistency across equations
-    units(out) <- ud_units[[sol_properties(eqn$return_property)$units]]
+    if (use_property_units) {
+        ## convert to the default units for the property
+        ## this will help enforce consistency across equations
+        ## note though that this will drop the sol_property class
+        units(out) <- ud_units[[sol_properties(eqn$return_property)$units]]
+        out <- out %>% sol_set_property(eqn$return_property)
+    }
     data %>% mutate_(allometric_property=~eqn$return_property,allometric_value=~out)
 }
 
