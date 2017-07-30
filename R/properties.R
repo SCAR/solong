@@ -67,6 +67,8 @@ sol_properties <- function(prop) {
 }
 
 ## so as not to lose class info when subsetting
+#' @method "[" sol_property
+#' @export
 `[.sol_property` <- function(x,i,...) {
     cls <- intersect(class(x),sol_properties()$class_name)
     r <- NextMethod("[")

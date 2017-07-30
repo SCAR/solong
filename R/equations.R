@@ -34,15 +34,27 @@ add_eq_class <- function(z) {
 }
 
 ## so as not to lose class info when subsetting
+#' @method "[" sol_equation
+#' @export
 `[.sol_equation` <- function(x,i,j,...) {
     add_eq_class(NextMethod("["))
 }
-filter.sol_equation <- function(.data,...) {
-    add_eq_class(NextMethod("filter"))
-}
+
+## comment these out for now until figure out dplyr methods
+## #' @method filter sol_equation
+## #' @export
+## filter.sol_equation <- function(.data,...) {
+##     add_eq_class(NextMethod("filter"))
+## }
+## #' @method filter_ sol_equation
+## #' @export
+## filter_.sol_equation <- function(.data,...) {
+##     add_eq_class(NextMethod("filter_"))
+## }
 
 
 #' @method print sol_equation
+#' @export
 print.sol_equation <- function(x,...) {
     for (i in seq_len(nrow(x))) {
         if ("equation_id" %in% names(x))
