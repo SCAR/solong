@@ -54,12 +54,12 @@ test_that("equation pretty print", {
     expect_gt(length(tmp),5)
     tmp <- paste0(tmp,collapse="\n")
     expect_true(grepl("equation_id:",tmp))
-    expect_true(grepl("reference:",tmp))
+    expect_true(grepl("Reference:",tmp))
 
     eq <- sol_equations()[1,]
     tmp <- capture.output(print(eq))
     expect_gt(length(tmp),5)
     tmp <- paste0(tmp,collapse="\n")
     expect_true(grepl("equation_id:",tmp))
-    expect_true(grepl("reference:",tmp))
+    expect_true(grepl("Reference:",tmp))
 })
