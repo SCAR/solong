@@ -56,7 +56,15 @@ add_eq_class <- function(z) {
 #' @method print sol_equation
 #' @export
 print.sol_equation <- function(x,...) {
-    for (i in seq_len(nrow(x))) {
+    jth <- function(j) switch(j,
+                              "1"="1st",
+                              "2"="2nd",
+                              "3"="3rd",
+                              paste0(j,"th"))
+    rows_to_print <- round(getOption("max.print")/10)
+    if (length(rows_to_print)<1 || is.null(rows_to_print) || is.na(rows_to_print)) rows_to_print <- 100
+    rows_to_print <- min(rows_to_print,nrow(x))
+    for (i in seq_len(rows_to_print)) {
         if ("equation_id" %in% names(x))
             cat("equation_id: ",x$equation_id[i],"\n",sep="")
         if ("taxon_name" %in% names(x))
@@ -67,23 +75,29 @@ print.sol_equation <- function(x,...) {
         if ("inputs" %in% names(x)) {
             ips <- x$inputs[i][[1]]
             for (j in seq_len(nrow(ips)))
-                cat("  it takes as input ",j,": ",ips$property[j]," (units: ",ips$units[j],")\n",sep="")
+                cat("  It takes as ",jth(j)," input: ",ips$property[j]," (units: ",ips$units[j],")\n",sep="")
         }
         if ("return_property" %in% names(x)) {
-            cat("  it estimates: ",x$return_property[i],sep="")
+            cat("  It estimates: ",x$return_property[i],sep="")
             if ("return_units" %in% names(x))
                 cat(" (units: ",x$return_units[i],")",sep="")
             cat("\n")
         }
         if ("reliability" %in% names(x)) {
             rel <- x$reliability[i][[1]]
-            for (j in seq_len(nrow(rel)))
-                cat("  indicator of reliability: ",rel$type[j],"=",rel$value[j],"\n",sep="")
+            if (nrow(rel)>0) {
+                ind <- if (nrow(rel)>1) "Indicators" else "Indicator"
+                cat("  ",ind," of reliability: ",paste(rel$type,rel$value,sep="=",collapse=", "),"\n",sep="")
+            }
         }
         if ("notes" %in% names(x) && nzchar(x$notes[i]))
-            cat("  notes: ",x$notes[i],"\n",sep="")
+            cat("  Notes: ",x$notes[i],"\n",sep="")
         if ("reference" %in% names(x) && nzchar(x$reference[i]))
-            cat("  reference: ",x$reference[i],"\n",sep="")
+            cat("  Reference: ",x$reference[i],"\n",sep="")
         cat("\n")
     }
+    nomit <- nrow(x)-rows_to_print
+    if (nomit>0)
+        cat("  [ reached getOption(\"max.print\") -- omitted ",nomit," row",if (nomit>1)"s"," ]\n",sep="")
+
 }
