@@ -23,7 +23,8 @@ refs <- list(
     CollUnpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Smal1993="Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293",
     Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
-    WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government")
+    WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government",
+    GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433")
 
 alleq_xc <- function(id) {
     switch(id,
@@ -1161,23 +1162,70 @@ alleq_wm <- function(id) {
                                           reference=refs$WiMc1990),
 
 
+           ## Pleuragramma antarctica
+           "712788_SL~OL_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
+                                        taxon_aphia_id=712788,
+                                        equation=function(...)76.67621*(...)+0.1705014,
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",766,
+                                                            "R^2",0.868^2),
+                                        reference=refs$WiMc1990),
+           "712788_SL~OW_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
+                                        taxon_aphia_id=712788,
+                                        equation=function(...)69.21882*(...)+15.81990,
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",759,
+                                                            "R^2",0.906^2),
+                                        reference=refs$WiMc1990),
+           "712788_mass~SL_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
+                                        taxon_aphia_id=712788,
+                                        equation=function(...)2.71e-06*(...^3.200),
+                                        inputs=tibble(property="standard length",units="mm"),
+                                        return_property="mass",
+                                        return_units="g",
+                                        reliability=tribble(~type,~value,
+                                                            "N",1297,
+                                                            "R^2",0.992^2),
+                                        reference=refs$WiMc1990),
+
            ## Brown and Klages 1987
            ## OD = otolith diameter. OD , SL, TL all mm. M in g
            ##The general relationship relating standard length to total length in myctophid fish was:
            ##SL = 0.17+0.80 TL (r2 = 0.97, S.D. = 0.018)
-           ##Protomyctophurn tenisoni and P. normani
+           ##Protomyctophum tenisoni and P. normani
            ##OD = 0.3 +0.027 SL (r2 = 0.85, n = 46)
            ##M = 1.282e-05 TL^2.868(r2 = 0.90, n = 28)
            ##Kreftichthys anderssoni
            ##OD = 0.416+0.022 SL (r2 = 0.88, n = 27)
            ##M = 5.36e-06 TL^3.080 (r2 = 0.90, n = 16)
-           ##Electrona carlshergi and E. suhaspera
+           ##Electrona carlsbergi and E. subaspera
            ##OD = 0.254 + 0.042 SL (r2 = 0.9 1, n = 90)
            ##M = 7.43e-06 SL^3.159 ( r2 = 0.90, n = 60)
            ##Notothenia magellanica (Hecht & Cooper, 1986)
            ##TL = 30.96 OD^1.801 (r2 = 0.75, n = 82)
            ##M = 2.19e-05 TL^3.00 (r2 = 0.99, n = 133)
 
+
+           ##Species: Leptonychotes weddellii
+           ##Gender: male
+           ##Equation: WEIGHT_KG=3.66*STANDARD_LENGTH_CM-489.3 (N=15)
+           ##Source: Gales, N.J. and Burton, H.R. (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423--433
+           "195932_mass_GaBu1988"=list(taxon_name="Leptonychotes weddellii",
+                                       taxon_aphia_id=195932,
+                                       equation=function(...) 3.66*...-489.3,
+                                       inputs=tibble(property="standard length",units="cm"),
+                                       return_property="mass",
+                                       return_units="kg",
+                                       reliability=tribble(~type,~value,
+                                                           "N",15),
+                                       notes="Applies to male animals",
+                                       reference=refs$GaBu1988),
 
            stop("unrecognized equation ID: ",id))
 }
@@ -1413,6 +1461,18 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("234641_SL~OL_WiMc1990"),
                    alleq_tbl("234641_SL~OW_WiMc1990"),
                    alleq_tbl("234641_mass~SL_WiMc1990"))
+
+    ## Pleuragramma antarctica
+    x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990"),
+                   alleq_tbl("712788_SL~OW_WiMc1990"),
+                   alleq_tbl("712788_mass~SL_WiMc1990"))
+    ## used to be P.antarcticum, still a common misuse
+    x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990",taxon_name="Pleuragramma antarcticum"),
+                   alleq_tbl("712788_SL~OW_WiMc1990",taxon_name="Pleuragramma antarcticum"),
+                   alleq_tbl("712788_mass~SL_WiMc1990",taxon_name="Pleuragramma antarcticum"))
+
+    ## Leptonychotes weddellii
+    x <- bind_rows(x,alleq_tbl("195932_mass_GaBu1988"))
 
     x
 }
