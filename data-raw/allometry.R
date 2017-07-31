@@ -24,7 +24,9 @@ refs <- list(
     Smal1993="Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293",
     Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government",
-    GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433")
+    Arti2003="Artigues B, Morales-Nin B, Balguer\uEDas E (2003) Fish length-weight relationships in the Weddell Sea and Bransfield Strait. Polar Biology 26:463-467. doi:10.1007/s00300-003-0505-0",
+    GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
+    Lake2003="Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293")
 
 alleq_xc <- function(id) {
     switch(id,
@@ -32,7 +34,7 @@ alleq_xc <- function(id) {
            ## ML=-41.3+40.75LRL ; ln M=-0.194+3.56ln LRL (n=23 for ML, n=21 for M) (Clarke 1986)
            "138747_ML_Clar1986"=list(taxon_name="Ancistrocheirus lesueuri",
                                      taxon_aphia_id=138747,
-                                     equation=function(...)-41.3+40.75*...,
+                                     equation=function(...)tibble(allometric_value=-41.3+40.75*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -41,7 +43,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "138747_mass_Clar1986"=list(taxon_name="Ancistrocheirus lesueuri",
                                        taxon_aphia_id=138747,
-                                       equation=function(...)exp(-0.194+3.56*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(-0.194+3.56*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -55,7 +57,7 @@ alleq_xc <- function(id) {
            ## lower rostral length (in mm).
            "342218_ML_Clar1986"=list(taxon_name="Architeuthis dux",
                                      taxon_aphia_id=342218,
-                                     equation=function(...)-55.6+59.31*...,
+                                     equation=function(...)tibble(allometric_value=-55.6+59.31*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -64,7 +66,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "342218_mass_Clar1986"=list(taxon_name="Architeuthis dux",
                                        taxon_aphia_id=342218,
-                                       equation=function(...)exp(-1.773+4.57*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(-1.773+4.57*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -73,7 +75,7 @@ alleq_xc <- function(id) {
                                        reference=refs$Clar1986),
            "342218_ML_Roel2000"=list(taxon_name="Architeuthis dux",
                                      taxon_aphia_id=342218,
-                                     equation=function(...)10^((.../11.2)+1.723214286),
+                                     equation=function(...)tibble(allometric_value=10^((.../11.2)+1.723214286)),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -84,7 +86,7 @@ alleq_xc <- function(id) {
            ## ML=1.68+51.59LRL; ln M=2.855+3.38ln LRL (n=17 for both ML and M) (Clarke 1986)
            "138848_ML_Clar1986"=list(taxon_name="Bathyteuthis abyssicola",
                                      taxon_aphia_id=138848,
-                                     equation=function(...)1.68+51.59*...,
+                                     equation=function(...)tibble(allometric_value=1.68+51.59*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -93,7 +95,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "138848_mass_Clar1986"=list(taxon_name="Bathyteuthis abyssicola",
                                        taxon_aphia_id=138848,
-                                       equation=function(...)exp(2.855+3.38*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(2.855+3.38*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -107,7 +109,7 @@ alleq_xc <- function(id) {
            ## based on Chiroteuthis spp. formulas
            "137777_ML_Clar1986"=list(taxon_name="Chiroteuthis",
                                      taxon_aphia_id=137777,
-                                     equation=function(...)11.4+24.46*...,
+                                     equation=function(...)tibble(allometric_value=11.4+24.46*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -116,7 +118,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "137777_mass_Clar1986"=list(taxon_name="Chiroteuthis",
                                      taxon_aphia_id=137777,
-                                     equation=function(...)exp(-0.241+2.7*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(-0.241+2.7*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -127,7 +129,7 @@ alleq_xc <- function(id) {
            ## based on Mastigoteuthis spp. formulas
            "138168_ML_Clar1986"=list(taxon_name="Mastigoteuthis",
                                      taxon_aphia_id=138168,
-                                     equation=function(...)-1.8+29.08*...,
+                                     equation=function(...)tibble(allometric_value=-1.8+29.08*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -136,7 +138,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "138168_mass_Clar1986"=list(taxon_name="Mastigoteuthis",
                                      taxon_aphia_id=138168,
-                                     equation=function(...)exp(0.184+2.88*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(0.184+2.88*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -148,7 +150,7 @@ alleq_xc <- function(id) {
            ## ML= 16.31+20.18LRL ; ln M=0.55+1.41ln LRL (n= 11 for both ML and M) (Clarke 1986)
            "11758_ML_Clar1986"=list(taxon_name="Brachioteuthidae",
                                     taxon_aphia_id=11758,
-                                    equation=function(...)16.31+20.18*...,
+                                    equation=function(...)tibble(allometric_value=16.31+20.18*...),
                                     inputs=tibble(property="lower rostral length",
                                     units="mm"),
                                     return_property="mantle length",
@@ -157,7 +159,7 @@ alleq_xc <- function(id) {
                                     reference=refs$Clar1986),
            "11758_mass_Clar1986"=list(taxon_name="Brachioteuthidae",
                                       taxon_aphia_id=11758,
-                                      equation=function(...)exp(0.55+1.41*log(...)),
+                                      equation=function(...)tibble(allometric_value=exp(0.55+1.41*log(...))),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mass",
@@ -168,7 +170,7 @@ alleq_xc <- function(id) {
            ##ML=6.676+83.785LRL; log M= 0.415+2.20 log LRL (n=25 for ML and M) (Lu & Williams 1994)
            "325297_ML_LuWi1994"=list(taxon_name="Galiteuthis glacialis",
                                      taxon_aphia_id=325297,
-                                     equation=function(...)6.676+83.785*...,
+                                     equation=function(...)tibble(allometric_value=6.676+83.785*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -179,7 +181,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuWi1994),
            "325297_mass_LuWi1994"=list(taxon_name="Galiteuthis glacialis",
                                        taxon_aphia_id=325297,
-                                       equation=function(...)exp(0.415+2.20*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(0.415+2.20*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -193,7 +195,7 @@ alleq_xc <- function(id) {
            ## ML=-12.3+61.43LRL ; ln M=0.786+2.19 ln LRL (n=72 for ML, n=74 for M) (Rodhouse et al. 1990)
            "137853_ML_Rodh1990"=list(taxon_name="Taonius",
                                      taxon_aphia_id=137853,
-                                     equation=function(...)-12.3+61.43*...,
+                                     equation=function(...)tibble(allometric_value=-12.3+61.43*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -202,7 +204,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Rodh1990),
            "137853_mass_Rodh1990"=list(taxon_name="Taonius",
                                      taxon_aphia_id=137853,
-                                     equation=function(...)exp(0.786+2.19*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(0.786+2.19*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -214,7 +216,7 @@ alleq_xc <- function(id) {
            ## ML=22.27+29.90LRL ; ln M=0.71+1.94 ln LRL (n=41 for ML and M) (Rodhouse et al. 1990)
            "341823_ML_Rodh1990"=list(taxon_name="Teuthowenia pellucida",
                                      taxon_aphia_id=341823,
-                                     equation=function(...)22.27+29.90*(...),
+                                     equation=function(...)tibble(allometric_value=22.27+29.90*(...)),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -223,7 +225,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Rodh1990),
            "341823_mass_Rodh1990"=list(taxon_name="Teuthowenia pellucida",
                                      taxon_aphia_id=341823,
-                                     equation=function(...)exp(0.71+1.94*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(0.71+1.94*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -236,7 +238,7 @@ alleq_xc <- function(id) {
            ## therefore evaluate carefully if it applies well to your data
            "325299_ML_Rodh1990"=list(taxon_name="Mesonychoteuthis hamiltoni",
                                      taxon_aphia_id=325299,
-                                     equation=function(...)-12.3+61.43*(...),
+                                     equation=function(...)tibble(allometric_value=-12.3+61.43*(...)),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -249,7 +251,7 @@ alleq_xc <- function(id) {
            ## ln M=ln 3.24 + 2.80 ln LRL (Clarke 1962b).
            "11774_mass_Clar1962"=list(taxon_name="Cranchiidae",
                                       taxon_aphia_id=11774,
-                                      equation=function(...)exp(log(3.24)+2.80*log(...)),
+                                      equation=function(...)tibble(allometric_value=exp(log(3.24)+2.80*log(...))),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mass",
@@ -259,7 +261,7 @@ alleq_xc <- function(id) {
            ## Cycloteuthis akimushkini
            "341824_ML_Clar1986"=list(taxon_name="Cycloteuthis akimushkini",
                                      taxon_aphia_id=341824,
-                                     equation=function(...)31*...,
+                                     equation=function(...)tibble(allometric_value=31*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -267,7 +269,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "341824_mass_Clar1986"=list(taxon_name="Cycloteuthis akimushkini",
                                      taxon_aphia_id=341824,
-                                     equation=function(...)exp(1.89+1.95*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(1.89+1.95*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -277,7 +279,7 @@ alleq_xc <- function(id) {
            ## Gonatus spp.
            "138036_ML_Clar1986"=list(taxon_name="Gonatus",
                                      taxon_aphia_id=138036,
-                                     equation=function(...)-43.4+42.87*...,
+                                     equation=function(...)tibble(allometric_value=-43.4+42.87*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -286,7 +288,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "138036_mass_Clar1986"=list(taxon_name="Gonatus",
                                        taxon_aphia_id=138036,
-                                       equation=function(...)exp(-0.655+3.33*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(-0.655+3.33*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -298,7 +300,7 @@ alleq_xc <- function(id) {
            ## ML=12.82+19.02LRL ; ln M=0.086+2.13ln LRL (Clarke 1986)
            "138036small_ML_Clar1986"=list(taxon_name="Gonatus",
                                           taxon_aphia_id=138036,
-                                          equation=function(...)12.82+19.02*...,
+                                          equation=function(...)tibble(allometric_value=12.82+19.02*...),
                                           inputs=tibble(property="lower rostral length",
                                           units="mm"),
                                           return_property="mantle length",
@@ -307,7 +309,7 @@ alleq_xc <- function(id) {
                                           reference=refs$Clar1986),
            "138036small_mass_Clar1986"=list(taxon_name="Gonatus",
                                             taxon_aphia_id=138036,
-                                            equation=function(...)exp(0.086+2.13*log(...)),
+                                            equation=function(...)tibble(allometric_value=exp(0.086+2.13*log(...))),
                                             inputs=tibble(property="lower rostral length",
                                             units="mm"),
                                             return_property="mass",
@@ -319,7 +321,7 @@ alleq_xc <- function(id) {
            ## ML=17.1+8.99LRL (n=19) (Clarke 1986)
            "140111_ML_Clar1986"=list(taxon_name="Histioteuthis bonnellii",
                                      taxon_aphia_id=140111,
-                                     equation=function(...)17.1+8.99*...,
+                                     equation=function(...)tibble(allometric_value=17.1+8.99*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -330,7 +332,7 @@ alleq_xc <- function(id) {
            ## weight of preserved specimens) (Lu & Ickeringill 2002)
            "140111_ML_LuIc2002"=list(taxon_name="Histioteuthis bonnellii",
                                      taxon_aphia_id=140111,
-                                     equation=function(...)1.82+15.24*...,
+                                     equation=function(...)tibble(allometric_value=1.82+15.24*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -341,7 +343,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "140111_mass_LuIc2002"=list(taxon_name="Histioteuthis bonnellii",
                                      taxon_aphia_id=140111,
-                                     equation=function(...)exp(1.16+2.70*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(1.16+2.70*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -357,7 +359,7 @@ alleq_xc <- function(id) {
            ## weight of preserved specimens) (Lu & Ickeringill 2002)
            "341870_ML_LuIc2002"=list(taxon_name="Histioteuthis macrohista",
                                      taxon_aphia_id=341870,
-                                     equation=function(...)2.36+14.46*...,
+                                     equation=function(...)tibble(allometric_value=2.36+14.46*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -368,7 +370,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "341870_mass_LuIc2002"=list(taxon_name="Histioteuthis macrohista",
                                        taxon_aphia_id=341870,
-                                       equation=function(...)exp(1.16+2.72*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(1.16+2.72*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -384,7 +386,7 @@ alleq_xc <- function(id) {
            ## 1986)
            "341871_ML_Clar1986"=list(taxon_name="Histioteuthis miranda",
                                      taxon_aphia_id=341871,
-                                     equation=function(...)-7.0+25.82*...,
+                                     equation=function(...)tibble(allometric_value=-7.0+25.82*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -393,7 +395,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "341871_mass_Clar1986"=list(taxon_name="Histioteuthis miranda",
                                        taxon_aphia_id=341871,
-                                       equation=function(...)exp(1.783+2.44*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(1.783+2.44*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -405,7 +407,7 @@ alleq_xc <- function(id) {
            ## total weight of preserved specimens) (Lu & Ickeringill 2002)
            "341871_ML_LuIc2002"=list(taxon_name="Histioteuthis miranda",
                                      taxon_aphia_id=341871,
-                                     equation=function(...)-26.51+34.21*...,
+                                     equation=function(...)tibble(allometric_value=-26.51+34.21*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -416,7 +418,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "341871_mass_LuIc2002"=list(taxon_name="Histioteuthis miranda",
                                        taxon_aphia_id=341871,
-                                       equation=function(...)exp(0.86+3.04*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(0.86+3.04*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                                      units="mm"),
                                        return_property="mass",
@@ -432,7 +434,7 @@ alleq_xc <- function(id) {
            ## total weight of preserved specimens) (Lu & Ickeringill 2002)
            "341864_ML_LuIc2002"=list(taxon_name="Histioteuthis atlantica",
                                      taxon_aphia_id=341864,
-                                     equation=function(...)-10.42+25.66*...,
+                                     equation=function(...)tibble(allometric_value=-10.42+25.66*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -443,7 +445,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "341864_mass_LuIc2002"=list(taxon_name="Histioteuthis atlantica",
                                      taxon_aphia_id=341864,
-                                     equation=function(...)exp(1.49+2.45*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(1.49+2.45*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -459,7 +461,7 @@ alleq_xc <- function(id) {
            ## weight of preserved specimens) (Lu & Ickeringill 2002)
            "341867_ML_LuIc2002"=list(taxon_name="Histioteuthis eltaninae",
                                      taxon_aphia_id=341867,
-                                     equation=function(...)-3.65+24.48*...,
+                                     equation=function(...)tibble(allometric_value=-3.65+24.48*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -471,7 +473,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "341867_mass_LuIc2002"=list(taxon_name="Histioteuthis eltaninae",
                                      taxon_aphia_id=341867,
-                                     equation=function(...)exp(0.33+3.11*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(0.33+3.11*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mass",
@@ -487,7 +489,7 @@ alleq_xc <- function(id) {
            ## ML=36.2LRL ; ln M=-0.17+3.0ln LRL (British Antarctic Survey, unpublished data)
            "140193_ML_BASUnpub"=list(taxon_name="Lepidoteuthis grimaldii",
                                      taxon_aphia_id=140193,
-                                     equation=function(...)36.2*...,
+                                     equation=function(...)tibble(allometric_value=36.2*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -495,7 +497,7 @@ alleq_xc <- function(id) {
                                      reference=refs$BASUnpub),
            "140193_mass_BASUnpub"=list(taxon_name="Lepidoteuthis grimaldii",
                                        taxon_aphia_id=140193,
-                                       equation=function(...)exp(-0.17+3.0*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(-0.17+3.0*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -506,7 +508,7 @@ alleq_xc <- function(id) {
            ## 2002) but this relationship is obviously not strong
            "140193_ML_LuIc2002"=list(taxon_name="Lepidoteuthis grimaldii",
                                      taxon_aphia_id=140193,
-                                     equation=function(...)-10.60+50.57*...,
+                                     equation=function(...)tibble(allometric_value=-10.60+50.57*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -521,7 +523,7 @@ alleq_xc <- function(id) {
            ## ln ML= 4.23+1.01lnLRL ; ln M=2.25+2.39lnLRL (n=446) (British Antarctic Survey, unpublished data)
            "410351_ML_HatfUnpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
                                      taxon_aphia_id=410351,
-                                     equation=function(...)exp(4.23+1.01*log(...)),
+                                     equation=function(...)tibble(allometric_value=exp(4.23+1.01*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -530,7 +532,7 @@ alleq_xc <- function(id) {
                                      reference=paste0("Hatfield (pers. comm.) in ",refs$Piat2001)),
            "410351_mass_HatfUnpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
                                        taxon_aphia_id=410351,
-                                       equation=function(...)exp(2.25+2.39*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(2.25+2.39*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -543,7 +545,7 @@ alleq_xc <- function(id) {
            ## of preserved specimens) (Lu & Ickeringill 2002)
            "342361_ML_LuIc2002"=list(taxon_name="Lycoteuthis lorigera",
                                      taxon_aphia_id=342361,
-                                     equation=function(...)-13.04+34.56*...,
+                                     equation=function(...)tibble(allometric_value=-13.04+34.56*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -554,7 +556,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "342361_mass_LuIc2002"=list(taxon_name="Lycoteuthis lorigera",
                                        taxon_aphia_id=342361,
-                                       equation=function(...)exp(0.32+3.00*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(0.32+3.00*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -571,7 +573,7 @@ alleq_xc <- function(id) {
            ## Antarctic Survey, unpublished data)
            "341904_ML_BASUnpub"=list(taxon_name="Mastigoteuthis psychrophila",
                                      taxon_aphia_id=341904,
-                                     equation=function(...)94.424+6.203*...,
+                                     equation=function(...)tibble(allometric_value=94.424+6.203*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -580,7 +582,7 @@ alleq_xc <- function(id) {
                                      reference=refs$BASUnpub),
            "341904_mass_BASUnpub"=list(taxon_name="Mastigoteuthis psychrophila",
                                        taxon_aphia_id=341904,
-                                       equation=function(...)exp(0.701+1.779*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(0.701+1.779*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -593,7 +595,7 @@ alleq_xc <- function(id) {
            ## ML=-4.301+34.99LRL ; ln M=1.229+2.944ln LRL (n=22) (Piatkowski et al. 2001).
            "325302_ML_Piat2001"=list(taxon_name="Alluroteuthis antarcticus",
                                      taxon_aphia_id=325302,
-                                     equation=function(...)-4.301+34.99*...,
+                                     equation=function(...)tibble(allometric_value=-4.301+34.99*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -602,7 +604,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Piat2001),
            "325302_mass_Piat2001"=list(taxon_name="Alluroteuthis antarcticus",
                                        taxon_aphia_id=325302,
-                                       equation=function(...)exp(1.229+2.944*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(1.229+2.944*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -615,7 +617,7 @@ alleq_xc <- function(id) {
            ## ML=-556.9+75.22LRL; ln M=-0.874+3.42ln LRL (n=15 for ML and M) (Clarke 1986)
            "140609_ML_Clark1986"=list(taxon_name="Taningia danae",
                                       taxon_aphia_id=140609,
-                                      equation=function(...)-556.9+75.22*...,
+                                      equation=function(...)tibble(allometric_value=-556.9+75.22*...),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -624,7 +626,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "140609_mass_Clark1986"=list(taxon_name="Taningia danae",
                                         taxon_aphia_id=140609,
-                                        equation=function(...)exp(-0.874+3.42*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(-0.874+3.42*log(...))),
                                         inputs=tibble(property="lower rostral length",
                                         units="mm"),
                                         return_property="mass",
@@ -636,7 +638,7 @@ alleq_xc <- function(id) {
            ## ML=-0.4+17.33LRL; ln M=0.166+2.31ln LRL (n=30 for ML, n=22 M) (Clarke 1986)
            "138271_ML_Clark1986"=list(taxon_name="Octopoteuthis",
                                       taxon_aphia_id=138271,
-                                      equation=function(...)-0.4+17.33*...,
+                                      equation=function(...)tibble(allometric_value=-0.4+17.33*...),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -645,7 +647,7 @@ alleq_xc <- function(id) {
                                       reference=refs$Clar1986),
            "138271_mass_Clark1986"=list(taxon_name="Octopoteuthis",
                                         taxon_aphia_id=138271,
-                                        equation=function(...)exp(0.166+2.31*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(0.166+2.31*log(...))),
                                         inputs=tibble(property="lower rostral length",
                                         units="mm"),
                                         return_property="mass",
@@ -658,7 +660,7 @@ alleq_xc <- function(id) {
            ## & Yeatman 1990)
            "325305_ML_RoYe1990"=list(taxon_name="Martialia hyadesi",
                                      taxon_aphia_id=325305,
-                                     equation=function(...)102.0+29.47*...,
+                                     equation=function(...)tibble(allometric_value=102.0+29.47*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -667,7 +669,7 @@ alleq_xc <- function(id) {
                                      reference=refs$RoYe1990),
            "325305_mass_RoYe1990"=list(taxon_name="Martialia hyadesi",
                                        taxon_aphia_id=325305,
-                                       equation=function(...)exp(2.405+2.012*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(2.405+2.012*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -679,7 +681,7 @@ alleq_xc <- function(id) {
            ## ML=-12.228+55.187LRL ; M=2.2750 LRL3.1210 (n=131for ML and M) (Santos & Haimovici 2000)
            "342064_ML_SaHa2000"=list(taxon_name="Illex argentinus",
                                      taxon_aphia_id=342064,
-                                     equation=function(...)-12.228+55.187*...,
+                                     equation=function(...)tibble(allometric_value=-12.228+55.187*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -690,7 +692,7 @@ alleq_xc <- function(id) {
                                      reference=refs$SaHa2000),
            "342064_mass_SaHa2000"=list(taxon_name="Illex argentinus",
                                        taxon_aphia_id=342064,
-                                       equation=function(...)2.2750*(...^3.1210),
+                                       equation=function(...)tibble(allometric_value=2.2750*(...^3.1210)),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -705,7 +707,7 @@ alleq_xc <- function(id) {
            ## ML=-11.3+41.36LRL ; ln M=0.783+2.83 ln LRL (Clarke 1986)
            "138281_ML_Clar1986"=list(taxon_name="Todarodes",
                                      taxon_aphia_id=138281,
-                                     equation=function(...)-11.3+41.36*...,
+                                     equation=function(...)tibble(allometric_value=-11.3+41.36*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -713,7 +715,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "138281_mass_Clar1986"=list(taxon_name="Todarodes",
                                        taxon_aphia_id=138281,
-                                       equation=function(...)exp(0.783+2.83*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(0.783+2.83*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -725,7 +727,7 @@ alleq_xc <- function(id) {
            ## Klages 1987)
            "325308_ML_BrKl1987"=list(taxon_name="Kondakovia longimana",
                                      taxon_aphia_id=325308,
-                                     equation=function(...)-22.348+37.318*...,
+                                     equation=function(...)tibble(allometric_value=-22.348+37.318*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -736,7 +738,7 @@ alleq_xc <- function(id) {
                                      reference=refs$BrKl1987),
            "325308_mass_BrKl1987"=list(taxon_name="Kondakovia longimana",
                                        taxon_aphia_id=325308,
-                                       equation=function(...)0.713*(...^3.152),
+                                       equation=function(...)tibble(allometric_value=0.713*(...^3.152)),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -751,7 +753,7 @@ alleq_xc <- function(id) {
            ## Males: ML= 98.59+24.40LRL (n=82); females: ML=-27.84+44.63LRL (n=68)
            "410381M_ML_Jack1995"=list(taxon_name="Onykia ingens",
                                       taxon_aphia_id=410381,
-                                      equation=function(...)98.59+24.40*...,
+                                      equation=function(...)tibble(allometric_value=98.59+24.40*...),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -761,7 +763,7 @@ alleq_xc <- function(id) {
                                       reference=refs$Jack1995),
            "410381F_ML_Jack1995"=list(taxon_name="Onykia ingens",
                                       taxon_aphia_id=410381,
-                                      equation=function(...)-27.84+44.63*...,
+                                      equation=function(...)tibble(allometric_value=-27.84+44.63*...),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -772,7 +774,7 @@ alleq_xc <- function(id) {
            ## Males: logM= 1.22+1.80logLRL (n=82); females: logM= 0.15+3.25logLRL (n=68)
            "410381M_mass_Jack1995"=list(taxon_name="Onykia ingens",
                                         taxon_aphia_id=410381,
-                                        equation=function(...)exp(1.22+1.80*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(1.22+1.80*log(...))),
                                         inputs=tibble(property="lower rostral length",
                                         units="mm"),
                                         return_property="mass",
@@ -782,7 +784,7 @@ alleq_xc <- function(id) {
                                         reference=refs$Jack1995),
            "410381F_mass_Jack1995"=list(taxon_name="Onykia ingens",
                                         taxon_aphia_id=410381,
-                                        equation=function(...)exp(0.15+3.25*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(0.15+3.25*log(...))),
                                         inputs=tibble(property="lower rostral length",
                                         units="mm"),
                                         return_property="mass",
@@ -797,7 +799,7 @@ alleq_xc <- function(id) {
            ## unpublished data)
            "550403_ML_CherUnpub"=list(taxon_name="Filippovia knipovitchi",
                                       taxon_aphia_id=550403,
-                                      equation=function(...)-105.707+62.369*...,
+                                      equation=function(...)tibble(allometric_value=-105.707+62.369*...),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -806,7 +808,7 @@ alleq_xc <- function(id) {
                                       reference=refs$CherUnpub),
            "550403_mass_CherUnpub"=list(taxon_name="Filippovia knipovitchi",
                                         taxon_aphia_id=550403,
-                                        equation=function(...)exp(-0.881+3.798*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(-0.881+3.798*log(...))),
                                         inputs=tibble(property="lower rostral length",
                                         units="mm"),
                                         return_property="mass",
@@ -820,7 +822,7 @@ alleq_xc <- function(id) {
     ## weight of preserved specimens) (Lu & Ickeringill 2002)
            "410384_ML_LuIc2002"=list(taxon_name="Onykia robsoni",
                                      taxon_aphia_id=410384,
-                                     equation=function(...)-652.91+151.03*...,
+                                     equation=function(...)tibble(allometric_value=-652.91+151.03*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -831,7 +833,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "410384_mass_LuIc2002"=list(taxon_name="Onykia robsoni",
                                        taxon_aphia_id=410384,
-                                       equation=function(...)exp(-9.15+8.07*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(-9.15+8.07*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -848,7 +850,7 @@ alleq_xc <- function(id) {
            ## of preserved specimens) (Lu & Ickeringill 2002)
            "140649_ML_LuIc2002"=list(taxon_name="Onychoteuthis banksii",
                                      taxon_aphia_id=140649,
-                                     equation=function(...)2.31+32.75*...,
+                                     equation=function(...)tibble(allometric_value=2.31+32.75*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -859,7 +861,7 @@ alleq_xc <- function(id) {
                                      reference=refs$LuIc2002),
            "140649_mass_LuIc2002"=list(taxon_name="Onychoteuthis banksii",
                                        taxon_aphia_id=140649,
-                                       equation=function(...)exp(-0.04+2.80*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(-0.04+2.80*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -874,7 +876,7 @@ alleq_xc <- function(id) {
            ## ML=11.3+41.09LRL ; ln M=0.976+2.83ln LRL (n=12 for ML, n=15 for M) (Clarke 1986)
            "410388_ML_Clar1986"=list(taxon_name="Pholidoteuthis massyae",
                                      taxon_aphia_id=410388,
-                                     equation=function(...)11.3+41.09*...,
+                                     equation=function(...)tibble(allometric_value=11.3+41.09*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -883,7 +885,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Clar1986),
            "410388_mass_Clar1986"=list(taxon_name="Pholidoteuthis massyae",
                                        taxon_aphia_id=410388,
-                                       equation=function(...)exp(0.976+2.83*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(0.976+2.83*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -897,7 +899,7 @@ alleq_xc <- function(id) {
            ## Groger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009
            "325312_ML_Grog2000"=list(taxon_name="Psychroteuthis glacialis",
                                      taxon_aphia_id=325312,
-                                     equation=function(...)50.6895*...-8.6008*(...^2)+1.0823*(...^3)-8.7019,
+                                     equation=function(...)tibble(allometric_value=50.6895*...-8.6008*(...^2)+1.0823*(...^3)-8.7019),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -908,7 +910,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Grog2000),
            "325312_mass_Grog2000"=list(taxon_name="Psychroteuthis glacialis",
                                        taxon_aphia_id=325312,
-                                       equation=function(...)exp(0.3422+2.1380*log(...)+0.2214*(log(...)^3)^3),
+                                       equation=function(...)tibble(allometric_value=exp(0.3422+2.1380*log(...)+0.2214*(log(...)^3)^3)),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -922,7 +924,7 @@ alleq_xc <- function(id) {
            ## Ln M=2.5+1.45ln LRL (British Antarctic Survey, unpublished data)
            "341781_mass_BASUnpub"=list(taxon_name="Haliphron atlanticus",
                                        taxon_aphia_id=341781,
-                                       equation=function(...)exp(2.5+1.45*log(...)),
+                                       equation=function(...)tibble(allometric_value=exp(2.5+1.45*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
                                        return_property="mass",
@@ -935,7 +937,7 @@ alleq_xc <- function(id) {
            ## M), where LHL= lower hood length (in mm) (Collins, unpublished data)
            "239393_ML_CollUnpub"=list(taxon_name="Pareledone turqueti",
                                       taxon_aphia_id=239393,
-                                      equation=function(...)17.70487+13.32812*...,
+                                      equation=function(...)tibble(allometric_value=17.70487+13.32812*...),
                                       inputs=tibble(property="lower hood length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -945,7 +947,7 @@ alleq_xc <- function(id) {
                                       reference=refs$CollUnpub),
            "239393_mass_CollUnpub"=list(taxon_name="Pareledone turqueti",
                                       taxon_aphia_id=239393,
-                                      equation=function(...)exp(0.689269+2.542938*log(...)),
+                                      equation=function(...)tibble(allometric_value=exp(0.689269+2.542938*log(...))),
                                       inputs=tibble(property="lower hood length",
                                       units="mm"),
                                       return_property="mass",
@@ -960,7 +962,7 @@ alleq_xc <- function(id) {
            ##  (n=3 for ML, n= 39 for M) (Collins, unpublished data)
            "325319_ML_CollUnpub"=list(taxon_name="Adelieledone polymorpha",
                                       taxon_aphia_id=325319,
-                                      equation=function(...)-7.426229508+25.16393443*...,
+                                      equation=function(...)tibble(allometric_value=-7.426229508+25.16393443*...),
                                       inputs=tibble(property="lower hood length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -970,7 +972,7 @@ alleq_xc <- function(id) {
                                       reference=refs$CollUnpub),
            "325319_mass_CollUnpub"=list(taxon_name="Adelieledone polymorpha",
                                         taxon_aphia_id=325319,
-                                        equation=function(...)exp(1.077552+3.200449*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(1.077552+3.200449*log(...))),
                                         inputs=tibble(property="lower hood length",
                                         units="mm"),
                                         return_property="mass",
@@ -984,7 +986,7 @@ alleq_xc <- function(id) {
            ## unpublished data)
            "884005_ML_CherUnpub"=list(taxon_name="Muusoctopus thielei",
                                       taxon_aphia_id=884005,
-                                      equation=function(...)7.398+12.569*...,
+                                      equation=function(...)tibble(allometric_value=7.398+12.569*...),
                                       inputs=tibble(property="lower hood length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -994,7 +996,7 @@ alleq_xc <- function(id) {
                                       reference=refs$CherUnpub),
            "884005_mass_CherUnpub"=list(taxon_name="Muusoctopus thielei",
                                         taxon_aphia_id=884005,
-                                        equation=function(...)exp(0.471+2.706*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(0.471+2.706*log(...))),
                                         inputs=tibble(property="lower hood length",
                                         units="mm"),
                                         return_property="mass",
@@ -1008,7 +1010,7 @@ alleq_xc <- function(id) {
            ## unpublished data)
            "342224_ML_CherUnpub"=list(taxon_name="Graneledone gonzalezi",
                                       taxon_aphia_id=342224,
-                                      equation=function(...)5.047+13.004*...,
+                                      equation=function(...)tibble(allometric_value=5.047+13.004*...),
                                       inputs=tibble(property="lower hood length",
                                       units="mm"),
                                       return_property="mantle length",
@@ -1018,7 +1020,7 @@ alleq_xc <- function(id) {
                                       reference=refs$CherUnpub),
            "342224_mass_CherUnpub"=list(taxon_name="Graneledone gonzalezi",
                                         taxon_aphia_id=342224,
-                                        equation=function(...)exp(0.288+2.967*log(...)),
+                                        equation=function(...)tibble(allometric_value=exp(0.288+2.967*log(...))),
                                         inputs=tibble(property="lower hood length",
                                         units="mm"),
                                         return_property="mass",
@@ -1032,7 +1034,7 @@ alleq_xc <- function(id) {
            ## et al. 1993) where CL = Crest length (in mm)
            "138294_ML_Smal1993"=list(taxon_name="Opisthoteuthis",
                                      taxon_aphia_id=138294,
-                                     equation=function(...)-26.0047+12.4858*...,
+                                     equation=function(...)tibble(allometric_value=-26.0047+12.4858*...),
                                      inputs=tibble(property="crest length",
                                      units="mm"),
                                      return_property="mantle length",
@@ -1043,7 +1045,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Smal1993),
            "138294_HL_Smal1993"=list(taxon_name="Opisthoteuthis",
                                      taxon_aphia_id=138294,
-                                     equation=function(...)-0.3360+0.5619*...,
+                                     equation=function(...)tibble(allometric_value=-0.3360+0.5619*...),
                                      inputs=tibble(property="crest length",
                                      units="mm"),
                                      return_property="hood length",
@@ -1054,7 +1056,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Smal1993),
            "138294_mass_Smal1993"=list(taxon_name="Opisthoteuthis",
                                        taxon_aphia_id=138294,
-                                       equation=function(...)exp(0.5893+0.2413*...),
+                                       equation=function(...)tibble(allometric_value=exp(0.5893+0.2413*...)),
                                        inputs=tibble(property="crest length",
                                        units="mm"),
                                        return_property="mass",
@@ -1067,7 +1069,7 @@ alleq_xc <- function(id) {
            ## Nototodarus sloanii
            "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
                                      taxon_aphia_id=342378,
-                                     equation=function(...)168.83*log(...)+25.52,
+                                     equation=function(...)tibble(allometric_value=168.83*log(...)+25.52),
                                      inputs=tibble(property="lower rostral length",units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
@@ -1077,7 +1079,7 @@ alleq_xc <- function(id) {
                                      reference=refs$Jack1996),
            "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
                                      taxon_aphia_id=342378,
-                                     equation=function(...)236.10*...-512.99,
+                                     equation=function(...)tibble(allometric_value=236.10*...-512.99),
                                      inputs=tibble(property="lower rostral length",units="mm"),
                                      return_property="mass",
                                      return_units="g",
@@ -1095,28 +1097,28 @@ alleq_wm <- function(id) {
     switch(id,
            ## Bathylagus antarcticus
            "234631_SL~OL_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
-                                       taxon_aphia_id=234631,
-                                       equation=function(...)56.16975*(...)-39.7831,
-                                       inputs=tibble(property="otolith length",units="mm"),
-                                       return_property="standard length",
-                                       return_units="mm",
-                                       reliability=tribble(~type,~value,
-                                                           "N",17,
-                                                           "R^2",0.875^2),
-                                       reference=refs$WiMc1990),
+                                        taxon_aphia_id=234631,
+                                        equation=function(...)tibble(allometric_value=56.16975*(...)-39.7831),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",17,
+                                                            "R^2",0.875^2),
+                                        reference=refs$WiMc1990),
            "234631_SL~OW_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
-                                       taxon_aphia_id=234631,
-                                       equation=function(...)115.7744*(...)-47.0855,
-                                       inputs=tibble(property="otolith width",units="mm"),
-                                       return_property="standard length",
-                                       return_units="mm",
-                                       reliability=tribble(~type,~value,
-                                                           "N",17,
-                                                           "R^2",0.95^2),
-                                       reference=refs$WiMc1990),
+                                        taxon_aphia_id=234631,
+                                        equation=function(...)tibble(allometric_value=115.7744*(...)-47.0855),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",17,
+                                                            "R^2",0.95^2),
+                                        reference=refs$WiMc1990),
            "234631_mass~SL_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
                                           taxon_aphia_id=234631,
-                                          equation=function(...)(1.05e-06)*(...^3.446),
+                                          equation=function(...)tibble(allometric_value=(1.05e-06)*(...^3.446)),
                                           inputs=tibble(property="standard length",units="mm"),
                                           return_property="mass",
                                           return_units="g",
@@ -1132,7 +1134,7 @@ alleq_wm <- function(id) {
            ## Krefftichthys anderssoni
            "234641_SL~OL_WiMc1990"=list(taxon_name="Krefftichthys anderssoni",
                                         taxon_aphia_id=234641,
-                                        equation=function(...)41.21040*(...)-13.8900,
+                                        equation=function(...)tibble(allometric_value=41.21040*(...)-13.8900),
                                         inputs=tibble(property="otolith length",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1142,7 +1144,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "234641_SL~OW_WiMc1990"=list(taxon_name="Krefftichthys anderssoni",
                                         taxon_aphia_id=234641,
-                                        equation=function(...)47.28366*(...)-9.10800,
+                                        equation=function(...)tibble(allometric_value=47.28366*(...)-9.10800),
                                         inputs=tibble(property="otolith width",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1152,7 +1154,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "234641_mass~SL_WiMc1990"=list(taxon_name="Krefftichthys anderssoni",
                                           taxon_aphia_id=234641,
-                                          equation=function(...)(3.220e-06)*(...^3.296),
+                                          equation=function(...)tibble(allometric_value=(3.220e-06)*(...^3.296)),
                                           inputs=tibble(property="standard length",units="mm"),
                                           return_property="mass",
                                           return_units="g",
@@ -1164,7 +1166,7 @@ alleq_wm <- function(id) {
            ## Protomyctophum bolini
            "234714_SL~OL_WiMc1990"=list(taxon_name="Protomyctophum bolini",
                                         taxon_aphia_id=234714,
-                                        equation=function(...)26.90736*...-5.68285,
+                                        equation=function(...)tibble(allometric_value=26.90736*...-5.68285),
                                         inputs=tibble(property="otolith length",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1174,7 +1176,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "234714_SL~OW_WiMc1990"=list(taxon_name="Protomyctophum bolini",
                                         taxon_aphia_id=234714,
-                                        equation=function(...)27.02152*...-6.38535,
+                                        equation=function(...)tibble(allometric_value=27.02152*...-6.38535),
                                         inputs=tibble(property="otolith width",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1184,7 +1186,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "234714_mass~SL_WiMc1990"=list(taxon_name="Protomyctophum bolini",
                                           taxon_aphia_id=234714,
-                                          equation=function(...)2.34e-05*(...^2.859),
+                                          equation=function(...)tibble(allometric_value=2.34e-05*(...^2.859)),
                                           inputs=tibble(property="standard length",units="mm"),
                                           return_property="mass",
                                           return_units="g",
@@ -1199,7 +1201,7 @@ alleq_wm <- function(id) {
            ## Electrona antarctica
            "217697_SL~OL_WiMc1990"=list(taxon_name="Electrona antarctica",
                                         taxon_aphia_id=217697,
-                                        equation=function(...)42.69686*...+0.278033,
+                                        equation=function(...)tibble(allometric_value=42.69686*...+0.278033),
                                         inputs=tibble(property="otolith length",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1209,7 +1211,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "217697_SL~OW_WiMc1990"=list(taxon_name="Electrona antarctica",
                                         taxon_aphia_id=217697,
-                                        equation=function(...)33.30505*...+2.023806,
+                                        equation=function(...)tibble(allometric_value=33.30505*...+2.023806),
                                         inputs=tibble(property="otolith width",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1219,7 +1221,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "217697_mass~SL_WiMc1990"=list(taxon_name="Electrona antarctica",
                                           taxon_aphia_id=217697,
-                                          equation=function(...)9.53e-06*(...^3.080),
+                                          equation=function(...)tibble(allometric_value=9.53e-06*(...^3.080)),
                                           inputs=tibble(property="standard length",units="mm"),
                                           return_property="mass",
                                           return_units="g",
@@ -1228,11 +1230,335 @@ alleq_wm <- function(id) {
                                                               "R^2",0.988^2),
                                           reference=refs$WiMc1990),
 
+           ## Electrona carlsbergi
+           "234638_SL~OL_WiMc1990"=list(taxon_name="Electrona carlsbergi",
+                                        taxon_aphia_id=234638,
+                                        equation=function(...)tibble(allometric_value=24.25848*...-2.49594),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",20,
+                                                            "R^2",0.960^2),
+                                        reference=refs$WiMc1990),
+           "234638_SL~OW_WiMc1990"=list(taxon_name="Electrona carlsbergi",
+                                        taxon_aphia_id=234638,
+                                        equation=function(...)tibble(allometric_value=23.38342*...-8.686356),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",20,
+                                                            "R^2",0.917^2),
+                                        reference=refs$WiMc1990),
+           "234638_mass~SL_WiMc1990"=list(taxon_name="Electrona carlsbergi",
+                                          taxon_aphia_id=234638,
+                                          equation=function(...)tibble(allometric_value=5.314e-05*(...^2.737)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",20,
+                                                              "R^2",0.970^2),
+                                          reference=refs$WiMc1990),
+
+           ## Electrona paucirastra
+           ## 234779
+           ## no equations, n=4 data
+
+           ## Electrona subaspera
+           "234791_SL~OL_WiMc1990"=list(taxon_name="Electrona subaspera",
+                                        taxon_aphia_id=234791,
+                                        equation=function(...)tibble(allometric_value=29.00713*...-9.04409),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",17,
+                                                            "R^2",0.997^2),
+                                        reference=refs$WiMc1990),
+           "234791_SL~OW_WiMc1990"=list(taxon_name="Electrona subaspera",
+                                        taxon_aphia_id=234791,
+                                        equation=function(...)tibble(allometric_value=30.94086*...-8.10739),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",17,
+                                                            "R^2",0.996^2),
+                                        reference=refs$WiMc1990),
+           "234791_mass~SL_WiMc1990"=list(taxon_name="Electrona subaspera",
+                                          taxon_aphia_id=234791,
+                                          equation=function(...)tibble(allometric_value=7.98e-06*(...^3.190)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",21,
+                                                              "R^2",0.999^2),
+                                          reference=refs$WiMc1990),
+
+           ## Metelectrona ventralis
+           ## no equations, n=7 data
+
+           ## Gymnoscopelus braueri
+           "234642_SL~OL_WiMc1990"=list(taxon_name="Gymnoscopelus braueri",
+                                        taxon_aphia_id=234642,
+                                        equation=function(...)tibble(allometric_value=43.34839*...-0.73401),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",41,
+                                                            "R^2",0.904^2),
+                                        reference=refs$WiMc1990),
+           "234642_SL~OW_WiMc1990"=list(taxon_name="Gymnoscopelus braueri",
+                                        taxon_aphia_id=234642,
+                                        equation=function(...)tibble(allometric_value=50.27563*...-4.40964),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",41,
+                                                            "R^2",0.943^2),
+                                        reference=refs$WiMc1990),
+           "234642_mass~SL_WiMc1990"=list(taxon_name="Gymnoscopelus braueri",
+                                          taxon_aphia_id=234642,
+                                          equation=function(...)tibble(allometric_value=5.639e-06*(...^3.102)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",41,
+                                                              "R^2",0.986^2),
+                                          reference=refs$WiMc1990),
+
+           ## Gymnoscopelus bolini
+           ## no equations, n=6 data
+
+           ## Gymnoscopelus nicholsi
+           "234821_SL~OL_WiMc1990"=list(taxon_name="Gymnoscopelus nicholsi",
+                                        taxon_aphia_id=234821,
+                                        equation=function(...)tibble(allometric_value=28.61827*...-20.7910),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",140,
+                                                            "R^2",0.889^2),
+                                        reference=refs$WiMc1990),
+           "234821_SL~OW_WiMc1990"=list(taxon_name="Gymnoscopelus nicholsi",
+                                        taxon_aphia_id=234821,
+                                        equation=function(...)tibble(allometric_value=46.31267*...-17.2168),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",140,
+                                                            "R^2",0.882^2),
+                                        reference=refs$WiMc1990),
+           "234821_mass~SL_WiMc1990"=list(taxon_name="Gymnoscopelus nicholsi",
+                                          taxon_aphia_id=234821,
+                                          equation=function(...)tibble(allometric_value=5.610e-06*(...^3.153)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",140,
+                                                              "R^2",0.981^2),
+                                          reference=refs$WiMc1990),
+
+           ## Gymnoscopelus fraseri
+           "234657_SL~OL_WiMc1990"=list(taxon_name="Gymnoscopelus fraseri",
+                                        taxon_aphia_id=234657,
+                                        equation=function(...)tibble(allometric_value=21.84513*...+1.731671),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",17,
+                                                            "R^2",0.946^2),
+                                        reference=refs$WiMc1990),
+           "234657_SL~OW_WiMc1990"=list(taxon_name="Gymnoscopelus fraseri",
+                                        taxon_aphia_id=234657,
+                                        equation=function(...)tibble(allometric_value=29.47851*...+6.338667),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",17,
+                                                            "R^2",0.892^2),
+                                        reference=refs$WiMc1990),
+           "234657_mass~SL_WiMc1990"=list(taxon_name="Gymnoscopelus fraseri",
+                                          taxon_aphia_id=234657,
+                                          equation=function(...)tibble(allometric_value=7.29e-06*(...^3.101)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",17,
+                                                              "R^2",0.937^2),
+                                          reference=refs$WiMc1990),
+
+           ## Gymnoscopelus hintonoides
+           ## no equations, n=6 data
+
+           ## Gymnoscopelus microlampas
+           ## no equations, n=1 data
+
+           ## Gymnoscopelus piabilis
+           ## no equations, n=2 data
+
+           ## Lampanyctus australis
+           ## no equations, n=1 data
+
+           ## Diaphus hudsoni
+           ## no equations, n=4 data
+
+           ## Magnisudis prionosa
+           ## no equations, n=0 data
+
+           ## Notolepis coatsi
+           ## no equations, n=2 data
+
+           ## Benthalbella macropinna
+           ## no equations, n=1
+
+           ## Scopelarchoides kreefti
+           ## no equations, n=1
+
+           ## Muraenolepis marmoratus, valid name Muraenolepis marmorata
+           "313346_SL~OL_WiMc1990"=list(taxon_name="Muraenolepis marmorata",
+                                        taxon_aphia_id=313346,
+                                        equation=function(...)tibble(allometric_value=45.75904*...+53.34070),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",28,
+                                                            "R^2",0.563^2),
+                                        reference=refs$WiMc1990),
+           "313346_SL~OW_WiMc1990"=list(taxon_name="Muraenolepis marmorata",
+                                        taxon_aphia_id=313346,
+                                        equation=function(...)tibble(allometric_value=108.3560*...-68.3156),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",28,
+                                                            "R^2",0.759^2),
+                                        reference=refs$WiMc1990),
+           "313346_mass~SL_WiMc1990"=list(taxon_name="Muraenolepis marmorata",
+                                          taxon_aphia_id=313346,
+                                          equation=function(...)tibble(allometric_value=9.065e-05*(...^2.589)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",28,
+                                                              "R^2",0.950^2),
+                                          reference=refs$WiMc1990),
+
+           ## Macrourus holotrachys
+           "234831_TL~OL_WiMc1990"=list(taxon_name="Macrourus holotrachys",
+                                        taxon_aphia_id=234831,
+                                        equation=function(...)tibble(allometric_value=40.23886*...-21.1335),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="total length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",15,
+                                                            "R^2",0.951^2),
+                                        reference=refs$WiMc1990),
+           "234831_TL~OW_WiMc1990"=list(taxon_name="Macrourus holotrachys",
+                                        taxon_aphia_id=234831,
+                                        equation=function(...)tibble(allometric_value=105.0123*...-154.326),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="total length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",15,
+                                                            "R^2",0.905^2),
+                                        reference=refs$WiMc1990),
+           "234831_mass~TL_WiMc1990"=list(taxon_name="Macrourus holotrachys",
+                                          taxon_aphia_id=234831,
+                                          equation=function(...)tibble(allometric_value=3.43e-07*(...^3.463)),
+                                          inputs=tibble(property="total length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",14,
+                                                              "R^2",0.995^2),
+                                          reference=refs$WiMc1990),
+
+           ## Zanclorhynchus spinifer
+           "234683_SL~OL_WiMc1990"=list(taxon_name="Zanclorhynchus spinifer",
+                                        taxon_aphia_id=234683,
+                                        equation=function(...)tibble(allometric_value=4.088044*...+170.3344),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",65,
+                                                            "R^2",0.101^2),
+                                        reference=refs$WiMc1990),
+           "234683_SL~OW_WiMc1990"=list(taxon_name="Zanclorhynchus spinifer",
+                                        taxon_aphia_id=234683,
+                                        equation=function(...)tibble(allometric_value=10.71815*...+163.0687),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",65,
+                                                            "R^2",0.126^2),
+                                        reference=refs$WiMc1990),
+           "234683_mass~SL_WiMc1990"=list(taxon_name="Zanclorhynchus spinifer",
+                                          taxon_aphia_id=234683,
+                                          equation=function(...)tibble(allometric_value=1.63e-05*(...^3.047)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",152,
+                                                              "R^2",0.993^2),
+                                          reference=refs$WiMc1990),
+           ## Dolloidraco longedorsali
+           "234696_SL~OL_WiMc1990"=list(taxon_name="Dolloidraco longedorsali",
+                                        taxon_aphia_id=234696,
+                                        equation=function(...)tibble(allometric_value=10.28439*...+50.70341),
+                                        inputs=tibble(property="otolith length",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",33,
+                                                            "R^2",0.674^2),
+                                        reference=refs$WiMc1990),
+           "234696_SL~OW_WiMc1990"=list(taxon_name="Dolloidraco longedorsali",
+                                        taxon_aphia_id=234696,
+                                        equation=function(...)tibble(allometric_value=14.15432*...+55.13149),
+                                        inputs=tibble(property="otolith width",units="mm"),
+                                        return_property="standard length",
+                                        return_units="mm",
+                                        reliability=tribble(~type,~value,
+                                                            "N",33,
+                                                            "R^2",0.571^2),
+                                        reference=refs$WiMc1990),
+           "234696_mass~SL_WiMc1990"=list(taxon_name="Dolloidraco longedorsali",
+                                          taxon_aphia_id=234696,
+                                          equation=function(...)tibble(allometric_value=3.86e-05*(...^2.84)),
+                                          inputs=tibble(property="standard length",units="mm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",47,
+                                                              "R^2",0.914^2),
+                                          reference=refs$WiMc1990),
+
 
            ## Pleuragramma antarctica
            "712788_SL~OL_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
                                         taxon_aphia_id=712788,
-                                        equation=function(...)76.67621*(...)+0.1705014,
+                                        equation=function(...)tibble(allometric_value=76.67621*(...)+0.1705014),
                                         inputs=tibble(property="otolith length",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1242,7 +1568,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "712788_SL~OW_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
                                         taxon_aphia_id=712788,
-                                        equation=function(...)69.21882*(...)+15.81990,
+                                        equation=function(...)tibble(allometric_value=69.21882*(...)+15.81990),
                                         inputs=tibble(property="otolith width",units="mm"),
                                         return_property="standard length",
                                         return_units="mm",
@@ -1252,7 +1578,7 @@ alleq_wm <- function(id) {
                                         reference=refs$WiMc1990),
            "712788_mass~SL_WiMc1990"=list(taxon_name="Pleuragramma antarctica",
                                         taxon_aphia_id=712788,
-                                        equation=function(...)2.71e-06*(...^3.200),
+                                        equation=function(...)tibble(allometric_value=2.71e-06*(...^3.200)),
                                         inputs=tibble(property="standard length",units="mm"),
                                         return_property="mass",
                                         return_units="g",
@@ -1260,6 +1586,34 @@ alleq_wm <- function(id) {
                                                             "N",1297,
                                                             "R^2",0.992^2),
                                         reference=refs$WiMc1990),
+
+           stop("unrecognized equation ID: ",id))
+}
+
+
+alleq_arti <- function(id) {
+    switch(id,
+           "234696_mass~TL_Arti2003"=list(taxon_name="Dolloidraco longedorsali",
+                                          taxon_aphia_id=234696,
+                                          equation=function(...){a=0.00725; b=3.013; se=0.184;
+                                              tibble(allometric_value=a*(...^b),
+                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              },
+                                          inputs=tibble(property="total length",units="cm"),
+                                          return_property="mass",
+                                          return_units="g",
+                                          reliability=tribble(~type,~value,
+                                                              "N",371,
+                                                              "R^2",0.918^2),
+                                          reference=refs$Arti2003),
+
+           stop("unrecognized equation ID: ",id))
+}
+
+
+alleq_other <- function(id) {
+    switch(id,
 
            ## Bayesian length-weight: a=0.00575 (0.00309 - 0.01073), b=3.18 (3.01 - 3.35), in cm Total Length, based on LWR estimates for this species & (Sub)family-body (Ref. 93245).
            ## Froese, R., J. Thorson and R.B. Reyes Jr., 2013. A Bayesian approach for estimating length-weight relationships in fishes. J. Appl. Ichthyol. (2013):1-7.
@@ -1292,7 +1646,7 @@ alleq_wm <- function(id) {
            ##Source: Gales, N.J. and Burton, H.R. (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423--433
            "195932_mass_GaBu1988"=list(taxon_name="Leptonychotes weddellii",
                                        taxon_aphia_id=195932,
-                                       equation=function(...) 3.66*...-489.3,
+                                       equation=function(...)tibble(allometric_value= 3.66*...-489.3),
                                        inputs=tibble(property="standard length",units="cm"),
                                        return_property="mass",
                                        return_units="kg",
@@ -1300,6 +1654,18 @@ alleq_wm <- function(id) {
                                                            "N",15),
                                        notes="Applies to male animals",
                                        reference=refs$GaBu1988),
+
+           ## Chorismus antarcticus from Lake et al. 2003
+           "369214_mass_Lake2003"=list(taxon_name="Chorismus antarcticus",
+                                       taxon_aphia_id=369214,
+                                       equation=function(...)tibble(allometric_value=0.000943*(...^2.976)),
+                                       inputs=tibble(property="carapace length",units="mm"),
+                                       return_property="mass",
+                                       return_units="g",
+                                       reliability=tribble(~type,~value,
+                                                           "N",35,
+                                                           "R^2",0.976),
+                                       reference=refs$Lake2003),
 
            stop("unrecognized equation ID: ",id))
 }
@@ -1311,6 +1677,8 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     thiseq <- NULL
     try(thiseq <- alleq_xc(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_wm(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_arti(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_other(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized: ",id)
 
     ## use the equation defaults for some thing, if not already specified
@@ -1431,10 +1799,10 @@ build_allometry_df <- function() {
     ## Loligo gahi (accepted name Doryteuthis (Amerigo) gahi)
     x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub"),alleq_tbl("410351_mass_HatfUnpub"))
     ## also with common name alternatives
-    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",taxon_name="Loligo gahi"),
-                   alleq_tbl("410351_mass_HatfUnpub",taxon_name="Loligo gahi"))
-    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",taxon_name="Doryteuthis gahi"),
-                   alleq_tbl("410351_mass_HatfUnpub",taxon_name="Doryteuthis gahi"))
+    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",taxon_name="Loligo gahi",notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"),
+                   alleq_tbl("410351_mass_HatfUnpub",taxon_name="Loligo gahi",notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"))
+    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",taxon_name="Doryteuthis gahi",notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"),
+                   alleq_tbl("410351_mass_HatfUnpub",taxon_name="Doryteuthis gahi",notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"))
 
 
     ## Lycoteuthis lorigera
@@ -1474,13 +1842,13 @@ build_allometry_df <- function() {
 
     ## Moroteuthis knipovitchi (valid name is Filippovia knipovitchi)
     x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub"),alleq_tbl("550403_mass_CherUnpub"))
-    x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub",taxon_name="Moroteuthis knipovitchi"),
-                   alleq_tbl("550403_mass_CherUnpub",taxon_name="Moroteuthis knipovitchi"))
+    x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub",taxon_name="Moroteuthis knipovitchi",notes="Accepted taxon name is Filippovia knipovitchi"),
+                   alleq_tbl("550403_mass_CherUnpub",taxon_name="Moroteuthis knipovitchi",notes="Accepted taxon name is Filippovia knipovitchi"))
 
     ## Moroteuthis robsoni (valid name Onykia robsoni)
     x <- bind_rows(x,alleq_tbl("410384_ML_LuIc2002"),alleq_tbl("410384_mass_LuIc2002"))
-    x <- bind_rows(x,alleq_tbl("410384_ML_LuIc2002",taxon_name="Moroteuthis robsoni"),
-                   alleq_tbl("410384_mass_LuIc2002",taxon_name="Moroteuthis robsoni"))
+    x <- bind_rows(x,alleq_tbl("410384_ML_LuIc2002",taxon_name="Moroteuthis robsoni",notes="Valid_name is Onykia robsoni"),
+                   alleq_tbl("410384_mass_LuIc2002",taxon_name="Moroteuthis robsoni",notes="Valid_name is Onykia robsoni"))
 
     ## Moroteuthis sp . B (Imber) (no specific equations)
 
@@ -1510,8 +1878,8 @@ build_allometry_df <- function() {
 
     ## Benthoctopus thielei (valid name is Muusoctopus thielei)
     x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub"),alleq_tbl("884005_mass_CherUnpub"))
-    x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub",taxon_name="Benthoctopus thielei"),
-                   alleq_tbl("884005_mass_CherUnpub",taxon_name="Benthoctopus thielei"))
+    x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub",taxon_name="Benthoctopus thielei",notes="Accepted taxon name is Muusoctopus thielei"),
+                   alleq_tbl("884005_mass_CherUnpub",taxon_name="Benthoctopus thielei",notes="Accepted taxon name is Muusoctopus thielei"))
 
     ## Graneledone gonzalezi
     x <- bind_rows(x,alleq_tbl("342224_ML_CherUnpub"),alleq_tbl("342224_mass_CherUnpub"))
@@ -1541,9 +1909,9 @@ build_allometry_df <- function() {
                    alleq_tbl("712788_SL~OW_WiMc1990"),
                    alleq_tbl("712788_mass~SL_WiMc1990"))
     ## used to be P.antarcticum, still a common misuse
-    x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990",taxon_name="Pleuragramma antarcticum"),
-                   alleq_tbl("712788_SL~OW_WiMc1990",taxon_name="Pleuragramma antarcticum"),
-                   alleq_tbl("712788_mass~SL_WiMc1990",taxon_name="Pleuragramma antarcticum"))
+    x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990",taxon_name="Pleuragramma antarcticum",notes="Accepted taxon name is Pleuragramma antarctica"),
+                   alleq_tbl("712788_SL~OW_WiMc1990",taxon_name="Pleuragramma antarcticum",notes="Accepted taxon name is Pleuragramma antarctica"),
+                   alleq_tbl("712788_mass~SL_WiMc1990",taxon_name="Pleuragramma antarcticum",notes="Accepted taxon name is Pleuragramma antarctica"))
     ## Protomyctophum bolini
     x <- bind_rows(x,alleq_tbl("234714_SL~OL_WiMc1990"),
                    alleq_tbl("234714_SL~OW_WiMc1990"),
@@ -1554,14 +1922,82 @@ build_allometry_df <- function() {
                    alleq_tbl("217697_SL~OW_WiMc1990"),
                    alleq_tbl("217697_mass~SL_WiMc1990"))
 
+    ## Electrona carlsbergi
+    x <- bind_rows(x,alleq_tbl("234638_SL~OL_WiMc1990"),
+                   alleq_tbl("234638_SL~OW_WiMc1990"),
+                   alleq_tbl("234638_mass~SL_WiMc1990"))
+
+    ## Electrona subaspera
+    x <- bind_rows(x,alleq_tbl("234791_SL~OL_WiMc1990"),
+                   alleq_tbl("234791_SL~OW_WiMc1990"),
+                   alleq_tbl("234791_mass~SL_WiMc1990"))
+
+    ## Gymnoscopelus braueri
+    x <- bind_rows(x,alleq_tbl("234642_SL~OL_WiMc1990"),
+                   alleq_tbl("234642_SL~OW_WiMc1990"),
+                   alleq_tbl("234642_mass~SL_WiMc1990"))
+
+    ## Gymnoscopelus nicholsi
+    x <- bind_rows(x,alleq_tbl("234821_SL~OL_WiMc1990"),
+                   alleq_tbl("234821_SL~OW_WiMc1990"),
+                   alleq_tbl("234821_mass~SL_WiMc1990"))
+
+    ## Gymnoscopelus fraseri
+    x <- bind_rows(x,alleq_tbl("234657_SL~OL_WiMc1990"),
+                   alleq_tbl("234657_SL~OW_WiMc1990"),
+                   alleq_tbl("234657_mass~SL_WiMc1990"))
+
+    ## Muraenolepis marmoratus, valid name Muraenolepis marmorata
+    x <- bind_rows(x,alleq_tbl("313346_SL~OL_WiMc1990"),
+                   alleq_tbl("313346_SL~OW_WiMc1990"),
+                   alleq_tbl("313346_mass~SL_WiMc1990"))
+    x <- bind_rows(x,alleq_tbl("313346_SL~OL_WiMc1990",taxon_name="Muraenolepis marmoratus",notes="Accepted taxon name is Muraenolepis marmorata"),
+                   alleq_tbl("313346_SL~OW_WiMc1990",taxon_name="Muraenolepis marmoratus",notes="Accepted taxon name is Muraenolepis marmorata"),
+                   alleq_tbl("313346_mass~SL_WiMc1990",taxon_name="Muraenolepis marmoratus",notes="Accepted taxon name is Muraenolepis marmorata"))
+
+    ## Macrourus holotrachys
+    x <- bind_rows(x,alleq_tbl("234831_TL~OL_WiMc1990"),
+                   alleq_tbl("234831_TL~OW_WiMc1990"),
+                   alleq_tbl("234831_mass~TL_WiMc1990"))
+
+    ## Zanclorhynchus spinifer
+    x <- bind_rows(x,alleq_tbl("234683_SL~OL_WiMc1990"),
+                   alleq_tbl("234683_SL~OW_WiMc1990"),
+                   alleq_tbl("234683_mass~SL_WiMc1990"))
+
+    ## Dolloidraco longedorsali
+    x <- bind_rows(x,alleq_tbl("234696_SL~OL_WiMc1990"),
+                   alleq_tbl("234696_SL~OW_WiMc1990"),
+                   alleq_tbl("234696_mass~SL_WiMc1990"))
+
+    ## Dolloidraco longedorsali
+    x <- bind_rows(x,alleq_tbl("234696_mass~TL_Arti2003"))
+
     ## Leptonychotes weddellii
     x <- bind_rows(x,alleq_tbl("195932_mass_GaBu1988"))
 
+
+    ## Chorismus antarcticus
+    x <- bind_rows(x,alleq_tbl("369214_mass_Lake2003"))
+    ## also applicable to Notocrangon antarcticus
+    x <- bind_rows(x,alleq_tbl("369214_mass_Lake2003",
+                               taxon_name="Notocrangon antarcticus",
+                               taxon_aphia_id=369204,
+                               notes="Noted by Lake et al.: equation developed for Chorismus antarcticus but also applicable to Notocrangon antarcticus"))
     x
 }
 
 allometric_equations <- build_allometry_df()
 ## todo: check each row that taxon_name and taxon_aphia_id match (or are expected mismatches, at least)
+## check worrms aphia_id
+## unique rows
+
+## check that all eqs return a tibble/df with a_v col at least
+chk <- vapply(seq_len(nrow(allometric_equations)),function(z) {
+    tmp <- allometric_equations[z,]$equation[[1]](0)
+    is.data.frame(tmp) && "allometric_value" %in% names(tmp)},
+   FUN.VALUE=TRUE)
+assert_that(all(chk))
 
 ## some checks
 assert_that(all(grepl("mass",allometric_equations$equation_id[allometric_equations$return_property=="mass"])))

@@ -64,11 +64,6 @@ sol_allometry <- function(data,equation_id) {
         out$allometric_value <- strip_units(out$allometric_value)
         out$allometric_value <- sol_set_property(out$allometric_value,NULL)
     }
-    ## placeholders for upper and lower limits, not currently populated
-    out$allometric_value_lower <- NA
-    attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
-    out$allometric_value_upper <- NA
-    attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
     out
 }
 
@@ -111,19 +106,48 @@ apply_eq <- function(data,eqn_id,use_property_units=FALSE) {
     for (i in seq_len(ncol(data2)))
         units(data2[,i]) <- ud_units[[eqn$inputs[[1]]$units[i]]]
     ## now remove units, so that equation can just be applied without getting upset by e.g. ^2 operations
+    ## and convert data2 to list, so can call equation with do.call
     data2 <- lapply(seq_len(ncol(data2)),function(z)strip_units(data2[,z]))
     ## get the equation output and set its property and units, add it to data
-    out <- unclass(do.call(eqn$equation[[1]],data2)) %>%
-        sol_set_property(eqn$return_property,with_units=eqn$return_units)
+    if (FALSE) {
+        ## this for old code where equation did not return tibble
+        out <- unclass(do.call(eqn$equation[[1]],data2)) %>%
+            sol_set_property(eqn$return_property,with_units=eqn$return_units)
+    } else {
+        out <- do.call(eqn$equation[[1]],data2)
+        if (!"allometric_value_lower" %in% names(out))
+            out$allometric_value_lower <- NA
+        if (!"allometric_value_upper" %in% names(out))
+            out$allometric_value_upper <- NA
+        ## set property
+        out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property,with_units=eqn$return_units)
+        attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
+        attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
+    }
     ## we've set the units to whatever the equation's return units are
     if (use_property_units) {
         ## convert to the default units for the property
         ## this will help enforce consistency across equations
         ## note though that this will drop the sol_property class
-        units(out) <- ud_units[[sol_properties(eqn$return_property)$units]]
-        out <- out %>% sol_set_property(eqn$return_property)
+        if (FALSE) {
+            units(out) <- ud_units[[sol_properties(eqn$return_property)$units]]
+            out <- out %>% sol_set_property(eqn$return_property)
+        } else {
+            units(out$allometric_value) <- ud_units[[sol_properties(eqn$return_property)$units]]
+            units(out$allometric_value_lower) <- ud_units[[sol_properties(eqn$return_property)$units]]
+            units(out$allometric_value_upper) <- ud_units[[sol_properties(eqn$return_property)$units]]
+            ## reinstate sol_property
+            out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property)
+        attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
+        attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
+        }
     }
-    data %>% mutate_(allometric_property=~eqn$return_property,allometric_value=~out)
+    if (FALSE) {
+        data %>% mutate_(allometric_property=~eqn$return_property,allometric_value=~out)
+    } else {
+        out$allometric_property=eqn$return_property
+        bind_cols(data,out)
+    }
 }
 
 which_or_na <- function(x) if (length(which(x))>0) which(x) else NA
