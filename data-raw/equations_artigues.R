@@ -169,8 +169,8 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
     xxnm <- do.call(rbind,lapply(1:length(un),function(z)tibble(taxon_name=un[z],taxon_aphia_id=wmr[[z]]$AphiaID[1],valid_name=wmr[[z]]$valid_name[1],valid_taxon_aphia_id=wmr[[z]]$valid_AphiaID[1])))
     xx <- xx %>% left_join(xxnm)
 
-    make_record <- function(xxrow) {
-        rc <- sprintf("           \"%d%s_mass~TL_Arti2003\"=list(taxon_name=\"%s\",\n",xxrow$taxon_aphia_id[1],xxrow$sex[1],xxrow$taxon_name[1])
+    make_record <- function(xxrow,id_aphia_id=xxrow$taxon_aphia_id[1]) {
+        rc <- sprintf("           \"%d%s_mass~TL_Arti2003\"=list(taxon_name=\"%s\",\n",id_aphia_id,xxrow$sex[1],xxrow$taxon_name[1])
         rc <- sprintf("%s                                          taxon_aphia_id=%d,\n",rc,xxrow$taxon_aphia_id[1])
         rc <- sprintf("%s                                          equation=function(...){a=%g; b=%g; se=%g;\n",rc,xxrow$a[1],xxrow$b[1],xxrow$se[1])
         rc <- sprintf("%s                                              tibble(allometric_value=a*(...^b),\n",rc)
@@ -187,7 +187,7 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
         if (xxrow$notes[1]!="")
             rc <- sprintf("%s                                          notes=\"%s\",\n",rc,xxrow$notes[1])
         rc <- sprintf("%s                                          reference=refs$Arti2003),\n",rc)
-        list(rcstring=rc,id=sprintf("%d%s_mass~TL_Arti2003",xxrow$taxon_aphia_id[1],xxrow$sex[1]))
+        list(rcstring=rc,id=sprintf("%d%s_mass~TL_Arti2003",xxrow$taxon_aphia_id[1],xxrow$sex[1]),taxon_name=xxrow$taxon_name[1])
     }
 
 
@@ -195,21 +195,23 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
     outfile <- tempfile()
     sink(outfile)
     for (k in seq_len(nrow(xx))) {
-        temp <- xx[k,]
-        if (temp$taxon_name!=temp$valid_name) {
-            temp$notes <- sub("^\\. ","",paste0(temp$notes,". Accepted taxon name is ",temp$valid_name))
-        }
-        rc <- make_record(temp)
-        allid <- c(allid,rc$id)
-        cat(rc$rcstring)
-        if (xx$taxon_name[k]!=xx$valid_name[k]) {
+        ##temp <- xx[k,]
+        ##id_aphia_id <- temp$taxon_aphia_id[1]
+        ##if (temp$taxon_name!=temp$valid_name) {
+        ##    temp$notes <- sub("^\\. ","",paste0(temp$notes,". Accepted taxon name is ",temp$valid_name))
+        ##    id_aphia_id <- temp$valid_taxon_aphia_id[1] ** but then need to call alleq_tbl with overrides on stuff ***
+        ##}
+        ##rc <- make_record(temp)
+        ##allid <- c(allid,rc$id)
+        ##cat(rc$rcstring)
+        ##if (xx$taxon_name[k]!=xx$valid_name[k]) {
             temp <- xx[k,]
             temp$taxon_name <- temp$valid_name
             temp$taxon_aphia_id <- temp$valid_taxon_aphia_id
             rc <- make_record(temp)
             allid <- c(allid,rc$id)
             cat(rc$rcstring)
-        }
+        ##}
     }
     sink()
     gsub("\\\\","/",outfile)
@@ -217,26 +219,16 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
 
     ## paste this into build_allometry_df
     cat(paste0("x <- bind_rows(x,alleq_tbl(\"",allid,"\"))"),sep="\n")
+
+    ## make sure to do repeats on these with invalid names
+    idx <- xx$taxon_name!=xx$valid_name
+    xx[idx,]
+
 }
 
 alleq_arti <- function(id) {
     switch(id,
 
-           "234660_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx",
-                                          taxon_aphia_id=234660,
-                                          equation=function(...){a=0.00619; b=3.019; se=0.166;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
-                                              },
-                                          inputs=tibble(property="total length",units="cm"),
-                                          return_property="mass",
-                                          return_units="g",
-                                          reliability=tribble(~type,~value,
-                                                              "N",51,
-                                                              "R^2",0.991),
-                                          notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx",
-                                          reference=refs$Arti2003),
            "234661_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
                                           taxon_aphia_id=234661,
                                           equation=function(...){a=0.00619; b=3.019; se=0.166;
@@ -250,21 +242,6 @@ alleq_arti <- function(id) {
                                           reliability=tribble(~type,~value,
                                                               "N",51,
                                                               "R^2",0.991),
-                                          reference=refs$Arti2003),
-           "234660M_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx",
-                                          taxon_aphia_id=234660,
-                                          equation=function(...){a=0.00463; b=3.119; se=0.883;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
-                                              },
-                                          inputs=tibble(property="total length",units="cm"),
-                                          return_property="mass",
-                                          return_units="g",
-                                          reliability=tribble(~type,~value,
-                                                              "N",9,
-                                                              "R^2",0.976),
-                                          notes="Applies to male animals. Accepted taxon name is Aethotaxis mitopteryx mitopteryx",
                                           reference=refs$Arti2003),
            "234661M_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
                                           taxon_aphia_id=234661,
@@ -280,21 +257,6 @@ alleq_arti <- function(id) {
                                                               "N",9,
                                                               "R^2",0.976),
                                           notes="Applies to male animals",
-                                          reference=refs$Arti2003),
-           "234660F_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx",
-                                          taxon_aphia_id=234660,
-                                          equation=function(...){a=0.00593; b=3.045; se=0.575;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
-                                              },
-                                          inputs=tibble(property="total length",units="cm"),
-                                          return_property="mass",
-                                          return_units="g",
-                                          reliability=tribble(~type,~value,
-                                                              "N",10,
-                                                              "R^2",0.987),
-                                          notes="Applies to female animals. Accepted taxon name is Aethotaxis mitopteryx mitopteryx",
                                           reference=refs$Arti2003),
            "234661F_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
                                           taxon_aphia_id=234661,
@@ -793,21 +755,6 @@ alleq_arti <- function(id) {
                                                               "R^2",0.979),
                                           notes="Applies to female animals",
                                           reference=refs$Arti2003),
-           "234615_mass~TL_Arti2003"=list(taxon_name="Artedidraco loennbergi",
-                                          taxon_aphia_id=234615,
-                                          equation=function(...){a=0.00675; b=3.014; se=0.416;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
-                                              },
-                                          inputs=tibble(property="total length",units="cm"),
-                                          return_property="mass",
-                                          return_units="g",
-                                          reliability=tribble(~type,~value,
-                                                              "N",97,
-                                                              "R^2",0.897),
-                                          notes="Accepted taxon name is Artedidraco lonnbergi",
-                                          reference=refs$Arti2003),
            "712789_mass~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
                                           taxon_aphia_id=712789,
                                           equation=function(...){a=0.00675; b=3.014; se=0.416;
@@ -821,21 +768,6 @@ alleq_arti <- function(id) {
                                           reliability=tribble(~type,~value,
                                                               "N",97,
                                                               "R^2",0.897),
-                                          reference=refs$Arti2003),
-           "234615M_mass~TL_Arti2003"=list(taxon_name="Artedidraco loennbergi",
-                                          taxon_aphia_id=234615,
-                                          equation=function(...){a=0.01323; b=2.688; se=0.796;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
-                                              },
-                                          inputs=tibble(property="total length",units="cm"),
-                                          return_property="mass",
-                                          return_units="g",
-                                          reliability=tribble(~type,~value,
-                                                              "N",35,
-                                                              "R^2",0.851),
-                                          notes="Applies to male animals. Accepted taxon name is Artedidraco lonnbergi",
                                           reference=refs$Arti2003),
            "712789M_mass~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
                                           taxon_aphia_id=712789,
@@ -851,21 +783,6 @@ alleq_arti <- function(id) {
                                                               "N",35,
                                                               "R^2",0.851),
                                           notes="Applies to male animals",
-                                          reference=refs$Arti2003),
-           "234615F_mass~TL_Arti2003"=list(taxon_name="Artedidraco loennbergi",
-                                          taxon_aphia_id=234615,
-                                          equation=function(...){a=0.00655; b=3.035; se=0.428;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
-                                              },
-                                          inputs=tibble(property="total length",units="cm"),
-                                          return_property="mass",
-                                          return_units="g",
-                                          reliability=tribble(~type,~value,
-                                                              "N",68,
-                                                              "R^2",0.924),
-                                          notes="Applies to female animals. Accepted taxon name is Artedidraco lonnbergi",
                                           reference=refs$Arti2003),
            "712789F_mass~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
                                           taxon_aphia_id=712789,
