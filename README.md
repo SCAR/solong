@@ -30,12 +30,13 @@ library(dplyr)
 Let's say we have some measurements of *Architeuthis dux* squid beaks:
 
 ``` r
-x <- data.frame(LRL=c(11.3,13.9),species=c("Architeuthis dux"),
-  stringsAsFactors=FALSE)
+x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux"))
 x
-#>    LRL          species
-#> 1 11.3 Architeuthis dux
-#> 2 13.9 Architeuthis dux
+#> # A tibble: 2 x 2
+#>     LRL          species
+#>   <dbl>            <chr>
+#> 1  11.3 Architeuthis dux
+#> 2  13.9 Architeuthis dux
 ```
 
 It doesn't matter what the column names are, but we do need to set the properties of the columns so that `solong` can find the appropriate data to use in each allometric equation. Here we've measured lower rostral length, so:
@@ -65,12 +66,14 @@ This equation can be applied to to all rows:
 
 ``` r
 sol_allometry(x,c("342218_ML_Roel2000"))
-#>       LRL          species        equation_id allometric_value
-#> 1 11.3 mm Architeuthis dux 342218_ML_Roel2000      539.6881 mm
-#> 2 13.9 mm Architeuthis dux 342218_ML_Roel2000      921.0553 mm
-#>   allometric_value_lower allometric_value_upper allometric_property
-#> 1                  NA mm                  NA mm       mantle length
-#> 2                  NA mm                  NA mm       mantle length
+#> # A tibble: 2 x 7
+#>                  LRL          species        equation_id
+#>   <S3: sol_property>            <chr>              <chr>
+#> 1            11.3 mm Architeuthis dux 342218_ML_Roel2000
+#> 2            13.9 mm Architeuthis dux 342218_ML_Roel2000
+#> # ... with 4 more variables: allometric_value <S3: sol_property>,
+#> #   allometric_value_lower <S3: sol_property>, allometric_value_upper <S3:
+#> #   sol_property>, allometric_property <chr>
 ```
 
 Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
@@ -78,12 +81,14 @@ Or we can apply a different equation to each row. Here we could use different al
 ``` r
 xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
 xa
-#>       LRL          species        equation_id allometric_value
-#> 1 11.3 mm Architeuthis dux 342218_ML_Roel2000      539.6881 mm
-#> 2 13.9 mm Architeuthis dux 342218_ML_Clar1986      768.8090 mm
-#>   allometric_value_lower allometric_value_upper allometric_property
-#> 1                  NA mm                  NA mm       mantle length
-#> 2                  NA mm                  NA mm       mantle length
+#> # A tibble: 2 x 7
+#>                  LRL          species        equation_id
+#>   <S3: sol_property>            <chr>              <chr>
+#> 1            11.3 mm Architeuthis dux 342218_ML_Roel2000
+#> 2            13.9 mm Architeuthis dux 342218_ML_Clar1986
+#> # ... with 4 more variables: allometric_value <S3: sol_property>,
+#> #   allometric_value_lower <S3: sol_property>, allometric_value_upper <S3:
+#> #   sol_property>, allometric_property <chr>
 ```
 
 The `allometric_value` column contains the values that have been estimated, and the `allometric_property` column gives the name of the property that has been estimated.
@@ -93,6 +98,7 @@ We can also see that the returned `allometric_value` is of that specific propert
 ``` r
 sol_get_property(xa$allometric_value)
 #> [1] "mantle length"
+
 units(xa$allometric_value)
 #> $numerator
 #> [1] "mm"
@@ -139,9 +145,10 @@ Note that this equation estimates mass in kg, whereas `342218_mass_Clar1986` est
 ``` r
 x <- tibble(LRL=c(11.3,NA),species=c("Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,175)) %>%
   mutate(LRL=sol_set_property(LRL,"lower rostral length"),
-  SL=sol_set_property(SL,"standard length","cm"))
+         SL=sol_set_property(SL,"standard length","cm"))
 
 xa <- sol_allometry(x,c("342218_mass_Clar1986","195932_mass_GaBu1988"))
+
 xa %>% select(species,allometric_property,allometric_value)
 #> # A tibble: 2 x 3
 #>                   species allometric_property   allometric_value
@@ -155,6 +162,7 @@ The output values are of property "mass" and have all been provided in g (becaus
 ``` r
 sol_get_property(xa$allometric_value)
 #> [1] "mass"
+
 units(xa$allometric_value)
 #> $numerator
 #> [1] "g"
@@ -169,15 +177,19 @@ units(xa$allometric_value)
 If we try to apply equations that estimate different properties, we will get a warning:
 
 ``` r
+x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux")) %>%
+  mutate(LRL=sol_set_property(LRL,"lower rostral length"))
+
 xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
 #> Warning in sol_allometry(x, c("342218_ML_Roel2000",
 #> "342218_mass_Clar1986")): return values are not all of the same property
+
 xa %>% select(species,allometric_property,allometric_value)
 #> # A tibble: 2 x 3
-#>                   species allometric_property allometric_value
-#>                     <chr>               <chr>            <dbl>
-#> 1        Architeuthis dux       mantle length         539.6881
-#> 2 Leptonychotes weddellii                mass               NA
+#>            species allometric_property allometric_value
+#>              <chr>               <chr>            <dbl>
+#> 1 Architeuthis dux       mantle length         539.6881
+#> 2 Architeuthis dux                mass       28416.6920
 ```
 
 And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:

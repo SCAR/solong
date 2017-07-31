@@ -51,8 +51,7 @@ library(dplyr)
 Let's say we have some measurements of *Architeuthis dux* squid beaks:
 
 ```{r}
-x <- data.frame(LRL=c(11.3,13.9),species=c("Architeuthis dux"),
-  stringsAsFactors=FALSE)
+x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux"))
 x
 ```
 
@@ -87,6 +86,7 @@ The `allometric_value` column contains the values that have been estimated, and 
 We can also see that the returned `allometric_value` is of that specific property, with appropriate units:
 ```{r}
 sol_get_property(xa$allometric_value)
+
 units(xa$allometric_value)
 ```
 
@@ -108,9 +108,10 @@ Note that this equation estimates mass in kg, whereas `342218_mass_Clar1986` est
 ```{r}
 x <- tibble(LRL=c(11.3,NA),species=c("Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,175)) %>%
   mutate(LRL=sol_set_property(LRL,"lower rostral length"),
-  SL=sol_set_property(SL,"standard length","cm"))
+         SL=sol_set_property(SL,"standard length","cm"))
 
 xa <- sol_allometry(x,c("342218_mass_Clar1986","195932_mass_GaBu1988"))
+
 xa %>% select(species,allometric_property,allometric_value)
 ```
 
@@ -118,13 +119,18 @@ The output values are of property "mass" and have all been provided in g (becaus
 
 ```{r}
 sol_get_property(xa$allometric_value)
+
 units(xa$allometric_value)
 ```
 
 
 If we try to apply equations that estimate different properties, we will get a warning:
 ```{r}
+x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux")) %>%
+  mutate(LRL=sol_set_property(LRL,"lower rostral length"))
+
 xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
+
 xa %>% select(species,allometric_property,allometric_value)
 ```
 
