@@ -13,12 +13,13 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 178 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 383 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
 |                |  hood length|  mantle length|  mass|  standard length|  total length|
 |----------------|------------:|--------------:|-----:|----------------:|-------------:|
-| Actinopterygii |            0|              0|    24|               44|             2|
+| Actinopterygii |            0|              0|   168|              104|             2|
 | Cephalopoda    |            1|             53|    51|                0|             0|
+| Elasmobranchii |            0|              0|     1|                0|             0|
 | Malacostraca   |            0|              0|     2|                0|             0|
 | Mammalia       |            0|              0|     1|                0|             0|
 
@@ -122,8 +123,8 @@ units(xa$allometric_value)
 #> [1] "symbolic_units"
 ```
 
-Edge cases
-----------
+Details
+-------
 
 We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_mass_Clar1986` estimates the mass of the squid *Architeuthis dux* based on lower rostral length measurements:
 
@@ -211,8 +212,7 @@ sol_get_property(xa$allometric_value)
 #> character(0)
 ```
 
-Missing information
--------------------
+### Missing information
 
 What happens if we don't have the required information in our data to use a particular equation? The `234631_SL~OL_WiMc1990` equation is for fish length, and requires otolith length (not present in our test data).
 
@@ -224,7 +224,12 @@ tryCatch(
 #> [1] "could not find required input properties (otolith length) in data"
 ```
 
-Taxonomy
---------
+### Reliability of equations
+
+Older publications typically published equations along with a note of the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
+
+Some equations, typically from newer publications, also allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
+
+### Taxonomy
 
 Equations are registered against *taxon\_name* and *taxon\_aphia\_id* (the species identifier in the World Register of Marine Species). The *taxon\_aphia\_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.
