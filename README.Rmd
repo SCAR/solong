@@ -23,6 +23,26 @@ Overview
 
 This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements.
 
+## Packaged equations
+
+```{r include=FALSE}
+devtools::load_all()
+library(dplyr)
+
+eN <- sol_equations() %>% mutate(is_fish=grepl("WiMc1990",equation_id)) %>% group_by(is_fish,return_property) %>% summarize(N=n())
+```
+The package currently includes `r sum(eN$N)` equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+
+```{r echo=FALSE,cache=TRUE}
+library(worrms)
+uid <- unique(sol_equations()$taxon_aphia_id)
+ucl <- lapply(uid,wm_classification)
+uid_cls <- tibble(taxon_aphia_id=uid,taxonomic_class=vapply(ucl,function(z)z$scientificname[z$rank=="Class"],FUN.VALUE=""))
+```
+```{r echo=FALSE}
+knitr::kable(sol_equations() %>% left_join(uid_cls,by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property,data=.))
+```
+
 
 Installing
 ----------
@@ -35,12 +55,6 @@ install_github("SCAR/solong")
 
 Usage
 -----
-
-```{r include=FALSE}
-devtools::load_all()
-library(dplyr)
-```
-
 
 ```{r eval=FALSE,message=FALSE, warning=FALSE}
 library(solong)
@@ -149,24 +163,6 @@ tryCatch(
   error=function(e) conditionMessage(e)
 )
 ```
-
-## Packaged equations
-
-```{r include=FALSE}
-eN <- sol_equations() %>% mutate(is_fish=grepl("WiMc1990",equation_id)) %>% group_by(is_fish,return_property) %>% summarize(N=n())
-```
-The package currently includes `r sum(eN$N)` equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
-
-```{r echo=FALSE,cache=TRUE}
-library(worrms)
-uid <- unique(sol_equations()$taxon_aphia_id)
-ucl <- lapply(uid,wm_classification)
-uid_cls <- tibble(taxon_aphia_id=uid,taxonomic_class=vapply(ucl,function(z)z$scientificname[z$rank=="Class"],FUN.VALUE=""))
-```
-```{r echo=FALSE}
-knitr::kable(sol_equations() %>% left_join(uid_cls,by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property,data=.))
-```
-
 
 ## Taxonomy
 

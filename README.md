@@ -10,6 +10,18 @@ Overview
 
 This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements.
 
+Packaged equations
+------------------
+
+The package currently includes 178 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+
+|                |  hood length|  mantle length|  mass|  standard length|  total length|
+|----------------|------------:|--------------:|-----:|----------------:|-------------:|
+| Actinopterygii |            0|              0|    24|               44|             2|
+| Cephalopoda    |            1|             53|    51|                0|             0|
+| Malacostraca   |            0|              0|     2|                0|             0|
+| Mammalia       |            0|              0|     1|                0|             0|
+
 Installing
 ----------
 
@@ -211,18 +223,6 @@ tryCatch(
 )
 #> [1] "could not find required input properties (otolith length) in data"
 ```
-
-Packaged equations
-------------------
-
-The package currently includes 178 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
-
-|                |  hood length|  mantle length|  mass|  standard length|  total length|
-|----------------|------------:|--------------:|-----:|----------------:|-------------:|
-| Actinopterygii |            0|              0|    24|               44|             2|
-| Cephalopoda    |            1|             53|    51|                0|             0|
-| Malacostraca   |            0|              0|     2|                0|             0|
-| Mammalia       |            0|              0|     1|                0|             0|
 
 Taxonomy
 --------
