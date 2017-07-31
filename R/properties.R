@@ -29,6 +29,7 @@ sol_set_property <- function(x,prop,with_units,...) {
         class(x) <- setdiff(class(x),c("sol_property",sol_properties()$class_name))
         strip_units(x)
     } else {
+        x <- sol_set_property(x,NULL)
         thisprop <- sol_properties(prop)
         if (missing(with_units)) with_units <- thisprop$units
         units(x) <- ud_units[[with_units]]
