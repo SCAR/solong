@@ -17,6 +17,7 @@ Imports:
 Suggests:
   covr,
   knitr,
-  testthat
+  testthat,
+  worrms
 RoxygenNote: 6.0.1
 VignetteBuilder: knitr
