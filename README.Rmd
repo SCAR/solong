@@ -90,16 +90,50 @@ sol_get_property(xa$allometric_value)
 units(xa$allometric_value)
 ```
 
-If we try to apply equations that relate to different properties, we will get a warning:
+## Edge cases
+
+We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_mass_Clar1986` estimates the mass of the squid *Architeuthis dux* based on lower rostral length measurements:
+
 ```{r}
-xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
-xa
+sol_equation("342218_mass_Clar1986")
 ```
 
-And while the `allometric_property` column still says which property was estimated for each row, the property type of the returned `allometric_value` will not be set, because there are a mixture of them in this column:
+And equation `195932_mass_GaBu1988` estimates the mass of male Weddell seals based on their standard length:
+
+```{r}
+sol_equation("195932_mass_GaBu1988")
+```
+Note that this equation estimates mass in kg, whereas `342218_mass_Clar1986` estimates mass in g. We can apply the two equations together to a single data set:
+
+```{r}
+x <- tibble(LRL=c(11.3,NA),species=c("Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,175)) %>%
+  mutate(LRL=sol_set_property(LRL,"lower rostral length"),
+  SL=sol_set_property(SL,"standard length","cm"))
+
+xa <- sol_allometry(x,c("342218_mass_Clar1986","195932_mass_GaBu1988"))
+xa %>% select(species,allometric_property,allometric_value)
+```
+
+The output values are of property "mass" and have all been provided in g (because the output column `allometric value` must have a single set of units):
+
+```{r}
+sol_get_property(xa$allometric_value)
+units(xa$allometric_value)
+```
+
+
+If we try to apply equations that estimate different properties, we will get a warning:
+```{r}
+xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
+xa %>% select(species,allometric_property,allometric_value)
+```
+
+And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
 ```{r}
 sol_get_property(xa$allometric_value)
 ```
+
+## Missing information
 
 What happens if we don't have the required information in our data to use a particular equation? The `234631_SL~OL_WiMc1990` equation is for fish length, and requires otolith length (not present in our test data).
 
@@ -115,7 +149,7 @@ tryCatch(
 ```{r include=FALSE}
 eN <- sol_equations() %>% mutate(is_fish=grepl("WiMc1990",equation_id)) %>% group_by(is_fish,return_property) %>% summarize(N=n())
 ```
-The package currently includes `r sum(eN$N)` equations, covering cephalopods and fish.
+The package currently includes `r sum(eN$N)` equations, covering mostly cephalopods and fish.
 
 ## Taxonomy
 
