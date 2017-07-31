@@ -429,6 +429,151 @@ build_allometry_df <- function() {
                    alleq_tbl("234840_SL~OW_WiMc1990"),
                    alleq_tbl("234840_mass~SL_WiMc1990"))
 
+    ## Notothenia kempi has equations, but now considered to be synonymous with L. squamifrons?
+
+    ## Lepidonotothen squamifrons
+    x <- bind_rows(x,alleq_tbl("234788_SL~OL_WiMc1990"),
+                   alleq_tbl("234788_SL~OW_WiMc1990"),
+                   alleq_tbl("234788_mass~SL_WiMc1990"))
+
+    ## Notothenia acuta
+    x <- bind_rows(x,alleq_tbl("234624_SL~OL_WiMc1990"),
+                   alleq_tbl("234624_SL~OW_WiMc1990"),
+                   alleq_tbl("234624_mass~SL_WiMc1990"))
+
+    ## Lepidonotothen mizops
+    x <- bind_rows(x,alleq_tbl("234812_SL~OL_WiMc1990"),
+                   alleq_tbl("234812_SL~OW_WiMc1990"),
+                   alleq_tbl("234812_mass~SL_WiMc1990"))
+    x <- bind_rows(x,alleq_tbl("234812_SL~OL_WiMc1990",taxon_name="Nototheniops mizops",notes="Accepted taxon name is Lepidonotothen mizops"),
+                   alleq_tbl("234812_SL~OW_WiMc1990",taxon_name="Nototheniops mizops",notes="Accepted taxon name is Lepidonotothen mizops"),
+                   alleq_tbl("234812_mass~SL_WiMc1990",taxon_name="Nototheniops mizops",notes="Accepted taxon name is Lepidonotothen mizops"))
+
+    ## Trematomus bernacchii
+    x <- bind_rows(x,alleq_tbl("234802_SL~OL_WiMc1990"),
+                   alleq_tbl("234802_SL~OW_WiMc1990"),
+                   alleq_tbl("234802_mass~SL_WiMc1990"))
+    x <- bind_rows(x,alleq_tbl("234802_SL~OL_WiMc1990",taxon_name="Pagothenia bernacchii",notes="Accepted taxon name is Trematomus bernacchii"),
+                   alleq_tbl("234802_SL~OW_WiMc1990",taxon_name="Pagothenia bernacchii",notes="Accepted taxon name is Trematomus bernacchii"),
+                   alleq_tbl("234802_mass~SL_WiMc1990",taxon_name="Pagothenia bernacchii",notes="Accepted taxon name is Trematomus bernacchii"))
+
+    ## Pagothenia borchgrevinki
+    x <- bind_rows(x,alleq_tbl("234801_SL~OL_WiMc1990"),
+                   alleq_tbl("234801_SL~OW_WiMc1990"),
+                   alleq_tbl("234801_mass~SL_WiMc1990"))
+
+    ## Trematomus hansoni
+    x <- bind_rows(x,alleq_tbl("234772_SL~OL_WiMc1990"),
+                   alleq_tbl("234772_SL~OW_WiMc1990"),
+                   alleq_tbl("234772_mass~SL_WiMc1990"))
+    x <- bind_rows(x,alleq_tbl("234772_SL~OL_WiMc1990",taxon_name="Pagothenia hansoni",notes="Accepted taxon name is Trematomus hansoni"),
+                   alleq_tbl("234772_SL~OW_WiMc1990",taxon_name="Pagothenia hansoni",notes="Accepted taxon name is Trematomus hansoni"),
+                   alleq_tbl("234772_mass~SL_WiMc1990",taxon_name="Pagothenia hansoni",notes="Accepted taxon name is Trematomus hansoni"))
+
+    ## Trematomus pennellii
+    x <- bind_rows(x,alleq_tbl("234709_SL~OL_WiMc1990"),
+                   alleq_tbl("234709_SL~OW_WiMc1990"),
+                   alleq_tbl("234709_mass~SL_WiMc1990"))
+    x <- bind_rows(x,alleq_tbl("234709_SL~OL_WiMc1990",taxon_name="Trematomus centronotus",notes="Accepted taxon name is Trematomus pennellii"),
+                   alleq_tbl("234709_SL~OW_WiMc1990",taxon_name="Trematomus centronotus",notes="Accepted taxon name is Trematomus pennellii"),
+                   alleq_tbl("234709_mass~SL_WiMc1990",taxon_name="Trematomus centronotus",notes="Accepted taxon name is Trematomus pennellii"))
+
+    ## Trematomus eulepidotus
+    x <- bind_rows(x,alleq_tbl("234754_SL~OL_WiMc1990"),
+                   alleq_tbl("234754_SL~OW_WiMc1990"),
+                   alleq_tbl("234754_mass~SL_WiMc1990"))
+
+    ## Trematomus lepidorhinus
+    x <- bind_rows(x,alleq_tbl("234770_SL~OL_WiMc1990"),
+                   alleq_tbl("234770_SL~OW_WiMc1990"),
+                   alleq_tbl("234770_mass~SL_WiMc1990"))
+
+    ## Trematomus loennbergii
+    x <- bind_rows(x,alleq_tbl("234828_SL~OL_WiMc1990"),
+                   alleq_tbl("234828_SL~OW_WiMc1990"),
+                   alleq_tbl("234828_mass~SL_WiMc1990"))
+
+    ## Trematomus newnesi
+    x <- bind_rows(x,alleq_tbl("234628_SL~OL_WiMc1990"),
+                   alleq_tbl("234628_SL~OW_WiMc1990"),
+                   alleq_tbl("234628_mass~SL_WiMc1990"))
+
+    ## Trematomus nicolai
+    x <- bind_rows(x,alleq_tbl("234644_SL~OL_WiMc1990"),
+                   alleq_tbl("234644_SL~OW_WiMc1990"),
+                   alleq_tbl("234644_mass~SL_WiMc1990"))
+
+    ## Trematomus scotti
+    x <- bind_rows(x,alleq_tbl("234665_SL~OL_WiMc1990"),
+                   alleq_tbl("234665_SL~OW_WiMc1990"),
+                   alleq_tbl("234665_mass~SL_WiMc1990"))
+
+    ## Akarotaxis nudiceps
+    x <- bind_rows(x,alleq_tbl("234600_SL~OL_WiMc1990"),
+                   alleq_tbl("234600_SL~OW_WiMc1990"),
+                   alleq_tbl("234600_mass~SL_WiMc1990"))
+
+    ## Bathydraco marri
+    x <- bind_rows(x,alleq_tbl("234816_SL~OL_WiMc1990"),
+                   alleq_tbl("234816_SL~OW_WiMc1990"),
+                   alleq_tbl("234816_mass~SL_WiMc1990"))
+
+    ## Cygnodraco mawsoni
+    x <- bind_rows(x,alleq_tbl("234834_SL~OL_WiMc1990"),
+                   alleq_tbl("234834_SL~OW_WiMc1990"),
+                   alleq_tbl("234834_mass~SL_WiMc1990"))
+
+    ## Gymnodraco acuticeps
+    x <- bind_rows(x,alleq_tbl("234800_SL~OL_WiMc1990"),
+                   alleq_tbl("234800_SL~OW_WiMc1990"),
+                   alleq_tbl("234800_mass~SL_WiMc1990"))
+
+    ## Prionodraco evansii
+    x <- bind_rows(x,alleq_tbl("234777_SL~OL_WiMc1990"),
+                   alleq_tbl("234777_SL~OW_WiMc1990"),
+                   alleq_tbl("234777_mass~SL_WiMc1990"))
+
+    ## Racovitzia glacialis
+    x <- bind_rows(x,alleq_tbl("234799_SL~OL_WiMc1990"),
+                   alleq_tbl("234799_SL~OW_WiMc1990"),
+                   alleq_tbl("234799_mass~SL_WiMc1990"))
+
+    ## Chaenodraco wilsoni
+    x <- bind_rows(x,alleq_tbl("234609_SL~OL_WiMc1990"),
+                   alleq_tbl("234609_SL~OW_WiMc1990"),
+                   alleq_tbl("234609_mass~SL_WiMc1990"))
+
+    ## Champsocephalus gunnari
+    x <- bind_rows(x,alleq_tbl("234797_SL~OL_WiMc1990"),
+                   alleq_tbl("234797_SL~OW_WiMc1990"),
+                   alleq_tbl("234797_mass~SL_WiMc1990"))
+
+    ## Channichthys rhinoceratus
+    x <- bind_rows(x,alleq_tbl("234619_SL~OL_WiMc1990"),
+                   alleq_tbl("234619_SL~OW_WiMc1990"),
+                   alleq_tbl("234619_mass~SL_WiMc1990"))
+
+    ## Chionodraco hamatus
+    x <- bind_rows(x,alleq_tbl("234795_SL~OL_WiMc1990"),
+                   alleq_tbl("234795_SL~OW_WiMc1990"),
+                   alleq_tbl("234795_mass~SL_WiMc1990"))
+
+    ## Chionodraco myersi
+    x <- bind_rows(x,alleq_tbl("234646_SL~OL_WiMc1990"),
+                   alleq_tbl("234646_SL~OW_WiMc1990"),
+                   alleq_tbl("234646_mass~SL_WiMc1990"))
+
+    ## Cryodraco antarcticus
+    x <- bind_rows(x,alleq_tbl("234720_SL~OL_WiMc1990"),
+                   alleq_tbl("234720_SL~OW_WiMc1990"),
+                   alleq_tbl("234720_mass~SL_WiMc1990"))
+
+    ## Paradiplospinus gracilis
+    x <- bind_rows(x,alleq_tbl("219693_SL~OL_WiMc1990"),
+                   alleq_tbl("219693_SL~OW_WiMc1990"))##,
+    ##                   alleq_tbl("219693_mass~SL_WiMc1990"))
+    warning("Paradiplospinus gracilis mass equation looks wrong, needs checking")
+
 
     ## ---
     ## Artigues 2003 equations
@@ -463,8 +608,23 @@ chk <- vapply(seq_len(nrow(allometric_equations)),function(z) {
    FUN.VALUE=TRUE)
 assert_that(all(chk))
 
-## some checks
+## more checks
 assert_that(all(grepl("mass",allometric_equations$equation_id[allometric_equations$return_property=="mass"])))
 assert_that(all(grepl("ML",allometric_equations$equation_id[allometric_equations$return_property=="mantle length"])))
+
+## check that masses look ok
+idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="mass" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="standard length",FUN.VALUE=TRUE)
+tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](100)$allometric_value,FUN.VALUE = 1)
+assert_that(!any(abs(tmp)<1 | abs(tmp)>50))
+
+## SL from OL
+idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="standard length" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="otolith length",FUN.VALUE=TRUE)
+tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
+assert_that(!any(abs(tmp)<50 | abs(tmp)>500))
+
+## SL from OW
+idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="standard length" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="otolith width",FUN.VALUE=TRUE)
+tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
+assert_that(!any(abs(tmp)<50 | abs(tmp)>1000))
 
 devtools::use_data(allometric_equations,internal=FALSE,overwrite=TRUE)
