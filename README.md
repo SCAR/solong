@@ -65,12 +65,12 @@ This equation can be applied to to all rows:
 
 ``` r
 sol_allometry(x,c("342218_ML_Roel2000"))
-#>       LRL          species        equation_id allometric_property
-#> 1 11.3 mm Architeuthis dux 342218_ML_Roel2000       mantle length
-#> 2 13.9 mm Architeuthis dux 342218_ML_Roel2000       mantle length
-#>   allometric_value allometric_value_lower allometric_value_upper
-#> 1      539.6881 mm                  NA mm                  NA mm
-#> 2      921.0553 mm                  NA mm                  NA mm
+#>       LRL          species        equation_id allometric_value
+#> 1 11.3 mm Architeuthis dux 342218_ML_Roel2000      539.6881 mm
+#> 2 13.9 mm Architeuthis dux 342218_ML_Roel2000      921.0553 mm
+#>   allometric_value_lower allometric_value_upper allometric_property
+#> 1                  NA mm                  NA mm       mantle length
+#> 2                  NA mm                  NA mm       mantle length
 ```
 
 Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
@@ -78,12 +78,12 @@ Or we can apply a different equation to each row. Here we could use different al
 ``` r
 xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
 xa
-#>       LRL          species        equation_id allometric_property
-#> 1 11.3 mm Architeuthis dux 342218_ML_Roel2000       mantle length
-#> 2 13.9 mm Architeuthis dux 342218_ML_Clar1986       mantle length
-#>   allometric_value allometric_value_lower allometric_value_upper
-#> 1      539.6881 mm                  NA mm                  NA mm
-#> 2      768.8090 mm                  NA mm                  NA mm
+#>       LRL          species        equation_id allometric_value
+#> 1 11.3 mm Architeuthis dux 342218_ML_Roel2000      539.6881 mm
+#> 2 13.9 mm Architeuthis dux 342218_ML_Clar1986      768.8090 mm
+#>   allometric_value_lower allometric_value_upper allometric_property
+#> 1                  NA mm                  NA mm       mantle length
+#> 2                  NA mm                  NA mm       mantle length
 ```
 
 The `allometric_value` column contains the values that have been estimated, and the `allometric_property` column gives the name of the property that has been estimated.
@@ -113,7 +113,7 @@ We can apply equations that use different inputs, provided that they estimate th
 sol_equation("342218_mass_Clar1986")
 #> equation_id: 342218_mass_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
-#>   equation: function (...) exp(-1.773 + 4.57 * log(...))
+#>   equation: function (...) tibble(allometric_value = exp(-1.773 + 4.57 * log(...)))
 #>   It takes as 1st input: lower rostral length (units: mm)
 #>   It estimates: mass (units: g)
 #>   Indicator of reliability: N=9
@@ -126,7 +126,7 @@ And equation `195932_mass_GaBu1988` estimates the mass of male Weddell seals bas
 sol_equation("195932_mass_GaBu1988")
 #> equation_id: 195932_mass_GaBu1988
 #>   taxon_name: Leptonychotes weddellii, taxon_aphia_id: 195932
-#>   equation: function (...) 3.66 * ... - 489.3
+#>   equation: function (...) tibble(allometric_value = 3.66 * ... - 489.3)
 #>   It takes as 1st input: standard length (units: cm)
 #>   It estimates: mass (units: kg)
 #>   Indicator of reliability: N=15
@@ -203,7 +203,14 @@ tryCatch(
 Packaged equations
 ------------------
 
-The package currently includes 124 equations, covering mostly cephalopods and fish.
+The package currently includes 178 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+
+|                |  hood length|  mantle length|  mass|  standard length|  total length|
+|----------------|------------:|--------------:|-----:|----------------:|-------------:|
+| Actinopterygii |            0|              0|    24|               44|             2|
+| Cephalopoda    |            1|             53|    51|                0|             0|
+| Malacostraca   |            0|              0|     2|                0|             0|
+| Mammalia       |            0|              0|     1|                0|             0|
 
 Taxonomy
 --------
