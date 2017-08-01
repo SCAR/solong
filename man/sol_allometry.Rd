@@ -4,12 +4,12 @@
 \alias{sol_allometry}
 \title{Apply allometric equations}
 \usage{
-sol_allometry(data, equation_id)
+sol_allometry(data, equation)
 }
 \arguments{
 \item{data}{data.frame: input data}
 
-\item{equation_id}{string or character: the identifier of the equation to apply. Either a single string (that equation will be applied to all rows of the data) or a character vector with length matching the number of rows of the data}
+\item{equation}{character or sol_equation object: either the identifier of the equation to apply, or the equation object itself. Can be a single element (this equation will be applied to all rows of the data) or with length matching the number of rows of the data}
 }
 \value{
 the input data frame, augmented with columns "allometric_property", "allometric_value", "allometric_value_lower", and "allometric_value_upper"

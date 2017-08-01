@@ -7,14 +7,14 @@ test_that("equation usage generally works", {
                  "could not find required input prop")
     x$LRL <- sol_set_property(x$LRL,"lower rostral length")
 
-    xdf <- as.data.frame(x)
-    data_props <- vapply(seq_len(ncol(xdf)),function(j)solong:::sp_or_na(xdf[,j]),FUN.VALUE="",USE.NAMES=FALSE)
-    expect_identical(data_props,c("lower rostral length",NA,NA))
+    #xdf <- as.data.frame(x)
+    #data_props <- vapply(seq_len(ncol(xdf)),function(j)solong:::sp_or_na(xdf[,j]),FUN.VALUE="",USE.NAMES=FALSE)
+    #expect_identical(data_props,c("lower rostral length",NA,NA))
 
-    tmp <- solong:::resolve_cols(x,sol_equation("342218_ML_Roel2000"))
-    expect_identical(tmp,1)
+    #tmp <- solong:::resolve_cols(x,sol_equation("342218_ML_Roel2000"))
+    #expect_identical(tmp,1)
 
-    tmp <- solong:::apply_eq(x,"342218_ML_Roel2000")
+    #tmp <- solong:::apply_eq(x,sol_equation("342218_ML_Roel2000")[c(1,1),])
 
     ## have set property, so should now work
     ## currently passing locally on test() but failing check() and
@@ -23,6 +23,9 @@ test_that("equation usage generally works", {
     expect_true(is.data.frame(xa))
     expect_equal(nrow(x),nrow(xa))
     expect_s3_class(xa$allometric_value,"solprop_ML")
+    ## should get same result if equation object itself is provided
+    xa2 <- sol_allometry(x,sol_equation("342218_ML_Roel2000"))
+    expect_identical(xa,xa2)
     ## multiple equations
     xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
     ## multiple cols matching property

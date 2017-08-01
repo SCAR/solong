@@ -3,7 +3,7 @@ globalVariables("allometric_equations") # To make R CMD Check happy
 #' Apply allometric equations
 #'
 #' @param data data.frame: input data
-#' @param equation_id string or character: the identifier of the equation to apply. Either a single string (that equation will be applied to all rows of the data) or a character vector with length matching the number of rows of the data
+#' @param equation character or sol_equation object: either the identifier of the equation to apply, or the equation object itself. Can be a single element (this equation will be applied to all rows of the data) or with length matching the number of rows of the data
 #'
 #' @return the input data frame, augmented with columns "allometric_property", "allometric_value", "allometric_value_lower", and "allometric_value_upper"
 #'
@@ -24,13 +24,20 @@ globalVariables("allometric_equations") # To make R CMD Check happy
 #' sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
 #' }
 #' @export
-sol_allometry <- function(data,equation_id) {
+sol_allometry <- function(data,equation) {
     assert_that(is.data.frame(data))
-    assert_that(is.character(equation_id))
-    if (!all(nzchar(equation_id))) stop("equation_id entries must not be empty strings")
-    assert_that(length(equation_id)==1 || length(equation_id)==nrow(data))
-    if (length(equation_id)==1) equation_id <- rep(equation_id,nrow(data))
-    ## apply in groups by equation_id
+    assert_that(is.character(equation) || inherits(equation,"sol_equation"))
+    if (is.character(equation)) {
+        if (!all(nzchar(equation))) stop("equation entries must not be empty strings")
+        assert_that(length(equation)==1 || length(equation)==nrow(data))
+        ## get tibble of equations for these equation IDs
+        equation <- do.call(rbind,lapply(equation,sol_equation))
+    } else {
+        assert_that(nrow(equation)==1 || nrow(equation)==nrow(data))
+    }
+    ## find unique equations, apply in groups
+    ## could use equation_id, but for user-supplied equations these might not be unique identifiers
+    equation_hash <- vapply(seq_len(nrow(equation)),function(z)digest(equation[z,]),FUN.VALUE="")
 
     ## can't do this, because the bind_rows that follows do() drops the attributes
 ##    suppressWarnings(
@@ -43,17 +50,17 @@ sol_allometry <- function(data,equation_id) {
 ##        select_(~-SAVE_ROW_ID)
 ##    )
     data <- data %>%
-        mutate_(equation_id=~equation_id,
-                SAVE_ROW_ID=~seq_len(n()))
-    grp_id <- group_indices_(data,~equation_id)
-    eqru <- function(eqid) sol_equation(eqid)$return_units
-    use_property_units <- length(unique(grp_id))>1 && length(unique(vapply(unique(equation_id),eqru,FUN.VALUE="")))>1
+        mutate_(SAVE_ROW_ID=~seq_len(n()))
+    grp_id <- group_indices_(tibble(eqh=equation_hash),~eqh)
     ## if we have different return units for the equations being used,
     ## we'll convert the returned value's units to the default for the property in question
     ## otherwise when we combine the chunks with rbind, the values don't get converted for different units
+    ## test that we have more than one unique equation, and their return units are different
+    use_property_units <- length(unique(vapply(seq_len(nrow(equation)),function(z)equation$return_units[z],FUN.VALUE="")))>1
     out <- lapply(unique(grp_id),function(gid) {
         idx <- grp_id==gid
-        apply_eq(data[idx,],equation_id[idx][1],use_property_units=use_property_units)
+        eidx <- if (nrow(equation)==1) 1 else which(idx)[1]
+        apply_eq(data[idx,],equation[eidx,],use_property_units=use_property_units)
     })
     chk_prop <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
     out <- do.call(rbind,out) %>%
@@ -94,10 +101,10 @@ strip_units <- function(x) {
 }
 
 ## augment data with output of equation
-apply_eq <- function(data,eqn_id,use_property_units=FALSE) {
+apply_eq <- function(data,eqn,use_property_units=FALSE) {
     assert_that(is.data.frame(data))
-    assert_that(is.string(eqn_id))
-    eqn <- sol_equation(eqn_id)
+    assert_that(inherits(eqn,"sol_equation"))
+    assert_that(nrow(eqn)==1)
     cidx <- resolve_cols(data,eqn) ## column indices into data of the required inputs. NA if required input property not found
     if (any(is.na(cidx)))
         stop(sprintf("could not find required input properties (%s) in data",paste(eqn$inputs[[1]]$property[is.na(cidx)],collapse=", ")))
@@ -109,45 +116,30 @@ apply_eq <- function(data,eqn_id,use_property_units=FALSE) {
     ## and convert data2 to list, so can call equation with do.call
     data2 <- lapply(seq_len(ncol(data2)),function(z)strip_units(data2[,z]))
     ## get the equation output and set its property and units, add it to data
-    if (FALSE) {
-        ## this for old code where equation did not return tibble
-        out <- unclass(do.call(eqn$equation[[1]],data2)) %>%
-            sol_set_property(eqn$return_property,with_units=eqn$return_units)
-    } else {
-        out <- do.call(eqn$equation[[1]],data2)
-        if (!"allometric_value_lower" %in% names(out))
-            out$allometric_value_lower <- NA
-        if (!"allometric_value_upper" %in% names(out))
-            out$allometric_value_upper <- NA
-        ## set property
-        out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property,with_units=eqn$return_units)
-        attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
-        attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
-    }
+    out <- do.call(eqn$equation[[1]],data2)
+    if (!"allometric_value_lower" %in% names(out))
+        out$allometric_value_lower <- NA
+    if (!"allometric_value_upper" %in% names(out))
+        out$allometric_value_upper <- NA
+    ## set property
+    out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property,with_units=eqn$return_units)
+    attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
+    attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
     ## we've set the units to whatever the equation's return units are
     if (use_property_units) {
         ## convert to the default units for the property
         ## this will help enforce consistency across equations
         ## note though that this will drop the sol_property class
-        if (FALSE) {
-            units(out) <- ud_units[[sol_properties(eqn$return_property)$units]]
-            out <- out %>% sol_set_property(eqn$return_property)
-        } else {
-            units(out$allometric_value) <- ud_units[[sol_properties(eqn$return_property)$units]]
-            units(out$allometric_value_lower) <- ud_units[[sol_properties(eqn$return_property)$units]]
-            units(out$allometric_value_upper) <- ud_units[[sol_properties(eqn$return_property)$units]]
-            ## reinstate sol_property
-            out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property)
+        units(out$allometric_value) <- ud_units[[sol_properties(eqn$return_property)$units]]
+        units(out$allometric_value_lower) <- ud_units[[sol_properties(eqn$return_property)$units]]
+        units(out$allometric_value_upper) <- ud_units[[sol_properties(eqn$return_property)$units]]
+        ## reinstate sol_property
+        out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property)
         attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
         attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
-        }
     }
-    if (FALSE) {
-        data %>% mutate_(allometric_property=~eqn$return_property,allometric_value=~out)
-    } else {
-        out$allometric_property=eqn$return_property
-        bind_cols(data,out)
-    }
+    out$allometric_property=eqn$return_property
+    bind_cols(data,out)
 }
 
 which_or_na <- function(x) if (length(which(x))>0) which(x) else NA
