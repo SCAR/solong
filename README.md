@@ -79,14 +79,13 @@ This equation can be applied to to all rows:
 
 ``` r
 sol_allometry(x,c("342218_ML_Roel2000"))
-#> # A tibble: 2 x 7
-#>                  LRL          species        equation_id
-#>   <S3: sol_property>            <chr>              <chr>
-#> 1            11.3 mm Architeuthis dux 342218_ML_Roel2000
-#> 2            13.9 mm Architeuthis dux 342218_ML_Roel2000
-#> # ... with 4 more variables: allometric_value <S3: sol_property>,
-#> #   allometric_value_lower <S3: sol_property>, allometric_value_upper <S3:
-#> #   sol_property>, allometric_property <chr>
+#> # A tibble: 2 x 6
+#>                  LRL          species   allometric_value
+#>   <S3: sol_property>            <chr> <S3: sol_property>
+#> 1            11.3 mm Architeuthis dux        539.6881 mm
+#> 2            13.9 mm Architeuthis dux        921.0553 mm
+#> # ... with 3 more variables: allometric_value_lower <S3: sol_property>,
+#> #   allometric_value_upper <S3: sol_property>, allometric_property <chr>
 ```
 
 Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
@@ -94,14 +93,13 @@ Or we can apply a different equation to each row. Here we could use different al
 ``` r
 xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
 xa
-#> # A tibble: 2 x 7
-#>                  LRL          species        equation_id
-#>   <S3: sol_property>            <chr>              <chr>
-#> 1            11.3 mm Architeuthis dux 342218_ML_Roel2000
-#> 2            13.9 mm Architeuthis dux 342218_ML_Clar1986
-#> # ... with 4 more variables: allometric_value <S3: sol_property>,
-#> #   allometric_value_lower <S3: sol_property>, allometric_value_upper <S3:
-#> #   sol_property>, allometric_property <chr>
+#> # A tibble: 2 x 6
+#>                  LRL          species   allometric_value
+#>   <S3: sol_property>            <chr> <S3: sol_property>
+#> 1            11.3 mm Architeuthis dux        539.6881 mm
+#> 2            13.9 mm Architeuthis dux        768.8090 mm
+#> # ... with 3 more variables: allometric_value_lower <S3: sol_property>,
+#> #   allometric_value_upper <S3: sol_property>, allometric_property <chr>
 ```
 
 The `allometric_value` column contains the values that have been estimated, and the `allometric_property` column gives the name of the property that has been estimated.
@@ -226,9 +224,19 @@ tryCatch(
 
 ### Reliability of equations
 
-Older publications typically published equations along with a note of the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
+Older equations were typically published along with the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
 
-Some equations, typically from newer publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
+Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
+
+``` r
+x <- tibble(TL=c(30.5) %>% sol_set_property("total length",with_units="cm"))
+sol_allometry(x,"234606_mass~TL_Arti2003") %>%
+  select(allometric_value,allometric_value_lower,allometric_value_upper)
+#> # A tibble: 1 x 3
+#>     allometric_value allometric_value_lower allometric_value_upper
+#>   <S3: sol_property>     <S3: sol_property>     <S3: sol_property>
+#> 1         125.3436 g              67.5433 g             232.6067 g
+```
 
 ### Taxonomy
 
