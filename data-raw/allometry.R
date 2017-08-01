@@ -26,7 +26,8 @@ refs <- list(
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government",
     Arti2003="Artigues B, Morales-Nin B, Balguer\uEDas E (2003) Fish length-weight relationships in the Weddell Sea and Bransfield Strait. Polar Biology 26:463-467. doi:10.1007/s00300-003-0505-0",
     GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
-    Lake2003="Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293")
+    Lake2003="Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293",
+    EaDe1997="Eastman JT, Devries AL (1997) Biology and phenotypic plasticity of the Antarctic nototheniid fish Trematomus newnesi in McMurdo Sound. Antarctic Science 9:27-35. doi:10.1017/S0954102097000047")
 
 source("data-raw/equations_XaCh2016.R")
 
@@ -38,6 +39,7 @@ source("data-raw/equations_Arti2003.R")
 
 alleq_other <- function(id) {
     switch(id,
+
 
            ## Bayesian length-weight: a=0.00575 (0.00309 - 0.01073), b=3.18 (3.01 - 3.35), in cm Total Length, based on LWR estimates for this species & (Sub)family-body (Ref. 93245).
            ## Froese, R., J. Thorson and R.B. Reyes Jr., 2013. A Bayesian approach for estimating length-weight relationships in fishes. J. Appl. Ichthyol. (2013):1-7.
@@ -112,6 +114,18 @@ alleq_other <- function(id) {
                                                          "N",170,
                                                          "R^2",0.90),
                                      reference=refs$Jack1996),
+
+           ## Trematomus newnesi from EaDe1997
+           "234628_mass~SL_EaDe1997"=list(taxon_name="Trematomus newnesi",
+                                     taxon_aphia_id=234628,
+                                     equation=function(...)tibble(allometric_value=3.17e-06*(...^3.34)),
+                                     inputs=tibble(property="standard length",units="mm"),
+                                     return_property="mass",
+                                     return_units="g",
+                                     reliability=tribble(~type,~value,
+                                                         "N",67,
+                                                         "R^2",0.95),
+                                     reference=refs$EaDe1997),
 
            stop("unrecognized equation ID: ",id))
 }
@@ -779,6 +793,9 @@ build_allometry_df <- function() {
                                taxon_name="Notocrangon antarcticus",
                                taxon_aphia_id=369204,
                                notes="Noted by Lake et al.: equation developed for Chorismus antarcticus but also applicable to Notocrangon antarcticus"))
+
+    ## Tremtomus newnesi
+    x <- bind_rows(x,alleq_tbl("234628_mass~SL_EaDe1997"))
     x
 }
 

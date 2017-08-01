@@ -13,11 +13,11 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 403 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 404 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
 |                |  hood length|  mantle length|  mass|  standard length|  total length|
 |----------------|------------:|--------------:|-----:|----------------:|-------------:|
-| Actinopterygii |            0|              0|   168|              104|             2|
+| Actinopterygii |            0|              0|   169|              104|             2|
 | Cephalopoda    |            8|             60|    57|                0|             0|
 | Elasmobranchii |            0|              0|     1|                0|             0|
 | Malacostraca   |            0|              0|     2|                0|             0|
