@@ -30,12 +30,10 @@ refs <- list(
     EaDe1997="Eastman JT, Devries AL (1997) Biology and phenotypic plasticity of the Antarctic nototheniid fish Trematomus newnesi in McMurdo Sound. Antarctic Science 9:27-35. doi:10.1017/S0954102097000047")
 
 source("data-raw/equations_XaCh2016.R")
-
 source("data-raw/equations_Smal1993.R")
-
 source("data-raw/equations_WiMc1990.R")
-
 source("data-raw/equations_Arti2003.R")
+source("data-raw/equations_Goeb2007.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -139,6 +137,7 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Goeb2007(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_other(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized: ",id)
 
@@ -151,8 +150,22 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     }
     if (is.null(thiseq$reliability)) thiseq$reliability <- tibble(type=character(),value=numeric())
 
-    tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
+    e1 <- tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
             id,taxon_name,taxon_aphia_id,thiseq$equation,thiseq$inputs,thiseq$return_property,thiseq$return_units,thiseq$reliability,notes,reference)
+    e2 <- sol_make_equation(equation_id=id,
+                      taxon_name=taxon_name,
+                      taxon_aphia_id=taxon_aphia_id,
+                      equation=thiseq$equation,
+                      inputs=thiseq$inputs,
+                      return_property=thiseq$return_property,
+                      return_units=thiseq$return_units,
+                      reliability=thiseq$reliability,
+                      notes=notes,
+                      reference=reference,
+                      check_packaged_ids=FALSE)
+    class(e2) <- setdiff(class(e2),"sol_equation")
+    if (!identical(e1,e2)) stop("not identical") ## this just for checking purposes
+    e2
 }
 
 build_allometry_df <- function() {
@@ -781,8 +794,14 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("234675_mass~TL_Arti2003"))
 
     ## ---
-    ## Miscellaneous others
+    ## Goebel et al. 2007
+    x <- bind_rows(x,alleq_tbl("236217J_TL_Goeb2007"),
+                   alleq_tbl("236217F_TL_Goeb2007"),
+                   alleq_tbl("236217M_TL_Goeb2007"))
 
+    ## ---
+    ## Miscellaneous others
+    ##
     ## Leptonychotes weddellii
     x <- bind_rows(x,alleq_tbl("195932_mass_GaBu1988"))
 
@@ -800,6 +819,7 @@ build_allometry_df <- function() {
 }
 
 allometric_equations <- build_allometry_df()
+
 ## todo: check each row that taxon_name and taxon_aphia_id match (or are expected mismatches, at least)
 ## check worrms aphia_id
 ## unique rows
