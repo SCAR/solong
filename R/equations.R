@@ -106,7 +106,7 @@ print.sol_equation <- function(x,...) {
 
 
 #' Create an allometric equation object
-#' 
+#'
 #' @param equation_id string: a unique identifier for the equation (required)
 #' @param taxon_name string: the taxon name that the equation applies to (required)
 #' @param taxon_aphia_id numeric: the AphiaID of the taxon that the equation applies to (recommended)
@@ -117,6 +117,7 @@ print.sol_equation <- function(x,...) {
 #' @param reliability data.frame: indicators of reliability of the equation; see details (recommended)
 #' @param notes string: any notes that users should be aware of (optional)
 #' @param reference string: the source of the equation (recommended)
+#' @param check_packaged_ids logical: if TRUE, check the equation_id against the package-bundled equations. A warning will be issued if there is a packaged equation with the same ID as equation_id
 #' @param warn_recommended logical: issue a warning if "recommended" informations is not supplied?
 #'
 #' @return equation object
@@ -139,11 +140,13 @@ print.sol_equation <- function(x,...) {
 #'                         reference="Lake S et al. (2003) doi:10.3354/meps254293")
 #'
 #' @export
-sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inputs,return_property,return_units,reliability,notes,reference,warn_recommended=TRUE) {
+sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inputs,return_property,return_units,reliability,notes,reference,check_packaged_ids=TRUE,warn_recommended=TRUE) {
     assert_that(is.flag(warn_recommended))
     assert_that(is.string(equation_id))
+    if (check_packaged_ids) {
     if (equation_id %in% sol_equations()$equation_id)
         warning("the supplied equation_id (\"",equation_id,"\") is already used by an equation in the solong package: consider using a different equation_id")
+    }
     assert_that(is.string(taxon_name))
     if (missing(taxon_aphia_id)) {
         if (warn_recommended) warning("no taxon_aphia_id provided: consider adding this")
@@ -174,7 +177,7 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
              sol_properties()$units[sol_properties()$property==inputs$property[z]],"\"")
         }
     }
-    
+
     ## return property and units
     assert_that(is.string(return_property))
     chk <- sol_get_property(return_property)
@@ -190,7 +193,7 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
              return_property,"\") which has default units \"",
              sol_properties()$units[sol_properties()$property==return_property],"\"")
     }
-    
+
     ## reliability
     if (missing(reliability)) {
         if (warn_recommended) warning("no reliability information provided: consider adding this to help guide users in the use of the equation")

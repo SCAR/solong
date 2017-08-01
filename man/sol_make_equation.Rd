@@ -6,7 +6,7 @@
 \usage{
 sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
   return_property, return_units, reliability, notes, reference,
-  warn_recommended = TRUE)
+  check_packaged_ids = TRUE, warn_recommended = TRUE)
 }
 \arguments{
 \item{equation_id}{string: a unique identifier for the equation (required)}
@@ -28,6 +28,8 @@ sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
 \item{notes}{string: any notes that users should be aware of (optional)}
 
 \item{reference}{string: the source of the equation (recommended)}
+
+\item{check_packaged_ids}{logical: if TRUE, check the equation_id against the package-bundled equations. A warning will be issued if there is a packaged equation with the same ID as equation_id}
 
 \item{warn_recommended}{logical: issue a warning if "recommended" informations is not supplied?}
 }
