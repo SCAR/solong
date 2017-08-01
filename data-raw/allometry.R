@@ -21,7 +21,6 @@ refs <- list(
     CherUnpub="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Grog2000="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009",
     CollUnpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Smal1993="Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293",
     Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government",
     Arti2003="Artigues B, Morales-Nin B, Balguer\uEDas E (2003) Fish length-weight relationships in the Weddell Sea and Bransfield Strait. Polar Biology 26:463-467. doi:10.1007/s00300-003-0505-0",
@@ -150,6 +149,7 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     }
     if (is.null(thiseq$reliability)) thiseq$reliability <- tibble(type=character(),value=numeric())
 
+    ## temporarily create the equation twice: once with the original code, then with sol_make_equation - check that they are identical
     e1 <- tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
             id,taxon_name,taxon_aphia_id,thiseq$equation,thiseq$inputs,thiseq$return_property,thiseq$return_units,thiseq$reliability,notes,reference)
     e2 <- sol_make_equation(equation_id=id,
@@ -164,7 +164,7 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
                       reference=reference,
                       check_packaged_ids=FALSE)
     class(e2) <- setdiff(class(e2),"sol_equation")
-    if (!identical(e1,e2)) stop("not identical") ## this just for checking purposes
+    if (!identical(e1,e2)) stop("not identical")
     e2
 }
 

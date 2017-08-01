@@ -1002,7 +1002,7 @@ alleq_XaCh2016 <- function(id) {
            ## Opisthoteuthis sp.
            ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
            ## et al. 1993) where CL = Crest length (in mm)
-           ## included in equations_sm93.R
+           ## included in equations_Smal1993.R
 
            stop("unrecognized equation ID: ",id))
 }
