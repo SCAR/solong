@@ -138,7 +138,7 @@ apply_eq <- function(data,eqn,use_property_units=FALSE) {
         attributes(out$allometric_value_lower) <- attributes(out$allometric_value)
         attributes(out$allometric_value_upper) <- attributes(out$allometric_value)
     }
-    out$allometric_property=eqn$return_property
+    out$allometric_property <- eqn$return_property
     bind_cols(data,out)
 }
 
