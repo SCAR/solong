@@ -226,7 +226,7 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
 
 }
 
-alleq_arti <- function(id) {
+alleq_Arti2003 <- function(id) {
     switch(id,
 
            "234661_mass~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",

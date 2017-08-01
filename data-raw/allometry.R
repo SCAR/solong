@@ -28,11 +28,13 @@ refs <- list(
     GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
     Lake2003="Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293")
 
-source("data-raw/equations_xc.R")
+source("data-raw/equations_XaCh2016.R")
 
-source("data-raw/equations_wimc.R")
+source("data-raw/equations_Smal1993.R")
 
-source("data-raw/equations_artigues.R")
+source("data-raw/equations_WiMc1990.R")
+
+source("data-raw/equations_Arti2003.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -88,6 +90,28 @@ alleq_other <- function(id) {
                                                            "N",35,
                                                            "R^2",0.976),
                                        reference=refs$Lake2003),
+           ## Nototodarus sloanii
+           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
+                                     taxon_aphia_id=342378,
+                                     equation=function(...)tibble(allometric_value=168.83*log(...)+25.52),
+                                     inputs=tibble(property="lower rostral length",units="mm"),
+                                     return_property="mantle length",
+                                     return_units="mm",
+                                     reliability=tribble(~type,~value,
+                                                         "N",170,
+                                                         "R^2",0.90),
+                                     reference=refs$Jack1996),
+
+           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
+                                     taxon_aphia_id=342378,
+                                     equation=function(...)tibble(allometric_value=236.10*...-512.99),
+                                     inputs=tibble(property="lower rostral length",units="mm"),
+                                     return_property="mass",
+                                     return_units="g",
+                                     reliability=tribble(~type,~value,
+                                                         "N",170,
+                                                         "R^2",0.90),
+                                     reference=refs$Jack1996),
 
            stop("unrecognized equation ID: ",id))
 }
@@ -97,9 +121,10 @@ alleq_other <- function(id) {
 ## can override reference
 alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     thiseq <- NULL
-    try(thiseq <- alleq_xc(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_wm(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_arti(id),silent=TRUE)
+    try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_other(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized: ",id)
 
@@ -309,11 +334,50 @@ build_allometry_df <- function() {
     ## Opisthoteuthis sp.
     ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
     ## et al. 1993) where CL = Crest length (in mm)
+    ## see equations for Smale et al. 1993
+
+    ## Stauroteuthis gilchristi (no allometric equations available)
+
+    ## ---
+    ## Smale et al. 1993
+    ## Octopus vulgaris
+    x <- bind_rows(x,alleq_tbl("140605_ML_Smal1993"),
+                   alleq_tbl("140605_HL_Smal1993"),
+                   alleq_tbl("140605_mass_Smal1993"))
+
+    ## Enteroctopus magnificus
+    x <- bind_rows(x,alleq_tbl("535784_ML_Smal1993"),
+                   alleq_tbl("535784_HL_Smal1993"),
+                   alleq_tbl("535784_mass_Smal1993"))
+    ## old name Octopus magnificus 225568
+    x <- bind_rows(x,alleq_tbl("535784_ML_Smal1993",taxon_name="Octopus magnificus",taxon_aphia_id=225568,notes="Accepted taxon name is Enteroctopus magnificus"),
+                   alleq_tbl("535784_HL_Smal1993",taxon_name="Octopus magnificus",taxon_aphia_id=225568,notes="Accepted taxon name is Enteroctopus magnificus"),
+                   alleq_tbl("535784_mass_Smal1993",taxon_name="Octopus magnificus",taxon_aphia_id=225568,notes="Accepted taxon name is Enteroctopus magnificus"))
+
+    ## Velodona togata
+    x <- bind_rows(x,alleq_tbl("342415_ML_Smal1993"),
+                   alleq_tbl("342415_HL_Smal1993"))
+
+    ## Bathypolypus valdiviae
+    x <- bind_rows(x,alleq_tbl("341910_ML_Smal1993"),
+                   alleq_tbl("341910_HL_Smal1993"),
+                   alleq_tbl("341910_mass_Smal1993"))
+
+    ## Opisthoteuthis
     x <- bind_rows(x,alleq_tbl("138294_ML_Smal1993"),
                    alleq_tbl("138294_HL_Smal1993"),
                    alleq_tbl("138294_mass_Smal1993"))
 
-    ## Stauroteuthis gilchristi (no allometric equations available)
+    ## Tremoctopus violaceus
+    x <- bind_rows(x,alleq_tbl("141694_ML_Smal1993"),
+                   alleq_tbl("141694_HL_Smal1993"),
+                   alleq_tbl("141694_mass_Smal1993"))
+
+    ## Argonauta
+    x <- bind_rows(x,alleq_tbl("137676_ML_Smal1993"),
+                   alleq_tbl("137676_HL_Smal1993"),
+                   alleq_tbl("137676_mass_Smal1993"))
+
 
     ## ---
     ## Williams & McEldowney 1990 otoliths

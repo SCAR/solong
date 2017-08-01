@@ -1,4 +1,4 @@
-alleq_xc <- function(id) {
+alleq_XaCh2016 <- function(id) {
     switch(id,
            ## Ancistrocheirus lesueuri
            ## ML=-41.3+40.75LRL ; ln M=-0.194+3.56ln LRL (n=23 for ML, n=21 for M) (Clarke 1986)
@@ -1002,61 +1002,7 @@ alleq_xc <- function(id) {
            ## Opisthoteuthis sp.
            ## ML=-26.0047+12.4858CL; logM=0.5893+0.2413CL (n= 13 for ML, n=9 for M) (Smale
            ## et al. 1993) where CL = Crest length (in mm)
-           "138294_ML_Smal1993"=list(taxon_name="Opisthoteuthis",
-                                     taxon_aphia_id=138294,
-                                     equation=function(...)tibble(allometric_value=-26.0047+12.4858*...),
-                                     inputs=tibble(property="crest length",
-                                     units="mm"),
-                                     return_property="mantle length",
-                                     return_units="mm",
-                                     reliability=tribble(~type,~value,
-                                                         "N",13,
-                                                         "R^2",0.89),
-                                     reference=refs$Smal1993),
-           "138294_HL_Smal1993"=list(taxon_name="Opisthoteuthis",
-                                     taxon_aphia_id=138294,
-                                     equation=function(...)tibble(allometric_value=-0.3360+0.5619*...),
-                                     inputs=tibble(property="crest length",
-                                     units="mm"),
-                                     return_property="hood length",
-                                     return_units="mm",
-                                     reliability=tribble(~type,~value,
-                                                         "N",16,
-                                                         "R^2",0.94),
-                                     reference=refs$Smal1993),
-           "138294_mass_Smal1993"=list(taxon_name="Opisthoteuthis",
-                                       taxon_aphia_id=138294,
-                                       equation=function(...)tibble(allometric_value=exp(0.5893+0.2413*...)),
-                                       inputs=tibble(property="crest length",
-                                       units="mm"),
-                                       return_property="mass",
-                                       return_units="g",
-                                       reliability=tribble(~type,~value,
-                                                           "N",9,
-                                                           "R^2",0.82),
-                                       reference=refs$Smal1993),
-
-           ## Nototodarus sloanii
-           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
-                                     taxon_aphia_id=342378,
-                                     equation=function(...)tibble(allometric_value=168.83*log(...)+25.52),
-                                     inputs=tibble(property="lower rostral length",units="mm"),
-                                     return_property="mantle length",
-                                     return_units="mm",
-                                     reliability=tribble(~type,~value,
-                                                         "N",170,
-                                                         "R^2",0.90),
-                                     reference=refs$Jack1996),
-           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
-                                     taxon_aphia_id=342378,
-                                     equation=function(...)tibble(allometric_value=236.10*...-512.99),
-                                     inputs=tibble(property="lower rostral length",units="mm"),
-                                     return_property="mass",
-                                     return_units="g",
-                                     reliability=tribble(~type,~value,
-                                                         "N",170,
-                                                         "R^2",0.90),
-                                     reference=refs$Jack1996),
+           ## included in equations_sm93.R
 
            stop("unrecognized equation ID: ",id))
 }

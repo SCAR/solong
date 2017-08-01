@@ -1,5 +1,5 @@
 ## otolith equations from Williams & McEldowney 1990
-alleq_wm <- function(id) {
+alleq_WiMc1990 <- function(id) {
     switch(id,
            ## Bathylagus antarcticus
            "234631_SL~OL_WiMc1990"=list(taxon_name="Bathylagus antarcticus",
