@@ -15,15 +15,15 @@ sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
 
 \item{taxon_aphia_id}{numeric: the AphiaID of the taxon that the equation applies to (recommended)}
 
-\item{equation}{function: the equation; see details (required)}
+\item{equation}{function: the equation. Must return a data.frame or tibble, with at least the column "allometric_value", and optionally also "allometric_value_lower" and "allometric_value_upper" (required)}
 
-\item{inputs}{data.frame: the inputs needed by the equation; see details (required)}
+\item{inputs}{data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties} (required)}
 
 \item{return_property}{string: the name of the allometric property that the equation returns (required)}
 
 \item{return_units}{string: the units of measurement of the allometric property that the equation returns. Must be units that are recognized by units::ud_unit (required)}
 
-\item{reliability}{data.frame: indicators of reliability of the equation; see details (recommended)}
+\item{reliability}{data.frame: indicators of reliability of the equation. Must have columns "type" and "value"; see examples (recommended)}
 
 \item{notes}{string: any notes that users should be aware of (optional)}
 
@@ -56,5 +56,5 @@ eq <- sol_make_equation(equation_id="my_equation_id",
 
 }
 \seealso{
-\code{\link{sol_equation}} \code{\link{sol_equations}}
+\code{\link{sol_equation}} \code{\link{sol_equations}} \code{\link{sol_properties}}
 }

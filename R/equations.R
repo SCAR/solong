@@ -110,11 +110,11 @@ print.sol_equation <- function(x,...) {
 #' @param equation_id string: a unique identifier for the equation (required)
 #' @param taxon_name string: the taxon name that the equation applies to (required)
 #' @param taxon_aphia_id numeric: the AphiaID of the taxon that the equation applies to (recommended)
-#' @param equation function: the equation; see details (required)
-#' @param inputs data.frame: the inputs needed by the equation; see details (required)
+#' @param equation function: the equation. Must return a data.frame or tibble, with at least the column "allometric_value", and optionally also "allometric_value_lower" and "allometric_value_upper" (required)
+#' @param inputs data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties} (required)
 #' @param return_property string: the name of the allometric property that the equation returns (required)
 #' @param return_units string: the units of measurement of the allometric property that the equation returns. Must be units that are recognized by units::ud_unit (required)
-#' @param reliability data.frame: indicators of reliability of the equation; see details (recommended)
+#' @param reliability data.frame: indicators of reliability of the equation. Must have columns "type" and "value"; see examples (recommended)
 #' @param notes string: any notes that users should be aware of (optional)
 #' @param reference string: the source of the equation (recommended)
 #' @param check_packaged_ids logical: if TRUE, check the equation_id against the package-bundled equations. A warning will be issued if there is a packaged equation with the same ID as equation_id
@@ -122,7 +122,7 @@ print.sol_equation <- function(x,...) {
 #'
 #' @return equation object
 #'
-#' @seealso \code{\link{sol_equation}} \code{\link{sol_equations}}
+#' @seealso \code{\link{sol_equation}} \code{\link{sol_equations}} \code{\link{sol_properties}}
 #'
 #' @examples
 #' library(dplyr)
