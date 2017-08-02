@@ -25,5 +25,6 @@
 #'   \item{property}{the property name}
 #'   \item{units}{its units of measurement}
 #'   \item{class_name}{the corresponding class name used internally by the solong package}
+#'   \item{notes}{notes, including a specific definition of the property if appropriate}
 #' }
 "sol_properties_data"

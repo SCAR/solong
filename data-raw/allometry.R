@@ -32,7 +32,7 @@ source("data-raw/equations_XaCh2016.R")
 source("data-raw/equations_Smal1993.R")
 source("data-raw/equations_WiMc1990.R")
 source("data-raw/equations_Arti2003.R")
-source("data-raw/equations_Goeb2007.R")
+source("data-raw/equations_krill.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -136,7 +136,7 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Goeb2007(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_krill(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_other(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
@@ -797,10 +797,13 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("234675_WW~TL_Arti2003"))
 
     ## ---
-    ## Goebel et al. 2007
+    ## Krill
     x <- bind_rows(x,alleq_tbl("236217J_TL_Goeb2007"),
                    alleq_tbl("236217F_TL_Goeb2007"),
                    alleq_tbl("236217M_TL_Goeb2007"))
+
+    x <- bind_rows(x,alleq_tbl("236217_WW_Morr1988"))
+    x <- bind_rows(x,alleq_tbl("236217_WW_Hewi2004"))
 
     ## ---
     ## Miscellaneous others
