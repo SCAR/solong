@@ -11,7 +11,7 @@ sol_properties_data <- tribble(~property,~units,~class_name,
                                "carapace length","mm","solprop_CPL",
                                "removed carapace length","mm","solprop_RCPL",
                                "total length","mm","solprop_TL",
-                               "mass","g","solprop_mass",
+                               "wet weight","g","solprop_WW",
                                "otolith length","mm","solprop_OL",
                                "otolith width","mm","solprop_OW")
 

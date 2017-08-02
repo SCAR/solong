@@ -135,7 +135,7 @@ summary.sol_equation <- function(object,...) {
 #'                            tibble(allometric_value=0.000943*(L^2.976)),
 #'                         inputs=tibble(property="carapace length",units="mm",
 #'                                       sample_minimum=6,sample_maximum=16),
-#'                         return_property="mass",
+#'                         return_property="wet weight",
 #'                         return_units="g",
 #'                         reliability=tribble(~type,~value,
 #'                                              "N",35,
