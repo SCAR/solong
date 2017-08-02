@@ -61,16 +61,32 @@ x$LRL <- sol_set_property(x$LRL,"lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ``` r
-sol_equations() %>%
-  filter(taxon_name=="Architeuthis dux")
-#> # A tibble: 3 x 10
-#>            equation_id       taxon_name taxon_aphia_id equation
-#>                  <chr>            <chr>          <dbl>   <list>
-#> 1   342218_ML_Clar1986 Architeuthis dux         342218    <fun>
-#> 2 342218_mass_Clar1986 Architeuthis dux         342218    <fun>
-#> 3   342218_ML_Roel2000 Architeuthis dux         342218    <fun>
-#> # ... with 6 more variables: inputs <list>, return_property <chr>,
-#> #   return_units <chr>, reliability <list>, notes <chr>, reference <chr>
+subset(sol_equations(),taxon_name=="Architeuthis dux") %>%
+  summary
+#> equation_id: 342218_ML_Clar1986
+#>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
+#>   equation: function (...) tibble(allometric_value = -55.6 + 59.31 * ...)
+#>   It takes as 1st input: lower rostral length (units: mm)
+#>   It estimates: mantle length (units: mm)
+#>   Indicator of reliability: N=11
+#>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> equation_id: 342218_mass_Clar1986
+#>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
+#>   equation: function (...) tibble(allometric_value = exp(-1.773 + 4.57 * log(...)))
+#>   It takes as 1st input: lower rostral length (units: mm)
+#>   It estimates: mass (units: g)
+#>   Indicator of reliability: N=9
+#>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> equation_id: 342218_ML_Roel2000
+#>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
+#>   equation: function (...) tibble(allometric_value = 10^((.../11.2) + 1.723214286))
+#>   It takes as 1st input: lower rostral length (units: mm)
+#>   It estimates: mantle length (units: mm)
+#>   Indicator of reliability: N=43
+#>   Notes: Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one
+#>   Reference: Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
@@ -127,7 +143,7 @@ Details
 We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_mass_Clar1986` estimates the mass of the squid *Architeuthis dux* based on lower rostral length measurements:
 
 ``` r
-sol_equation("342218_mass_Clar1986")
+sol_equation("342218_mass_Clar1986") %>% summary
 #> equation_id: 342218_mass_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
 #>   equation: function (...) tibble(allometric_value = exp(-1.773 + 4.57 * log(...)))
@@ -140,7 +156,7 @@ sol_equation("342218_mass_Clar1986")
 And equation `195932_mass_GaBu1988` estimates the mass of male Weddell seals based on their standard length:
 
 ``` r
-sol_equation("195932_mass_GaBu1988")
+sol_equation("195932_mass_GaBu1988") %>% summary
 #> equation_id: 195932_mass_GaBu1988
 #>   taxon_name: Leptonychotes weddellii, taxon_aphia_id: 195932
 #>   equation: function (...) tibble(allometric_value = 3.66 * ... - 489.3)

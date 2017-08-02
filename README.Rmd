@@ -28,10 +28,8 @@ This R package provides allometric equations that relate the body size of Southe
 ```{r include=FALSE}
 devtools::load_all()
 library(dplyr)
-
-eN <- sol_equations() %>% mutate(is_fish=grepl("WiMc1990",equation_id)) %>% group_by(is_fish,return_property) %>% summarize(N=n())
 ```
-The package currently includes `r sum(eN$N)` equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes `r nrow(sol_equations())` equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
 ```{r echo=FALSE,cache=TRUE}
 library(worrms)
@@ -78,8 +76,8 @@ x$LRL <- sol_set_property(x$LRL,"lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ```{r}
-sol_equations() %>%
-  filter(taxon_name=="Architeuthis dux")
+subset(sol_equations(),taxon_name=="Architeuthis dux") %>%
+  summary
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
@@ -109,13 +107,13 @@ units(xa$allometric_value)
 We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_mass_Clar1986` estimates the mass of the squid *Architeuthis dux* based on lower rostral length measurements:
 
 ```{r}
-sol_equation("342218_mass_Clar1986")
+sol_equation("342218_mass_Clar1986") %>% summary
 ```
 
 And equation `195932_mass_GaBu1988` estimates the mass of male Weddell seals based on their standard length:
 
 ```{r}
-sol_equation("195932_mass_GaBu1988")
+sol_equation("195932_mass_GaBu1988") %>% summary
 ```
 Note that this equation estimates mass in kg, whereas `342218_mass_Clar1986` estimates mass in g. We can apply the two equations together to a single data set:
 

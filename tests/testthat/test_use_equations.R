@@ -53,14 +53,14 @@ test_that("mixtures of things work sensibly",{
 
 
 test_that("equation pretty print", {
-    tmp <- capture.output(print(sol_equation("342218_ML_Roel2000")))
+    tmp <- capture.output(summary(sol_equation("342218_ML_Roel2000")))
     expect_gt(length(tmp),5)
     tmp <- paste0(tmp,collapse="\n")
     expect_true(grepl("equation_id:",tmp))
     expect_true(grepl("Reference:",tmp))
 
     eq <- sol_equations()[1,]
-    tmp <- capture.output(print(eq))
+    tmp <- capture.output(summary(eq))
     expect_gt(length(tmp),5)
     tmp <- paste0(tmp,collapse="\n")
     expect_true(grepl("equation_id:",tmp))
