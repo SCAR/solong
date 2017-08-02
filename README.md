@@ -13,15 +13,15 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 407 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 410 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
-|                |  hood length|  mantle length|  mass|  standard length|  total length|
-|----------------|------------:|--------------:|-----:|----------------:|-------------:|
-| Actinopterygii |            0|              0|   169|              104|             2|
-| Cephalopoda    |            8|             60|    57|                0|             0|
-| Elasmobranchii |            0|              0|     1|                0|             0|
-| Malacostraca   |            0|              0|     2|                0|             3|
-| Mammalia       |            0|              0|     1|                0|             0|
+|                |  hood length|  mantle length|  standard length|  total length|  wet weight|
+|----------------|------------:|--------------:|----------------:|-------------:|-----------:|
+| Actinopterygii |            0|              0|              106|             2|         170|
+| Cephalopoda    |            8|             60|                0|             0|          57|
+| Elasmobranchii |            0|              0|                0|             0|           1|
+| Malacostraca   |            0|              0|                0|             3|           2|
+| Mammalia       |            0|              0|                0|             0|           1|
 
 Installing
 ----------
@@ -61,28 +61,27 @@ x$LRL <- sol_set_property(x$LRL,"lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ``` r
-subset(sol_equations(),taxon_name=="Architeuthis dux") %>%
-  summary
+subset(sol_equations(),taxon_name=="Architeuthis dux") %>% summary
 #> equation_id: 342218_ML_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
 #>   equation: function (...) tibble(allometric_value = -55.6 + 59.31 * ...)
-#>   It takes as 1st input: lower rostral length (units: mm)
+#>   It takes as 1st input: lower rostral length (units: mm, sample range: unknown to unknown)
 #>   It estimates: mantle length (units: mm)
 #>   Indicator of reliability: N=11
 #>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
 #> 
-#> equation_id: 342218_mass_Clar1986
+#> equation_id: 342218_WW_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
 #>   equation: function (...) tibble(allometric_value = exp(-1.773 + 4.57 * log(...)))
-#>   It takes as 1st input: lower rostral length (units: mm)
-#>   It estimates: mass (units: g)
+#>   It takes as 1st input: lower rostral length (units: mm, sample range: unknown to unknown)
+#>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: N=9
 #>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> equation_id: 342218_ML_Roel2000
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
 #>   equation: function (...) tibble(allometric_value = 10^((.../11.2) + 1.723214286))
-#>   It takes as 1st input: lower rostral length (units: mm)
+#>   It takes as 1st input: lower rostral length (units: mm, sample range: 1 to 19.5)
 #>   It estimates: mantle length (units: mm)
 #>   Indicator of reliability: N=43
 #>   Notes: Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one
@@ -140,55 +139,55 @@ units(xa$allometric_value)
 Details
 -------
 
-We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_mass_Clar1986` estimates the mass of the squid *Architeuthis dux* based on lower rostral length measurements:
+We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_WW_Clar1986` estimates the body weight of the squid *Architeuthis dux* based on lower rostral length measurements:
 
 ``` r
-sol_equation("342218_mass_Clar1986") %>% summary
-#> equation_id: 342218_mass_Clar1986
+sol_equation("342218_WW_Clar1986") %>% summary
+#> equation_id: 342218_WW_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
 #>   equation: function (...) tibble(allometric_value = exp(-1.773 + 4.57 * log(...)))
-#>   It takes as 1st input: lower rostral length (units: mm)
-#>   It estimates: mass (units: g)
+#>   It takes as 1st input: lower rostral length (units: mm, sample range: unknown to unknown)
+#>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: N=9
 #>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
 ```
 
-And equation `195932_mass_GaBu1988` estimates the mass of male Weddell seals based on their standard length:
+And equation `195932_WW_GaBu1988` estimates the weight of male Weddell seals based on their standard length:
 
 ``` r
-sol_equation("195932_mass_GaBu1988") %>% summary
-#> equation_id: 195932_mass_GaBu1988
+sol_equation("195932_WW_GaBu1988") %>% summary
+#> equation_id: 195932_WW_GaBu1988
 #>   taxon_name: Leptonychotes weddellii, taxon_aphia_id: 195932
 #>   equation: function (...) tibble(allometric_value = 3.66 * ... - 489.3)
-#>   It takes as 1st input: standard length (units: cm)
-#>   It estimates: mass (units: kg)
+#>   It takes as 1st input: standard length (units: cm, sample range: 170 to 236)
+#>   It estimates: wet weight (units: kg)
 #>   Indicator of reliability: N=15
 #>   Notes: Applies to male animals
 #>   Reference: Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433
 ```
 
-Note that this equation estimates mass in kg, whereas `342218_mass_Clar1986` estimates mass in g. We can apply the two equations together to a single data set:
+Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
 
 ``` r
 x <- tibble(LRL=c(11.3,NA),species=c("Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,175)) %>%
   mutate(LRL=sol_set_property(LRL,"lower rostral length"),
          SL=sol_set_property(SL,"standard length","cm"))
 
-xa <- sol_allometry(x,c("342218_mass_Clar1986","195932_mass_GaBu1988"))
+xa <- sol_allometry(x,c("342218_WW_Clar1986","195932_WW_GaBu1988"))
 
 xa %>% select(species,allometric_property,allometric_value)
 #> # A tibble: 2 x 3
 #>                   species allometric_property   allometric_value
 #>                     <chr>               <chr> <S3: sol_property>
-#> 1        Architeuthis dux                mass         11029.72 g
-#> 2 Leptonychotes weddellii                mass        151200.00 g
+#> 1        Architeuthis dux          wet weight         11029.72 g
+#> 2 Leptonychotes weddellii          wet weight        151200.00 g
 ```
 
-The output values are of property "mass" and have all been provided in g (because the output column `allometric value` must have a single set of units):
+The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
 
 ``` r
 sol_get_property(xa$allometric_value)
-#> [1] "mass"
+#> [1] "wet weight"
 
 units(xa$allometric_value)
 #> $numerator
@@ -207,16 +206,16 @@ If we try to apply equations that estimate different properties, we will get a w
 x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux")) %>%
   mutate(LRL=sol_set_property(LRL,"lower rostral length"))
 
-xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
-#> Warning in sol_allometry(x, c("342218_ML_Roel2000",
-#> "342218_mass_Clar1986")): return values are not all of the same property
+xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_WW_Clar1986"))
+#> Warning in sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986")):
+#> return values are not all of the same property
 
 xa %>% select(species,allometric_property,allometric_value)
 #> # A tibble: 2 x 3
 #>            species allometric_property allometric_value
 #>              <chr>               <chr>            <dbl>
 #> 1 Architeuthis dux       mantle length         539.6881
-#> 2 Architeuthis dux                mass       28416.6920
+#> 2 Architeuthis dux          wet weight       28416.6920
 ```
 
 And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
@@ -246,13 +245,15 @@ Some equations, typically from more recent publications, also provide the standa
 
 ``` r
 x <- tibble(TL=c(30.5) %>% sol_set_property("total length",with_units="cm"))
-sol_allometry(x,"234606_mass~TL_Arti2003") %>%
+sol_allometry(x,"234606_WW~TL_Arti2003") %>%
   select(allometric_value,allometric_value_lower,allometric_value_upper)
 #> # A tibble: 1 x 3
 #>     allometric_value allometric_value_lower allometric_value_upper
 #>   <S3: sol_property>     <S3: sol_property>     <S3: sol_property>
 #> 1         125.3436 g              67.5433 g             232.6067 g
 ```
+
+Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
 
 ### Taxonomy
 

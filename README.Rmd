@@ -103,30 +103,30 @@ units(xa$allometric_value)
 
 ## Details
 
-We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_mass_Clar1986` estimates the mass of the squid *Architeuthis dux* based on lower rostral length measurements:
+We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_WW_Clar1986` estimates the body weight of the squid *Architeuthis dux* based on lower rostral length measurements:
 
 ```{r}
-sol_equation("342218_mass_Clar1986") %>% summary
+sol_equation("342218_WW_Clar1986") %>% summary
 ```
 
-And equation `195932_mass_GaBu1988` estimates the mass of male Weddell seals based on their standard length:
+And equation `195932_WW_GaBu1988` estimates the weight of male Weddell seals based on their standard length:
 
 ```{r}
-sol_equation("195932_mass_GaBu1988") %>% summary
+sol_equation("195932_WW_GaBu1988") %>% summary
 ```
-Note that this equation estimates mass in kg, whereas `342218_mass_Clar1986` estimates mass in g. We can apply the two equations together to a single data set:
+Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
 
 ```{r}
 x <- tibble(LRL=c(11.3,NA),species=c("Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,175)) %>%
   mutate(LRL=sol_set_property(LRL,"lower rostral length"),
          SL=sol_set_property(SL,"standard length","cm"))
 
-xa <- sol_allometry(x,c("342218_mass_Clar1986","195932_mass_GaBu1988"))
+xa <- sol_allometry(x,c("342218_WW_Clar1986","195932_WW_GaBu1988"))
 
 xa %>% select(species,allometric_property,allometric_value)
 ```
 
-The output values are of property "mass" and have all been provided in g (because the output column `allometric value` must have a single set of units):
+The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
 
 ```{r}
 sol_get_property(xa$allometric_value)
@@ -140,7 +140,7 @@ If we try to apply equations that estimate different properties, we will get a w
 x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux")) %>%
   mutate(LRL=sol_set_property(LRL,"lower rostral length"))
 
-xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_mass_Clar1986"))
+xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_WW_Clar1986"))
 
 xa %>% select(species,allometric_property,allometric_value)
 ```
@@ -169,7 +169,7 @@ Some equations, typically from more recent publications, also provide the standa
 
 ```{r}
 x <- tibble(TL=c(30.5) %>% sol_set_property("total length",with_units="cm"))
-sol_allometry(x,"234606_mass~TL_Arti2003") %>%
+sol_allometry(x,"234606_WW~TL_Arti2003") %>%
   select(allometric_value,allometric_value_lower,allometric_value_upper)
 ```
 
