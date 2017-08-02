@@ -15,13 +15,13 @@ Packaged equations
 
 The package currently includes 412 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
-|                |  hood length|  krill total length|  mantle length|  standard length|  total length|  wet weight|
-|----------------|------------:|-------------------:|--------------:|----------------:|-------------:|-----------:|
-| Actinopterygii |            0|                   0|              0|              106|             2|         170|
-| Cephalopoda    |            8|                   0|             60|                0|             0|          57|
-| Elasmobranchii |            0|                   0|              0|                0|             0|           1|
-| Malacostraca   |            0|                   3|              0|                0|             0|           4|
-| Mammalia       |            0|                   0|              0|                0|             0|           1|
+|                |  hood length|  mantle length|  standard length|  total length|  wet weight|
+|----------------|------------:|--------------:|----------------:|-------------:|-----------:|
+| Actinopterygii |            0|              0|              106|             2|         170|
+| Cephalopoda    |            8|             60|                0|             0|          57|
+| Elasmobranchii |            0|              0|                0|             0|           1|
+| Malacostraca   |            0|              0|                0|             3|           4|
+| Mammalia       |            0|              0|                0|             0|           1|
 
 Installing
 ----------
