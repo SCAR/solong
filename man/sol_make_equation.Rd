@@ -17,7 +17,7 @@ sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
 
 \item{equation}{function: the equation. Must return a data.frame or tibble, with at least the column "allometric_value", and optionally also "allometric_value_lower" and "allometric_value_upper" (required)}
 
-\item{inputs}{data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties} (required)}
+\item{inputs}{data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties}. Optionally also "sample_minimum" and "sample_maximum" if known (describing the range of the data used to generate the equation) (required)}
 
 \item{return_property}{string: the name of the allometric property that the equation returns (required)}
 
@@ -46,7 +46,8 @@ eq <- sol_make_equation(equation_id="my_equation_id",
                         taxon_aphia_id=369214,
                         equation=function(L)
                            tibble(allometric_value=0.000943*(L^2.976)),
-                        inputs=tibble(property="carapace length",units="mm"),
+                        inputs=tibble(property="carapace length",units="mm",
+                                      sample_minimum=6,sample_maximum=16),
                         return_property="mass",
                         return_units="g",
                         reliability=tribble(~type,~value,

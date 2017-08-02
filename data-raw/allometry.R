@@ -21,7 +21,7 @@ refs <- list(
     CherUnpub="Cherel (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
     Grog2000="Gr\uF6ger J, Piatkowski U, Heinemann H (2000) Beak length analysis of the Southern Ocean squid Psychroteuthis glacialis (Cephalopoda: Psychroteuthidae) and its use for size and biomass estimation. Polar Biology 23:70-74. doi:10.1007/s003000050009",
     CollUnpub="Collins (unpublished data) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.",
-    Jack1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
+    JaMc1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government",
     Arti2003="Artigues B, Morales-Nin B, Balguer\uEDas E (2003) Fish length-weight relationships in the Weddell Sea and Bransfield Strait. Polar Biology 26:463-467. doi:10.1007/s00300-003-0505-0",
     GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
@@ -70,7 +70,7 @@ alleq_other <- function(id) {
            "195932_mass_GaBu1988"=list(taxon_name="Leptonychotes weddellii",
                                        taxon_aphia_id=195932,
                                        equation=function(...)tibble(allometric_value= 3.66*...-489.3),
-                                       inputs=tibble(property="standard length",units="cm"),
+                                       inputs=tibble(property="standard length",units="cm",sample_minimum=170,sample_maximum=236),
                                        return_property="mass",
                                        return_units="kg",
                                        reliability=tribble(~type,~value,
@@ -82,7 +82,7 @@ alleq_other <- function(id) {
            "369214_mass_Lake2003"=list(taxon_name="Chorismus antarcticus",
                                        taxon_aphia_id=369214,
                                        equation=function(...)tibble(allometric_value=0.000943*(...^2.976)),
-                                       inputs=tibble(property="carapace length",units="mm"),
+                                       inputs=tibble(property="carapace length",units="mm",sample_minimum=6,sample_maximum=16),
                                        return_property="mass",
                                        return_units="g",
                                        reliability=tribble(~type,~value,
@@ -90,33 +90,33 @@ alleq_other <- function(id) {
                                                            "R^2",0.976),
                                        reference=refs$Lake2003),
            ## Nototodarus sloanii
-           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
+           "342378_ML_JaMc1996"=list(taxon_name="Nototodarus sloanii",
                                      taxon_aphia_id=342378,
                                      equation=function(...)tibble(allometric_value=168.83*log(...)+25.52),
-                                     inputs=tibble(property="lower rostral length",units="mm"),
+                                     inputs=tibble(property="lower rostral length",units="mm",sample_minimum=2,sample_maximum=7.2),
                                      return_property="mantle length",
                                      return_units="mm",
                                      reliability=tribble(~type,~value,
                                                          "N",170,
                                                          "R^2",0.90),
-                                     reference=refs$Jack1996),
+                                     reference=refs$JaMc1996),
 
-           "342378_ML_Jack1996"=list(taxon_name="Nototodarus sloanii",
+           "342378_ML_JaMc1996"=list(taxon_name="Nototodarus sloanii",
                                      taxon_aphia_id=342378,
                                      equation=function(...)tibble(allometric_value=236.10*...-512.99),
-                                     inputs=tibble(property="lower rostral length",units="mm"),
+                                     inputs=tibble(property="lower rostral length",units="mm",sample_minimum=2,sample_maximum=7.2),
                                      return_property="mass",
                                      return_units="g",
                                      reliability=tribble(~type,~value,
                                                          "N",170,
                                                          "R^2",0.90),
-                                     reference=refs$Jack1996),
+                                     reference=refs$JaMc1996),
 
            ## Trematomus newnesi from EaDe1997
            "234628_mass~SL_EaDe1997"=list(taxon_name="Trematomus newnesi",
                                      taxon_aphia_id=234628,
                                      equation=function(...)tibble(allometric_value=3.17e-06*(...^3.34)),
-                                     inputs=tibble(property="standard length",units="mm"),
+                                     inputs=tibble(property="standard length",units="mm",sample_minimum=93,sample_maximum=239),
                                      return_property="mass",
                                      return_units="g",
                                      reliability=tribble(~type,~value,
@@ -138,7 +138,7 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Goeb2007(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_other(id),silent=TRUE)
-    if (is.null(thiseq)) stop("equation id not recognized: ",id)
+    if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some thing, if not already specified
     if (missing(taxon_name)) taxon_name <- thiseq$taxon_name
@@ -149,9 +149,9 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     }
     if (is.null(thiseq$reliability)) thiseq$reliability <- tibble(type=character(),value=numeric())
 
-    ## temporarily create the equation twice: once with the original code, then with sol_make_equation - check that they are identical
-    e1 <- tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
-            id,taxon_name,taxon_aphia_id,thiseq$equation,thiseq$inputs,thiseq$return_property,thiseq$return_units,thiseq$reliability,notes,reference)
+    ## old direct code
+    ## tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
+    ##        id,taxon_name,taxon_aphia_id,thiseq$equation,thiseq$inputs,thiseq$return_property,thiseq$return_units,thiseq$reliability,notes,reference)
     e2 <- sol_make_equation(equation_id=id,
                       taxon_name=taxon_name,
                       taxon_aphia_id=taxon_aphia_id,
@@ -164,7 +164,6 @@ alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
                       reference=reference,
                       check_packaged_ids=FALSE)
     class(e2) <- setdiff(class(e2),"sol_equation")
-    if (!identical(e1,e2)) stop("not identical")
     e2
 }
 
@@ -520,7 +519,11 @@ build_allometry_df <- function() {
                    alleq_tbl("234840_SL~OW_WiMc1990"),
                    alleq_tbl("234840_mass~SL_WiMc1990"))
 
-    ## Notothenia kempi has equations, but now considered to be synonymous with L. squamifrons?
+    ## Notothenia kempi (now considered to be synonymous with L. squamifrons according to WoRMS, but enter both here
+    ## N. kempi uses an "unaccepted" aphia_id here
+    x <- bind_rows(x,alleq_tbl("313363_SL~OL_WiMc1990"),
+                   alleq_tbl("313363_SL~OW_WiMc1990"),
+                   alleq_tbl("313363_mass~SL_WiMc1990"))
 
     ## Lepidonotothen squamifrons
     x <- bind_rows(x,alleq_tbl("234788_SL~OL_WiMc1990"),

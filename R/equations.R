@@ -60,6 +60,7 @@ summary.sol_equation <- function(object,...) {
                               "2"="2nd",
                               "3"="3rd",
                               paste0(j,"th"))
+    na_unknown <- function(z) if (is.na(z)) "unknown" else z
     rows_to_print <- round(getOption("max.print")/10)
     if (length(rows_to_print)<1 || is.null(rows_to_print) || is.na(rows_to_print)) rows_to_print <- 100
     rows_to_print <- min(rows_to_print,nrow(object))
@@ -73,8 +74,10 @@ summary.sol_equation <- function(object,...) {
             cat("  equation: ",paste(deparse(object$equation[i][[1]]),sep=" "),"\n",sep="")
         if ("inputs" %in% names(object)) {
             ips <- object$inputs[i][[1]]
-            for (j in seq_len(nrow(ips)))
-                cat("  It takes as ",jth(j)," input: ",ips$property[j]," (units: ",ips$units[j],")\n",sep="")
+            for (j in seq_len(nrow(ips))) {
+                cat("  It takes as ",jth(j)," input: ",ips$property[j]," (units: ",ips$units[j],", ",sep="")
+                cat("sample range: ",na_unknown(ips$sample_minimum[j])," to ",na_unknown(ips$sample_maximum[j]),")\n",sep="")
+            }
         }
         if ("return_property" %in% names(object)) {
             cat("  It estimates: ",object$return_property[i],sep="")
@@ -110,7 +113,7 @@ summary.sol_equation <- function(object,...) {
 #' @param taxon_name string: the taxon name that the equation applies to (required)
 #' @param taxon_aphia_id numeric: the AphiaID of the taxon that the equation applies to (recommended)
 #' @param equation function: the equation. Must return a data.frame or tibble, with at least the column "allometric_value", and optionally also "allometric_value_lower" and "allometric_value_upper" (required)
-#' @param inputs data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties} (required)
+#' @param inputs data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties}. Optionally also "sample_minimum" and "sample_maximum" if known (describing the range of the data used to generate the equation) (required)
 #' @param return_property string: the name of the allometric property that the equation returns (required)
 #' @param return_units string: the units of measurement of the allometric property that the equation returns. Must be units that are recognized by units::ud_unit (required)
 #' @param reliability data.frame: indicators of reliability of the equation. Must have columns "type" and "value"; see examples (recommended)
@@ -130,7 +133,8 @@ summary.sol_equation <- function(object,...) {
 #'                         taxon_aphia_id=369214,
 #'                         equation=function(L)
 #'                            tibble(allometric_value=0.000943*(L^2.976)),
-#'                         inputs=tibble(property="carapace length",units="mm"),
+#'                         inputs=tibble(property="carapace length",units="mm",
+#'                                       sample_minimum=6,sample_maximum=16),
 #'                         return_property="mass",
 #'                         return_units="g",
 #'                         reliability=tribble(~type,~value,
@@ -176,6 +180,8 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
              sol_properties()$units[sol_properties()$property==inputs$property[z]],"\"")
         }
     }
+    if (!"sample_minimum" %in% names(inputs)) inputs$sample_minimum <- NA
+    if (!"sample_maximum" %in% names(inputs)) inputs$sample_maximum <- NA
 
     ## return property and units
     assert_that(is.string(return_property))
@@ -200,7 +206,7 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
     } else {
         assert_that(is.data.frame(reliability))
         if (!all(c("type","value") %in% names(reliability)))
-            stop("the inputs data.frame should have the columns \"type\" and \"value\"")
+            stop("the reliability data.frame should have the columns \"type\" and \"value\"")
         assert_that(is.character(reliability$type))
         ##assert_that(is.numeric(reliability$value))
     }

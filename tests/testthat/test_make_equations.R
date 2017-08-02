@@ -6,7 +6,7 @@ test_that("equation constructor works", {
                             taxon_name="thingy thingy",
                             taxon_aphia_id=0,
                             equation=function(SL)tibble(allometric_value=2*SL),
-                            inputs=tibble(property="standard length",units="mm"),
+                            inputs=tibble(property="standard length",units="mm",sample_minimum=6,sample_maximum=16),
                             return_property="mass",
                             return_units="kg",
                             reliability=tibble(type="N",value="100"),

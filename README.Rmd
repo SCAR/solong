@@ -76,8 +76,7 @@ x$LRL <- sol_set_property(x$LRL,"lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ```{r}
-subset(sol_equations(),taxon_name=="Architeuthis dux") %>%
-  summary
+subset(sol_equations(),taxon_name=="Architeuthis dux") %>% summary
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
@@ -173,6 +172,8 @@ x <- tibble(TL=c(30.5) %>% sol_set_property("total length",with_units="cm"))
 sol_allometry(x,"234606_mass~TL_Arti2003") %>%
   select(allometric_value,allometric_value_lower,allometric_value_upper)
 ```
+
+Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
 
 ### Taxonomy
 

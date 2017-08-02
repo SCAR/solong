@@ -1,4 +1,6 @@
 if (FALSE) {
+    library(dplyr)
+    library(assertthat)
     library(worrms)
     tmp <- "Aethotaxis mitopteryx Total 51 16.8 44.3 27.07 30.2 563.6 154.36 0.00619 3.019 0.991 0.166
 M 9 19.6 22.7 20.03 48.7 78.8 54.61 0.00463 3.119 0.976 0.883
@@ -145,7 +147,9 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
             notes <- ""
             sex <- ""
         }
-        N=this[1,idx+1]
+        N <- this[1,idx+1]
+        smin <- this[1,idx+2]
+        smax <- this[1,idx+3]
         a <- this[1,idx+8]
         b <- this[1,idx+9]
         r2 <- this[1,idx+10]
@@ -153,6 +157,7 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
         xx <- bind_rows(xx,tibble(taxon_name=spp,sex=sex,
                                   N=N,r2=r2,
                                   a=a,b=b,se=se,
+                                  smin=smin,smax=smax,
                                   notes=notes))
         last_spp <- spp
     }
@@ -177,7 +182,7 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
         rc <- sprintf("%s                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),\n",rc)
         rc <- sprintf("%s                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))\n",rc)
         rc <- sprintf("%s                                              },\n",rc)
-        rc <- sprintf("%s                                          inputs=tibble(property=\"total length\",units=\"cm\"),\n",rc)
+        rc <- sprintf("%s                                          inputs=tibble(property=\"total length\",units=\"cm\",sample_minimum=%g,sample_maximum=%g),\n",rc,xxrow$smin[1],xxrow$smax[1])
         rc <- sprintf("%s                                          return_property=\"mass\",\n",rc)
         rc <- sprintf("%s                                          return_units=\"g\",\n",rc)
         rc <- sprintf("%s                                          reliability=tribble(~type,~value,\n",rc)
@@ -236,7 +241,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=16.8,sample_maximum=44.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -250,7 +255,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=19.6,sample_maximum=22.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -265,7 +270,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=18.8,sample_maximum=33.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -280,7 +285,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=18.3,sample_maximum=122.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -294,7 +299,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.4,sample_maximum=43.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -308,7 +313,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=24,sample_maximum=39.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -323,7 +328,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=16.7,sample_maximum=43.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -338,7 +343,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=11.6,sample_maximum=36.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -352,7 +357,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.3,sample_maximum=36.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -367,7 +372,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=13.1,sample_maximum=33.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -382,7 +387,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=19.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -396,7 +401,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=11.6,sample_maximum=16.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -411,7 +416,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=11.4,sample_maximum=19.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -426,7 +431,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.2,sample_maximum=18.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -440,7 +445,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.2,sample_maximum=16.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -455,7 +460,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.1,sample_maximum=18.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -470,7 +475,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=5.2,sample_maximum=26.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -484,7 +489,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=11.5,sample_maximum=23),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -499,7 +504,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=12.7,sample_maximum=23.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -514,7 +519,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=12.2,sample_maximum=34),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -528,7 +533,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=12.2,sample_maximum=25.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -543,7 +548,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=13,sample_maximum=30.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -558,7 +563,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=15.1,sample_maximum=40),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -572,7 +577,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=3.4,sample_maximum=30.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -586,7 +591,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.8,sample_maximum=18.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -601,7 +606,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.1,sample_maximum=19.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -616,7 +621,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8.5,sample_maximum=31.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -630,7 +635,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10,sample_maximum=34),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -644,7 +649,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.6,sample_maximum=25.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -659,7 +664,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10,sample_maximum=34),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -674,7 +679,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.6,sample_maximum=29.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -688,7 +693,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.4,sample_maximum=23.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -703,7 +708,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=26),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -718,7 +723,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=5,sample_maximum=24.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -732,7 +737,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8.3,sample_maximum=16.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -747,7 +752,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.2,sample_maximum=17.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -762,7 +767,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=11.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -776,7 +781,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.8,sample_maximum=10),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -791,7 +796,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=11.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -806,7 +811,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=5.4,sample_maximum=16.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -820,7 +825,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.6,sample_maximum=15.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -835,7 +840,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.8,sample_maximum=16.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -850,7 +855,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=14.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -864,7 +869,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.8,sample_maximum=14.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -879,7 +884,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.2,sample_maximum=13.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -894,7 +899,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=4.2,sample_maximum=12),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -908,7 +913,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.6,sample_maximum=12),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -923,7 +928,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.1,sample_maximum=10.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -938,7 +943,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=4.3,sample_maximum=13.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -952,7 +957,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=12.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -967,7 +972,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8,sample_maximum=13.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -982,7 +987,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.1,sample_maximum=20.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -996,7 +1001,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=15.8,sample_maximum=22.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1010,7 +1015,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=20.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1024,7 +1029,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=19.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1039,7 +1044,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8.1,sample_maximum=20.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1054,7 +1059,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8.8,sample_maximum=18.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1068,7 +1073,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=17,sample_maximum=29.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1082,7 +1087,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8.7,sample_maximum=23.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1096,7 +1101,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10,sample_maximum=19.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1111,7 +1116,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.9,sample_maximum=20.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1126,7 +1131,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=12.8,sample_maximum=49.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1140,7 +1145,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=26.6,sample_maximum=45.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1155,7 +1160,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=20.5,sample_maximum=49.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1170,7 +1175,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=13.3,sample_maximum=27.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1184,7 +1189,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=13.3,sample_maximum=26.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1199,7 +1204,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=19.2,sample_maximum=27.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1214,7 +1219,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=18,sample_maximum=38.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1228,7 +1233,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=24.1,sample_maximum=38.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1243,7 +1248,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=28.2,sample_maximum=31.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1258,7 +1263,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=5.1,sample_maximum=15.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1272,7 +1277,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.4,sample_maximum=15.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1287,7 +1292,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.7,sample_maximum=15.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1302,7 +1307,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.2,sample_maximum=28.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1316,7 +1321,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=16.8,sample_maximum=27.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1331,7 +1336,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=21.5,sample_maximum=28.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1346,7 +1351,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=16.2,sample_maximum=52.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1360,7 +1365,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=31.8,sample_maximum=48.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1375,7 +1380,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=28.2,sample_maximum=52.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1390,7 +1395,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.8,sample_maximum=52.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1404,7 +1409,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=18.4,sample_maximum=33.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1419,7 +1424,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=19.2,sample_maximum=52.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1434,7 +1439,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=13.7,sample_maximum=30.9),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1448,7 +1453,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=19.1,sample_maximum=48.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1462,7 +1467,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=28,sample_maximum=47.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1477,7 +1482,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=26.7,sample_maximum=48.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1492,7 +1497,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14,sample_maximum=41.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1506,7 +1511,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=27,sample_maximum=36.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1521,7 +1526,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=27.9,sample_maximum=41.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1536,7 +1541,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=15.8,sample_maximum=49.8),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1550,7 +1555,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=15.8,sample_maximum=43.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1565,7 +1570,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=19.9,sample_maximum=46.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1580,7 +1585,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.5,sample_maximum=39.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1594,7 +1599,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=11.8,sample_maximum=33),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1609,7 +1614,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=11,sample_maximum=33.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1624,7 +1629,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.6,sample_maximum=43.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1638,7 +1643,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=21,sample_maximum=37.6),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1653,7 +1658,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=16.6,sample_maximum=43.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1668,7 +1673,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.6,sample_maximum=30.4),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1682,7 +1687,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=26.6,sample_maximum=55),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1696,7 +1701,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.6,sample_maximum=22.3),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1710,7 +1715,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=17.1,sample_maximum=35.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1724,7 +1729,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=7.5,sample_maximum=11.2),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1738,7 +1743,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=10.4,sample_maximum=19.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1752,7 +1757,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=14.5,sample_maximum=19.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1766,7 +1771,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=8.4,sample_maximum=43.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1780,7 +1785,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.6,sample_maximum=25.1),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1795,7 +1800,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=12.8,sample_maximum=43.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1810,7 +1815,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=9.2,sample_maximum=66.7),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1824,7 +1829,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=20.5,sample_maximum=30.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
@@ -1838,7 +1843,7 @@ alleq_Arti2003 <- function(id) {
                                                      allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
                                                      allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
-                                          inputs=tibble(property="total length",units="cm"),
+                                          inputs=tibble(property="total length",units="cm",sample_minimum=23.5,sample_maximum=86.5),
                                           return_property="mass",
                                           return_units="g",
                                           reliability=tribble(~type,~value,
