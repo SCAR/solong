@@ -44,6 +44,8 @@ if (FALSE) {
     b <- coefficients(fit)[2] ## 2.97569
     df_residual <- fit$df.residual ## 32
     s2_residual <- sum(fit$residuals^2) ## 0.4449043
+    V <- vcov(fit) ## matrix(c(0.03948, -0.01624, -0.01624, 0.00675),nrow=2,byrow=TRUE)
+
 }
 
 alleq_Lake2003 <- function(id) {
@@ -52,7 +54,7 @@ alleq_Lake2003 <- function(id) {
            "369214_WW_Lake2003"=list(taxon_name="Chorismus antarcticus",
                                      taxon_aphia_id=369214,
                                      equation=function(CL){
-                                         lw_alb <- function(l,a,b,df_residual,s2_residual,ci=0.95,interval="prediction") {
+                                         lw_alb <- function(l,a,b,V,df_residual,s2_residual,ci=0.95,interval="prediction") {
                                              interval <- match.arg(interval,c("confidence","prediction"))
                                              Xp <- model.matrix(~L,data.frame(L=log(l))) ## model matrix
                                              w_hat <- as.numeric(Xp %*% c(a,b)) ## predicted mean
@@ -66,9 +68,10 @@ alleq_Lake2003 <- function(id) {
                                          ## fitted coefs
                                          a <- -6.966094
                                          b <- 2.97569
+                                         V <- matrix(c(0.03948, -0.01624, -0.01624, 0.00675),nrow=2,byrow=TRUE)
                                          df_residual <- 32
                                          s2_residual <- 0.4449043
-                                         out <- lw_alb(CL,a,b,df_residual,s2_residual)
+                                         out <- lw_alb(CL,a,b,V,df_residual,s2_residual)
                                          tibble(allometric_value=exp(out$mean),
                                                 allometric_value_lower=exp(out$lower),
                                                 allometric_value_upper=exp(out$upper))
