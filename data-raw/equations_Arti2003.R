@@ -178,9 +178,9 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
         rc <- sprintf("           \"%d%s_WW~TL_Arti2003\"=list(taxon_name=\"%s\",\n",id_aphia_id,xxrow$sex[1],xxrow$taxon_name[1])
         rc <- sprintf("%s                                          taxon_aphia_id=%d,\n",rc,xxrow$taxon_aphia_id[1])
         rc <- sprintf("%s                                          equation=function(...){a=%g; b=%g; se=%g;\n",rc,xxrow$a[1],xxrow$b[1],xxrow$se[1])
-        rc <- sprintf("%s                                              tibble(allometric_value=a*(...^b),\n",rc)
-        rc <- sprintf("%s                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),\n",rc)
-        rc <- sprintf("%s                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))\n",rc)
+        rc <- sprintf("%s                                              tibble(allometric_value=a*(...^b))##,\n",rc)
+        rc <- sprintf("%s                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),\n",rc)
+        rc <- sprintf("%s                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))\n",rc)
         rc <- sprintf("%s                                              },\n",rc)
         rc <- sprintf("%s                                          inputs=tibble(property=\"total length\",units=\"cm\",sample_minimum=%g,sample_maximum=%g),\n",rc,xxrow$smin[1],xxrow$smax[1])
         rc <- sprintf("%s                                          return_property=\"wet weight\",\n",rc)
@@ -237,9 +237,9 @@ alleq_Arti2003 <- function(id) {
            "234661_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
                                           taxon_aphia_id=234661,
                                           equation=function(...){a=0.00619; b=3.019; se=0.166;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=16.8,sample_maximum=44.3),
                                           return_property="wet weight",
@@ -251,9 +251,9 @@ alleq_Arti2003 <- function(id) {
            "234661M_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
                                           taxon_aphia_id=234661,
                                           equation=function(...){a=0.00463; b=3.119; se=0.883;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=19.6,sample_maximum=22.7),
                                           return_property="wet weight",
@@ -266,9 +266,9 @@ alleq_Arti2003 <- function(id) {
            "234661F_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
                                           taxon_aphia_id=234661,
                                           equation=function(...){a=0.00593; b=3.045; se=0.575;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=18.8,sample_maximum=33.6),
                                           return_property="wet weight",
@@ -281,9 +281,9 @@ alleq_Arti2003 <- function(id) {
            "234836_WW~TL_Arti2003"=list(taxon_name="Dissostichus mawsoni",
                                           taxon_aphia_id=234836,
                                           equation=function(...){a=0.00302; b=3.3; se=0.351;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=18.3,sample_maximum=122.5),
                                           return_property="wet weight",
@@ -295,9 +295,9 @@ alleq_Arti2003 <- function(id) {
            "234704_WW~TL_Arti2003"=list(taxon_name="Gobionotothen gibberifrons",
                                           taxon_aphia_id=234704,
                                           equation=function(...){a=0.00266; b=3.382; se=0.157;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.4,sample_maximum=43.8),
                                           return_property="wet weight",
@@ -309,9 +309,9 @@ alleq_Arti2003 <- function(id) {
            "234704M_WW~TL_Arti2003"=list(taxon_name="Gobionotothen gibberifrons",
                                           taxon_aphia_id=234704,
                                           equation=function(...){a=0.00364; b=3.297; se=0.643;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=24,sample_maximum=39.9),
                                           return_property="wet weight",
@@ -324,9 +324,9 @@ alleq_Arti2003 <- function(id) {
            "234704F_WW~TL_Arti2003"=list(taxon_name="Gobionotothen gibberifrons",
                                           taxon_aphia_id=234704,
                                           equation=function(...){a=0.00318; b=3.333; se=0.336;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=16.7,sample_maximum=43.8),
                                           return_property="wet weight",
@@ -339,9 +339,9 @@ alleq_Arti2003 <- function(id) {
            "234788_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen squamifrons",
                                           taxon_aphia_id=234788,
                                           equation=function(...){a=0.00272; b=3.412; se=0.147;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=11.6,sample_maximum=36.2),
                                           return_property="wet weight",
@@ -353,9 +353,9 @@ alleq_Arti2003 <- function(id) {
            "234788M_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen squamifrons",
                                           taxon_aphia_id=234788,
                                           equation=function(...){a=0.00317; b=3.368; se=0.16;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.3,sample_maximum=36.2),
                                           return_property="wet weight",
@@ -368,9 +368,9 @@ alleq_Arti2003 <- function(id) {
            "234788F_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen squamifrons",
                                           taxon_aphia_id=234788,
                                           equation=function(...){a=0.00295; b=3.389; se=0.202;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=13.1,sample_maximum=33.8),
                                           return_property="wet weight",
@@ -383,9 +383,9 @@ alleq_Arti2003 <- function(id) {
            "234610_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen larseni",
                                           taxon_aphia_id=234610,
                                           equation=function(...){a=0.00423; b=3.255; se=0.156;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=19.1),
                                           return_property="wet weight",
@@ -397,9 +397,9 @@ alleq_Arti2003 <- function(id) {
            "234610M_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen larseni",
                                           taxon_aphia_id=234610,
                                           equation=function(...){a=0.00529; b=3.157; se=0.178;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=11.6,sample_maximum=16.6),
                                           return_property="wet weight",
@@ -412,9 +412,9 @@ alleq_Arti2003 <- function(id) {
            "234610F_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen larseni",
                                           taxon_aphia_id=234610,
                                           equation=function(...){a=0.00436; b=3.242; se=0.167;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=11.4,sample_maximum=19.1),
                                           return_property="wet weight",
@@ -427,9 +427,9 @@ alleq_Arti2003 <- function(id) {
            "234608_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen nudifrons",
                                           taxon_aphia_id=234608,
                                           equation=function(...){a=0.00449; b=3.359; se=0.177;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.2,sample_maximum=18.4),
                                           return_property="wet weight",
@@ -441,9 +441,9 @@ alleq_Arti2003 <- function(id) {
            "234608M_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen nudifrons",
                                           taxon_aphia_id=234608,
                                           equation=function(...){a=0.00521; b=3.292; se=0.149;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.2,sample_maximum=16.9),
                                           return_property="wet weight",
@@ -456,9 +456,9 @@ alleq_Arti2003 <- function(id) {
            "234608F_WW~TL_Arti2003"=list(taxon_name="Lepidonotothen nudifrons",
                                           taxon_aphia_id=234608,
                                           equation=function(...){a=0.00409; b=3.404; se=0.211;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.1,sample_maximum=18.4),
                                           return_property="wet weight",
@@ -471,9 +471,9 @@ alleq_Arti2003 <- function(id) {
            "712788_WW~TL_Arti2003"=list(taxon_name="Pleuragramma antarctica",
                                           taxon_aphia_id=712788,
                                           equation=function(...){a=0.00181; b=3.4; se=0.071;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=5.2,sample_maximum=26.6),
                                           return_property="wet weight",
@@ -485,9 +485,9 @@ alleq_Arti2003 <- function(id) {
            "712788M_WW~TL_Arti2003"=list(taxon_name="Pleuragramma antarctica",
                                           taxon_aphia_id=712788,
                                           equation=function(...){a=0.00174; b=3.423; se=0.219;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=11.5,sample_maximum=23),
                                           return_property="wet weight",
@@ -500,9 +500,9 @@ alleq_Arti2003 <- function(id) {
            "712788F_WW~TL_Arti2003"=list(taxon_name="Pleuragramma antarctica",
                                           taxon_aphia_id=712788,
                                           equation=function(...){a=0.00133; b=3.523; se=0.246;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=12.7,sample_maximum=23.1),
                                           return_property="wet weight",
@@ -515,9 +515,9 @@ alleq_Arti2003 <- function(id) {
            "234754_WW~TL_Arti2003"=list(taxon_name="Trematomus eulepidotus",
                                           taxon_aphia_id=234754,
                                           equation=function(...){a=0.00469; b=3.261; se=0.098;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=12.2,sample_maximum=34),
                                           return_property="wet weight",
@@ -529,9 +529,9 @@ alleq_Arti2003 <- function(id) {
            "234754M_WW~TL_Arti2003"=list(taxon_name="Trematomus eulepidotus",
                                           taxon_aphia_id=234754,
                                           equation=function(...){a=0.00628; b=3.164; se=0.204;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=12.2,sample_maximum=25.6),
                                           return_property="wet weight",
@@ -544,9 +544,9 @@ alleq_Arti2003 <- function(id) {
            "234754F_WW~TL_Arti2003"=list(taxon_name="Trematomus eulepidotus",
                                           taxon_aphia_id=234754,
                                           equation=function(...){a=0.00471; b=3.259; se=0.152;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=13,sample_maximum=30.5),
                                           return_property="wet weight",
@@ -559,9 +559,9 @@ alleq_Arti2003 <- function(id) {
            "234772_WW~TL_Arti2003"=list(taxon_name="Trematomus hansoni",
                                           taxon_aphia_id=234772,
                                           equation=function(...){a=0.00308; b=3.405; se=0.345;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=15.1,sample_maximum=40),
                                           return_property="wet weight",
@@ -573,9 +573,9 @@ alleq_Arti2003 <- function(id) {
            "234770_WW~TL_Arti2003"=list(taxon_name="Trematomus lepidorhinus",
                                           taxon_aphia_id=234770,
                                           equation=function(...){a=0.00289; b=3.365; se=0.0066;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=3.4,sample_maximum=30.3),
                                           return_property="wet weight",
@@ -587,9 +587,9 @@ alleq_Arti2003 <- function(id) {
            "234770M_WW~TL_Arti2003"=list(taxon_name="Trematomus lepidorhinus",
                                           taxon_aphia_id=234770,
                                           equation=function(...){a=0.00352; b=3.292; se=0.179;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.8,sample_maximum=18.9),
                                           return_property="wet weight",
@@ -602,9 +602,9 @@ alleq_Arti2003 <- function(id) {
            "234770F_WW~TL_Arti2003"=list(taxon_name="Trematomus lepidorhinus",
                                           taxon_aphia_id=234770,
                                           equation=function(...){a=0.00489; b=3.15; se=0.132;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.1,sample_maximum=19.6),
                                           return_property="wet weight",
@@ -617,9 +617,9 @@ alleq_Arti2003 <- function(id) {
            "234828_WW~TL_Arti2003"=list(taxon_name="Trematomus loennbergii",
                                           taxon_aphia_id=234828,
                                           equation=function(...){a=0.0019; b=3.503; se=0.22;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8.5,sample_maximum=31.9),
                                           return_property="wet weight",
@@ -631,9 +631,9 @@ alleq_Arti2003 <- function(id) {
            "234644_WW~TL_Arti2003"=list(taxon_name="Trematomus nicolai",
                                           taxon_aphia_id=234644,
                                           equation=function(...){a=0.00744; b=3.155; se=0.157;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10,sample_maximum=34),
                                           return_property="wet weight",
@@ -645,9 +645,9 @@ alleq_Arti2003 <- function(id) {
            "234644M_WW~TL_Arti2003"=list(taxon_name="Trematomus nicolai",
                                           taxon_aphia_id=234644,
                                           equation=function(...){a=0.0096; b=3.075; se=0.176;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.6,sample_maximum=25.6),
                                           return_property="wet weight",
@@ -660,9 +660,9 @@ alleq_Arti2003 <- function(id) {
            "234644F_WW~TL_Arti2003"=list(taxon_name="Trematomus nicolai",
                                           taxon_aphia_id=234644,
                                           equation=function(...){a=0.00625; b=3.244; se=0.207;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10,sample_maximum=34),
                                           return_property="wet weight",
@@ -675,9 +675,9 @@ alleq_Arti2003 <- function(id) {
            "234709_WW~TL_Arti2003"=list(taxon_name="Trematomus pennellii",
                                           taxon_aphia_id=234709,
                                           equation=function(...){a=0.00466; b=3.313; se=0.071;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.6,sample_maximum=29.7),
                                           return_property="wet weight",
@@ -689,9 +689,9 @@ alleq_Arti2003 <- function(id) {
            "234709M_WW~TL_Arti2003"=list(taxon_name="Trematomus pennellii",
                                           taxon_aphia_id=234709,
                                           equation=function(...){a=0.00533; b=3.274; se=0.093;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.4,sample_maximum=23.6),
                                           return_property="wet weight",
@@ -704,9 +704,9 @@ alleq_Arti2003 <- function(id) {
            "234709F_WW~TL_Arti2003"=list(taxon_name="Trematomus pennellii",
                                           taxon_aphia_id=234709,
                                           equation=function(...){a=0.00505; b=3.295; se=0.08;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=26),
                                           return_property="wet weight",
@@ -719,9 +719,9 @@ alleq_Arti2003 <- function(id) {
            "234665_WW~TL_Arti2003"=list(taxon_name="Trematomus scotti",
                                           taxon_aphia_id=234665,
                                           equation=function(...){a=0.0055; b=3.158; se=0.079;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=5,sample_maximum=24.7),
                                           return_property="wet weight",
@@ -733,9 +733,9 @@ alleq_Arti2003 <- function(id) {
            "234665M_WW~TL_Arti2003"=list(taxon_name="Trematomus scotti",
                                           taxon_aphia_id=234665,
                                           equation=function(...){a=0.0072; b=3.015; se=0.131;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8.3,sample_maximum=16.9),
                                           return_property="wet weight",
@@ -748,9 +748,9 @@ alleq_Arti2003 <- function(id) {
            "234665F_WW~TL_Arti2003"=list(taxon_name="Trematomus scotti",
                                           taxon_aphia_id=234665,
                                           equation=function(...){a=0.00395; b=3.309; se=0.146;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.2,sample_maximum=17.4),
                                           return_property="wet weight",
@@ -763,9 +763,9 @@ alleq_Arti2003 <- function(id) {
            "712789_WW~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
                                           taxon_aphia_id=712789,
                                           equation=function(...){a=0.00675; b=3.014; se=0.416;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=11.8),
                                           return_property="wet weight",
@@ -777,9 +777,9 @@ alleq_Arti2003 <- function(id) {
            "712789M_WW~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
                                           taxon_aphia_id=712789,
                                           equation=function(...){a=0.01323; b=2.688; se=0.796;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.8,sample_maximum=10),
                                           return_property="wet weight",
@@ -792,9 +792,9 @@ alleq_Arti2003 <- function(id) {
            "712789F_WW~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
                                           taxon_aphia_id=712789,
                                           equation=function(...){a=0.00655; b=3.035; se=0.428;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=11.8),
                                           return_property="wet weight",
@@ -807,9 +807,9 @@ alleq_Arti2003 <- function(id) {
            "234592_WW~TL_Arti2003"=list(taxon_name="Artedidraco orianae",
                                           taxon_aphia_id=234592,
                                           equation=function(...){a=0.00305; b=3.454; se=0.167;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=5.4,sample_maximum=16.8),
                                           return_property="wet weight",
@@ -821,9 +821,9 @@ alleq_Arti2003 <- function(id) {
            "234592M_WW~TL_Arti2003"=list(taxon_name="Artedidraco orianae",
                                           taxon_aphia_id=234592,
                                           equation=function(...){a=0.00357; b=3.387; se=0.271;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.6,sample_maximum=15.2),
                                           return_property="wet weight",
@@ -836,9 +836,9 @@ alleq_Arti2003 <- function(id) {
            "234592F_WW~TL_Arti2003"=list(taxon_name="Artedidraco orianae",
                                           taxon_aphia_id=234592,
                                           equation=function(...){a=0.0024; b=3.557; se=0.228;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.8,sample_maximum=16.7),
                                           return_property="wet weight",
@@ -851,9 +851,9 @@ alleq_Arti2003 <- function(id) {
            "234817_WW~TL_Arti2003"=list(taxon_name="Artedidraco shackletoni",
                                           taxon_aphia_id=234817,
                                           equation=function(...){a=0.01215; b=2.933; se=0.718;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=14.1),
                                           return_property="wet weight",
@@ -865,9 +865,9 @@ alleq_Arti2003 <- function(id) {
            "234817M_WW~TL_Arti2003"=list(taxon_name="Artedidraco shackletoni",
                                           taxon_aphia_id=234817,
                                           equation=function(...){a=0.02833; b=2.599; se=0.988;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.8,sample_maximum=14.1),
                                           return_property="wet weight",
@@ -880,9 +880,9 @@ alleq_Arti2003 <- function(id) {
            "234817F_WW~TL_Arti2003"=list(taxon_name="Artedidraco shackletoni",
                                           taxon_aphia_id=234817,
                                           equation=function(...){a=0.0233; b=2.695; se=0.866;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.2,sample_maximum=13.1),
                                           return_property="wet weight",
@@ -895,9 +895,9 @@ alleq_Arti2003 <- function(id) {
            "234621_WW~TL_Arti2003"=list(taxon_name="Artedidraco skottsbergi",
                                           taxon_aphia_id=234621,
                                           equation=function(...){a=0.00925; b=2.917; se=0.318;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=4.2,sample_maximum=12),
                                           return_property="wet weight",
@@ -909,9 +909,9 @@ alleq_Arti2003 <- function(id) {
            "234621M_WW~TL_Arti2003"=list(taxon_name="Artedidraco skottsbergi",
                                           taxon_aphia_id=234621,
                                           equation=function(...){a=0.00734; b=3.031; se=0.477;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.6,sample_maximum=12),
                                           return_property="wet weight",
@@ -924,9 +924,9 @@ alleq_Arti2003 <- function(id) {
            "234621F_WW~TL_Arti2003"=list(taxon_name="Artedidraco skottsbergi",
                                           taxon_aphia_id=234621,
                                           equation=function(...){a=0.00739; b=3.033; se=0.401;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.1,sample_maximum=10.3),
                                           return_property="wet weight",
@@ -939,9 +939,9 @@ alleq_Arti2003 <- function(id) {
            "234696_WW~TL_Arti2003"=list(taxon_name="Dolloidraco longedorsalis",
                                           taxon_aphia_id=234696,
                                           equation=function(...){a=0.00725; b=3.013; se=0.184;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=4.3,sample_maximum=13.3),
                                           return_property="wet weight",
@@ -953,9 +953,9 @@ alleq_Arti2003 <- function(id) {
            "234696M_WW~TL_Arti2003"=list(taxon_name="Dolloidraco longedorsalis",
                                           taxon_aphia_id=234696,
                                           equation=function(...){a=0.00962; b=2.884; se=0.247;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=12.2),
                                           return_property="wet weight",
@@ -968,9 +968,9 @@ alleq_Arti2003 <- function(id) {
            "234696F_WW~TL_Arti2003"=list(taxon_name="Dolloidraco longedorsalis",
                                           taxon_aphia_id=234696,
                                           equation=function(...){a=0.00744; b=2.993; se=0.257;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8,sample_maximum=13.3),
                                           return_property="wet weight",
@@ -983,9 +983,9 @@ alleq_Arti2003 <- function(id) {
            "234790_WW~TL_Arti2003"=list(taxon_name="Histiodraco velifer",
                                           taxon_aphia_id=234790,
                                           equation=function(...){a=0.0032; b=3.52; se=1.584;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.1,sample_maximum=20.9),
                                           return_property="wet weight",
@@ -997,9 +997,9 @@ alleq_Arti2003 <- function(id) {
            "234826_WW~TL_Arti2003"=list(taxon_name="Pogonophryne barsukovi",
                                           taxon_aphia_id=234826,
                                           equation=function(...){a=0.00289; b=3.492; se=0.968;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=15.8,sample_maximum=22.6),
                                           return_property="wet weight",
@@ -1011,9 +1011,9 @@ alleq_Arti2003 <- function(id) {
            "234730_WW~TL_Arti2003"=list(taxon_name="Pogonophryne marmorata",
                                           taxon_aphia_id=234730,
                                           equation=function(...){a=0.00398; b=3.425; se=0.277;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=6.2,sample_maximum=20.8),
                                           return_property="wet weight",
@@ -1025,9 +1025,9 @@ alleq_Arti2003 <- function(id) {
            "234730M_WW~TL_Arti2003"=list(taxon_name="Pogonophryne marmorata",
                                           taxon_aphia_id=234730,
                                           equation=function(...){a=0.00477; b=3.362; se=0.429;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.3,sample_maximum=19.3),
                                           return_property="wet weight",
@@ -1040,9 +1040,9 @@ alleq_Arti2003 <- function(id) {
            "234730F_WW~TL_Arti2003"=list(taxon_name="Pogonophryne marmorata",
                                           taxon_aphia_id=234730,
                                           equation=function(...){a=0.00384; b=3.436; se=0.364;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8.1,sample_maximum=20.5),
                                           return_property="wet weight",
@@ -1055,9 +1055,9 @@ alleq_Arti2003 <- function(id) {
            "234611_WW~TL_Arti2003"=list(taxon_name="Pogonophryne permitini",
                                           taxon_aphia_id=234611,
                                           equation=function(...){a=0.00873; b=3.087; se=1.074;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8.8,sample_maximum=18.9),
                                           return_property="wet weight",
@@ -1069,9 +1069,9 @@ alleq_Arti2003 <- function(id) {
            "234837_WW~TL_Arti2003"=list(taxon_name="Pogonophryne scotti",
                                           taxon_aphia_id=234837,
                                           equation=function(...){a=0.00162; b=3.739; se=1.172;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=17,sample_maximum=29.3),
                                           return_property="wet weight",
@@ -1083,9 +1083,9 @@ alleq_Arti2003 <- function(id) {
            "234816_WW~TL_Arti2003"=list(taxon_name="Bathydraco marri",
                                           taxon_aphia_id=234816,
                                           equation=function(...){a=0.01385; b=2.534; se=0.176;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8.7,sample_maximum=23.1),
                                           return_property="wet weight",
@@ -1097,9 +1097,9 @@ alleq_Arti2003 <- function(id) {
            "234816M_WW~TL_Arti2003"=list(taxon_name="Bathydraco marri",
                                           taxon_aphia_id=234816,
                                           equation=function(...){a=0.015; b=2.496; se=0.471;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10,sample_maximum=19.6),
                                           return_property="wet weight",
@@ -1112,9 +1112,9 @@ alleq_Arti2003 <- function(id) {
            "234816F_WW~TL_Arti2003"=list(taxon_name="Bathydraco marri",
                                           taxon_aphia_id=234816,
                                           equation=function(...){a=0.01312; b=2.555; se=0.327;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.9,sample_maximum=20.7),
                                           return_property="wet weight",
@@ -1127,9 +1127,9 @@ alleq_Arti2003 <- function(id) {
            "234834_WW~TL_Arti2003"=list(taxon_name="Cygnodraco mawsoni",
                                           taxon_aphia_id=234834,
                                           equation=function(...){a=9e-05; b=4.013; se=0.145;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=12.8,sample_maximum=49.1),
                                           return_property="wet weight",
@@ -1141,9 +1141,9 @@ alleq_Arti2003 <- function(id) {
            "234834M_WW~TL_Arti2003"=list(taxon_name="Cygnodraco mawsoni",
                                           taxon_aphia_id=234834,
                                           equation=function(...){a=0.00011; b=3.966; se=0.175;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=26.6,sample_maximum=45.3),
                                           return_property="wet weight",
@@ -1156,9 +1156,9 @@ alleq_Arti2003 <- function(id) {
            "234834F_WW~TL_Arti2003"=list(taxon_name="Cygnodraco mawsoni",
                                           taxon_aphia_id=234834,
                                           equation=function(...){a=0.00012; b=3.939; se=0.224;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=20.5,sample_maximum=49.1),
                                           return_property="wet weight",
@@ -1171,9 +1171,9 @@ alleq_Arti2003 <- function(id) {
            "234808_WW~TL_Arti2003"=list(taxon_name="Gerlachea australis",
                                           taxon_aphia_id=234808,
                                           equation=function(...){a=0.00086; b=3.415; se=0.481;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=13.3,sample_maximum=27.1),
                                           return_property="wet weight",
@@ -1185,9 +1185,9 @@ alleq_Arti2003 <- function(id) {
            "234808M_WW~TL_Arti2003"=list(taxon_name="Gerlachea australis",
                                           taxon_aphia_id=234808,
                                           equation=function(...){a=0.00075; b=3.474; se=0.511;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=13.3,sample_maximum=26.7),
                                           return_property="wet weight",
@@ -1200,9 +1200,9 @@ alleq_Arti2003 <- function(id) {
            "234808F_WW~TL_Arti2003"=list(taxon_name="Gerlachea australis",
                                           taxon_aphia_id=234808,
                                           equation=function(...){a=0.00016; b=3.982; se=1.748;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=19.2,sample_maximum=27.1),
                                           return_property="wet weight",
@@ -1215,9 +1215,9 @@ alleq_Arti2003 <- function(id) {
            "234800_WW~TL_Arti2003"=list(taxon_name="Gymnodraco acuticeps",
                                           taxon_aphia_id=234800,
                                           equation=function(...){a=0.00034; b=3.9; se=0.398;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=18,sample_maximum=38.5),
                                           return_property="wet weight",
@@ -1229,9 +1229,9 @@ alleq_Arti2003 <- function(id) {
            "234800M_WW~TL_Arti2003"=list(taxon_name="Gymnodraco acuticeps",
                                           taxon_aphia_id=234800,
                                           equation=function(...){a=0.00058; b=3.754; se=0.456;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=24.1,sample_maximum=38.5),
                                           return_property="wet weight",
@@ -1244,9 +1244,9 @@ alleq_Arti2003 <- function(id) {
            "234800F_WW~TL_Arti2003"=list(taxon_name="Gymnodraco acuticeps",
                                           taxon_aphia_id=234800,
                                           equation=function(...){a=0.00063; b=3.719; se=0.857;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=28.2,sample_maximum=31.4),
                                           return_property="wet weight",
@@ -1259,9 +1259,9 @@ alleq_Arti2003 <- function(id) {
            "234777_WW~TL_Arti2003"=list(taxon_name="Prionodraco evansii",
                                           taxon_aphia_id=234777,
                                           equation=function(...){a=0.0046; b=2.97; se=0.095;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=5.1,sample_maximum=15.5),
                                           return_property="wet weight",
@@ -1273,9 +1273,9 @@ alleq_Arti2003 <- function(id) {
            "234777M_WW~TL_Arti2003"=list(taxon_name="Prionodraco evansii",
                                           taxon_aphia_id=234777,
                                           equation=function(...){a=0.00485; b=2.951; se=0.114;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.4,sample_maximum=15.5),
                                           return_property="wet weight",
@@ -1288,9 +1288,9 @@ alleq_Arti2003 <- function(id) {
            "234777F_WW~TL_Arti2003"=list(taxon_name="Prionodraco evansii",
                                           taxon_aphia_id=234777,
                                           equation=function(...){a=0.00469; b=2.965; se=0.115;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.7,sample_maximum=15.3),
                                           return_property="wet weight",
@@ -1303,9 +1303,9 @@ alleq_Arti2003 <- function(id) {
            "234799_WW~TL_Arti2003"=list(taxon_name="Racovitzia glacialis",
                                           taxon_aphia_id=234799,
                                           equation=function(...){a=0.00112; b=3.393; se=0.203;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.2,sample_maximum=28.7),
                                           return_property="wet weight",
@@ -1317,9 +1317,9 @@ alleq_Arti2003 <- function(id) {
            "234799M_WW~TL_Arti2003"=list(taxon_name="Racovitzia glacialis",
                                           taxon_aphia_id=234799,
                                           equation=function(...){a=0.00406; b=2.978; se=0.6;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=16.8,sample_maximum=27.1),
                                           return_property="wet weight",
@@ -1332,9 +1332,9 @@ alleq_Arti2003 <- function(id) {
            "234799F_WW~TL_Arti2003"=list(taxon_name="Racovitzia glacialis",
                                           taxon_aphia_id=234799,
                                           equation=function(...){a=0.00052; b=3.632; se=0.99;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=21.5,sample_maximum=28.7),
                                           return_property="wet weight",
@@ -1347,9 +1347,9 @@ alleq_Arti2003 <- function(id) {
            "234720_WW~TL_Arti2003"=list(taxon_name="Cryodraco antarcticus",
                                           taxon_aphia_id=234720,
                                           equation=function(...){a=0.00083; b=3.458; se=0.25;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=16.2,sample_maximum=52.5),
                                           return_property="wet weight",
@@ -1361,9 +1361,9 @@ alleq_Arti2003 <- function(id) {
            "234720M_WW~TL_Arti2003"=list(taxon_name="Cryodraco antarcticus",
                                           taxon_aphia_id=234720,
                                           equation=function(...){a=0.00045; b=3.648; se=0.883;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=31.8,sample_maximum=48.7),
                                           return_property="wet weight",
@@ -1376,9 +1376,9 @@ alleq_Arti2003 <- function(id) {
            "234720F_WW~TL_Arti2003"=list(taxon_name="Cryodraco antarcticus",
                                           taxon_aphia_id=234720,
                                           equation=function(...){a=0.00092; b=3.429; se=0.501;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=28.2,sample_maximum=52.5),
                                           return_property="wet weight",
@@ -1391,9 +1391,9 @@ alleq_Arti2003 <- function(id) {
            "234725_WW~TL_Arti2003"=list(taxon_name="Chaenocephalus aceratus",
                                           taxon_aphia_id=234725,
                                           equation=function(...){a=0.00121; b=3.422; se=0.187;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.8,sample_maximum=52.1),
                                           return_property="wet weight",
@@ -1405,9 +1405,9 @@ alleq_Arti2003 <- function(id) {
            "234725M_WW~TL_Arti2003"=list(taxon_name="Chaenocephalus aceratus",
                                           taxon_aphia_id=234725,
                                           equation=function(...){a=0.00074; b=3.585; se=0.359;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=18.4,sample_maximum=33.8),
                                           return_property="wet weight",
@@ -1420,9 +1420,9 @@ alleq_Arti2003 <- function(id) {
            "234725F_WW~TL_Arti2003"=list(taxon_name="Chaenocephalus aceratus",
                                           taxon_aphia_id=234725,
                                           equation=function(...){a=0.0012; b=3.42; se=0.226;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=19.2,sample_maximum=52.1),
                                           return_property="wet weight",
@@ -1435,9 +1435,9 @@ alleq_Arti2003 <- function(id) {
            "234609_WW~TL_Arti2003"=list(taxon_name="Chaenodraco wilsoni",
                                           taxon_aphia_id=234609,
                                           equation=function(...){a=0.00125; b=3.468; se=0.58;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=13.7,sample_maximum=30.9),
                                           return_property="wet weight",
@@ -1449,9 +1449,9 @@ alleq_Arti2003 <- function(id) {
            "234797_WW~TL_Arti2003"=list(taxon_name="Champsocephalus gunnari",
                                           taxon_aphia_id=234797,
                                           equation=function(...){a=0.0008; b=3.593; se=0.197;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=19.1,sample_maximum=48.1),
                                           return_property="wet weight",
@@ -1463,9 +1463,9 @@ alleq_Arti2003 <- function(id) {
            "234797M_WW~TL_Arti2003"=list(taxon_name="Champsocephalus gunnari",
                                           taxon_aphia_id=234797,
                                           equation=function(...){a=0.0008; b=3.594; se=0.338;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=28,sample_maximum=47.5),
                                           return_property="wet weight",
@@ -1478,9 +1478,9 @@ alleq_Arti2003 <- function(id) {
            "234797F_WW~TL_Arti2003"=list(taxon_name="Champsocephalus gunnari",
                                           taxon_aphia_id=234797,
                                           equation=function(...){a=0.00069; b=3.636; se=0.281;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=26.7,sample_maximum=48.1),
                                           return_property="wet weight",
@@ -1493,9 +1493,9 @@ alleq_Arti2003 <- function(id) {
            "234650_WW~TL_Arti2003"=list(taxon_name="Chionobathyscus dewitti",
                                           taxon_aphia_id=234650,
                                           equation=function(...){a=0.00214; b=3.319; se=0.367;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14,sample_maximum=41.5),
                                           return_property="wet weight",
@@ -1507,9 +1507,9 @@ alleq_Arti2003 <- function(id) {
            "234650M_WW~TL_Arti2003"=list(taxon_name="Chionobathyscus dewitti",
                                           taxon_aphia_id=234650,
                                           equation=function(...){a=0.00044; b=3.797; se=0.947;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=27,sample_maximum=36.8),
                                           return_property="wet weight",
@@ -1522,9 +1522,9 @@ alleq_Arti2003 <- function(id) {
            "234650F_WW~TL_Arti2003"=list(taxon_name="Chionobathyscus dewitti",
                                           taxon_aphia_id=234650,
                                           equation=function(...){a=0.00179; b=3.368; se=1.039;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=27.9,sample_maximum=41.5),
                                           return_property="wet weight",
@@ -1537,9 +1537,9 @@ alleq_Arti2003 <- function(id) {
            "234795_WW~TL_Arti2003"=list(taxon_name="Chionodraco hamatus",
                                           taxon_aphia_id=234795,
                                           equation=function(...){a=0.00106; b=3.538; se=0.36;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=15.8,sample_maximum=49.8),
                                           return_property="wet weight",
@@ -1551,9 +1551,9 @@ alleq_Arti2003 <- function(id) {
            "234795M_WW~TL_Arti2003"=list(taxon_name="Chionodraco hamatus",
                                           taxon_aphia_id=234795,
                                           equation=function(...){a=0.00033; b=3.885; se=0.944;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=15.8,sample_maximum=43.2),
                                           return_property="wet weight",
@@ -1566,9 +1566,9 @@ alleq_Arti2003 <- function(id) {
            "234795F_WW~TL_Arti2003"=list(taxon_name="Chionodraco hamatus",
                                           taxon_aphia_id=234795,
                                           equation=function(...){a=0.0011; b=3.522; se=0.65;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=19.9,sample_maximum=46.3),
                                           return_property="wet weight",
@@ -1581,9 +1581,9 @@ alleq_Arti2003 <- function(id) {
            "234646_WW~TL_Arti2003"=list(taxon_name="Chionodraco myersi",
                                           taxon_aphia_id=234646,
                                           equation=function(...){a=0.00144; b=3.416; se=0.061;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.5,sample_maximum=39.2),
                                           return_property="wet weight",
@@ -1595,9 +1595,9 @@ alleq_Arti2003 <- function(id) {
            "234646M_WW~TL_Arti2003"=list(taxon_name="Chionodraco myersi",
                                           taxon_aphia_id=234646,
                                           equation=function(...){a=0.00142; b=3.431; se=0.142;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=11.8,sample_maximum=33),
                                           return_property="wet weight",
@@ -1610,9 +1610,9 @@ alleq_Arti2003 <- function(id) {
            "234646F_WW~TL_Arti2003"=list(taxon_name="Chionodraco myersi",
                                           taxon_aphia_id=234646,
                                           equation=function(...){a=0.00144; b=3.427; se=0.144;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=11,sample_maximum=33.7),
                                           return_property="wet weight",
@@ -1625,9 +1625,9 @@ alleq_Arti2003 <- function(id) {
            "234678_WW~TL_Arti2003"=list(taxon_name="Chionodraco rastrospinosus",
                                           taxon_aphia_id=234678,
                                           equation=function(...){a=0.00075; b=3.656; se=0.115;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.6,sample_maximum=43.4),
                                           return_property="wet weight",
@@ -1639,9 +1639,9 @@ alleq_Arti2003 <- function(id) {
            "234678M_WW~TL_Arti2003"=list(taxon_name="Chionodraco rastrospinosus",
                                           taxon_aphia_id=234678,
                                           equation=function(...){a=0.00074; b=3.665; se=0.199;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=21,sample_maximum=37.6),
                                           return_property="wet weight",
@@ -1654,9 +1654,9 @@ alleq_Arti2003 <- function(id) {
            "234678F_WW~TL_Arti2003"=list(taxon_name="Chionodraco rastrospinosus",
                                           taxon_aphia_id=234678,
                                           equation=function(...){a=0.00081; b=3.63; se=0.154;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=16.6,sample_maximum=43.4),
                                           return_property="wet weight",
@@ -1669,9 +1669,9 @@ alleq_Arti2003 <- function(id) {
            "234614_WW~TL_Arti2003"=list(taxon_name="Dacodraco hunteri",
                                           taxon_aphia_id=234614,
                                           equation=function(...){a=0.00079; b=3.533; se=0.401;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.6,sample_maximum=30.4),
                                           return_property="wet weight",
@@ -1683,9 +1683,9 @@ alleq_Arti2003 <- function(id) {
            "234685_WW~TL_Arti2003"=list(taxon_name="Neopagetopsis ionah",
                                           taxon_aphia_id=234685,
                                           equation=function(...){a=0.01863; b=2.762; se=1.341;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=26.6,sample_maximum=55),
                                           return_property="wet weight",
@@ -1697,9 +1697,9 @@ alleq_Arti2003 <- function(id) {
            "234796_WW~TL_Arti2003"=list(taxon_name="Pagetopsis maculatus",
                                           taxon_aphia_id=234796,
                                           equation=function(...){a=0.00034; b=4.048; se=0.597;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.6,sample_maximum=22.3),
                                           return_property="wet weight",
@@ -1711,9 +1711,9 @@ alleq_Arti2003 <- function(id) {
            "234695_WW~TL_Arti2003"=list(taxon_name="Notolepis coatsi",
                                           taxon_aphia_id=234695,
                                           equation=function(...){a=0.00017; b=3.645; se=0.973;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=17.1,sample_maximum=35.2),
                                           return_property="wet weight",
@@ -1725,9 +1725,9 @@ alleq_Arti2003 <- function(id) {
            "217697_WW~TL_Arti2003"=list(taxon_name="Electrona antarctica",
                                           taxon_aphia_id=217697,
                                           equation=function(...){a=0.01592; b=2.836; se=0.693;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=7.5,sample_maximum=11.2),
                                           return_property="wet weight",
@@ -1739,9 +1739,9 @@ alleq_Arti2003 <- function(id) {
            "234729_WW~TL_Arti2003"=list(taxon_name="Gymnoscopelus bolini",
                                           taxon_aphia_id=234729,
                                           equation=function(...){a=0.00144; b=3.568; se=0.612;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=10.4,sample_maximum=19.1),
                                           return_property="wet weight",
@@ -1753,9 +1753,9 @@ alleq_Arti2003 <- function(id) {
            "234821_WW~TL_Arti2003"=list(taxon_name="Gymnoscopelus nicholsi",
                                           taxon_aphia_id=234821,
                                           equation=function(...){a=0.00831; b=2.907; se=0.397;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=14.5,sample_maximum=19.1),
                                           return_property="wet weight",
@@ -1767,9 +1767,9 @@ alleq_Arti2003 <- function(id) {
            "234831_WW~TL_Arti2003"=list(taxon_name="Macrourus holotrachys",
                                           taxon_aphia_id=234831,
                                           equation=function(...){a=0.00156; b=3.283; se=0.301;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=8.4,sample_maximum=43.7),
                                           return_property="wet weight",
@@ -1781,9 +1781,9 @@ alleq_Arti2003 <- function(id) {
            "234831M_WW~TL_Arti2003"=list(taxon_name="Macrourus holotrachys",
                                           taxon_aphia_id=234831,
                                           equation=function(...){a=0.00175; b=3.235; se=0.615;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.6,sample_maximum=25.1),
                                           return_property="wet weight",
@@ -1796,9 +1796,9 @@ alleq_Arti2003 <- function(id) {
            "234831F_WW~TL_Arti2003"=list(taxon_name="Macrourus holotrachys",
                                           taxon_aphia_id=234831,
                                           equation=function(...){a=0.00199; b=3.203; se=0.3;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=12.8,sample_maximum=43.7),
                                           return_property="wet weight",
@@ -1811,9 +1811,9 @@ alleq_Arti2003 <- function(id) {
            "234606_WW~TL_Arti2003"=list(taxon_name="Macrourus whitsoni",
                                           taxon_aphia_id=234606,
                                           equation=function(...){a=0.00159; b=3.299; se=0.137;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=9.2,sample_maximum=66.7),
                                           return_property="wet weight",
@@ -1825,9 +1825,9 @@ alleq_Arti2003 <- function(id) {
            "126486_WW~TL_Arti2003"=list(taxon_name="Antimora rostrata",
                                           taxon_aphia_id=126486,
                                           equation=function(...){a=0.00225; b=3.299; se=1.146;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=20.5,sample_maximum=30.5),
                                           return_property="wet weight",
@@ -1839,9 +1839,9 @@ alleq_Arti2003 <- function(id) {
            "234675_WW~TL_Arti2003"=list(taxon_name="Bathyraja maccaini",
                                           taxon_aphia_id=234675,
                                           equation=function(...){a=0.00477; b=3.162; se=0.842;
-                                              tibble(allometric_value=a*(...^b),
-                                                     allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
-                                                     allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
+                                              tibble(allometric_value=a*(...^b))##,
+                                                     ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
+                                                     ##allometric_value_upper=10^(log10(a)+b*log10(...)+1.96*se))
                                               },
                                           inputs=tibble(property="total length",units="cm",sample_minimum=23.5,sample_maximum=86.5),
                                           return_property="wet weight",
