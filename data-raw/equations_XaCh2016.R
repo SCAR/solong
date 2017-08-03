@@ -50,6 +50,7 @@ alleq_XaCh2016 <- function(id) {
                                      return_property="mantle length",
                                      return_units="mm",
                                      reliability=tibble(type="N",value=43),
+                                     notes="Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one",
                                      reference=refs$Roel2000),
            ## Bathyteuthis abyssicola
            ## ML=1.68+51.59LRL; ln M=2.855+3.38ln LRL (n=17 for both ML and M) (Clarke 1986)
