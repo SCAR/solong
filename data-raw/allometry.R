@@ -25,14 +25,14 @@ refs <- list(
     WiMc1990="Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government",
     Arti2003="Artigues B, Morales-Nin B, Balguer\uEDas E (2003) Fish length-weight relationships in the Weddell Sea and Bransfield Strait. Polar Biology 26:463-467. doi:10.1007/s00300-003-0505-0",
     GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
-    Lake2003="Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293",
     EaDe1997="Eastman JT, Devries AL (1997) Biology and phenotypic plasticity of the Antarctic nototheniid fish Trematomus newnesi in McMurdo Sound. Antarctic Science 9:27-35. doi:10.1017/S0954102097000047")
 
-source("data-raw/equations_XaCh2016.R")
-source("data-raw/equations_Smal1993.R")
-source("data-raw/equations_WiMc1990.R")
 source("data-raw/equations_Arti2003.R")
 source("data-raw/equations_krill.R")
+source("data-raw/equations_Lake2003.R")
+source("data-raw/equations_Smal1993.R")
+source("data-raw/equations_WiMc1990.R")
+source("data-raw/equations_XaCh2016.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -78,17 +78,6 @@ alleq_other <- function(id) {
                                        notes="Applies to male animals",
                                        reference=refs$GaBu1988),
 
-           ## Chorismus antarcticus from Lake et al. 2003
-           "369214_WW_Lake2003"=list(taxon_name="Chorismus antarcticus",
-                                       taxon_aphia_id=369214,
-                                       equation=function(...)tibble(allometric_value=0.000943*(...^2.976)),
-                                       inputs=tibble(property="carapace length",units="mm",sample_minimum=6,sample_maximum=16),
-                                       return_property="wet weight",
-                                       return_units="g",
-                                       reliability=tribble(~type,~value,
-                                                           "N",35,
-                                                           "R^2",0.976),
-                                       reference=refs$Lake2003),
            ## Nototodarus sloanii
            "342378_ML_JaMc1996"=list(taxon_name="Nototodarus sloanii",
                                      taxon_aphia_id=342378,
@@ -132,12 +121,13 @@ alleq_other <- function(id) {
 ## can override reference
 alleq_tbl <- function(id,taxon_name,taxon_aphia_id,notes,reference) {
     thiseq <- NULL
-    try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
+    try(thiseq <- alleq_other(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_krill(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_other(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some thing, if not already specified
