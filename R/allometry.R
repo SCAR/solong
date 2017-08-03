@@ -114,7 +114,7 @@ apply_eq <- function(data,eqn,use_property_units=FALSE) {
         units(data2[,i]) <- ud_units[[eqn$inputs[[1]]$units[i]]]
     ## now remove property and units, so that equation can just be applied without getting upset by e.g. ^2 operations
     ## and convert data2 to list, so can call equation with do.call
-    data2 <- lapply(seq_len(ncol(data2)),function(z){out <- data2[,z]; sol_set_property(out,NULL); out})
+    data2 <- lapply(seq_len(ncol(data2)),function(z)sol_set_property(data2[,z],NULL))
     ## get the equation output and set its property and units, add it to data
     out <- do.call(eqn$equation[[1]],data2)
     if (!"allometric_value_lower" %in% names(out))
