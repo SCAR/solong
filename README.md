@@ -13,12 +13,12 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 412 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 414 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
 |                |  hood length|  mantle length|  standard length|  total length|  wet weight|
 |----------------|------------:|--------------:|----------------:|-------------:|-----------:|
 | Actinopterygii |            0|              0|              106|             2|         170|
-| Cephalopoda    |            8|             60|                0|             0|          57|
+| Cephalopoda    |            8|             61|                0|             0|          58|
 | Elasmobranchii |            0|              0|                0|             0|           1|
 | Malacostraca   |            0|              0|                0|             3|           4|
 | Mammalia       |            0|              0|                0|             0|           1|
@@ -244,13 +244,13 @@ Older equations were typically published along with the number of samples used t
 Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
 
 ``` r
-x <- tibble(TL=c(30.5) %>% sol_set_property("total length",with_units="cm"))
-sol_allometry(x,"234606_WW~TL_Arti2003") %>%
+x <- tibble(TL=c(10) %>% sol_set_property("carapace length",with_units="mm"))
+sol_allometry(x,"369214_WW_Lake2003") %>%
   select(allometric_value,allometric_value_lower,allometric_value_upper)
 #> # A tibble: 1 x 3
 #>     allometric_value allometric_value_lower allometric_value_upper
 #>   <S3: sol_property>     <S3: sol_property>     <S3: sol_property>
-#> 1         125.3436 g              67.5433 g             232.6067 g
+#> 1        0.8919773 g            0.6986516 g             1.138799 g
 ```
 
 Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
