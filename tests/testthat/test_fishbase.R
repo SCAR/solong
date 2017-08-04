@@ -9,4 +9,7 @@ test_that("fishbase stuff works", {
 
     xa <- sol_allometry(x,eq[2,])
     expect_true(as.numeric(xa$allometric_value)>10) ## >10g
+
+    eq <- sol_fb_length_weight("Electrona antarctica",worms=TRUE)
+    expect_false(is.null(eq$taxon_aphia_id) || is.na(eq$taxon_aphia_id))
 })

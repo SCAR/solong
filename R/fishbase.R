@@ -5,6 +5,7 @@
 #' Experimental.
 #'
 #' @param ... : arguments passed to rfishbase::length_weight
+#' @param worms logical: if TRUE, and if the worrms package is installed, try and find the AphiaID for the taxon in the World Register of Marine Species
 #'
 #' @return equation object
 #'
@@ -20,9 +21,14 @@
 #' }
 #'
 #' @export
-sol_fb_length_weight <- function(...) {
+sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRUE)) {
+    assert_that(is.flag(worms))
     if (!requireNamespace("rfishbase",quietly=TRUE))
         stop("install the rfishbase package to use this function")
+    if (worms && !requireNamespace("worrms",quietly=TRUE)) {
+        warning("worms=TRUE but the worrms package is not installed, ignoring")
+        worms <- FALSE
+    }
     x <- rfishbase::length_weight(...)
     do.call(rbind,lapply(seq_len(nrow(x)),function(z) {
         this <- x[z,]
@@ -38,6 +44,12 @@ sol_fb_length_weight <- function(...) {
                           return_property="wet weight",
                           return_units="g")
         )
+        if (worms) {
+            wx <- worrms::wm_records_name(out$taxon_name) %>%
+                filter_(~status=="accepted")
+            if (nrow(wx)==1)
+                out$taxon_aphia_id=wx$AphiaID
+        }
         if (!is.na(this$CoeffDetermination))
             out$reliability[[1]] <- tribble(~type,~value,
                                             "R^2",this$CoeffDetermination)
