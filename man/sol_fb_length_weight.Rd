@@ -15,7 +15,7 @@ sol_fb_length_weight(..., worms = requireNamespace("worrms", quietly = TRUE))
 equation object
 }
 \description{
-Experimental.
+Experimental. Requires the rfishbase package to be installed.
 }
 \examples{
 \dontrun{

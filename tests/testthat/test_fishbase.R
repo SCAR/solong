@@ -12,4 +12,8 @@ test_that("fishbase stuff works", {
 
     eq <- sol_fb_length_weight("Electrona antarctica",worms=TRUE)
     expect_false(is.null(eq$taxon_aphia_id) || is.na(eq$taxon_aphia_id))
+    expect_true(is.null(eq$reference[[1]]))
+
+    eq <- sol_fb_length_weight("Pleuragramma antarctica")
+    expect_is(eq$reference[[1]],"bibentry")
 })

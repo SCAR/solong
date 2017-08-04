@@ -2,7 +2,7 @@
 
 #' Create allometric equation from Fishbase
 #'
-#' Experimental.
+#' Experimental. Requires the rfishbase package to be installed.
 #'
 #' @param ... : arguments passed to rfishbase::length_weight
 #' @param worms logical: if TRUE, and if the worrms package is installed, try and find the AphiaID for the taxon in the World Register of Marine Species
@@ -30,20 +30,39 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
         worms <- FALSE
     }
     x <- rfishbase::length_weight(...)
+    if (nrow(x)<1) return(NULL)
+    thisrefs <- NULL
+    if (!all(is.na(x$DataRef))) {
+        suppressWarnings(thisrefs <- rfishbase::references(na.omit(x$DataRef),
+                                          fields=c("RefNo","Author","Year","Title","Source","ShortCitation")))
+        if (nrow(thisrefs)>0) {
+            thisrefs <- thisrefs %>% rowwise %>%
+                summarize_(DataRef=~RefNo,
+                           reference=~bibentry(bibtype="Misc",key=paste0("fishbase::",RefNo),
+                                               author=person(Author),
+                                               year=Year,title=Title,
+                                               howpublished=paste("Fishbase reference",RefNo,":",ShortCitation,".",Source,sep=" ")))
+            x <- x %>% left_join(thisrefs,by="DataRef")
+        }
+    }
+
+
     do.call(rbind,lapply(seq_len(nrow(x)),function(z) {
         this <- x[z,]
         suppressWarnings(
-        out <- sol_make_equation(equation_id=as.character(this$AutoCtr),
+        out <- sol_make_equation(equation_id=paste0("fishbase::",this$AutoCtr),
                           taxon_name=this$sciname,
                           equation=function(L){
                               a <- this$a
                               b <- this$b
+                              ## see also LCLa, UCLa, LCLb, UCLb
                               tibble(allometric_value=a*(L^b))
                           },
                           inputs=tibble(property=fb_len_map(this$Type),units="cm",sample_minimum=this$LengthMin,sample_maximum=this$LengthMax),
                           return_property="wet weight",
                           return_units="g")
         )
+        if ("reference" %in% names(this)) out$reference[[1]] <- this$reference[[1]]
         if (worms) {
             wx <- worrms::wm_records_name(out$taxon_name) %>%
                 filter_(~status=="accepted")
