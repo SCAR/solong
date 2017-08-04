@@ -27,7 +27,7 @@ sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
 
 \item{notes}{string: any notes that users should be aware of (optional)}
 
-\item{reference}{string: the source of the equation (recommended)}
+\item{reference}{bibentry: the source of the equation (recommended)}
 
 \item{check_packaged_ids}{logical: if TRUE, check the equation_id against the package-bundled equations. A warning will be issued if there is a packaged equation with the same ID as equation_id}
 
@@ -41,6 +41,15 @@ Create an allometric equation object
 }
 \examples{
 library(dplyr)
+my_ref <- bibentry(bibtype="Article",key="Lake2003",
+            author=c(person("S","Lake"),person("H","Burton"),
+              person("J","van den Hoff")),
+            year=2003,
+            title="Regional, temporal and fine-scale spatial variation in
+              Weddell seal diet at four coastal locations in east Antarctica",
+            journal="Marine Ecology Progress Series",
+            volume=254,pages="293-305",doi="10.3354/meps254293")
+
 eq <- sol_make_equation(equation_id="my_equation_id",
                         taxon_name="Chorismus antarcticus",
                         taxon_aphia_id=369214,
@@ -53,7 +62,7 @@ eq <- sol_make_equation(equation_id="my_equation_id",
                         reliability=tribble(~type,~value,
                                              "N",35,
                                              "R^2",0.976),
-                        reference="Lake S et al. (2003) doi:10.3354/meps254293")
+                        reference=my_ref)
 
 }
 \seealso{

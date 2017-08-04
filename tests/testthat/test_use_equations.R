@@ -36,8 +36,8 @@ test_that("equation usage generally works", {
 
 test_that("mixtures of things work sensibly",{
     x <- tibble(LRL=c(11.3,13.9,NA),species=c("Architeuthis dux","Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,NA,175)) %>%
-        mutate(LRL=sol_set_property(LRL,"lower rostral length"),
-               SL=sol_set_property(SL,"standard length","cm"))
+        mutate_(LRL=~sol_set_property(LRL,"lower rostral length"),
+               SL=~sol_set_property(SL,"standard length","cm"))
     xa <- sol_allometry(x,c("342218_WW_Clar1986","342218_WW_Clar1986","195932_WW_GaBu1988"))
     ## expect in this case that all values have been provided in g
     expect_true(all(xa$allometric_value>units::set_units(10e3,units::ud_units$g)))

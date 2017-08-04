@@ -1,4 +1,10 @@
-refs$Lake2003 <- "Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293"
+oldrefs$Lake2003 <- "Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293"
+refs$Lake2003 <- bibentry(bibtype="Article",key="Lake2003",
+                             author=c(person("S","Lake"),person("H","Burton"),person("J","van den Hoff")),
+                             year=2003,
+                             title="Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica",
+                             journal="Marine Ecology Progress Series",
+                             volume=254,pages="293-305",doi="10.3354/meps254293")
 
 if (FALSE) {
     library(dplyr)
@@ -82,7 +88,7 @@ alleq_Lake2003 <- function(id) {
                                      reliability=tribble(~type,~value,
                                                          "N",35,
                                                          "R^2",0.976),
-                                     notes="Upper and lower bounds on estimates are prediction intervals. Equation refitted using data from https://data.aad.gov.au/metadata/records/Wed_fish",
+                                     notes="Upper and lower bounds on estimates are prediction intervals. Equation refitted using data from http://doi.org/10.4225/15/5982a2aeb56e1",
                                      reference=refs$Lake2003),
            stop("unrecognized equation ID: ",id))
 }

@@ -1,6 +1,14 @@
 context("solong")
 
 test_that("equation constructor works", {
+
+    myref <- bibentry(bibtype="Article",key="Ref0000",
+                      author=c(person("A","Person")),
+                      year=2000,
+                      title="Marvellous study of stuff",
+                      journal="Journal of Great Importance",
+                      volume=42,pages="1-10",doi="10.0000/123456789")
+
     ## complete and working examples
     eq <- sol_make_equation(equation_id="myequation001",
                             taxon_name="thingy thingy",
@@ -10,7 +18,7 @@ test_that("equation constructor works", {
                             return_property="wet weight",
                             return_units="kg",
                             reliability=tibble(type="N",value="100"),
-                            reference="")
+                            reference=myref)
 
     ## missing "recommended" stuff should throw warnings
     expect_warning(
@@ -21,7 +29,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "no taxon_aphia_id")
 
     expect_warning(
@@ -32,7 +40,7 @@ test_that("equation constructor works", {
                                 inputs=tibble(property="standard length",units="mm"),
                                 return_property="wet weight",
                                 return_units="kg",
-                                reference=""),
+                                reference=myref),
         "no reliability information")
 
     expect_warning(
@@ -56,7 +64,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "\"equation_id\" is missing")
     expect_error(
         eq <- sol_make_equation(equation_id=3,
@@ -67,7 +75,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "equation_id is not a string")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
@@ -78,7 +86,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "\"taxon_name\" is missing")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
@@ -89,7 +97,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "inputs is not a data frame")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
@@ -100,7 +108,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "the inputs data.frame should have the columns \"property\" and \"units\"")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
@@ -111,7 +119,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "input units .* are not recognized")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
@@ -122,7 +130,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "input property not recognized: \"bilbobaggins\"")
 
     ## return property and units
@@ -135,7 +143,7 @@ test_that("equation constructor works", {
                                 return_property="blah",
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "return property .* not recognized")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
@@ -146,7 +154,7 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="frogs",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "return_units .* are not recognized")
 
     expect_error(
@@ -158,6 +166,6 @@ test_that("equation constructor works", {
                                 return_property="wet weight",
                                 return_units="m",
                                 reliability=tibble(type="N",value="100"),
-                                reference=""),
+                                reference=myref),
         "return_units .* are not compatible with the return_property")
 })

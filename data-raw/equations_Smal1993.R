@@ -1,4 +1,9 @@
-refs$Smal1993 <- "Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293"
+oldrefs$Smal1993 <- "Smale MJ, Clarke MR, Klages TW, Roeleveld MA (1993) Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa). South African Journal of Marine Sciences 13: 269-293"
+refs$Smal1993 <- bibentry(bibtype="Article",key="Smal1993",
+                             author=c(person(c("M","J"),"Smale"),person(c("M","R"),"Clarke"),person(c("T","W"),"Klages"),person(c("M","A"),"Roeleveld")),
+                             year=1993,title="Octopod beak identification: resolution at a regional level (Cephalopoda, Octopoda: Southern Africa)",
+                             journal="South African Journal of Marine Sciences",
+                             volume=13,pages="269-293")
 
 alleq_Smal1993 <- function(id) {
     switch(id,

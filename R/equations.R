@@ -94,8 +94,8 @@ summary.sol_equation <- function(object,...) {
         }
         if ("notes" %in% names(object) && nzchar(object$notes[i]))
             cat("  Notes: ",object$notes[i],"\n",sep="")
-        if ("reference" %in% names(object) && nzchar(object$reference[i]))
-            cat("  Reference: ",object$reference[i],"\n",sep="")
+        if ("reference" %in% names(object) && inherits(object$reference[[i]],"bibentry"))
+            cat("  Reference: ",format(object$reference[[i]]),"\n",sep="")
         cat("\n")
     }
     nomit <- nrow(object)-rows_to_print
@@ -118,7 +118,7 @@ summary.sol_equation <- function(object,...) {
 #' @param return_units string: the units of measurement of the allometric property that the equation returns. Must be units that are recognized by units::ud_unit (required)
 #' @param reliability data.frame: indicators of reliability of the equation. Must have columns "type" and "value"; see examples (recommended)
 #' @param notes string: any notes that users should be aware of (optional)
-#' @param reference string: the source of the equation (recommended)
+#' @param reference bibentry: the source of the equation (recommended)
 #' @param check_packaged_ids logical: if TRUE, check the equation_id against the package-bundled equations. A warning will be issued if there is a packaged equation with the same ID as equation_id
 #' @param warn_recommended logical: issue a warning if "recommended" informations is not supplied?
 #'
@@ -128,6 +128,15 @@ summary.sol_equation <- function(object,...) {
 #'
 #' @examples
 #' library(dplyr)
+#' my_ref <- bibentry(bibtype="Article",key="Lake2003",
+#'             author=c(person("S","Lake"),person("H","Burton"),
+#'               person("J","van den Hoff")),
+#'             year=2003,
+#'             title="Regional, temporal and fine-scale spatial variation in
+#'               Weddell seal diet at four coastal locations in east Antarctica",
+#'             journal="Marine Ecology Progress Series",
+#'             volume=254,pages="293-305",doi="10.3354/meps254293")
+#'
 #' eq <- sol_make_equation(equation_id="my_equation_id",
 #'                         taxon_name="Chorismus antarcticus",
 #'                         taxon_aphia_id=369214,
@@ -140,7 +149,7 @@ summary.sol_equation <- function(object,...) {
 #'                         reliability=tribble(~type,~value,
 #'                                              "N",35,
 #'                                              "R^2",0.976),
-#'                         reference="Lake S et al. (2003) doi:10.3354/meps254293")
+#'                         reference=my_ref)
 #'
 #' @export
 sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inputs,return_property,return_units,reliability,notes,reference,check_packaged_ids=TRUE,warn_recommended=TRUE) {
@@ -223,7 +232,7 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
         if (warn_recommended) warning("no reference provided: consider adding this to help establish the provenance of the equation")
         reference <- ""
     } else {
-        assert_that(is.string(reference))
+        assert_that(inherits(reference,"bibentry"))
     }
 
     ## test the equation

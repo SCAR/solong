@@ -231,6 +231,14 @@ Bathyraja maccaini Total 17 23.5 86.5 53.78 114.0 6000.0 2085.12 0.00477 3.162 0
 
 }
 
+oldrefs$Arti2003 <- "Artigues B, Morales-Nin B, Balguer\uEDas E (2003) Fish length-weight relationships in the Weddell Sea and Bransfield Strait. Polar Biology 26:463-467. doi:10.1007/s00300-003-0505-0"
+refs$Arti2003 <- bibentry(bibtype="Article",key="Arti2003",
+                          author=c(person("B","Artigues"),person("B","Morales-Nin"),person("E","Balguer\uEDas")),
+                          year=2003,
+                          title="Fish length-weight relationships in the Weddell Sea and Bransfield Strait",
+                          journal="Polar Biology",volume=26,pages="463-467",
+                          doi="10.1007/s00300-003-0505-0")
+
 alleq_Arti2003 <- function(id) {
     switch(id,
 
