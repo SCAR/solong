@@ -11,6 +11,7 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "carapace length","mm","solprop_CPL","",
                                "removed carapace length","mm","solprop_RCPL","",
                                "total length","mm","solprop_TL","Note that the definition of total length may be species-specific, e.g. for Antarctic krill it is generally taken from the anterior margin of the eye to the posterior tip of the telson",
+                               "fork length","mm","solprop_FL","",
                                "wet weight","g","solprop_WW","",
                                "otolith length","mm","solprop_OL","",
                                "otolith width","mm","solprop_OW","")

@@ -68,7 +68,10 @@ subset(sol_equations(),taxon_name=="Architeuthis dux") %>% summary
 #>   It takes as 1st input: lower rostral length (units: mm, sample range: unknown to unknown)
 #>   It estimates: mantle length (units: mm)
 #>   Indicator of reliability: N=11
-#>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#>   Reference: Clarke MR (1986). "A handbook for the identification of cephalopod
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
+#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
+#> Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> equation_id: 342218_WW_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
@@ -76,7 +79,10 @@ subset(sol_equations(),taxon_name=="Architeuthis dux") %>% summary
 #>   It takes as 1st input: lower rostral length (units: mm, sample range: unknown to unknown)
 #>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: N=9
-#>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#>   Reference: Clarke MR (1986). "A handbook for the identification of cephalopod
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
+#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
+#> Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> equation_id: 342218_ML_Roel2000
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
@@ -85,7 +91,9 @@ subset(sol_equations(),taxon_name=="Architeuthis dux") %>% summary
 #>   It estimates: mantle length (units: mm)
 #>   Indicator of reliability: N=43
 #>   Notes: Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one
-#>   Reference: Roeleveld (2000) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#>   Reference: Roeleveld MAC (2000). "Giant squid beaks: implications for
+#> systematics." _Journal of the Marine Biological Association of the
+#> UK_, *80*, pp. 185-187.
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
@@ -149,7 +157,10 @@ sol_equation("342218_WW_Clar1986") %>% summary
 #>   It takes as 1st input: lower rostral length (units: mm, sample range: unknown to unknown)
 #>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: N=9
-#>   Reference: Clarke (1986) in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#>   Reference: Clarke MR (1986). "A handbook for the identification of cephalopod
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
+#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
+#> Cambridge, British Antarctic Survey, 129pp.
 ```
 
 And equation `195932_WW_GaBu1988` estimates the weight of male Weddell seals based on their standard length:
@@ -163,7 +174,9 @@ sol_equation("195932_WW_GaBu1988") %>% summary
 #>   It estimates: wet weight (units: kg)
 #>   Indicator of reliability: N=15
 #>   Notes: Applies to male animals
-#>   Reference: Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433
+#>   Reference: Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
+#> dietary assessment of Weddell seals." _Australian Wildlife
+#> Research_, *15*, pp. 423-433.
 ```
 
 Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
@@ -254,6 +267,14 @@ sol_allometry(x,"369214_WW_Lake2003") %>%
 ```
 
 Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
+
+### Other sources of equations
+
+TODO: document the `sol_fb_length_weight()` function for using FishBase length-weight equation coefficients.
+
+### Adding your own equations
+
+TODO: document, including what to do when a property is not part of the `sol_properties()` collection.
 
 ### Taxonomy
 

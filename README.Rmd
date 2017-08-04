@@ -175,6 +175,14 @@ sol_allometry(x,"369214_WW_Lake2003") %>%
 
 Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
 
+### Other sources of equations
+
+TODO: document the `sol_fb_length_weight()` function for using FishBase length-weight equation coefficients.
+
+### Adding your own equations
+
+TODO: document, including what to do when a property is not part of the `sol_properties()` collection.
+
 ### Taxonomy
 
 Equations are registered against *taxon_name* and *taxon_aphia_id* (the species identifier in the World Register of Marine Species). The *taxon_aphia_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.
