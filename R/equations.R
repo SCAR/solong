@@ -230,7 +230,7 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
     ## reference
     if (missing(reference)) {
         if (warn_recommended) warning("no reference provided: consider adding this to help establish the provenance of the equation")
-        reference <- ""
+        reference <- NULL
     } else {
         assert_that(inherits(reference,"bibentry"))
     }
