@@ -120,7 +120,7 @@ test_that("equation constructor works", {
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
                                 reference=myref),
-        "input units .* are not recognized")
+        "input units .* are not compatible")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
                                 taxon_name="thingy thingy",
@@ -155,7 +155,7 @@ test_that("equation constructor works", {
                                 return_units="frogs",
                                 reliability=tibble(type="N",value="100"),
                                 reference=myref),
-        "return_units .* are not recognized")
+        "return_units .* are not compatible")
 
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",

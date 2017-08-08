@@ -115,7 +115,7 @@ summary.sol_equation <- function(object,...) {
 #' @param equation function: the equation. Must return a data.frame or tibble, with at least the column "allometric_value", and optionally also "allometric_value_lower" and "allometric_value_upper" (required)
 #' @param inputs data.frame: the inputs needed by the equation. Must have columns "property" and "units", with entries that match those in \code{sol_properties}. Optionally also "sample_minimum" and "sample_maximum" if known (describing the range of the data used to generate the equation) (required)
 #' @param return_property string: the name of the allometric property that the equation returns (required)
-#' @param return_units string: the units of measurement of the allometric property that the equation returns. Must be units that are recognized by units::ud_unit (required)
+#' @param return_units string: the units of measurement of the allometric property that the equation returns. Will be parsed by units::parse_unit (required)
 #' @param reliability data.frame: indicators of reliability of the equation. Must have columns "type" and "value"; see examples (recommended)
 #' @param notes string: any notes that users should be aware of (optional)
 #' @param reference bibentry: the source of the equation (recommended)
@@ -178,9 +178,9 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
     if (!all(chk))
         stop(sprintf("input property not recognized: \"%s\"",paste(inputs$property,collapse="\", \"")))
     assert_that(is.character(inputs$units))
-    chk <- vapply(inputs$units,function(z)is.null(ud_units[[z]]),FUN.VALUE=TRUE)
+    chk <- vapply(inputs$units,function(z)is.null(parse_unit(z)),FUN.VALUE=TRUE)
     if (any(chk))
-        stop("input units (\"",paste(inputs$units[chk],collapse="\", \""),"\") are not recognized by units::ud_units")
+        stop("input units (\"",paste(inputs$units[chk],collapse="\", \""),"\") cannot be parsed by units::parse_unit")
     ## check that each input property is compatible with its units
     for (z in seq_len(nrow(inputs))) {
         if (!check_property_units(inputs$property[z],inputs$units[z])) {
@@ -198,9 +198,9 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
     if (!is_sol_property(return_property))
         stop(sprintf("return property (\"%s\") not recognized",return_property))
     assert_that(is.string(return_units))
-    chk <- ud_units[[return_units]]
+    chk <- parse_unit(return_units)
     if (is.null(chk))
-        stop("return_units (\"",return_units,"\") are not recognized by units::ud_units")
+        stop("return_units (\"",return_units,"\") cannot be parsed by units::parse_unit")
     ## check that the return_property is compatible with the return_units
     if (!check_property_units(return_property,return_units)) {
         stop("return_units (\"",return_units,"\") are not compatible with the return_property (\"",

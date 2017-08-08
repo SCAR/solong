@@ -111,7 +111,7 @@ apply_eq <- function(data,eqn,use_property_units=FALSE) {
     data2 <- as.data.frame(data)[,cidx,drop=FALSE]
     ## convert units, if necessary
     for (i in seq_len(ncol(data2)))
-        units(data2[,i]) <- ud_units[[eqn$inputs[[1]]$units[i]]]
+        units(data2[,i]) <- parse_unit(eqn$inputs[[1]]$units[i])
     ## now remove property and units, so that equation can just be applied without getting upset by e.g. ^2 operations
     ## and convert data2 to list, so can call equation with do.call
     data2 <- lapply(seq_len(ncol(data2)),function(z)sol_set_property(data2[,z],NULL))
@@ -130,9 +130,9 @@ apply_eq <- function(data,eqn,use_property_units=FALSE) {
         ## convert to the default units for the property
         ## this will help enforce consistency across equations
         ## note though that this will drop the sol_property class
-        units(out$allometric_value) <- ud_units[[sol_properties(eqn$return_property)$units]]
-        units(out$allometric_value_lower) <- ud_units[[sol_properties(eqn$return_property)$units]]
-        units(out$allometric_value_upper) <- ud_units[[sol_properties(eqn$return_property)$units]]
+        units(out$allometric_value) <- parse_unit(sol_properties(eqn$return_property)$units)
+        units(out$allometric_value_lower) <- parse_unit(sol_properties(eqn$return_property)$units)
+        units(out$allometric_value_upper) <- parse_unit(sol_properties(eqn$return_property)$units)
         ## reinstate sol_property
         out$allometric_value <- sol_set_property(out$allometric_value,eqn$return_property)
         attributes(out$allometric_value_lower) <- attributes(out$allometric_value)

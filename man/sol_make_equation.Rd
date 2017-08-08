@@ -21,7 +21,7 @@ sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
 
 \item{return_property}{string: the name of the allometric property that the equation returns (required)}
 
-\item{return_units}{string: the units of measurement of the allometric property that the equation returns. Must be units that are recognized by units::ud_unit (required)}
+\item{return_units}{string: the units of measurement of the allometric property that the equation returns. Will be parsed by units::parse_unit (required)}
 
 \item{reliability}{data.frame: indicators of reliability of the equation. Must have columns "type" and "value"; see examples (recommended)}
 
