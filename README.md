@@ -13,15 +13,15 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 414 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 420 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
-|                |  hood length|  mantle length|  standard length|  total length|  wet weight|
-|----------------|------------:|--------------:|----------------:|-------------:|-----------:|
-| Actinopterygii |            0|              0|              106|             2|         170|
-| Cephalopoda    |            8|             61|                0|             0|          58|
-| Elasmobranchii |            0|              0|                0|             0|           1|
-| Malacostraca   |            0|              0|                0|             3|           4|
-| Mammalia       |            0|              0|                0|             0|           1|
+|                |  energy density dry weight|  energy density wet weight|  hood length|  mantle length|  standard length|  total length|  wet weight|
+|----------------|--------------------------:|--------------------------:|------------:|--------------:|----------------:|-------------:|-----------:|
+| Actinopterygii |                          3|                          3|            0|              0|              106|             2|         170|
+| Cephalopoda    |                          0|                          0|            8|             61|                0|             0|          58|
+| Elasmobranchii |                          0|                          0|            0|              0|                0|             0|           1|
+| Malacostraca   |                          0|                          0|            0|              0|                0|             3|           4|
+| Mammalia       |                          0|                          0|            0|              0|                0|             0|           1|
 
 Installing
 ----------
