@@ -48,6 +48,8 @@ source("data-raw/equations_Lake2003.R")
 source("data-raw/equations_Smal1993.R")
 source("data-raw/equations_WiMc1990.R")
 source("data-raw/equations_XaCh2016.R")
+## energetics
+source("data-raw/equations_VanD2006.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -143,6 +145,7 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some things, if not already specified
@@ -1014,6 +1017,16 @@ build_allometry_df <- function() {
 
     ## Tremtomus newnesi
     x <- bind_rows(x,alleq_tbl("234628_WW~SL_EaDe1997"))
+
+    ## energetics
+    ## Electrona antarctica
+    x <- bind_rows(x,alleq_tbl("217697_EDDW~SL_VanD2006"),
+                   alleq_tbl("217697_EDWW~SL_VanD2006"),
+                   alleq_tbl("217697_EDDW~WW_VanD2006"),
+                   alleq_tbl("217697_EDWW~WW_VanD2006"),
+                   alleq_tbl("217697_EDDW~DW_VanD2006"),
+                   alleq_tbl("217697_EDWW~DW_VanD2006"))
+
     x
 }
 
