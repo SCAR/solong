@@ -270,7 +270,29 @@ Attempts are made to avoid allowing an equation to extrapolate beyond its valid 
 
 ### Other sources of equations
 
-TODO: document the `sol_fb_length_weight()` function for using FishBase length-weight equation coefficients.
+<http://www.fishbase.org> provides estimates of length-weight coefficients. These can be obtained via the `sol_fb_length_weight()` function (which uses the `rfishbase` package under the hood). For example:
+
+``` r
+myeq <- sol_fb_length_weight("Electrona antarctica")
+myeq <- myeq[2,] ## use the second one of the two that are returned
+summary(myeq)
+#> equation_id: fishbase::11437
+#>   taxon_name: Electrona antarctica, taxon_aphia_id: 217697
+#>   equation: function (L) tibble(allometric_value = 0.00742 * (L^3.27))
+#>   It takes as 1st input: standard length (units: cm, sample range: unknown to unknown)
+#>   It estimates: wet weight (units: g)
+#>   Indicator of reliability: R^2=0.957
+
+x <- tibble(SL=10) %>%
+   mutate(SL=sol_set_property(SL,"standard length",with_units="cm"))
+sol_allometry(x,myeq)
+#> # A tibble: 1 x 5
+#>                   SL   allometric_value allometric_value_lower
+#>   <S3: sol_property> <S3: sol_property>     <S3: sol_property>
+#> 1              10 cm         13.81669 g                   NA g
+#> # ... with 2 more variables: allometric_value_upper <S3: sol_property>,
+#> #   allometric_property <chr>
+```
 
 ### Adding your own equations
 
@@ -280,9 +302,191 @@ TODO: document, including what to do when a property is not part of the `sol_pro
 
 Equations are registered against *taxon\_name* and *taxon\_aphia\_id* (the species identifier in the World Register of Marine Species). The *taxon\_aphia\_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.
 
+### Other random stuff
+
+Is equation X included in the package? Call `sol_equations()` to get all equations that are part of the package, and have a rummage through that.
+
+To see all references from which equations have been drawn, do something like:
+
+``` r
+eqs <- sol_equations()
+unique(eqs$reference)
+#> [[1]]
+#> Clarke MR (1986). "A handbook for the identification of cephalopod
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
+#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
+#> Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> [[2]]
+#> Roeleveld MAC (2000). "Giant squid beaks: implications for
+#> systematics." _Journal of the Marine Biological Association of the
+#> UK_, *80*, pp. 185-187.
+#> 
+#> [[3]]
+#> Lu CC and Williams R (1994). "Contribution to the biology of squid
+#> in the Prydz Bay region, Antarctica." _Antarctic Science_, *6*,
+#> pp. 223-229.
+#> 
+#> [[4]]
+#> Rodhouse PG, Prince PA, Clarke MR and Murray AWA (1990).
+#> "Cephalopod prey of the grey-headed albatross Diomedea
+#> chrysostoma." _Marine Biology_, *104*, pp. 353-362. As cited in
+#> Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for
+#> the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> [[5]]
+#> Clarke M (1962). "The identification of cephalopod "beaks" and the
+#> relationship between beak size and total body weight." _Bulletin
+#> of the British Museum of Natural History B_, *8*, pp. 421-480. As
+#> cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak
+#> guide for the Southern Ocean. Cambridge, British Antarctic Survey,
+#> 129pp.
+#> 
+#> [[6]]
+#> Lu CC and Ickeringill R (2002). "Cephalopod beak identification
+#> and biomass estimation techniques: tools for dietary studies of
+#> southern Australian finfishes." _Museum Victoria Science Reports_,
+#> *6*, pp. 1-65.
+#> 
+#> [[7]]
+#> BAS (????). "Unpublished data." As cited in Xavier J & Cherel Y
+#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
+#> Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> [[8]]
+#> Hatfield (2001). Pers. comm., as cited in Piatkowski U, Pütz K,
+#> Heinemann H (2001) Cephalopod prey of king penguins (Aptenodytes
+#> patagonicus) breeding at Volunteer Beach, Falkland Islands, during
+#> austral winter 1996. Fisheries Research 52:79-90.
+#> doi:10.1016/S0165-7836(01)00232-6.
+#> 
+#> [[9]]
+#> Piatkowski U, Pütz K and Heinemann H (2001). "Cephalopod prey of
+#> king penguins (Aptenodytes patagonicus) breeding at Volunteer
+#> Beach, Falkland Islands, during austral winter 1996." _Fisheries
+#> Research_, *52*, pp. 79-90. doi: 10.1016/S0165-7836(01)00232-6
+#> (URL: http://doi.org/10.1016/S0165-7836(01)00232-6).
+#> 
+#> [[10]]
+#> Rodhouse PG and Yeatman J (1990). "Redescription of Martialia
+#> hyadesi Rochbrune and Mabille, 1889 (Mollusca: Cephalopoda) from
+#> the Southern Ocean." _Bulletin of the British Museum of Natural
+#> History (Zoology)_, *56*, pp. 135-143. As cited in Xavier J &
+#> Cherel Y (2009 updated 2016) Cephalopod beak guide for the
+#> Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> [[11]]
+#> Santos RA and Haimovici M (2000). "The Argentine short-finned
+#> squid Illex argentinus in the food webs of southern Brazil."
+#> _Sarsia_, *85*, pp. 49-60.
+#> 
+#> [[12]]
+#> Brown CR and Klages NT (1987). "Seasonal and annual variation in
+#> diets of macaroni (Eudyptes chrysolophus chrysolophus) and
+#> southern rockhopper (E. chrysocome chrysocome) penguins at
+#> sub-Antarctic Marion Island." _Journal of Zoology, London_, *212*,
+#> pp. 7-28. As cited in Xavier J & Cherel Y (2009 updated 2016)
+#> Cephalopod beak guide for the Southern Ocean. Cambridge, British
+#> Antarctic Survey, 129pp.
+#> 
+#> [[13]]
+#> Jackson GD (1995). "The use of beaks as tools for biomass
+#> estimation in the deepwater squid Moroteuthis ingens (Cephalopoda:
+#> Onychoteuthidae) in New Zealand waters." _Polar Biology_, *15*,
+#> pp. 9-14. As cited in Xavier J & Cherel Y (2009 updated 2016)
+#> Cephalopod beak guide for the Southern Ocean. Cambridge, British
+#> Antarctic Survey, 129pp.
+#> 
+#> [[14]]
+#> Cherel Y (????). "Unpublished data." As cited in Xavier J & Cherel
+#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
+#> Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> [[15]]
+#> Gröger J, Piatkowski U and Heinemann H (2000). "Beak length
+#> analysis of the Southern Ocean squid Psychroteuthis glacialis
+#> (Cephalopoda: Psychroteuthidae) and its use for size and biomass
+#> estimation." _Polar Biology_, *23*, pp. 70-74. doi:
+#> 10.1007/s003000050009 (URL: http://doi.org/10.1007/s003000050009).
+#> 
+#> [[16]]
+#> Collins (????). "Unpublished data." As cited in Xavier J & Cherel
+#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
+#> Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> 
+#> [[17]]
+#> Smale MJ, Clarke MR, Klages TW and Roeleveld MA (1993). "Octopod
+#> beak identification: resolution at a regional level (Cephalopoda,
+#> Octopoda: Southern Africa)." _South African Journal of Marine
+#> Sciences_, *13*, pp. 269-293.
+#> 
+#> [[18]]
+#> Williams R and McEldowney A (1990). "A guide to the fish otoliths
+#> from waters off the Australian Antarctic Territory, Heard and
+#> Macquarie Islands." In _ANARE Research Notes_, volume 75.
+#> Antarctic Division, Australian Government.
+#> 
+#> [[19]]
+#> Artigues B, Morales-Nin B and Balguer<U+0EDA>s E (2003). "Fish
+#> length-weight relationships in the Weddell Sea and Bransfield
+#> Strait." _Polar Biology_, *26*, pp. 463-467. doi:
+#> 10.1007/s00300-003-0505-0 (URL:
+#> http://doi.org/10.1007/s00300-003-0505-0).
+#> 
+#> [[20]]
+#> Goebel ME, Lipsky JD, Reiss CS and Loeb VJ (2007). "Using carapace
+#> measurements to determine the sex of Antarctic krill, Euphausia
+#> superba." _Polar Biology_, *30*, pp. 307-315. doi:
+#> 10.1007/s00300-006-0184-8 (URL:
+#> http://doi.org/10.1007/s00300-006-0184-8).
+#> 
+#> [[21]]
+#> Morris DJ, Watkins JL, Ricketts C, Buchholz F and Priddle J
+#> (1988). "An assessmant of the merits of length and weight
+#> measurements of Antarctic krill Euphausia superba." _British
+#> Antarctic Survey Bulletin_, *79*, pp. 27-50.
+#> 
+#> [[22]]
+#> Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D,
+#> Kasatkina S, Takao Y, Goss C, Malyshko A and Brandon M (2004).
+#> "Biomass of Antarctic krill in the Scotia Sea in January/February
+#> 2000 and its use in revising an estimate of precautionary yield."
+#> _Deep Sea Research Part II: Topical Studies in Oceanography_,
+#> *51*, pp. 1215-1236. doi: 10.1016/j.dsr2.2004.06.011 (URL:
+#> http://doi.org/10.1016/j.dsr2.2004.06.011).
+#> 
+#> [[23]]
+#> Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
+#> dietary assessment of Weddell seals." _Australian Wildlife
+#> Research_, *15*, pp. 423-433.
+#> 
+#> [[24]]
+#> Lake S, Burton H and van den Hoff J (2003). "Regional, temporal
+#> and fine-scale spatial variation in Weddell seal diet at four
+#> coastal locations in east Antarctica." _Marine Ecology Progress
+#> Series_, *254*, pp. 293-305. doi: 10.3354/meps254293 (URL:
+#> http://doi.org/10.3354/meps254293).
+#> 
+#> [[25]]
+#> Eastman JT and Devries AL (1997). "Biology and phenotypic
+#> plasticity of the Antarctic nototheniid fish Trematomus newnesi in
+#> McMurdo Sound." _Antarctic Science_, *9*, pp. 27-35. doi:
+#> 10.1017/S0954102097000047 (URL:
+#> http://doi.org/10.1017/S0954102097000047).
+#> 
+#> [[26]]
+#> Van de Putte A, Flores H, Volckaert F and van Franeker JA (2006).
+#> "Energy content of Antarctic mesopelagic fishes: implications for
+#> the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:
+#> 10.1007/s00300-006-0148-z (URL:
+#> http://doi.org/10.1007/s00300-006-0148-z).
+```
+
 Related packages
 ----------------
 
 -   [units](https://cran.r-project.org/package=units) for handling units of measurement
 -   [worrms](https://cran.r-project.org/package=worrms) for taxonomy
 -   [shapeR](https://cran.r-project.org/package=shapeR) for collection and analysis of otolith shape data
+-   <https://github.com/James-Thorson/FishLife> for estimating fish life history parameters
+-   [rfishbase](https://cran.r-project.org/package=rfishbase) an interface to www.fishbase.org
