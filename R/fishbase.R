@@ -47,17 +47,17 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
     }
 
 
+    mk_eqfun <- function(a,b) {
+        ## see also LCLa, UCLa, LCLb, UCLb
+        eval(parse(text=sprintf("function(L) tibble(allometric_value=%g*(L^%g))",a,b)))
+    }
+
     do.call(rbind,lapply(seq_len(nrow(x)),function(z) {
         this <- x[z,]
         suppressWarnings(
         out <- sol_make_equation(equation_id=paste0("fishbase::",this$AutoCtr),
                           taxon_name=this$sciname,
-                          equation=function(L){
-                              a <- this$a
-                              b <- this$b
-                              ## see also LCLa, UCLa, LCLb, UCLb
-                              tibble(allometric_value=a*(L^b))
-                          },
+                          equation=mk_eqfun(this$a,this$b),
                           inputs=tibble(property=fb_len_map(this$Type),units="cm",sample_minimum=this$LengthMin,sample_maximum=this$LengthMax),
                           return_property="wet weight",
                           return_units="g")
@@ -72,7 +72,6 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
         if (!is.na(this$CoeffDetermination))
             out$reliability[[1]] <- tribble(~type,~value,
                                             "R^2",this$CoeffDetermination)
-        ##reference=???)
         out
     }
     ))
