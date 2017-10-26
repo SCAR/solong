@@ -50,6 +50,7 @@ source("data-raw/equations_WiMc1990.R")
 source("data-raw/equations_XaCh2016.R")
 ## energetics
 source("data-raw/equations_VanD2006.R")
+source("data-raw/equations_FrHa1994.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -135,7 +136,7 @@ alleq_other <- function(id) {
 
 
 ## wrapper function around alleq. Can override the taxon, if e.g. applying an equation developed for one species to another species
-## can override reference
+## can override reference. Notes get added to any notes in the original equation
 alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     thiseq <- NULL
     try(thiseq <- alleq_other(id),silent=TRUE)
@@ -146,6 +147,7 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some things, if not already specified
@@ -154,7 +156,17 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     if (missing(taxon_aphia_id)) taxon_aphia_id <- thiseq$taxon_aphia_id
     if (missing(reference)) reference <- thiseq$reference
     if (missing(notes)) {
-        notes <- if (is.null(thiseq$notes)) "" else thiseq$notes
+        notes <- ""
+    }
+    if (is.null(thiseq$notes) || !nzchar(thiseq$notes)) {
+        ## no notes in coded equation, use notes supplied here as arg
+    } else {
+        if (nzchar(notes)) {
+            ## use both sets of notes
+            notes <- paste0(notes,". ",thiseq$notes)
+        } else {
+            notes <- thiseq$notes ## use notes from thiseq
+        }
     }
     if (is.null(thiseq$reliability)) thiseq$reliability <- tibble(type=character(),value=numeric())
 
@@ -1026,6 +1038,31 @@ build_allometry_df <- function() {
                    alleq_tbl("217697_EDWW~WW_VanD2006"),
                    alleq_tbl("217697_EDDW~DW_VanD2006"),
                    alleq_tbl("217697_EDWW~DW_VanD2006"))
+
+    ## Aethotaxis mitopteryx 234660, proper name is Aethotaxis mitopteryx mitopteryx
+    x <- bind_rows(x,alleq_tbl("234661_LpDW~SL_FrHa1994"),
+                   alleq_tbl("234661_LpDW~SL_FrHa1994",
+                             with_id="234660_LpDW~SL_FrHa1994",
+                             taxon_name="Aethotaxis mitopteryx",
+                             taxon_aphia_id=234660,
+                             notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+    x <- bind_rows(x,alleq_tbl("234661_LpDW~WW_FrHa1994"),
+                   alleq_tbl("234661_LpDW~WW_FrHa1994",
+                             with_id="234660_LpDW~WW_FrHa1994",
+                             taxon_name="Aethotaxis mitopteryx",
+                             taxon_aphia_id=234660,
+                             notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+
+
+    ## Pleuragramma antarcticum 234721, proper name is Pleuragramma antarctica
+    x <- bind_rows(x,alleq_tbl("712788_LpDW~SL_FrHa1994"),
+                   alleq_tbl("712788_LpDW~SL_FrHa1994",
+                             with_id="234721_LpDW~SL_FrHa1994",
+                             taxon_name="Pleuragramma antarcticum",
+                             taxon_aphia_id=234721,
+                             notes="Accepted taxon name is Pleuragramma antarctica"))
+    ## Trematomus lepidorhinus
+    x <- bind_rows(x,alleq_tbl("234770_LpDW~SL_FrHa1994"))
 
     x
 }
