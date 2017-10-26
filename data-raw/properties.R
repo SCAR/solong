@@ -19,7 +19,9 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                ## energetics stuff
                                "energy density dry weight","kJ g-1","solprop_EDDW","",
                                "energy density wet weight","kJ g-1","solprop_EDWW","",
-                               "lipid content dry weight","%","solprop_LpDW","")
+                               "lipid content dry weight","%","solprop_LpDW","",
+                               "lipid content wet weight","%","solprop_LpWW","",
+                               "water content wet weight","%","solprop_WC","")
 
 assert_that(!any(duplicated(sol_properties_data$class_name)))
 devtools::use_data(sol_properties_data,internal=FALSE,overwrite=TRUE)

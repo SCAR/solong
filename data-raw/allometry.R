@@ -1052,7 +1052,12 @@ build_allometry_df <- function() {
                              taxon_name="Aethotaxis mitopteryx",
                              taxon_aphia_id=234660,
                              notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-
+    x <- bind_rows(x,alleq_tbl("234661_WC~LpWW_FrHa1994"),
+                   alleq_tbl("234661_WC~LpWW_FrHa1994",
+                             with_id="234660_WC~LpWW_FrHa1994",
+                             taxon_name="Aethotaxis mitopteryx",
+                             taxon_aphia_id=234660,
+                             notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
 
     ## Pleuragramma antarcticum 234721, proper name is Pleuragramma antarctica
     x <- bind_rows(x,alleq_tbl("712788_LpDW~SL_FrHa1994"),
@@ -1061,8 +1066,22 @@ build_allometry_df <- function() {
                              taxon_name="Pleuragramma antarcticum",
                              taxon_aphia_id=234721,
                              notes="Accepted taxon name is Pleuragramma antarctica"))
+    x <- bind_rows(x,alleq_tbl("712788_WC~LpWW_FrHa1994"),
+                   alleq_tbl("712788_WC~LpWW_FrHa1994",
+                             with_id="234721_WC~LpWW_FrHa1994",
+                             taxon_name="Pleuragramma antarcticum",
+                             taxon_aphia_id=234721,
+                             notes="Accepted taxon name is Pleuragramma antarctica"))
+
     ## Trematomus lepidorhinus
-    x <- bind_rows(x,alleq_tbl("234770_LpDW~SL_FrHa1994"))
+    x <- bind_rows(x,alleq_tbl("234770_LpDW~SL_FrHa1994"),
+                   alleq_tbl("234770_WC~LpWW_FrHa1994"))
+
+    ## Bathydraco marri
+    x <- bind_rows(x,alleq_tbl("234816_WC~LpWW_FrHa1994"))
+
+    ## Dolloidraco longedorsalis
+    x <- bind_rows(x,alleq_tbl("234696_WC~LpWW_FrHa1994"))
 
     x
 }
