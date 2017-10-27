@@ -51,6 +51,7 @@ source("data-raw/equations_XaCh2016.R")
 ## energetics
 source("data-raw/equations_VanD2006.R")
 source("data-raw/equations_FrHa1994.R")
+source("data-raw/equations_Vane2005.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -148,6 +149,7 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some things, if not already specified
@@ -1082,6 +1084,34 @@ build_allometry_df <- function() {
 
     ## Dolloidraco longedorsalis
     x <- bind_rows(x,alleq_tbl("234696_WC~LpWW_FrHa1994"))
+
+
+    ## from Vane2005
+    x <- bind_rows(x,alleq_tbl("234725_WW~TL_Vane2005"),
+                   alleq_tbl("234725_TEC~TL_Vane2005"),
+                   alleq_tbl("234797_WW~TL_Vane2005"),
+                   alleq_tbl("234797_TEC~TL_Vane2005"),
+                   alleq_tbl("234667_WW~TL_Vane2005"),
+                   alleq_tbl("234667_TEC~TL_Vane2005"),
+                   alleq_tbl("234678_WW~TL_Vane2005"),
+                   alleq_tbl("234678_TEC~TL_Vane2005"),
+                   alleq_tbl("234704_WW~TL_Vane2005"),
+                   alleq_tbl("234704_TEC~TL_Vane2005"),
+                   alleq_tbl("234700_WW~TL_Vane2005"),
+                   alleq_tbl("234700_TEC~TL_Vane2005"),
+                   alleq_tbl("234788_WW~TL_Vane2005"),
+                   alleq_tbl("234788_TEC~TL_Vane2005"))
+    ## Lepidonotothen kempi 313344 valid is Lepidonotothen squamifrons 234788
+    x <- bind_rows(x,alleq_tbl("234788_WW~TL_Vane2005",
+                               with_id="313344_WW~TL_Vane2005",
+                               taxon_name="Lepidonotothen kempi",
+                               taxon_aphia_id=313344,
+                               notes="Accepted taxon name is Lepidonotothen squamifrons"),
+                   alleq_tbl("234788_TEC~TL_Vane2005",
+                             with_id="313344_TEC~TL_Vane2005",
+                             taxon_name="Lepidonotothen kempi",
+                             taxon_aphia_id=313344,
+                             notes="Accepted taxon name is Lepidonotothen squamifrons"))
 
     x
 }
