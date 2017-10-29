@@ -1,5 +1,5 @@
 ## otolith equations from Williams & McEldowney 1990
-oldrefs$WiMc1990 <- "Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government"
+##oldrefs$WiMc1990 <- "Williams R & McEldowney A (1990) A guide to the fish otoliths from waters off the Australian Antarctic Territory, Heard and Macquarie Islands. ANARE Research Notes 75. Antarctic Division, Australian Government"
 refs$WiMc1990 <- bibentry(bibtype="InCollection",key="WiMc1990",
                       author=c(person(c("R"),"Williams"),person("A","McEldowney")),
                       year=1990,

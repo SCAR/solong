@@ -1,4 +1,4 @@
-oldrefs$Lake2003 <- "Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293"
+##oldrefs$Lake2003 <- "Lake S, Burton H, van den Hoff J (2003) Regional, temporal and fine-scale spatial variation in Weddell seal diet at four coastal locations in east Antarctica. Marine Ecology Progress Series 254:293-305. doi:10.3354/meps254293"
 refs$Lake2003 <- bibentry(bibtype="Article",key="Lake2003",
                              author=c(person("S","Lake"),person("H","Burton"),person("J","van den Hoff")),
                              year=2003,

@@ -24,9 +24,9 @@ refs$Hewi2004 <- bibentry(bibtype="Article",key="Hewi2004",
                              volume=51,pages="1215-1236",doi="10.1016/j.dsr2.2004.06.011")
 
 
-oldrefs$Goeb2007 <- "Goebel ME, Lipsky JD, Reiss CS, Loeb VJ (2007) Using carapace measurements to determine the sex of Antarctic krill, Euphausia superba. Polar Biology 30:307-315. doi:10.1007/s00300-006-0184-8"
-oldrefs$Morr1988 <- "Morris DJ, Watkins JL, Ricketts C, Buchholz F, Priddle J (1988) An assessmant of the merits of length and weight measurements of Antarctic krill Euphausia superba. British Antarctic Survey Bulletin 79:27-50"
-oldrefs$Hewi2004 <- "Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D, Kasatkina S, Takao Y, Goss C, Malyshko A, Brandon M (2004) Biomass of Antarctic krill in the Scotia Sea in January/February 2000 and its use in revising an estimate of precautionary yield. Deep Sea Research Part II: Topical Studies in Oceanography 51:1215-1236. doi:10.1016/j.dsr2.2004.06.011"
+##oldrefs$Goeb2007 <- "Goebel ME, Lipsky JD, Reiss CS, Loeb VJ (2007) Using carapace measurements to determine the sex of Antarctic krill, Euphausia superba. Polar Biology 30:307-315. doi:10.1007/s00300-006-0184-8"
+##oldrefs$Morr1988 <- "Morris DJ, Watkins JL, Ricketts C, Buchholz F, Priddle J (1988) An assessmant of the merits of length and weight measurements of Antarctic krill Euphausia superba. British Antarctic Survey Bulletin 79:27-50"
+##oldrefs$Hewi2004 <- "Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D, Kasatkina S, Takao Y, Goss C, Malyshko A, Brandon M (2004) Biomass of Antarctic krill in the Scotia Sea in January/February 2000 and its use in revising an estimate of precautionary yield. Deep Sea Research Part II: Topical Studies in Oceanography 51:1215-1236. doi:10.1016/j.dsr2.2004.06.011"
 
 alleq_krill <- function(id) {
     switch(id,

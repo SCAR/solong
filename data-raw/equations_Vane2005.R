@@ -2,7 +2,7 @@ refs$Vane2005 <- bibentry(bibtype="Article",key="Vane2005",
                           author=c(person(c("F","A"),"Vanella"),person("J","Calvo"),person(c("E","R"),"Morriconi"),person(c("D","R"),"Aureliano")),
                           year=2005,title="Somatic energy content and histological analysis of the gonads in Antarctic fish from the Scotia Arc",
                           journal="Scientia Marina",
-                          volume=69,pages="305-316")
+                          volume=69,pages="S2 305-316",doi="10.3989/scimar.2005.69s2305")
 
 alleq_Vane2005 <- function(id) {
     switch(id,

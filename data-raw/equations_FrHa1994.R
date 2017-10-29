@@ -2,7 +2,7 @@ refs$FrHa1994 <- bibentry(bibtype="Article",key="FrHa1994",
                              author=c(person(c("C"),"Friedrich"),person(c("W"),"Hagen")),
                              year=1994,title="Lipid contents of five species of notothenioid fish from high-Antarctic waters and ecological implications",
                              journal="Polar Biology",
-                             volume=14,pages="359-369")
+                             volume=14,pages="359-369",doi="10.1007/BF00240256")
 
 alleq_FrHa1994 <- function(id) {
     switch(id,
