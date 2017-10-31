@@ -13,15 +13,16 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 420 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 461 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
-|                |  energy density dry weight|  energy density wet weight|  hood length|  mantle length|  standard length|  total length|  wet weight|
-|----------------|--------------------------:|--------------------------:|------------:|--------------:|----------------:|-------------:|-----------:|
-| Actinopterygii |                          3|                          3|            0|              0|              106|             2|         170|
-| Cephalopoda    |                          0|                          0|            8|             61|                0|             0|          58|
-| Elasmobranchii |                          0|                          0|            0|              0|                0|             0|           1|
-| Malacostraca   |                          0|                          0|            0|              0|                0|             3|           4|
-| Mammalia       |                          0|                          0|            0|              0|                0|             0|           1|
+|                |  carbon weight|  dry weight|  energy density dry weight|  energy density wet weight|  hood length|  lipid content dry weight|  mantle length|  standard length|  total energy content|  total length|  water content wet weight|  wet weight|
+|----------------|--------------:|-----------:|--------------------------:|--------------------------:|------------:|-------------------------:|--------------:|----------------:|---------------------:|-------------:|-------------------------:|-----------:|
+| Actinopterygii |              0|           0|                          3|                          3|            0|                         7|              0|              106|                     8|             2|                         7|         178|
+| Cephalopoda    |              0|           0|                          0|                          0|            8|                         0|             61|                0|                     0|             0|                         0|          58|
+| Elasmobranchii |              0|           0|                          0|                          0|            0|                         0|              0|                0|                     0|             0|                         0|           1|
+| Malacostraca   |              0|           0|                          0|                          0|            0|                         0|              0|                0|                     0|             3|                         0|           4|
+| Mammalia       |              0|           0|                          0|                          0|            0|                         0|              0|                0|                     0|             0|                         0|           1|
+| Thaliacea      |              1|           6|                          0|                          0|            0|                         0|              0|                0|                     0|             0|                         0|           4|
 
 Installing
 ----------
@@ -325,14 +326,17 @@ unique(eqs$reference)
 #> [[3]]
 #> Lu CC and Williams R (1994). "Contribution to the biology of squid
 #> in the Prydz Bay region, Antarctica." _Antarctic Science_, *6*,
-#> pp. 223-229.
+#> pp. 223-229. doi: 10.1017/S0954102094000349 (URL:
+#> http://doi.org/10.1017/S0954102094000349).
 #> 
 #> [[4]]
 #> Rodhouse PG, Prince PA, Clarke MR and Murray AWA (1990).
 #> "Cephalopod prey of the grey-headed albatross Diomedea
-#> chrysostoma." _Marine Biology_, *104*, pp. 353-362. As cited in
-#> Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for
-#> the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> chrysostoma." _Marine Biology_, *104*, pp. 353-362. doi:
+#> 10.1007/BF01314337 (URL: http://doi.org/10.1007/BF01314337), As
+#> cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak
+#> guide for the Southern Ocean. Cambridge, British Antarctic Survey,
+#> 129pp.
 #> 
 #> [[5]]
 #> Clarke M (1962). "The identification of cephalopod "beaks" and the
@@ -378,24 +382,27 @@ unique(eqs$reference)
 #> [[11]]
 #> Santos RA and Haimovici M (2000). "The Argentine short-finned
 #> squid Illex argentinus in the food webs of southern Brazil."
-#> _Sarsia_, *85*, pp. 49-60.
+#> _Sarsia_, *85*, pp. 49-60. doi: 10.1080/00364827.2000.10414554
+#> (URL: http://doi.org/10.1080/00364827.2000.10414554).
 #> 
 #> [[12]]
 #> Brown CR and Klages NT (1987). "Seasonal and annual variation in
 #> diets of macaroni (Eudyptes chrysolophus chrysolophus) and
 #> southern rockhopper (E. chrysocome chrysocome) penguins at
 #> sub-Antarctic Marion Island." _Journal of Zoology, London_, *212*,
-#> pp. 7-28. As cited in Xavier J & Cherel Y (2009 updated 2016)
-#> Cephalopod beak guide for the Southern Ocean. Cambridge, British
-#> Antarctic Survey, 129pp.
+#> pp. 7-28. doi: 10.1111/j.1469-7998.1987.tb05111.x (URL:
+#> http://doi.org/10.1111/j.1469-7998.1987.tb05111.x), As cited in
+#> Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for
+#> the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> [[13]]
 #> Jackson GD (1995). "The use of beaks as tools for biomass
 #> estimation in the deepwater squid Moroteuthis ingens (Cephalopoda:
 #> Onychoteuthidae) in New Zealand waters." _Polar Biology_, *15*,
-#> pp. 9-14. As cited in Xavier J & Cherel Y (2009 updated 2016)
-#> Cephalopod beak guide for the Southern Ocean. Cambridge, British
-#> Antarctic Survey, 129pp.
+#> pp. 9-14. doi: 10.1007/BF00236118 (URL:
+#> http://doi.org/10.1007/BF00236118), As cited in Xavier J & Cherel
+#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
+#> Ocean. Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> [[14]]
 #> Cherel Y (????). "Unpublished data." As cited in Xavier J & Cherel
@@ -480,6 +487,26 @@ unique(eqs$reference)
 #> the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:
 #> 10.1007/s00300-006-0148-z (URL:
 #> http://doi.org/10.1007/s00300-006-0148-z).
+#> 
+#> [[27]]
+#> Friedrich C and Hagen W (1994). "Lipid contents of five species of
+#> notothenioid fish from high-Antarctic waters and ecological
+#> implications." _Polar Biology_, *14*, pp. 359-369. doi:
+#> 10.1007/BF00240256 (URL: http://doi.org/10.1007/BF00240256).
+#> 
+#> [[28]]
+#> Vanella FA, Calvo J, Morriconi ER and Aureliano DR (2005).
+#> "Somatic energy content and histological analysis of the gonads in
+#> Antarctic fish from the Scotia Arc." _Scientia Marina_, *69*, pp.
+#> S2 305-316. doi: 10.3989/scimar.2005.69s2305 (URL:
+#> http://doi.org/10.3989/scimar.2005.69s2305).
+#> 
+#> [[29]]
+#> Dubischar CD, Pakhomov EA, von Harbou L, Hunt BPV and Bathmann UV
+#> (2012). "Salps in the Lazarev Sea, Southern Ocean: II. Biochemical
+#> composition and potential prey value." _Marine Biology_, *159*,
+#> pp. 15-24. doi: 10.1007/s00227-011-1785-5 (URL:
+#> http://doi.org/10.1007/s00227-011-1785-5).
 ```
 
 Related packages

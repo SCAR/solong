@@ -52,6 +52,7 @@ source("data-raw/equations_XaCh2016.R")
 source("data-raw/equations_VanD2006.R")
 source("data-raw/equations_FrHa1994.R")
 source("data-raw/equations_Vane2005.R")
+source("data-raw/equations_Dubi2012.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -150,6 +151,7 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id),silent=TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id),silent=TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id),silent=TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some things, if not already specified
@@ -1113,12 +1115,32 @@ build_allometry_df <- function() {
                              taxon_aphia_id=313344,
                              notes="Accepted taxon name is Lepidonotothen squamifrons"))
 
+    ## from Dubi2012
+    x <- bind_rows(x,alleq_tbl("266542_WW~OAL_summer_Dubi2012"),
+                   alleq_tbl("266545_WW~OAL_summer_Dubi2012"),
+                   ##alleq_tbl("266542_WW~OAL_autumn_Dubi2012"),
+                   ##alleq_tbl("266545_WW~OAL_autumn_Dubi2012"),
+                   alleq_tbl("266542_WW~OAL_winter_Dubi2012"),
+                   alleq_tbl("266545_WW~OAL_winter_Dubi2012"),
+                   alleq_tbl("266542_DW~OAL_summer_Dubi2012"),
+                   alleq_tbl("266545_DW~OAL_summer_Dubi2012"),
+                   alleq_tbl("266542_DW~OAL_autumn_Dubi2012"),
+                   alleq_tbl("266545_DW~OAL_autumn_Dubi2012"),
+                   alleq_tbl("266542_DW~OAL_winter_Dubi2012"),
+                   alleq_tbl("266545_DW~OAL_winter_Dubi2012"),
+                   ##alleq_tbl("266542_CW~OAL_summer_Dubi2012"),
+                   ##alleq_tbl("266545_CW~OAL_summer_Dubi2012"),
+                   alleq_tbl("266545_CW~OAL_autumn_Dubi2012")##,
+                   ##alleq_tbl("266545_CW~OAL_winter_Dubi2012"),
+                   ##alleq_tbl("137217_LpW~OAL_Dubi2012")
+                   )
     x
 }
 
 allometric_equations <- build_allometry_df()
 
 ## todo: check each row that taxon_name and taxon_aphia_id match (or are expected mismatches, at least)
+## todo: move these tests to testthat
 ## check worrms aphia_id
 ## unique ids
 assert_that(!any(duplicated(allometric_equations$equation_id)))
@@ -1150,5 +1172,6 @@ assert_that(!any(abs(tmp)<50 | abs(tmp)>500))
 idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="standard length" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="otolith width",FUN.VALUE=TRUE)
 tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
 assert_that(!any(abs(tmp)<50 | abs(tmp)>1000))
+
 
 devtools::use_data(allometric_equations,internal=FALSE,overwrite=TRUE)
