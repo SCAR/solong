@@ -18,7 +18,7 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "lipid weight","g","solprop_LpW","",
                                "otolith length","mm","solprop_OL","",
                                "otolith width","mm","solprop_OW","",
-                               "oral-atrial length","mm","solprop_OAL","Used for body length of salps, see e.g. Foxton P (1966) The distribution and life-history of Salpa thompsoni Foxton with observations on a related species, Salpa gerlachei Foxton. Discov Rep 34:1–116",
+                               "oral-atrial length","mm","solprop_OAL","Used for body length of salps, see e.g. Foxton P (1966) The distribution and life-history of Salpa thompsoni Foxton with observations on a related species, Salpa gerlachei Foxton. Discov Rep 34:1-116",
                                ## energetics stuff
                                "energy density dry weight","kJ g-1","solprop_EDDW","",
                                "energy density wet weight","kJ g-1","solprop_EDWW","",
