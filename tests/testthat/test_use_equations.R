@@ -40,14 +40,14 @@ test_that("mixtures of things work sensibly",{
                SL=~sol_set_property(SL,"standard length","cm"))
     xa <- sol_allometry(x,c("342218_WW_Clar1986","342218_WW_Clar1986","195932_WW_GaBu1988"))
     ## expect in this case that all values have been provided in g
-    expect_true(all(xa$allometric_value>units::set_units(10e3,units::ud_units$g)))
+    expect_true(all(xa$allometric_value>units::set_units(10e3,"g")))
     expect_true(all(as.numeric(xa$allometric_value)>10e3)) ## all >10kg
     expect_identical(units(xa$allometric_value)$numerator,"g")
 
     ## but if we only do the 3rd one it should come back in kg
     xa <- sol_allometry(x[3,],c("342218_WW_Clar1986","342218_WW_Clar1986","195932_WW_GaBu1988")[3])
     expect_identical(units(xa$allometric_value)$numerator,"kg")
-    expect_true(all(xa$allometric_value>units::set_units(100e3,units::ud_units$g))) ## expect >100kg
+    expect_true(all(xa$allometric_value>units::set_units(100e3, "g"))) ## expect >100kg
     expect_true(all(as.numeric(xa$allometric_value)>100))
 })
 

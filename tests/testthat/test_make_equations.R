@@ -120,7 +120,7 @@ test_that("equation constructor works", {
                                 return_units="kg",
                                 reliability=tibble(type="N",value="100"),
                                 reference=myref),
-        "input units .* are not compatible")
+        "is not recognized by udunits")
     expect_error(
         eq <- sol_make_equation(equation_id="myequation001",
                                 taxon_name="thingy thingy",
@@ -152,7 +152,7 @@ test_that("equation constructor works", {
                                 equation=function(...)tibble(allometric_value=2*...),
                                 inputs=tibble(property="standard length",units="mm"),
                                 return_property="wet weight",
-                                return_units="frogs",
+                                return_units="J", ## incompatible with expected units of return property (weight)
                                 reliability=tibble(type="N",value="100"),
                                 reference=myref),
         "return_units .* are not compatible")

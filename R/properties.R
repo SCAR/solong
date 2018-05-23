@@ -32,7 +32,7 @@ sol_set_property <- function(x,prop,with_units,...) {
         x <- sol_set_property(x,NULL)
         thisprop <- sol_properties(prop)
         if (missing(with_units)) with_units <- thisprop$units
-        units(x) <- parse_unit(with_units)
+        units(x) <- as_units(with_units)
         class(x) <- c("sol_property",thisprop$class_name,class(x))
         x
     }
