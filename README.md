@@ -8,7 +8,7 @@ solong
 Overview
 --------
 
-This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements.
+This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements. It is a component of the [Southern Ocean Diet and Energetics Database](https://www.scar.org/data-products/southern-ocean-diet-energetics/) project.
 
 Packaged equations
 ------------------
