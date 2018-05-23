@@ -31,14 +31,14 @@ library(dplyr)
 ```
 The package currently includes `r nrow(sol_equations())` equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
-```{r echo=FALSE,cache=TRUE}
+```{r echo=FALSE, cache=TRUE}
 library(worrms)
 uid <- unique(sol_equations()$taxon_aphia_id)
-ucl <- lapply(uid,wm_classification)
-uid_cls <- tibble(taxon_aphia_id=uid,taxonomic_class=vapply(ucl,function(z)z$scientificname[z$rank=="Class"],FUN.VALUE=""))
+ucl <- lapply(uid, wm_classification)
+uid_cls <- tibble(taxon_aphia_id=uid, taxonomic_class=vapply(ucl, function(z)z$scientificname[z$rank=="Class"], FUN.VALUE=""))
 ```
 ```{r echo=FALSE}
-knitr::kable(sol_equations() %>% left_join(uid_cls,by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property,data=.))
+knitr::kable(sol_equations() %>% left_join(uid_cls, by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property, data=.))
 ```
 
 
@@ -54,7 +54,7 @@ install_github("SCAR/solong")
 Usage
 -----
 
-```{r eval=FALSE,message=FALSE, warning=FALSE}
+```{r eval=FALSE, message=FALSE, warning=FALSE}
 library(solong)
 library(dplyr)
 ```
@@ -63,32 +63,32 @@ library(dplyr)
 Let's say we have some measurements of *Architeuthis dux* squid beaks:
 
 ```{r}
-x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux"))
+x <- tibble(LRL=c(11.3, 13.9), species="Architeuthis dux")
 x
 ```
 
 It doesn't matter what the column names are, but we do need to set the properties of the columns so that `solong` can find the appropriate data to use in each allometric equation. Here we've measured lower rostral length, so:
 
 ```{r}
-x$LRL <- sol_set_property(x$LRL,"lower rostral length")
+x$LRL <- sol_set_property(x$LRL, "lower rostral length")
 ```
 
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ```{r}
-subset(sol_equations(),taxon_name=="Architeuthis dux") %>% summary
+subset(sol_equations(), taxon_name=="Architeuthis dux") %>% summary
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
 
 This equation can be applied to to all rows:
 ```{r}
-sol_allometry(x,c("342218_ML_Roel2000"))
+sol_allometry(x, "342218_ML_Roel2000")
 ```
 
 Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
 ```{r}
-xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_ML_Clar1986"))
+xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_ML_Clar1986"))
 xa
 ```
 
@@ -117,13 +117,13 @@ sol_equation("195932_WW_GaBu1988") %>% summary
 Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
 
 ```{r}
-x <- tibble(LRL=c(11.3,NA),species=c("Architeuthis dux","Leptonychotes weddellii"),SL=c(NA,175)) %>%
-  mutate(LRL=sol_set_property(LRL,"lower rostral length"),
-         SL=sol_set_property(SL,"standard length","cm"))
+x <- tibble(LRL=c(11.3, NA_real_), species=c("Architeuthis dux", "Leptonychotes weddellii"), SL=c(NA_real_,175)) %>%
+  mutate(LRL=sol_set_property(LRL, "lower rostral length"),
+         SL=sol_set_property(SL, "standard length", "cm"))
 
-xa <- sol_allometry(x,c("342218_WW_Clar1986","195932_WW_GaBu1988"))
+xa <- sol_allometry(x, c("342218_WW_Clar1986", "195932_WW_GaBu1988"))
 
-xa %>% select(species,allometric_property,allometric_value)
+xa %>% select(species,allometric_property, allometric_value)
 ```
 
 The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
@@ -137,12 +137,12 @@ units(xa$allometric_value)
 
 If we try to apply equations that estimate different properties, we will get a warning:
 ```{r}
-x <- tibble(LRL=c(11.3,13.9),species=c("Architeuthis dux")) %>%
-  mutate(LRL=sol_set_property(LRL,"lower rostral length"))
+x <- tibble(LRL=c(11.3, 13.9),species="Architeuthis dux") %>%
+  mutate(LRL=sol_set_property(LRL, "lower rostral length"))
 
-xa <- sol_allometry(x,c("342218_ML_Roel2000","342218_WW_Clar1986"))
+xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986"))
 
-xa %>% select(species,allometric_property,allometric_value)
+xa %>% select(species, allometric_property, allometric_value)
 ```
 
 And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
@@ -156,7 +156,7 @@ What happens if we don't have the required information in our data to use a part
 
 ```{r}
 tryCatch(
-  sol_allometry(x,"234631_SL~OL_WiMc1990"),
+  sol_allometry(x, "234631_SL~OL_WiMc1990"),
   error=function(e) conditionMessage(e)
 )
 ```
@@ -168,9 +168,9 @@ Older equations were typically published along with the number of samples used t
 Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
 
 ```{r}
-x <- tibble(TL=c(10) %>% sol_set_property("carapace length",with_units="mm"))
-sol_allometry(x,"369214_WW_Lake2003") %>%
-  select(allometric_value,allometric_value_lower,allometric_value_upper)
+x <- tibble(TL=10 %>% sol_set_property("carapace length", with_units="mm"))
+sol_allometry(x, "369214_WW_Lake2003") %>%
+  select(allometric_value, allometric_value_lower, allometric_value_upper)
 ```
 
 Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
@@ -181,12 +181,12 @@ http://www.fishbase.org provides estimates of length-weight coefficients. These 
 
 ```{r}
 myeq <- sol_fb_length_weight("Electrona antarctica")
-myeq <- myeq[2,] ## use the second one of the two that are returned
+myeq <- myeq[2, ] ## use the second one of the two that are returned
 summary(myeq)
 
 x <- tibble(SL=10) %>%
-   mutate(SL=sol_set_property(SL,"standard length",with_units="cm"))
-sol_allometry(x,myeq)
+   mutate(SL=sol_set_property(SL, "standard length", with_units="cm"))
+sol_allometry(x, myeq)
 ```
 
 ### Adding your own equations
