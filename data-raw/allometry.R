@@ -47,12 +47,15 @@ source("data-raw/equations_krill.R")
 source("data-raw/equations_Lake2003.R")
 source("data-raw/equations_Smal1993.R")
 source("data-raw/equations_WiMc1990.R")
+source("data-raw/equations_Bush2005.R")
 source("data-raw/equations_XaCh2016.R")
 ## energetics
 source("data-raw/equations_VanD2006.R")
 source("data-raw/equations_FrHa1994.R")
 source("data-raw/equations_Vane2005.R")
 source("data-raw/equations_Dubi2012.R")
+
+source("data-raw/equations_AhSh1998.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -141,17 +144,19 @@ alleq_other <- function(id) {
 ## can override reference. Notes get added to any notes in the original equation
 alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     thiseq <- NULL
-    try(thiseq <- alleq_other(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_krill(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id),silent=TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id),silent=TRUE)
+    try(thiseq <- alleq_other(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_krill(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Bush2005(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_AhSh1998(id), silent = TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some things, if not already specified
@@ -1007,6 +1012,12 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("126486_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234675_WW~TL_Arti2003"))
 
+    ## from Bush2005
+    x <- bind_rows(x, alleq_tbl("234610_WW~SL_Bush2005"),
+                   alleq_tbl("234610_DW~SL_Bush2005"),
+                   alleq_tbl("234595_WW~SL_Bush2005"),
+                   alleq_tbl("234595_DW~SL_Bush2005"))
+
     ## ---
     ## Krill
     x <- bind_rows(x,alleq_tbl("236217J_TL_Goeb2007"),
@@ -1116,10 +1127,10 @@ build_allometry_df <- function() {
                              notes="Accepted taxon name is Lepidonotothen squamifrons"))
 
     ## from Dubi2012
-    x <- bind_rows(x,alleq_tbl("266542_WW~OAL_summer_Dubi2012"),
+    x <- bind_rows(x, alleq_tbl("266542_WW~OAL_summer_Dubi2012"),
                    alleq_tbl("266545_WW~OAL_summer_Dubi2012"),
-                   ##alleq_tbl("266542_WW~OAL_autumn_Dubi2012"),
-                   ##alleq_tbl("266545_WW~OAL_autumn_Dubi2012"),
+                   alleq_tbl("266542_WW~OAL_autumn_Dubi2012"),
+                   alleq_tbl("266545_WW~OAL_autumn_Dubi2012"),
                    alleq_tbl("266542_WW~OAL_winter_Dubi2012"),
                    alleq_tbl("266545_WW~OAL_winter_Dubi2012"),
                    alleq_tbl("266542_DW~OAL_summer_Dubi2012"),
@@ -1128,12 +1139,18 @@ build_allometry_df <- function() {
                    alleq_tbl("266545_DW~OAL_autumn_Dubi2012"),
                    alleq_tbl("266542_DW~OAL_winter_Dubi2012"),
                    alleq_tbl("266545_DW~OAL_winter_Dubi2012"),
-                   ##alleq_tbl("266542_CW~OAL_summer_Dubi2012"),
-                   ##alleq_tbl("266545_CW~OAL_summer_Dubi2012"),
-                   alleq_tbl("266545_CW~OAL_autumn_Dubi2012")##,
-                   ##alleq_tbl("266545_CW~OAL_winter_Dubi2012"),
-                   ##alleq_tbl("137217_LpW~OAL_Dubi2012")
+                   alleq_tbl("266542_CW~OAL_summer_Dubi2012"),
+                   alleq_tbl("266545_CW~OAL_summer_Dubi2012"),
+                   alleq_tbl("266545_CW~OAL_autumn_Dubi2012"),
+                   alleq_tbl("266542_CW~OAL_winter_Dubi2012"),
+                   alleq_tbl("266545_CW~OAL_winter_Dubi2012"),
+                   alleq_tbl("137217_LpW~OAL_Dubi2012")
                    )
+
+    ## from AhSh1998
+    x <- bind_rows(x, alleq_tbl("197217_AFDW~SHL_AhSh1998"),
+                   alleq_tbl("197217_OCR~AFDW_AhSh1998"))
+
     x
 }
 
@@ -1174,4 +1191,4 @@ tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$al
 assert_that(!any(abs(tmp)<50 | abs(tmp)>1000))
 
 
-devtools::use_data(allometric_equations,internal=FALSE,overwrite=TRUE)
+devtools::use_data(allometric_equations, internal = FALSE, overwrite = TRUE)

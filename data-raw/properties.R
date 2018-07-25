@@ -7,6 +7,7 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "hood length","mm","solprop_HL","",
                                "crest length","mm","solprop_CL","",
                                "mantle length","mm","solprop_ML","",
+                               "shell length", "mm", "solprop_SHL", "",
                                "standard length","mm","solprop_SL","",
                                "carapace length","mm","solprop_CPL","",
                                "removed carapace length","mm","solprop_RCPL","",
@@ -20,12 +21,14 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "otolith width","mm","solprop_OW","",
                                "oral-atrial length","mm","solprop_OAL","Used for body length of salps, see e.g. Foxton P (1966) The distribution and life-history of Salpa thompsoni Foxton with observations on a related species, Salpa gerlachei Foxton. Discov Rep 34:1-116",
                                ## energetics stuff
+                               "ash-free dry weight", "g", "solprop_AFDW", "",
                                "energy density dry weight","kJ g-1","solprop_EDDW","",
                                "energy density wet weight","kJ g-1","solprop_EDWW","",
                                "lipid content dry weight","%","solprop_LpDW","",
                                "lipid content wet weight","%","solprop_LpWW","",
-                               "water content wet weight","%","solprop_WC","",
-                               "total energy content","kJ","solprop_TEC","")
+                               "water content wet weight","%","solprop_WCWW","",
+                               "total energy content","kJ","solprop_TEC","",
+                               "oxygen consumption rate", "ug h-1", "solprop_OCR", "")
 
 assert_that(!any(duplicated(sol_properties_data$class_name)))
 devtools::use_data(sol_properties_data,internal=FALSE,overwrite=TRUE)
