@@ -220,8 +220,6 @@ x <- tibble(LRL=c(11.3, 13.9),species="Architeuthis dux") %>%
   mutate(LRL=sol_set_property(LRL, "lower rostral length"))
 
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986"))
-#> Warning in sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986")):
-#> return values are not all of the same property
 
 xa %>% select(species, allometric_property, allometric_value)
 #> # A tibble: 2 x 3

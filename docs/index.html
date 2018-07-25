@@ -81,13 +81,16 @@
 <table class="table">
 <thead><tr class="header">
 <th></th>
+<th align="right">ash-free dry weight</th>
 <th align="right">carbon weight</th>
 <th align="right">dry weight</th>
 <th align="right">energy density dry weight</th>
 <th align="right">energy density wet weight</th>
 <th align="right">hood length</th>
 <th align="right">lipid content dry weight</th>
+<th align="right">lipid weight</th>
 <th align="right">mantle length</th>
+<th align="right">oxygen consumption rate</th>
 <th align="right">standard length</th>
 <th align="right">total energy content</th>
 <th align="right">total length</th>
@@ -98,34 +101,58 @@
 <tr class="odd">
 <td>Actinopterygii</td>
 <td align="right">0</td>
-<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">2</td>
 <td align="right">3</td>
 <td align="right">3</td>
 <td align="right">0</td>
 <td align="right">7</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">106</td>
 <td align="right">8</td>
 <td align="right">2</td>
 <td align="right">7</td>
-<td align="right">179</td>
+<td align="right">180</td>
 </tr>
 <tr class="even">
+<td>Bivalvia</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
 <td>Cephalopoda</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">8</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">61</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
 <td align="right">58</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Elasmobranchii</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -138,10 +165,16 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Malacostraca</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -155,8 +188,11 @@
 <td align="right">0</td>
 <td align="right">4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td>Mammalia</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -170,13 +206,16 @@
 <td align="right">0</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td>Thaliacea</td>
+<td align="right">0</td>
 <td align="right">5</td>
 <td align="right">6</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">1</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -209,8 +248,7 @@ x
 <span class="co">#&gt; 1  11.3 Architeuthis dux</span>
 <span class="co">#&gt; 2  13.9 Architeuthis dux</span></code></pre></div>
 <p>It doesn’t matter what the column names are, but we do need to set the properties of the columns so that <code>solong</code> can find the appropriate data to use in each allometric equation. Here we’ve measured lower rostral length, so:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>LRL &lt;-<span class="st"> </span><span class="kw"><a href="reference/sol_set_property.html">sol_set_property</a></span>(x<span class="op">$</span>LRL, <span class="st">"lower rostral length"</span>)
-<span class="co">#&gt; Warning: package 'bindrcpp' was built under R version 3.4.4</span></code></pre></div>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">x<span class="op">$</span>LRL &lt;-<span class="st"> </span><span class="kw"><a href="reference/sol_set_property.html">sol_set_property</a></span>(x<span class="op">$</span>LRL, <span class="st">"lower rostral length"</span>)</code></pre></div>
 <p>Now we can apply allometric equations to our data. What equations do we have available for our species of interest?</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">subset</span>(<span class="kw"><a href="reference/sol_equation.html">sol_equations</a></span>(), taxon_name<span class="op">==</span><span class="st">"Architeuthis dux"</span>) <span class="op">%&gt;%</span><span class="st"> </span>summary
 <span class="co">#&gt; equation_id: 342218_ML_Clar1986</span>
@@ -336,8 +374,6 @@ xa <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">selec
 <span class="st">  </span><span class="kw">mutate</span>(<span class="dt">LRL=</span><span class="kw"><a href="reference/sol_set_property.html">sol_set_property</a></span>(LRL, <span class="st">"lower rostral length"</span>))
 
 xa &lt;-<span class="st"> </span><span class="kw"><a href="reference/sol_allometry.html">sol_allometry</a></span>(x, <span class="kw">c</span>(<span class="st">"342218_ML_Roel2000"</span>, <span class="st">"342218_WW_Clar1986"</span>))
-<span class="co">#&gt; Warning in sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986")):</span>
-<span class="co">#&gt; return values are not all of the same property</span>
 
 xa <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(species, allometric_property, allometric_value)
 <span class="co">#&gt; # A tibble: 2 x 3</span>
