@@ -1029,6 +1029,16 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("236217_WW_Morr1988"))
     x <- bind_rows(x,alleq_tbl("236217_WW_Hewi2004"))
 
+    ## Mayz2003
+    x <- bind_rows(x, alleq_tbl("236219A_WW~TL_Mayz2003"),
+                   alleq_tbl("236219J_WW~TL_Mayz2003"),
+                   alleq_tbl("221054M_WW~TL_Mayz2003"),
+                   alleq_tbl("221054F_WW~TL_Mayz2003"),
+                   alleq_tbl("221054_LpW~WW_Mayz2003"),
+                   alleq_tbl("236219F_LpW~WW_Mayz2003"),
+                   alleq_tbl("236219M_LpW~WW_Mayz2003"),
+                   alleq_tbl("236219J_LpW~WW_Mayz2003"))
+
     ## ---
     ## Miscellaneous others
     ##
