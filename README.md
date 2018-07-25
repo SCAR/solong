@@ -13,17 +13,17 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 474 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 489 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
-|                |  ash-free dry weight|  carbon weight|  dry weight|  energy density dry weight|  energy density wet weight|  hood length|  lipid content dry weight|  lipid weight|  mantle length|  oxygen consumption rate|  standard length|  total energy content|  total length|  water content wet weight|  wet weight|
-|----------------|--------------------:|--------------:|-----------:|--------------------------:|--------------------------:|------------:|-------------------------:|-------------:|--------------:|------------------------:|----------------:|---------------------:|-------------:|-------------------------:|-----------:|
-| Actinopterygii |                    0|              0|           2|                          3|                          3|            0|                         7|             0|              0|                        0|              106|                     8|             2|                         7|         180|
-| Bivalvia       |                    1|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        1|                0|                     0|             0|                         0|           0|
-| Cephalopoda    |                    0|              0|           0|                          0|                          0|            8|                         0|             0|             61|                        0|                0|                     0|             0|                         0|          58|
-| Elasmobranchii |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                0|                     0|             0|                         0|           1|
-| Malacostraca   |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                0|                     0|             3|                         0|           4|
-| Mammalia       |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                0|                     0|             0|                         0|           1|
-| Thaliacea      |                    0|              5|           6|                          0|                          0|            0|                         0|             1|              0|                        0|                0|                     0|             0|                         0|           6|
+|                |  ash-free dry weight|  carbon weight|  dry weight|  energy density dry weight|  energy density wet weight|  hood length|  lipid content dry weight|  lipid weight|  mantle length|  oxygen consumption rate|  shell-free dry weight|  shell length|  standard length|  total energy content|  total length|  water content wet weight|  wet weight|
+|----------------|--------------------:|--------------:|-----------:|--------------------------:|--------------------------:|------------:|-------------------------:|-------------:|--------------:|------------------------:|----------------------:|-------------:|----------------:|---------------------:|-------------:|-------------------------:|-----------:|
+| Actinopterygii |                    0|              0|           2|                          3|                          3|            0|                         7|             0|              0|                        0|                      0|             0|              106|                     8|             2|                         7|         182|
+| Bivalvia       |                    3|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        1|                      2|             1|                0|                     0|             0|                         0|           0|
+| Cephalopoda    |                    0|              0|           0|                          0|                          0|            8|                         0|             0|             61|                        0|                      0|             0|                0|                     0|             0|                         0|          58|
+| Elasmobranchii |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
+| Malacostraca   |                    0|              0|           0|                          0|                          0|            0|                         0|             4|              0|                        0|                      0|             0|                0|                     0|             3|                         0|           8|
+| Mammalia       |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
+| Thaliacea      |                    0|              5|           6|                          0|                          0|            0|                         0|             1|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           6|
 
 Installing
 ----------
@@ -444,19 +444,26 @@ unique(eqs$reference)
 #> http://doi.org/10.1007/s00300-005-0729-2).
 #> 
 #> [[21]]
+#> La Mesa M, Vacchi M and Zunini Sertorio T (2000). "Feeding
+#> plasticity of Trematomus newnesi (Pisces, Nototheniidae) in Terra
+#> Nova Bay, Ross Sea, in relation to environmental conditions."
+#> _Polar Biology_, *23*, pp. 38-45. doi: 10.1007/s003000050006 (URL:
+#> http://doi.org/10.1007/s003000050006).
+#> 
+#> [[22]]
 #> Goebel ME, Lipsky JD, Reiss CS and Loeb VJ (2007). "Using carapace
 #> measurements to determine the sex of Antarctic krill, Euphausia
 #> superba." _Polar Biology_, *30*, pp. 307-315. doi:
 #> 10.1007/s00300-006-0184-8 (URL:
 #> http://doi.org/10.1007/s00300-006-0184-8).
 #> 
-#> [[22]]
+#> [[23]]
 #> Morris DJ, Watkins JL, Ricketts C, Buchholz F and Priddle J
 #> (1988). "An assessmant of the merits of length and weight
 #> measurements of Antarctic krill Euphausia superba." _British
 #> Antarctic Survey Bulletin_, *79*, pp. 27-50.
 #> 
-#> [[23]]
+#> [[24]]
 #> Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D,
 #> Kasatkina S, Takao Y, Goss C, Malyshko A and Brandon M (2004).
 #> "Biomass of Antarctic krill in the Scotia Sea in January/February
@@ -465,59 +472,73 @@ unique(eqs$reference)
 #> *51*, pp. 1215-1236. doi: 10.1016/j.dsr2.2004.06.011 (URL:
 #> http://doi.org/10.1016/j.dsr2.2004.06.011).
 #> 
-#> [[24]]
+#> [[25]]
+#> Mayzaud P, Boutoute M and Alonzo F (2003). "Lipid composition of
+#> the euphausiids Euphausia vallentini and Thysanoessa macrura
+#> during summer in the Southern Indian Ocean." _Antarctic Science_,
+#> *15*, pp. 463-475. doi: 10.1017/S0954102003001573 (URL:
+#> http://doi.org/10.1017/S0954102003001573).
+#> 
+#> [[26]]
 #> Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
 #> dietary assessment of Weddell seals." _Australian Wildlife
 #> Research_, *15*, pp. 423-433.
 #> 
-#> [[25]]
+#> [[27]]
 #> Lake S, Burton H and van den Hoff J (2003). "Regional, temporal
 #> and fine-scale spatial variation in Weddell seal diet at four
 #> coastal locations in east Antarctica." _Marine Ecology Progress
 #> Series_, *254*, pp. 293-305. doi: 10.3354/meps254293 (URL:
 #> http://doi.org/10.3354/meps254293).
 #> 
-#> [[26]]
+#> [[28]]
 #> Eastman JT and Devries AL (1997). "Biology and phenotypic
 #> plasticity of the Antarctic nototheniid fish Trematomus newnesi in
 #> McMurdo Sound." _Antarctic Science_, *9*, pp. 27-35. doi:
 #> 10.1017/S0954102097000047 (URL:
 #> http://doi.org/10.1017/S0954102097000047).
 #> 
-#> [[27]]
+#> [[29]]
 #> Van de Putte A, Flores H, Volckaert F and van Franeker JA (2006).
 #> "Energy content of Antarctic mesopelagic fishes: implications for
 #> the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:
 #> 10.1007/s00300-006-0148-z (URL:
 #> http://doi.org/10.1007/s00300-006-0148-z).
 #> 
-#> [[28]]
+#> [[30]]
 #> Friedrich C and Hagen W (1994). "Lipid contents of five species of
 #> notothenioid fish from high-Antarctic waters and ecological
 #> implications." _Polar Biology_, *14*, pp. 359-369. doi:
 #> 10.1007/BF00240256 (URL: http://doi.org/10.1007/BF00240256).
 #> 
-#> [[29]]
+#> [[31]]
 #> Vanella FA, Calvo J, Morriconi ER and Aureliano DR (2005).
 #> "Somatic energy content and histological analysis of the gonads in
 #> Antarctic fish from the Scotia Arc." _Scientia Marina_, *69*, pp.
 #> S2 305-316. doi: 10.3989/scimar.2005.69s2305 (URL:
 #> http://doi.org/10.3989/scimar.2005.69s2305).
 #> 
-#> [[30]]
+#> [[32]]
 #> Dubischar CD, Pakhomov EA, von Harbou L, Hunt BPV and Bathmann UV
 #> (2012). "Salps in the Lazarev Sea, Southern Ocean: II. Biochemical
 #> composition and potential prey value." _Marine Biology_, *159*,
 #> pp. 15-24. doi: 10.1007/s00227-011-1785-5 (URL:
 #> http://doi.org/10.1007/s00227-011-1785-5).
 #> 
-#> [[31]]
+#> [[33]]
 #> Ahn IY and Shim JH (1998). "Summer metabolism of the Antarctic
 #> clam, Laternula elliptica (King and Broderip) in Maxwell Bay, King
 #> George Island and its implications." _Journal of Experimental
 #> Marine Biology and Ecology_, *224*, pp. 253-264. doi:
 #> 10.1016/S0022-0981(97)00201-3 (URL:
 #> http://doi.org/10.1016/S0022-0981(97)00201-3).
+#> 
+#> [[34]]
+#> Urban HJ and Mercuri G (1998). "Population dynamics of the bivalve
+#> Laternula elliptica from Potter Cove, King George Island, South
+#> Shetland Islands." _Antarctic Science_, *10*, pp. 153-160. doi:
+#> 10.1017/S0954102098000200 (URL:
+#> http://doi.org/10.1017/S0954102098000200).
 ```
 
 Related packages

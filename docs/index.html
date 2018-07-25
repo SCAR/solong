@@ -77,7 +77,7 @@
 <div id="packaged-equations" class="section level2">
 <h2 class="hasAnchor">
 <a href="#packaged-equations" class="anchor"></a>Packaged equations</h2>
-<p>The package currently includes 474 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:</p>
+<p>The package currently includes 489 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:</p>
 <table class="table">
 <thead><tr class="header">
 <th></th>
@@ -91,6 +91,8 @@
 <th align="right">lipid weight</th>
 <th align="right">mantle length</th>
 <th align="right">oxygen consumption rate</th>
+<th align="right">shell-free dry weight</th>
+<th align="right">shell length</th>
 <th align="right">standard length</th>
 <th align="right">total energy content</th>
 <th align="right">total length</th>
@@ -110,23 +112,27 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">106</td>
 <td align="right">8</td>
 <td align="right">2</td>
 <td align="right">7</td>
-<td align="right">180</td>
+<td align="right">182</td>
 </tr>
 <tr class="even">
 <td>Bivalvia</td>
+<td align="right">3</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">0</td>
+<td align="right">2</td>
 <td align="right">1</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -150,6 +156,8 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">58</td>
 </tr>
 <tr class="even">
@@ -168,10 +176,14 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
 <td>Malacostraca</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -204,6 +216,8 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
@@ -216,6 +230,8 @@
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
 <td align="right">0</td>
@@ -584,19 +600,26 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentat
 <span class="co">#&gt; http://doi.org/10.1007/s00300-005-0729-2).</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; [[21]]</span>
+<span class="co">#&gt; La Mesa M, Vacchi M and Zunini Sertorio T (2000). "Feeding</span>
+<span class="co">#&gt; plasticity of Trematomus newnesi (Pisces, Nototheniidae) in Terra</span>
+<span class="co">#&gt; Nova Bay, Ross Sea, in relation to environmental conditions."</span>
+<span class="co">#&gt; _Polar Biology_, *23*, pp. 38-45. doi: 10.1007/s003000050006 (URL:</span>
+<span class="co">#&gt; http://doi.org/10.1007/s003000050006).</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[22]]</span>
 <span class="co">#&gt; Goebel ME, Lipsky JD, Reiss CS and Loeb VJ (2007). "Using carapace</span>
 <span class="co">#&gt; measurements to determine the sex of Antarctic krill, Euphausia</span>
 <span class="co">#&gt; superba." _Polar Biology_, *30*, pp. 307-315. doi:</span>
 <span class="co">#&gt; 10.1007/s00300-006-0184-8 (URL:</span>
 <span class="co">#&gt; http://doi.org/10.1007/s00300-006-0184-8).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[22]]</span>
+<span class="co">#&gt; [[23]]</span>
 <span class="co">#&gt; Morris DJ, Watkins JL, Ricketts C, Buchholz F and Priddle J</span>
 <span class="co">#&gt; (1988). "An assessmant of the merits of length and weight</span>
 <span class="co">#&gt; measurements of Antarctic krill Euphausia superba." _British</span>
 <span class="co">#&gt; Antarctic Survey Bulletin_, *79*, pp. 27-50.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[23]]</span>
+<span class="co">#&gt; [[24]]</span>
 <span class="co">#&gt; Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D,</span>
 <span class="co">#&gt; Kasatkina S, Takao Y, Goss C, Malyshko A and Brandon M (2004).</span>
 <span class="co">#&gt; "Biomass of Antarctic krill in the Scotia Sea in January/February</span>
@@ -605,59 +628,73 @@ x &lt;-<span class="st"> </span><span class="kw"><a href="http://www.rdocumentat
 <span class="co">#&gt; *51*, pp. 1215-1236. doi: 10.1016/j.dsr2.2004.06.011 (URL:</span>
 <span class="co">#&gt; http://doi.org/10.1016/j.dsr2.2004.06.011).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[24]]</span>
+<span class="co">#&gt; [[25]]</span>
+<span class="co">#&gt; Mayzaud P, Boutoute M and Alonzo F (2003). "Lipid composition of</span>
+<span class="co">#&gt; the euphausiids Euphausia vallentini and Thysanoessa macrura</span>
+<span class="co">#&gt; during summer in the Southern Indian Ocean." _Antarctic Science_,</span>
+<span class="co">#&gt; *15*, pp. 463-475. doi: 10.1017/S0954102003001573 (URL:</span>
+<span class="co">#&gt; http://doi.org/10.1017/S0954102003001573).</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[26]]</span>
 <span class="co">#&gt; Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for</span>
 <span class="co">#&gt; dietary assessment of Weddell seals." _Australian Wildlife</span>
 <span class="co">#&gt; Research_, *15*, pp. 423-433.</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[25]]</span>
+<span class="co">#&gt; [[27]]</span>
 <span class="co">#&gt; Lake S, Burton H and van den Hoff J (2003). "Regional, temporal</span>
 <span class="co">#&gt; and fine-scale spatial variation in Weddell seal diet at four</span>
 <span class="co">#&gt; coastal locations in east Antarctica." _Marine Ecology Progress</span>
 <span class="co">#&gt; Series_, *254*, pp. 293-305. doi: 10.3354/meps254293 (URL:</span>
 <span class="co">#&gt; http://doi.org/10.3354/meps254293).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[26]]</span>
+<span class="co">#&gt; [[28]]</span>
 <span class="co">#&gt; Eastman JT and Devries AL (1997). "Biology and phenotypic</span>
 <span class="co">#&gt; plasticity of the Antarctic nototheniid fish Trematomus newnesi in</span>
 <span class="co">#&gt; McMurdo Sound." _Antarctic Science_, *9*, pp. 27-35. doi:</span>
 <span class="co">#&gt; 10.1017/S0954102097000047 (URL:</span>
 <span class="co">#&gt; http://doi.org/10.1017/S0954102097000047).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[27]]</span>
+<span class="co">#&gt; [[29]]</span>
 <span class="co">#&gt; Van de Putte A, Flores H, Volckaert F and van Franeker JA (2006).</span>
 <span class="co">#&gt; "Energy content of Antarctic mesopelagic fishes: implications for</span>
 <span class="co">#&gt; the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:</span>
 <span class="co">#&gt; 10.1007/s00300-006-0148-z (URL:</span>
 <span class="co">#&gt; http://doi.org/10.1007/s00300-006-0148-z).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[28]]</span>
+<span class="co">#&gt; [[30]]</span>
 <span class="co">#&gt; Friedrich C and Hagen W (1994). "Lipid contents of five species of</span>
 <span class="co">#&gt; notothenioid fish from high-Antarctic waters and ecological</span>
 <span class="co">#&gt; implications." _Polar Biology_, *14*, pp. 359-369. doi:</span>
 <span class="co">#&gt; 10.1007/BF00240256 (URL: http://doi.org/10.1007/BF00240256).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[29]]</span>
+<span class="co">#&gt; [[31]]</span>
 <span class="co">#&gt; Vanella FA, Calvo J, Morriconi ER and Aureliano DR (2005).</span>
 <span class="co">#&gt; "Somatic energy content and histological analysis of the gonads in</span>
 <span class="co">#&gt; Antarctic fish from the Scotia Arc." _Scientia Marina_, *69*, pp.</span>
 <span class="co">#&gt; S2 305-316. doi: 10.3989/scimar.2005.69s2305 (URL:</span>
 <span class="co">#&gt; http://doi.org/10.3989/scimar.2005.69s2305).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[30]]</span>
+<span class="co">#&gt; [[32]]</span>
 <span class="co">#&gt; Dubischar CD, Pakhomov EA, von Harbou L, Hunt BPV and Bathmann UV</span>
 <span class="co">#&gt; (2012). "Salps in the Lazarev Sea, Southern Ocean: II. Biochemical</span>
 <span class="co">#&gt; composition and potential prey value." _Marine Biology_, *159*,</span>
 <span class="co">#&gt; pp. 15-24. doi: 10.1007/s00227-011-1785-5 (URL:</span>
 <span class="co">#&gt; http://doi.org/10.1007/s00227-011-1785-5).</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; [[31]]</span>
+<span class="co">#&gt; [[33]]</span>
 <span class="co">#&gt; Ahn IY and Shim JH (1998). "Summer metabolism of the Antarctic</span>
 <span class="co">#&gt; clam, Laternula elliptica (King and Broderip) in Maxwell Bay, King</span>
 <span class="co">#&gt; George Island and its implications." _Journal of Experimental</span>
 <span class="co">#&gt; Marine Biology and Ecology_, *224*, pp. 253-264. doi:</span>
 <span class="co">#&gt; 10.1016/S0022-0981(97)00201-3 (URL:</span>
-<span class="co">#&gt; http://doi.org/10.1016/S0022-0981(97)00201-3).</span></code></pre></div>
+<span class="co">#&gt; http://doi.org/10.1016/S0022-0981(97)00201-3).</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; [[34]]</span>
+<span class="co">#&gt; Urban HJ and Mercuri G (1998). "Population dynamics of the bivalve</span>
+<span class="co">#&gt; Laternula elliptica from Potter Cove, King George Island, South</span>
+<span class="co">#&gt; Shetland Islands." _Antarctic Science_, *10*, pp. 153-160. doi:</span>
+<span class="co">#&gt; 10.1017/S0954102098000200 (URL:</span>
+<span class="co">#&gt; http://doi.org/10.1017/S0954102098000200).</span></code></pre></div>
 </div>
 </div>
 <div id="related-packages" class="section level2">
