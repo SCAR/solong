@@ -56,6 +56,7 @@ source("data-raw/equations_Vane2005.R")
 source("data-raw/equations_Dubi2012.R")
 
 source("data-raw/equations_AhSh1998.R")
+source("data-raw/equations_UrMe1998.R")
 
 alleq_other <- function(id) {
     switch(id,
@@ -157,6 +158,7 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id), silent = TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id), silent = TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_AhSh1998(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_UrMe1998(id), silent = TRUE)
     if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
 
     ## use the equation defaults for some things, if not already specified
@@ -1150,6 +1152,13 @@ build_allometry_df <- function() {
     ## from AhSh1998
     x <- bind_rows(x, alleq_tbl("197217_AFDW~SHL_AhSh1998"),
                    alleq_tbl("197217_OCR~AFDW_AhSh1998"))
+
+    ## from UrMe1998
+    x <- bind_rows(x, alleq_tbl("197217_SFDW~SHL_UrMe1998"),
+                   alleq_tbl("197217_SFDW~SHL_postspawn_UrMe1998"),
+                   alleq_tbl("197217_AFDW~SHL_UrMe1998"),
+                   alleq_tbl("197217_AFDW~SFDW_UrMe1998"),
+                   alleq_tbl("197217_SL~age_UrMe1998"))
 
     x
 }

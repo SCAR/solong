@@ -26,9 +26,12 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "energy density wet weight","kJ g-1","solprop_EDWW","",
                                "lipid content dry weight","%","solprop_LpDW","",
                                "lipid content wet weight","%","solprop_LpWW","",
+                               "shell-free dry weight", "g", "solprop_SFDW", "",
                                "water content wet weight","%","solprop_WCWW","",
                                "total energy content","kJ","solprop_TEC","",
-                               "oxygen consumption rate", "ug h-1", "solprop_OCR", "")
+                               "oxygen consumption rate", "ug h-1", "solprop_OCR", "",
+                               ## growth curves
+                               "age", "yr", "solprop_age", "")
 
 assert_that(!any(duplicated(sol_properties_data$class_name)))
 devtools::use_data(sol_properties_data,internal=FALSE,overwrite=TRUE)
