@@ -42,7 +42,9 @@ refs <- list(
 ##    GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
 ##    EaDe1997="Eastman JT, Devries AL (1997) Biology and phenotypic plasticity of the Antarctic nototheniid fish Trematomus newnesi in McMurdo Sound. Antarctic Science 9:27-35. doi:10.1017/S0954102097000047")
 
+## fish
 source("data-raw/equations_Arti2003.R")
+source("data-raw/equations_fish_other.R")
 source("data-raw/equations_krill.R")
 source("data-raw/equations_Lake2003.R")
 source("data-raw/equations_Smal1993.R")
@@ -147,6 +149,7 @@ alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
     thiseq <- NULL
     try(thiseq <- alleq_other(id), silent = TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id), silent = TRUE)
+    if (is.null(thiseq)) try(thiseq <- alleq_fish_other(id), silent = TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_krill(id), silent = TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id), silent = TRUE)
     if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id), silent = TRUE)
@@ -1019,6 +1022,10 @@ build_allometry_df <- function() {
                    alleq_tbl("234610_DW~SL_Bush2005"),
                    alleq_tbl("234595_WW~SL_Bush2005"),
                    alleq_tbl("234595_DW~SL_Bush2005"))
+
+    ## misc fish
+    x <- bind_rows(x, alleq_tbl("234628_WW~TL_Dec_LaMe2000"),
+                   alleq_tbl("234628_WW~TL_Feb_LaMe2000"))
 
     ## ---
     ## Krill
