@@ -42,9 +42,9 @@ refs$Mayz2003 <- bibentry(bibtype = "Article", key = "Mayz2003",
 ##                          volume = 173, pages = "149-162", doi = "10.3354/meps173149")
 
 refs$Farb1994 <- bibentry(bibtype = "Article", key = "Farb1994",
-                          author = person("J", "Färber-Lorda"),
+                          author = person("J", "F\ue4rber-Lorda"),
                           year = 1994,
-                          title = "Length-weight relationships and coefficient of condition of  Euphausia superba  and  Thysanoessa macrura (Crustacea: Euphausiacea) in southwest Indian Ocean during summer",
+                          title = "Length-weight relationships and coefficient of condition of Euphausia superba and Thysanoessa macrura (Crustacea: Euphausiacea) in southwest Indian Ocean during summer",
                           journal = "Marine Biology",
                           volume = 118, pages = "645-650", doi = "10.1007/BF00347512")
 
