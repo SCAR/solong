@@ -32,6 +32,15 @@ refs$Mayz2003 <- bibentry(bibtype = "Article", key = "Mayz2003",
                           journal = "Antarctic Science",
                           volume = 15, pages = "463-475", doi = "10.1017/S0954102003001573")
 
+##refs$Mayz1998 <- bibentry(bibtype = "Article", key = "Mayz1998",
+##                          author = c(person("P", "Mayzaud"),
+##                                     person("E", "Albessard"),
+##                                     person("J", "Cuzin-Roudy")),
+##                          year = 1998,
+##                          title = "Changes in lipid composition of the Antarctic krill Euphausia superba  in the Indian sector of the Antarctic Ocean: influence of geographical location, sexual maturity stage and distribution among organs",
+##                          journal = "Marine Ecology Progress Series",
+##                          volume = 173, pages = "149-162", doi = "10.3354/meps173149")
+
 
 ##oldrefs$Goeb2007 <- "Goebel ME, Lipsky JD, Reiss CS, Loeb VJ (2007) Using carapace measurements to determine the sex of Antarctic krill, Euphausia superba. Polar Biology 30:307-315. doi:10.1007/s00300-006-0184-8"
 ##oldrefs$Morr1988 <- "Morris DJ, Watkins JL, Ricketts C, Buchholz F, Priddle J (1988) An assessmant of the merits of length and weight measurements of Antarctic krill Euphausia superba. British Antarctic Survey Bulletin 79:27-50"
@@ -101,10 +110,10 @@ alleq_krill <- function(id) {
            ## Thysanoessa macrura  236219
            "236219A_WW~TL_Mayz2003" = list(taxon_name = "Thysanoessa macrura",
                                                 taxon_aphia_id = 236219,
-                                                equation = function(TL) tibble(allometric_value = exp(4.38 * log(TL) - 3.64)),
+                                                equation = function(TL) tibble(allometric_value = 10^(4.38 * log10(TL) - 3.64)),
                                                 inputs = tibble(property = "total length", units = "mm"),
                                                 return_property = "wet weight",
-                                                return_units = "g",
+                                                return_units = "mg",
                                                 reliability = tribble(~type, ~value,
                                                                       "N", 23,
                                                                       "R^2", 0.814),
@@ -113,10 +122,10 @@ alleq_krill <- function(id) {
 
            "236219J_WW~TL_Mayz2003" = list(taxon_name = "Thysanoessa macrura",
                                                    taxon_aphia_id = 236219,
-                                                   equation = function(TL) tibble(allometric_value = exp(2.83 * log(TL) - 1.72)),
+                                                   equation = function(TL) tibble(allometric_value = 10^(2.83 * log10(TL) - 1.72)),
                                                    inputs = tibble(property = "total length", units = "mm"),
                                                    return_property = "wet weight",
-                                                   return_units = "g",
+                                                   return_units = "mg",
                                                    reliability = tribble(~type, ~value,
                                                                          "N", 37,
                                                                          "R^2", 0.859),
@@ -125,10 +134,10 @@ alleq_krill <- function(id) {
            ## Euphausia vallentini  221054
            "221054M_WW~TL_Mayz2003" = list(taxon_name = "Euphausia vallentini",
                                            taxon_aphia_id = 221054,
-                                           equation = function(TL) tibble(allometric_value = exp(2.60 * log(TL) - 1.53)),
+                                           equation = function(TL) tibble(allometric_value = 10^(2.60 * log10(TL) - 1.53)),
                                            inputs = tibble(property = "total length", units = "mm"),
                                            return_property = "wet weight",
-                                           return_units = "g",
+                                           return_units = "mg",
                                            reliability = tribble(~type, ~value,
                                                                  "N", 57,
                                                                  "R^2", 0.804),
@@ -136,10 +145,10 @@ alleq_krill <- function(id) {
                                            reference = refs$Mayz2003),
            "221054F_WW~TL_Mayz2003" = list(taxon_name = "Euphausia vallentini",
                                            taxon_aphia_id = 221054,
-                                           equation = function(TL) tibble(allometric_value = exp(1.87 * log(TL) - 0.52)),
+                                           equation = function(TL) tibble(allometric_value = 10^(1.87 * log10(TL) - 0.52)),
                                            inputs = tibble(property = "total length", units = "mm"),
                                            return_property = "wet weight",
-                                           return_units = "g",
+                                           return_units = "mg",
                                            reliability = tribble(~type, ~value,
                                                                  "N", 71,
                                                                  "R^2", 0.575),
@@ -149,7 +158,7 @@ alleq_krill <- function(id) {
            ## lipid weights to wet weights
            "221054_LpW~WW_Mayz2003" = list(taxon_name = "Euphausia vallentini",
                                            taxon_aphia_id = 221054,
-                                           equation = function(WW) tibble(allometric_value = exp(2.39 * log(WW) - 5.01)),
+                                           equation = function(WW) tibble(allometric_value = 10^(2.39 * log10(WW) - 5.01)),
                                            inputs = tibble(property = "wet weight", units = "mg"),
                                            return_property = "lipid weight",
                                            return_units = "mg",
@@ -161,7 +170,7 @@ alleq_krill <- function(id) {
 
            "236219F_LpW~WW_Mayz2003" = list(taxon_name = "Thysanoessa macrura",
                                            taxon_aphia_id = 236219,
-                                           equation = function(WW) tibble(allometric_value = exp(2.86 * log(WW) - 4.97)),
+                                           equation = function(WW) tibble(allometric_value = 10^(2.86 * log10(WW) - 4.97)),
                                            inputs = tibble(property = "wet weight", units = "mg"),
                                            return_property = "lipid weight",
                                            return_units = "mg",
@@ -173,7 +182,7 @@ alleq_krill <- function(id) {
 
            "236219M_LpW~WW_Mayz2003" = list(taxon_name = "Thysanoessa macrura",
                                             taxon_aphia_id = 236219,
-                                            equation = function(WW) tibble(allometric_value = exp(1.53 * log(WW) - 2.80)),
+                                            equation = function(WW) tibble(allometric_value = 10^(1.53 * log10(WW) - 2.80)),
                                             inputs = tibble(property = "wet weight", units = "mg"),
                                             return_property = "lipid weight",
                                             return_units = "mg",
@@ -185,7 +194,7 @@ alleq_krill <- function(id) {
 
            "236219J_LpW~WW_Mayz2003" = list(taxon_name = "Thysanoessa macrura",
                                             taxon_aphia_id = 236219,
-                                            equation = function(WW) tibble(allometric_value = exp(1.04 * log(WW) - 1.65)),
+                                            equation = function(WW) tibble(allometric_value = 10^(1.04 * log10(WW) - 1.65)),
                                             inputs = tibble(property = "wet weight", units = "mg"),
                                             return_property = "lipid weight",
                                             return_units = "mg",
@@ -194,6 +203,23 @@ alleq_krill <- function(id) {
                                                                   "R^2", 0.300),
                                             notes = "Applies to juvenile animals",
                                             reference = refs$Mayz2003),
+
+
+##           ## Mayzaud et al 1998
+##           ## Euphausia superba 236217,
+##           "236217_WW~TL_Mayz1998" = list(taxon_name="Euphausia superba",
+##                                          taxon_aphia_id=236217,
+##                                          equation = function(TL) tibble(allometric_value = 10^(-0.08 + 3.12 * log10(TL))),
+##                                          inputs = tibble(property = "total length", units = "mm"),
+##                                          return_property = "wet weight",
+##                                          return_units = "mg",
+##                                          reliability = tribble(~type, ~value,
+##                                                                "N", 121,
+##                                                                "R^2", 0.967),
+##                                          notes = "Applies to males, females, and subadult animals",
+##                                          reference = refs$Mayz1998),
+
+
 
            stop("unrecognized equation ID: ",id))
 }
