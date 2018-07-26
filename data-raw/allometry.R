@@ -1046,6 +1046,28 @@ build_allometry_df <- function() {
                    alleq_tbl("236219M_LpW~WW_Mayz2003"),
                    alleq_tbl("236219J_LpW~WW_Mayz2003"))
 
+    ## Farb1994
+    x <- bind_rows(x, alleq_tbl("236219_WW~TL_Farb1994"),
+                   alleq_tbl("236219SA_WW~TL_Farb1994"),
+                   alleq_tbl("236219A_WW~TL_Farb1994"),
+                   alleq_tbl("236219M_WW~TL_Farb1994"),
+                   alleq_tbl("236219F_WW~TL_Farb1994"),
+                   alleq_tbl("236219SA_WW~CL_Farb1994"),
+                   alleq_tbl("236219A_WW~CL_Farb1994"),
+                   alleq_tbl("236219M_WW~CL_Farb1994"),
+                   alleq_tbl("236219F_WW~CL_Farb1994"),
+                   alleq_tbl("236217_WW~TL_Farb1994"),
+                   alleq_tbl("236217SA_WW~TL_Farb1994"),
+                   alleq_tbl("236217MI_WW~TL_Farb1994"),
+                   alleq_tbl("236217MII_WW~TL_Farb1994"),
+                   alleq_tbl("236217F_WW~TL_Farb1994"),
+                   alleq_tbl("236217SF_WW~TL_Farb1994"),
+                   alleq_tbl("236217SA_WW~CL_Farb1994"),
+                   alleq_tbl("236217MI_WW~CL_Farb1994"),
+                   alleq_tbl("236217MII_WW~CL_Farb1994"),
+                   alleq_tbl("236217F_WW~CL_Farb1994"),
+                   alleq_tbl("236217SF_WW~CL_Farb1994"))
+
     ## ---
     ## Miscellaneous others
     ##
