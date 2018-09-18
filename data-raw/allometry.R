@@ -1027,6 +1027,25 @@ build_allometry_df <- function() {
     x <- bind_rows(x, alleq_tbl("234628_WW~TL_Dec_LaMe2000"),
                    alleq_tbl("234628_WW~TL_Feb_LaMe2000"))
 
+    ## from LaMe2018
+    x <- bind_rows(x, alleq_tbl("234661F_WW~SL_LaMe2018"),
+                   alleq_tbl("234661F_WW~SL_LaMe2018",
+                             with_id="234660F_WW~SL_LaMe2018",
+                             taxon_name="Aethotaxis mitopteryx",
+                             taxon_aphia_id=234660,
+                             notes="Applies to female animals. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+    x <- bind_rows(x, alleq_tbl("234661M_WW~SL_LaMe2018"),
+                   alleq_tbl("234661M_WW~SL_LaMe2018",
+                             with_id="234660M_WW~SL_LaMe2018",
+                             taxon_name="Aethotaxis mitopteryx",
+                             taxon_aphia_id=234660,
+                             notes="Applies to male animals. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+    x <- bind_rows(x, alleq_tbl("234661_SL~OL_LaMe2018"),
+                   alleq_tbl("234661_SL~OL_LaMe2018",
+                             with_id="234660_SL~OL_LaMe2018",
+                             taxon_name="Aethotaxis mitopteryx",
+                             taxon_aphia_id=234660,
+                             notes="Derived from otoliths of animals of both sexes. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
     ## ---
     ## Krill
     x <- bind_rows(x,alleq_tbl("236217J_TL_Goeb2007"),

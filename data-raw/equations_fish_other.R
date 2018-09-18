@@ -7,6 +7,16 @@ refs$LaMe2000 <- bibentry(bibtype = "Article", key = "LaMe2000",
                           journal = "Polar Biology",
                           volume = 23, pages = "38-45", doi="10.1007/s003000050006")
 
+refs$LaMe2018 <- bibentry(bibtype = "Article", key = "LaMe2018",
+                          author = c(person("M", "La Mesa"),
+                                     person("F", "Donato"),
+                                     person("E", "Riginella"),
+                                     person("C", "Mazzoldi")),
+                          year = 2018,
+                          title = "Life history traits of a poorly known pelagic fish, Aethotaxis mitopteryx (Perciformes, Notothenioidei) from the Weddell Sea",
+                          journal = "Polar Biology",
+                          volume = 41, pages = "1777-1788", doi="10.1007/s00300-018-2318-1")
+
 alleq_fish_other <- function(id) {
     switch(id,
            ## Trematomus newnesi 234628
@@ -33,6 +43,41 @@ alleq_fish_other <- function(id) {
                                                                    "R^2", 0.88),
                                              notes="Calculated on specimens of both sexes, collected during February 1998",
                                              reference=refs$LaMe2000),
+
+           ## Aethotaxis mitopteryx, accepted name is Aethotaxis mitopteryx mitopteryx
+           "234661F_WW~SL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx mitopteryx",
+                                          taxon_aphia_id = 234661,
+                                          equation = function(SL) tibble(allometric_value = 0.0057 * (SL ^ 3.20)),
+                                          inputs = tibble(property = "standard length", units = "cm", sample_minimum = 18, sample_maximum = 45),
+                                          return_property = "wet weight",
+                                          return_units = "g",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 44),
+                                          notes="Applies to female animals",
+                                          reference=refs$LaMe2018),
+
+           "234661M_WW~SL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx mitopteryx",
+                                           taxon_aphia_id = 234661,
+                                           equation = function(SL) tibble(allometric_value = 0.0111 * (SL ^ 2.99)),
+                                           inputs = tibble(property = "standard length", units = "cm", sample_minimum = 13, sample_maximum = 31),
+                                           return_property = "wet weight",
+                                           return_units = "g",
+                                           reliability = tribble(~type, ~value,
+                                                                 "N", 35),
+                                           notes="Applies to male animals",
+                                           reference=refs$LaMe2018),
+
+           "234661_SL~OL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx mitopteryx",
+                                          taxon_aphia_id = 234661,
+                                          equation = function(OL) tibble(allometric_value = -1.95 + 5.24 * OL),
+                                          inputs = tibble(property = "otolith length", units = "mm", sample_minimum = 3.2, sample_maximum = 9.4),
+                                          return_property = "standard length",
+                                          return_units = "cm",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 73,
+                                                                "R^2", 0.91),
+                                          notes="Derived from otoliths of animals of both sexes",
+                                          reference=refs$LaMe2018),
 
            stop("unrecognized equation ID: ",id))
 }
