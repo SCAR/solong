@@ -112,26 +112,148 @@
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>sol_equations</span>()</div><div class='output co'>#&gt; # A tibble: 509 x 10
-#&gt;    equation_id   taxon_name    taxon_aphia_id equation inputs   return_property
-#&gt;    &lt;chr&gt;         &lt;chr&gt;                  &lt;dbl&gt; &lt;list&gt;   &lt;list&gt;   &lt;chr&gt;          
-#&gt;  1 138747_ML_Cl~ Ancistrochei~         138747 &lt;fn&gt;     &lt;tibble~ mantle length  
-#&gt;  2 138747_WW_Cl~ Ancistrochei~         138747 &lt;fn&gt;     &lt;tibble~ wet weight     
-#&gt;  3 342218_ML_Cl~ Architeuthis~         342218 &lt;fn&gt;     &lt;tibble~ mantle length  
-#&gt;  4 342218_WW_Cl~ Architeuthis~         342218 &lt;fn&gt;     &lt;tibble~ wet weight     
-#&gt;  5 342218_ML_Ro~ Architeuthis~         342218 &lt;fn&gt;     &lt;tibble~ mantle length  
-#&gt;  6 138848_ML_Cl~ Bathyteuthis~         138848 &lt;fn&gt;     &lt;tibble~ mantle length  
-#&gt;  7 138848_WW_Cl~ Bathyteuthis~         138848 &lt;fn&gt;     &lt;tibble~ wet weight     
-#&gt;  8 325293_MLa_C~ Batoteuthis ~         325293 &lt;fn&gt;     &lt;tibble~ mantle length  
-#&gt;  9 325293_WWa_C~ Batoteuthis ~         325293 &lt;fn&gt;     &lt;tibble~ wet weight     
-#&gt; 10 325293_MLb_C~ Batoteuthis ~         325293 &lt;fn&gt;     &lt;tibble~ mantle length  
-#&gt; # ... with 499 more rows, and 4 more variables: return_units &lt;chr&gt;,
-#&gt; #   reliability &lt;list&gt;, notes &lt;chr&gt;, reference &lt;list&gt;</div><div class='input'><span class='fu'>sol_equation</span>(<span class='st'>"342218_ML_Roel2000"</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: package ‘bindrcpp’ was built under R version 3.4.4</span></div><div class='output co'>#&gt; # A tibble: 1 x 10
-#&gt;   equation_id    taxon_name   taxon_aphia_id equation inputs    return_property
-#&gt;   &lt;chr&gt;          &lt;chr&gt;                 &lt;dbl&gt; &lt;list&gt;   &lt;list&gt;    &lt;chr&gt;          
-#&gt; 1 342218_ML_Roe~ Architeuthi~         342218 &lt;fn&gt;     &lt;tibble ~ mantle length  
-#&gt; # ... with 4 more variables: return_units &lt;chr&gt;, reliability &lt;list&gt;,
-#&gt; #   notes &lt;chr&gt;, reference &lt;list&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='fu'>sol_equations</span>()</div><div class='output co'>#&gt; # A tibble: 515 x 10
+#&gt;    equation_id             taxon_name                 taxon_aphia_id equation
+#&gt;    &lt;chr&gt;                   &lt;chr&gt;                               &lt;dbl&gt; &lt;list&gt;  
+#&gt;  1 138747_ML_Clar1986      Ancistrocheirus lesueuri           138747 &lt;fn&gt;    
+#&gt;  2 138747_WW_Clar1986      Ancistrocheirus lesueuri           138747 &lt;fn&gt;    
+#&gt;  3 342218_ML_Clar1986      Architeuthis dux                   342218 &lt;fn&gt;    
+#&gt;  4 342218_WW_Clar1986      Architeuthis dux                   342218 &lt;fn&gt;    
+#&gt;  5 342218_ML_Roel2000      Architeuthis dux                   342218 &lt;fn&gt;    
+#&gt;  6 138848_ML_Clar1986      Bathyteuthis abyssicola            138848 &lt;fn&gt;    
+#&gt;  7 138848_WW_Clar1986      Bathyteuthis abyssicola            138848 &lt;fn&gt;    
+#&gt;  8 325293_MLa_Clar1986     Batoteuthis skolops                325293 &lt;fn&gt;    
+#&gt;  9 325293_WWa_Clar1986     Batoteuthis skolops                325293 &lt;fn&gt;    
+#&gt; 10 325293_MLb_Clar1986     Batoteuthis skolops                325293 &lt;fn&gt;    
+#&gt; 11 325293_WWb_Clar1986     Batoteuthis skolops                325293 &lt;fn&gt;    
+#&gt; 12 11758_ML_Clar1986       Brachioteuthidae                    11758 &lt;fn&gt;    
+#&gt; 13 11758_WW_Clar1986       Brachioteuthidae                    11758 &lt;fn&gt;    
+#&gt; 14 139125_ML_Clar1986      Chiroteuthis veranii               139125 &lt;fn&gt;    
+#&gt; 15 139125_WW_Clar1986      Chiroteuthis veranii               139125 &lt;fn&gt;    
+#&gt; 16 137777_ML_Clar1986      Chiroteuthis                       137777 &lt;fn&gt;    
+#&gt; 17 137777_WW_Clar1986      Chiroteuthis                       137777 &lt;fn&gt;    
+#&gt; 18 325297_ML_LuWi1994      Galiteuthis glacialis              325297 &lt;fn&gt;    
+#&gt; 19 325297_WW_LuWi1994      Galiteuthis glacialis              325297 &lt;fn&gt;    
+#&gt; 20 137853_ML_Rodh1990      Taonius                            137853 &lt;fn&gt;    
+#&gt; 21 137853_WW_Rodh1990      Taonius                            137853 &lt;fn&gt;    
+#&gt; 22 341823_ML_Rodh1990      Teuthowenia pellucida              341823 &lt;fn&gt;    
+#&gt; 23 341823_WW_Rodh1990      Teuthowenia pellucida              341823 &lt;fn&gt;    
+#&gt; 24 325299_ML_Rodh1990      Mesonychoteuthis hamiltoni         325299 &lt;fn&gt;    
+#&gt; 25 11774_WW_Clar1962       Cranchiidae                         11774 &lt;fn&gt;    
+#&gt; 26 341824_ML_Clar1986      Cycloteuthis akimushkini           341824 &lt;fn&gt;    
+#&gt; 27 341824_WW_Clar1986      Cycloteuthis akimushkini           341824 &lt;fn&gt;    
+#&gt; 28 138036_ML_Clar1986      Gonatus                            138036 &lt;fn&gt;    
+#&gt; 29 138036_WW_Clar1986      Gonatus                            138036 &lt;fn&gt;    
+#&gt; 30 138036small_ML_Clar1986 Gonatus                            138036 &lt;fn&gt;    
+#&gt;    inputs           return_property return_units reliability     
+#&gt;    &lt;list&gt;           &lt;chr&gt;           &lt;chr&gt;        &lt;list&gt;          
+#&gt;  1 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt;  2 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt;  3 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt;  4 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt;  5 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt;  6 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt;  7 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt;  8 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt;  9 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 10 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 11 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 12 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 13 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 14 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 15 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 16 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 17 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 18 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [2 x 2]&gt;
+#&gt; 19 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [2 x 2]&gt;
+#&gt; 20 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 21 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 22 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 23 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 24 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 25 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [0 x 2]&gt;
+#&gt; 26 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [0 x 2]&gt;
+#&gt; 27 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [0 x 2]&gt;
+#&gt; 28 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt; 29 &lt;tibble [1 x 4]&gt; wet weight      g            &lt;tibble [1 x 2]&gt;
+#&gt; 30 &lt;tibble [1 x 4]&gt; mantle length   mm           &lt;tibble [0 x 2]&gt;
+#&gt;    notes                                                                        
+#&gt;    &lt;chr&gt;                                                                        
+#&gt;  1 ""                                                                           
+#&gt;  2 ""                                                                           
+#&gt;  3 ""                                                                           
+#&gt;  4 ""                                                                           
+#&gt;  5 Noted by Xavier &amp; Cherel: this equation for mantle_length from LRL might be ~
+#&gt;  6 ""                                                                           
+#&gt;  7 ""                                                                           
+#&gt;  8 Based on Chiroteuthis spp. formula from Clarke (1986). There are no specific~
+#&gt;  9 Based on Chiroteuthis spp. formula from Clarke (1986). There are no specific~
+#&gt; 10 Based on Mastigoteuthis spp. formula from Clarke (1986). There are no specif~
+#&gt; 11 Based on Mastigoteuthis spp. formula from Clarke (1986). There are no specif~
+#&gt; 12 ""                                                                           
+#&gt; 13 ""                                                                           
+#&gt; 14 Based on Chiroteuthis spp. formula from Clarke (1986). There are no specific~
+#&gt; 15 Based on Chiroteuthis spp. formula from Clarke (1986). There are no specific~
+#&gt; 16 ""                                                                           
+#&gt; 17 ""                                                                           
+#&gt; 18 ""                                                                           
+#&gt; 19 ""                                                                           
+#&gt; 20 ""                                                                           
+#&gt; 21 ""                                                                           
+#&gt; 22 ""                                                                           
+#&gt; 23 ""                                                                           
+#&gt; 24 Noted by Xavier &amp; Cherel: the relationship is weak and therefore evaluate ca~
+#&gt; 25 ""                                                                           
+#&gt; 26 ""                                                                           
+#&gt; 27 ""                                                                           
+#&gt; 28 ""                                                                           
+#&gt; 29 ""                                                                           
+#&gt; 30 Noted by Xavier &amp; Cherel: This equation is better for small beaks/specimens  
+#&gt;    reference     
+#&gt;    &lt;list&gt;        
+#&gt;  1 &lt;S3: bibentry&gt;
+#&gt;  2 &lt;S3: bibentry&gt;
+#&gt;  3 &lt;S3: bibentry&gt;
+#&gt;  4 &lt;S3: bibentry&gt;
+#&gt;  5 &lt;S3: bibentry&gt;
+#&gt;  6 &lt;S3: bibentry&gt;
+#&gt;  7 &lt;S3: bibentry&gt;
+#&gt;  8 &lt;S3: bibentry&gt;
+#&gt;  9 &lt;S3: bibentry&gt;
+#&gt; 10 &lt;S3: bibentry&gt;
+#&gt; 11 &lt;S3: bibentry&gt;
+#&gt; 12 &lt;S3: bibentry&gt;
+#&gt; 13 &lt;S3: bibentry&gt;
+#&gt; 14 &lt;S3: bibentry&gt;
+#&gt; 15 &lt;S3: bibentry&gt;
+#&gt; 16 &lt;S3: bibentry&gt;
+#&gt; 17 &lt;S3: bibentry&gt;
+#&gt; 18 &lt;S3: bibentry&gt;
+#&gt; 19 &lt;S3: bibentry&gt;
+#&gt; 20 &lt;S3: bibentry&gt;
+#&gt; 21 &lt;S3: bibentry&gt;
+#&gt; 22 &lt;S3: bibentry&gt;
+#&gt; 23 &lt;S3: bibentry&gt;
+#&gt; 24 &lt;S3: bibentry&gt;
+#&gt; 25 &lt;S3: bibentry&gt;
+#&gt; 26 &lt;S3: bibentry&gt;
+#&gt; 27 &lt;S3: bibentry&gt;
+#&gt; 28 &lt;S3: bibentry&gt;
+#&gt; 29 &lt;S3: bibentry&gt;
+#&gt; 30 &lt;S3: bibentry&gt;
+#&gt; # ... with 485 more rows</div><div class='input'><span class='fu'>sol_equation</span>(<span class='st'>"342218_ML_Roel2000"</span>)</div><div class='output co'>#&gt; # A tibble: 1 x 10
+#&gt;   equation_id        taxon_name       taxon_aphia_id equation inputs          
+#&gt;   &lt;chr&gt;              &lt;chr&gt;                     &lt;dbl&gt; &lt;list&gt;   &lt;list&gt;          
+#&gt; 1 342218_ML_Roel2000 Architeuthis dux         342218 &lt;fn&gt;     &lt;tibble [1 x 4]&gt;
+#&gt;   return_property return_units reliability     
+#&gt;   &lt;chr&gt;           &lt;chr&gt;        &lt;list&gt;          
+#&gt; 1 mantle length   mm           &lt;tibble [1 x 2]&gt;
+#&gt;   notes                                                                         
+#&gt;   &lt;chr&gt;                                                                         
+#&gt; 1 Noted by Xavier &amp; Cherel: this equation for mantle_length from LRL might be b~
+#&gt;   reference     
+#&gt;   &lt;list&gt;        
+#&gt; 1 &lt;S3: bibentry&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">

@@ -13,11 +13,11 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 509 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 515 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
 |                |  ash-free dry weight|  carbon weight|  dry weight|  energy density dry weight|  energy density wet weight|  hood length|  lipid content dry weight|  lipid weight|  mantle length|  oxygen consumption rate|  shell-free dry weight|  shell length|  standard length|  total energy content|  total length|  water content wet weight|  wet weight|
 |----------------|--------------------:|--------------:|-----------:|--------------------------:|--------------------------:|------------:|-------------------------:|-------------:|--------------:|------------------------:|----------------------:|-------------:|----------------:|---------------------:|-------------:|-------------------------:|-----------:|
-| Actinopterygii |                    0|              0|           2|                          3|                          3|            0|                         7|             0|              0|                        0|                      0|             0|              106|                     8|             2|                         7|         182|
+| Actinopterygii |                    0|              0|           2|                          3|                          3|            0|                         7|             0|              0|                        0|                      0|             0|              108|                     8|             2|                         7|         186|
 | Bivalvia       |                    3|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        1|                      2|             1|                0|                     0|             0|                         0|           0|
 | Cephalopoda    |                    0|              0|           0|                          0|                          0|            8|                         0|             0|             61|                        0|                      0|             0|                0|                     0|             0|                         0|          58|
 | Elasmobranchii |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
@@ -105,10 +105,10 @@ This equation can be applied to to all rows:
 ``` r
 sol_allometry(x, "342218_ML_Roel2000")
 #> # A tibble: 2 x 6
-#>   LRL      species   allometric_value  allometric_value~ allometric_value~
-#>   <S3: so> <chr>     <S3: sol_propert> <S3: sol_propert> <S3: sol_propert>
-#> 1 11.3     Architeu~ 539.688119078146  <NA>              <NA>             
-#> 2 13.9     Architeu~ 921.055318295427  <NA>              <NA>             
+#>   LRL   species allometric_value allometric_valu~ allometric_valu~
+#>   <S3:> <chr>   <S3: sol_proper> <S3: sol_proper> <S3: sol_proper>
+#> 1 11.3~ Archit~ 539.6881 mm      NA mm            NA mm           
+#> 2 13.9~ Archit~ 921.0553 mm      NA mm            NA mm           
 #> # ... with 1 more variable: allometric_property <chr>
 ```
 
@@ -118,10 +118,10 @@ Or we can apply a different equation to each row. Here we could use different al
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_ML_Clar1986"))
 xa
 #> # A tibble: 2 x 6
-#>   LRL      species   allometric_value  allometric_value~ allometric_value~
-#>   <S3: so> <chr>     <S3: sol_propert> <S3: sol_propert> <S3: sol_propert>
-#> 1 11.3     Architeu~ 539.688119078146  <NA>              <NA>             
-#> 2 13.9     Architeu~ 768.809           <NA>              <NA>             
+#>   LRL   species allometric_value allometric_valu~ allometric_valu~
+#>   <S3:> <chr>   <S3: sol_proper> <S3: sol_proper> <S3: sol_proper>
+#> 1 11.3~ Archit~ 539.6881 mm      NA mm            NA mm           
+#> 2 13.9~ Archit~ 768.8090 mm      NA mm            NA mm           
 #> # ... with 1 more variable: allometric_property <chr>
 ```
 
@@ -192,8 +192,8 @@ xa %>% select(species,allometric_property, allometric_value)
 #> # A tibble: 2 x 3
 #>   species                 allometric_property allometric_value  
 #>   <chr>                   <chr>               <S3: sol_property>
-#> 1 Architeuthis dux        wet weight          11029.7170210943  
-#> 2 Leptonychotes weddellii wet weight          151200
+#> 1 Architeuthis dux        wet weight          " 11029.72 g"     
+#> 2 Leptonychotes weddellii wet weight          151200.00 g
 ```
 
 The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
@@ -225,8 +225,8 @@ xa %>% select(species, allometric_property, allometric_value)
 #> # A tibble: 2 x 3
 #>   species          allometric_property allometric_value
 #>   <chr>            <chr>                          <dbl>
-#> 1 Architeuthis dux mantle length                    540
-#> 2 Architeuthis dux wet weight                     28417
+#> 1 Architeuthis dux mantle length                   540.
+#> 2 Architeuthis dux wet weight                    28417.
 ```
 
 And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
@@ -261,7 +261,7 @@ sol_allometry(x, "369214_WW_Lake2003") %>%
 #> # A tibble: 1 x 3
 #>   allometric_value   allometric_value_lower allometric_value_upper
 #>   <S3: sol_property> <S3: sol_property>     <S3: sol_property>    
-#> 1 0.891977327230186  0.698651552077325      1.13879880453575
+#> 1 0.8919773 g        0.6986516 g            1.138799 g
 ```
 
 Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
@@ -285,10 +285,9 @@ x <- tibble(SL=10) %>%
    mutate(SL=sol_set_property(SL, "standard length", with_units="cm"))
 sol_allometry(x, myeq)
 #> # A tibble: 1 x 5
-#>   SL            allometric_value   allometric_value_l~ allometric_value_u~
-#>   <S3: sol_pro> <S3: sol_property> <S3: sol_property>  <S3: sol_property> 
-#> 1 10            13.8166865540385   <NA>                <NA>               
-#> # ... with 1 more variable: allometric_property <chr>
+#>   SL    allometric_value allometric_valu~ allometric_valu~ allometric_pro~
+#>   <S3:> <S3: sol_proper> <S3: sol_proper> <S3: sol_proper> <chr>          
+#> 1 10 cm 13.81669 g       NA g             NA g             wet weight
 ```
 
 ### Adding your own equations
@@ -451,19 +450,27 @@ unique(eqs$reference)
 #> http://doi.org/10.1007/s003000050006).
 #> 
 #> [[22]]
+#> La Mesa M, Donato F, Riginella E and Mazzoldi C (2018). "Life
+#> history traits of a poorly known pelagic fish, Aethotaxis
+#> mitopteryx (Perciformes, Notothenioidei) from the Weddell Sea."
+#> _Polar Biology_, *41*, pp. 1777-1788. doi:
+#> 10.1007/s00300-018-2318-1 (URL:
+#> http://doi.org/10.1007/s00300-018-2318-1).
+#> 
+#> [[23]]
 #> Goebel ME, Lipsky JD, Reiss CS and Loeb VJ (2007). "Using carapace
 #> measurements to determine the sex of Antarctic krill, Euphausia
 #> superba." _Polar Biology_, *30*, pp. 307-315. doi:
 #> 10.1007/s00300-006-0184-8 (URL:
 #> http://doi.org/10.1007/s00300-006-0184-8).
 #> 
-#> [[23]]
+#> [[24]]
 #> Morris DJ, Watkins JL, Ricketts C, Buchholz F and Priddle J
 #> (1988). "An assessmant of the merits of length and weight
 #> measurements of Antarctic krill Euphausia superba." _British
 #> Antarctic Survey Bulletin_, *79*, pp. 27-50.
 #> 
-#> [[24]]
+#> [[25]]
 #> Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D,
 #> Kasatkina S, Takao Y, Goss C, Malyshko A and Brandon M (2004).
 #> "Biomass of Antarctic krill in the Scotia Sea in January/February
@@ -472,67 +479,67 @@ unique(eqs$reference)
 #> *51*, pp. 1215-1236. doi: 10.1016/j.dsr2.2004.06.011 (URL:
 #> http://doi.org/10.1016/j.dsr2.2004.06.011).
 #> 
-#> [[25]]
+#> [[26]]
 #> Mayzaud P, Boutoute M and Alonzo F (2003). "Lipid composition of
 #> the euphausiids Euphausia vallentini and Thysanoessa macrura
 #> during summer in the Southern Indian Ocean." _Antarctic Science_,
 #> *15*, pp. 463-475. doi: 10.1017/S0954102003001573 (URL:
 #> http://doi.org/10.1017/S0954102003001573).
 #> 
-#> [[26]]
+#> [[27]]
 #> Färber-Lorda J (1994). "Length-weight relationships and
 #> coefficient of condition of Euphausia superba and Thysanoessa
 #> macrura (Crustacea: Euphausiacea) in southwest Indian Ocean during
 #> summer." _Marine Biology_, *118*, pp. 645-650. doi:
 #> 10.1007/BF00347512 (URL: http://doi.org/10.1007/BF00347512).
 #> 
-#> [[27]]
+#> [[28]]
 #> Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
 #> dietary assessment of Weddell seals." _Australian Wildlife
 #> Research_, *15*, pp. 423-433.
 #> 
-#> [[28]]
+#> [[29]]
 #> Lake S, Burton H and van den Hoff J (2003). "Regional, temporal
 #> and fine-scale spatial variation in Weddell seal diet at four
 #> coastal locations in east Antarctica." _Marine Ecology Progress
 #> Series_, *254*, pp. 293-305. doi: 10.3354/meps254293 (URL:
 #> http://doi.org/10.3354/meps254293).
 #> 
-#> [[29]]
+#> [[30]]
 #> Eastman JT and Devries AL (1997). "Biology and phenotypic
 #> plasticity of the Antarctic nototheniid fish Trematomus newnesi in
 #> McMurdo Sound." _Antarctic Science_, *9*, pp. 27-35. doi:
 #> 10.1017/S0954102097000047 (URL:
 #> http://doi.org/10.1017/S0954102097000047).
 #> 
-#> [[30]]
+#> [[31]]
 #> Van de Putte A, Flores H, Volckaert F and van Franeker JA (2006).
 #> "Energy content of Antarctic mesopelagic fishes: implications for
 #> the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:
 #> 10.1007/s00300-006-0148-z (URL:
 #> http://doi.org/10.1007/s00300-006-0148-z).
 #> 
-#> [[31]]
+#> [[32]]
 #> Friedrich C and Hagen W (1994). "Lipid contents of five species of
 #> notothenioid fish from high-Antarctic waters and ecological
 #> implications." _Polar Biology_, *14*, pp. 359-369. doi:
 #> 10.1007/BF00240256 (URL: http://doi.org/10.1007/BF00240256).
 #> 
-#> [[32]]
+#> [[33]]
 #> Vanella FA, Calvo J, Morriconi ER and Aureliano DR (2005).
 #> "Somatic energy content and histological analysis of the gonads in
 #> Antarctic fish from the Scotia Arc." _Scientia Marina_, *69*, pp.
 #> S2 305-316. doi: 10.3989/scimar.2005.69s2305 (URL:
 #> http://doi.org/10.3989/scimar.2005.69s2305).
 #> 
-#> [[33]]
+#> [[34]]
 #> Dubischar CD, Pakhomov EA, von Harbou L, Hunt BPV and Bathmann UV
 #> (2012). "Salps in the Lazarev Sea, Southern Ocean: II. Biochemical
 #> composition and potential prey value." _Marine Biology_, *159*,
 #> pp. 15-24. doi: 10.1007/s00227-011-1785-5 (URL:
 #> http://doi.org/10.1007/s00227-011-1785-5).
 #> 
-#> [[34]]
+#> [[35]]
 #> Ahn IY and Shim JH (1998). "Summer metabolism of the Antarctic
 #> clam, Laternula elliptica (King and Broderip) in Maxwell Bay, King
 #> George Island and its implications." _Journal of Experimental
@@ -540,7 +547,7 @@ unique(eqs$reference)
 #> 10.1016/S0022-0981(97)00201-3 (URL:
 #> http://doi.org/10.1016/S0022-0981(97)00201-3).
 #> 
-#> [[35]]
+#> [[36]]
 #> Urban HJ and Mercuri G (1998). "Population dynamics of the bivalve
 #> Laternula elliptica from Potter Cove, King George Island, South
 #> Shetland Islands." _Antarctic Science_, *10*, pp. 153-160. doi:
