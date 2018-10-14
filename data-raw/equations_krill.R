@@ -48,6 +48,15 @@ refs$Farb1994 <- bibentry(bibtype = "Article", key = "Farb1994",
                           journal = "Marine Biology",
                           volume = 118, pages = "645-650", doi = "10.1007/BF00347512")
 
+refs$Melv2018 <- bibentry(bibtype = "Article", key = "Melv2018",
+                          author = c(person(c("J", "E"), "Melvin"),
+                                     person("S", "Kawaguchi"),
+                                     person("R", "King"),
+                                     person(c("K", "M"), "Swadling")),
+                          year = 2018,
+                          title = "The carapace matters: refinement of the instantaneous growth rate method for Antarctic krill Euphausia superba Dana, 1850 (Euphausiacea)",
+                          journal = "Journal of Crustacean Biology",
+                          pages = "1-8", doi = "10.1093/jcbiol/ruy069")
 
 ##oldrefs$Goeb2007 <- "Goebel ME, Lipsky JD, Reiss CS, Loeb VJ (2007) Using carapace measurements to determine the sex of Antarctic krill, Euphausia superba. Polar Biology 30:307-315. doi:10.1007/s00300-006-0184-8"
 ##oldrefs$Morr1988 <- "Morris DJ, Watkins JL, Ricketts C, Buchholz F, Priddle J (1988) An assessmant of the merits of length and weight measurements of Antarctic krill Euphausia superba. British Antarctic Survey Bulletin 79:27-50"
@@ -450,6 +459,29 @@ alleq_krill <- function(id) {
                                                                   "N", 32),
                                             notes = "Applies to spawned female animals",
                                             reference = refs$Farb1994),
+
+           "236217F_TL~CL_Melv2018" = list(taxon_name = "Euphausia superba",
+                                           taxon_aphia_id = 236217,
+                                           equation = function(CL) tibble(allometric_value = -3.23 + 0.422*CL),
+                                           inputs = tibble(property = "carapace length", units = "mm", sample_minimum = 26, sample_maximum = 52),
+                                           return_property = "total length",
+                                           return_units = "mm",
+                                           reliability = tribble(~type, ~value,
+                                                                 "N", 93,
+                                                                 "R^2", 0.89),
+                                           notes = "Applies to post-moult female animals",
+                                           reference = refs$Melv2018),
+           "236217M_TL~CL_Melv2018" = list(taxon_name = "Euphausia superba",
+                                           taxon_aphia_id = 236217,
+                                           equation = function(CL) tibble(allometric_value = -0.304 + 0.33*CL),
+                                           inputs = tibble(property = "carapace length", units = "mm", sample_minimum = 25, sample_maximum = 51),
+                                           return_property = "total length",
+                                           return_units = "mm",
+                                           reliability = tribble(~type, ~value,
+                                                                 "N", 46,
+                                                                 "R^2", 0.89),
+                                           notes = "Applies to post-moult male animals",
+                                           reference = refs$Melv2018),
 
            stop("unrecognized equation ID: ",id))
 }

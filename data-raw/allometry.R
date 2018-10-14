@@ -1087,6 +1087,10 @@ build_allometry_df <- function() {
                    alleq_tbl("236217F_WW~CL_Farb1994"),
                    alleq_tbl("236217SF_WW~CL_Farb1994"))
 
+    ## Melv2018
+    x <- bind_rows(x, alleq_tbl("236217F_TL~CL_Melv2018"),
+                   alleq_tbl("236217M_TL~CL_Melv2018"))
+
     ## ---
     ## Miscellaneous others
     ##
