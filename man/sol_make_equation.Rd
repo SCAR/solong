@@ -4,8 +4,8 @@
 \alias{sol_make_equation}
 \title{Create an allometric equation object}
 \usage{
-sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation, inputs,
-  return_property, return_units, reliability, notes, reference,
+sol_make_equation(equation_id, taxon_name, taxon_aphia_id, equation,
+  inputs, return_property, return_units, reliability, notes, reference,
   check_packaged_ids = TRUE, warn_recommended = TRUE)
 }
 \arguments{

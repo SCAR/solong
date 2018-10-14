@@ -4,7 +4,8 @@
 \alias{sol_fb_length_weight}
 \title{Create allometric equation from Fishbase}
 \usage{
-sol_fb_length_weight(..., worms = requireNamespace("worrms", quietly = TRUE))
+sol_fb_length_weight(..., worms = requireNamespace("worrms", quietly =
+  TRUE))
 }
 \arguments{
 \item{...}{: arguments passed to rfishbase::length_weight}
