@@ -13,7 +13,7 @@ This R package provides allometric equations that relate the body size of Southe
 Packaged equations
 ------------------
 
-The package currently includes 515 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+The package currently includes 517 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
 |                |  ash-free dry weight|  carbon weight|  dry weight|  energy density dry weight|  energy density wet weight|  hood length|  lipid content dry weight|  lipid weight|  mantle length|  oxygen consumption rate|  shell-free dry weight|  shell length|  standard length|  total energy content|  total length|  water content wet weight|  wet weight|
 |----------------|--------------------:|--------------:|-----------:|--------------------------:|--------------------------:|------------:|-------------------------:|-------------:|--------------:|------------------------:|----------------------:|-------------:|----------------:|---------------------:|-------------:|-------------------------:|-----------:|
@@ -21,7 +21,7 @@ The package currently includes 515 equations, covering mostly cephalopods and fi
 | Bivalvia       |                    3|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        1|                      2|             1|                0|                     0|             0|                         0|           0|
 | Cephalopoda    |                    0|              0|           0|                          0|                          0|            8|                         0|             0|             61|                        0|                      0|             0|                0|                     0|             0|                         0|          58|
 | Elasmobranchii |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
-| Malacostraca   |                    0|              0|           0|                          0|                          0|            0|                         0|             4|              0|                        0|                      0|             0|                0|                     0|             3|                         0|          28|
+| Malacostraca   |                    0|              0|           0|                          0|                          0|            0|                         0|             4|              0|                        0|                      0|             0|                0|                     0|             5|                         0|          28|
 | Mammalia       |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
 | Thaliacea      |                    0|              5|           6|                          0|                          0|            0|                         0|             1|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           6|
 
@@ -494,52 +494,59 @@ unique(eqs$reference)
 #> 10.1007/BF00347512 (URL: http://doi.org/10.1007/BF00347512).
 #> 
 #> [[28]]
+#> Melvin JE, Kawaguchi S, King R and Swadling KM (2018). "The
+#> carapace matters: refinement of the instantaneous growth rate
+#> method for Antarctic krill Euphausia superba Dana, 1850
+#> (Euphausiacea)." _Journal of Crustacean Biology_, pp. 1-8. doi:
+#> 10.1093/jcbiol/ruy069 (URL: http://doi.org/10.1093/jcbiol/ruy069).
+#> 
+#> [[29]]
 #> Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
 #> dietary assessment of Weddell seals." _Australian Wildlife
 #> Research_, *15*, pp. 423-433.
 #> 
-#> [[29]]
+#> [[30]]
 #> Lake S, Burton H and van den Hoff J (2003). "Regional, temporal
 #> and fine-scale spatial variation in Weddell seal diet at four
 #> coastal locations in east Antarctica." _Marine Ecology Progress
 #> Series_, *254*, pp. 293-305. doi: 10.3354/meps254293 (URL:
 #> http://doi.org/10.3354/meps254293).
 #> 
-#> [[30]]
+#> [[31]]
 #> Eastman JT and Devries AL (1997). "Biology and phenotypic
 #> plasticity of the Antarctic nototheniid fish Trematomus newnesi in
 #> McMurdo Sound." _Antarctic Science_, *9*, pp. 27-35. doi:
 #> 10.1017/S0954102097000047 (URL:
 #> http://doi.org/10.1017/S0954102097000047).
 #> 
-#> [[31]]
+#> [[32]]
 #> Van de Putte A, Flores H, Volckaert F and van Franeker JA (2006).
 #> "Energy content of Antarctic mesopelagic fishes: implications for
 #> the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:
 #> 10.1007/s00300-006-0148-z (URL:
 #> http://doi.org/10.1007/s00300-006-0148-z).
 #> 
-#> [[32]]
+#> [[33]]
 #> Friedrich C and Hagen W (1994). "Lipid contents of five species of
 #> notothenioid fish from high-Antarctic waters and ecological
 #> implications." _Polar Biology_, *14*, pp. 359-369. doi:
 #> 10.1007/BF00240256 (URL: http://doi.org/10.1007/BF00240256).
 #> 
-#> [[33]]
+#> [[34]]
 #> Vanella FA, Calvo J, Morriconi ER and Aureliano DR (2005).
 #> "Somatic energy content and histological analysis of the gonads in
 #> Antarctic fish from the Scotia Arc." _Scientia Marina_, *69*, pp.
 #> S2 305-316. doi: 10.3989/scimar.2005.69s2305 (URL:
 #> http://doi.org/10.3989/scimar.2005.69s2305).
 #> 
-#> [[34]]
+#> [[35]]
 #> Dubischar CD, Pakhomov EA, von Harbou L, Hunt BPV and Bathmann UV
 #> (2012). "Salps in the Lazarev Sea, Southern Ocean: II. Biochemical
 #> composition and potential prey value." _Marine Biology_, *159*,
 #> pp. 15-24. doi: 10.1007/s00227-011-1785-5 (URL:
 #> http://doi.org/10.1007/s00227-011-1785-5).
 #> 
-#> [[35]]
+#> [[36]]
 #> Ahn IY and Shim JH (1998). "Summer metabolism of the Antarctic
 #> clam, Laternula elliptica (King and Broderip) in Maxwell Bay, King
 #> George Island and its implications." _Journal of Experimental
@@ -547,7 +554,7 @@ unique(eqs$reference)
 #> 10.1016/S0022-0981(97)00201-3 (URL:
 #> http://doi.org/10.1016/S0022-0981(97)00201-3).
 #> 
-#> [[36]]
+#> [[37]]
 #> Urban HJ and Mercuri G (1998). "Population dynamics of the bivalve
 #> Laternula elliptica from Potter Cove, King George Island, South
 #> Shetland Islands." _Antarctic Science_, *10*, pp. 153-160. doi:
