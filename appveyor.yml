@@ -14,6 +14,7 @@ install:
 
 environment:
   _R_CHECK_FORCE_SUGGESTS_: false
+  PKGTYPE: binary
 
 build_script:
   - travis-tool.sh install_deps
