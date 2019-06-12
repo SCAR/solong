@@ -189,8 +189,8 @@ sol_make_equation <- function(equation_id,taxon_name,taxon_aphia_id,equation,inp
              sol_properties()$units[sol_properties()$property==inputs$property[z]],"\"")
         }
     }
-    if (!"sample_minimum" %in% names(inputs)) inputs$sample_minimum <- NA
-    if (!"sample_maximum" %in% names(inputs)) inputs$sample_maximum <- NA
+    if (!"sample_minimum" %in% names(inputs)) inputs$sample_minimum <- rep(NA, nrow(inputs) > 0)
+    if (!"sample_maximum" %in% names(inputs)) inputs$sample_maximum <- rep(NA, nrow(inputs) > 0)
 
     ## return property and units
     assert_that(is.string(return_property))
