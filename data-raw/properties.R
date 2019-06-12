@@ -12,6 +12,7 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "carapace length","mm","solprop_CPL","",
                                "removed carapace length","mm","solprop_RCPL","",
                                "total length","mm","solprop_TL","Note that the definition of total length may be species-specific, e.g. for Antarctic krill it is generally taken from the anterior margin of the eye to the posterior tip of the telson; this was defined as 'Standard length 1' by Mauchline (1980)",
+                               "maximum total length", "mm", "solprop_maxTL", "",
                                "fork length","mm","solprop_FL","",
                                "dry weight","g","solprop_DW","",
                                "wet weight","g","solprop_WW","",
@@ -34,4 +35,4 @@ sol_properties_data <- tribble(~property,~units,~class_name,~notes,
                                "age", "yr", "solprop_age", "")
 
 assert_that(!any(duplicated(sol_properties_data$class_name)))
-devtools::use_data(sol_properties_data,internal=FALSE,overwrite=TRUE)
+usethis::use_data(sol_properties_data, internal = FALSE, overwrite = TRUE)

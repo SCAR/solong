@@ -51,6 +51,7 @@ source("data-raw/equations_Smal1993.R")
 source("data-raw/equations_WiMc1990.R")
 source("data-raw/equations_Bush2005.R")
 source("data-raw/equations_XaCh2016.R")
+source("data-raw/equations_East2019.R")
 ## energetics
 source("data-raw/equations_VanD2006.R")
 source("data-raw/equations_FrHa1994.R")
@@ -145,31 +146,34 @@ alleq_other <- function(id) {
 
 ## wrapper function around alleq. Can override the taxon, if e.g. applying an equation developed for one species to another species
 ## can override reference. Notes get added to any notes in the original equation
-alleq_tbl <- function(id,with_id,taxon_name,taxon_aphia_id,notes,reference) {
-    thiseq <- NULL
-    try(thiseq <- alleq_other(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_fish_other(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_krill(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Bush2005(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_AhSh1998(id), silent = TRUE)
-    if (is.null(thiseq)) try(thiseq <- alleq_UrMe1998(id), silent = TRUE)
-    if (is.null(thiseq)) stop("equation id not recognized or has an error: ",id)
+alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NULL, notes = NULL, reference = NULL, thiseq = NULL) {
+    if (is.null(thiseq)) {
+        try(thiseq <- alleq_other(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_fish_other(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_krill(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Bush2005(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_XaCh2016(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_VanD2006(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_FrHa1994(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Vane2005(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_AhSh1998(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_UrMe1998(id), silent = TRUE)
+        if (is.null(thiseq)) stop("equation id not recognized or has an error: ", id)
+    } else {
+        id <- thiseq$id
+    }
 
     ## use the equation defaults for some things, if not already specified
-    if (missing(with_id)) with_id <- id
-    if (missing(taxon_name)) taxon_name <- thiseq$taxon_name
-    if (missing(taxon_aphia_id)) taxon_aphia_id <- thiseq$taxon_aphia_id
-    if (missing(reference)) reference <- thiseq$reference
-    if (missing(notes)) {
+    if (is.null(with_id)) with_id <- id
+    if (is.null(taxon_name)) taxon_name <- thiseq$taxon_name
+    if (is.null(taxon_aphia_id)) taxon_aphia_id <- thiseq$taxon_aphia_id
+    if (is.null(reference)) reference <- thiseq$reference
+    if (is.null(notes)) {
         notes <- ""
     }
     if (is.null(thiseq$notes) || !nzchar(thiseq$notes)) {
@@ -1222,6 +1226,9 @@ build_allometry_df <- function() {
                    alleq_tbl("197217_AFDW~SFDW_UrMe1998"),
                    alleq_tbl("197217_SL~age_UrMe1998"))
 
+    ## East2019
+    temp <- lapply(alleq_East2019(), function(z) alleq_tbl(thiseq = z)) ## all equations from this source
+    x <- bind_rows(x, temp)
     x
 }
 
@@ -1247,19 +1254,19 @@ assert_that(all(grepl("WW",allometric_equations$equation_id[allometric_equations
 assert_that(all(grepl("ML",allometric_equations$equation_id[allometric_equations$return_property=="mantle length"])))
 
 ## check that masses look ok
-idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="wet weight" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="standard length",FUN.VALUE=TRUE)
-tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](100)$allometric_value,FUN.VALUE = 1)
+idx <- grepl("WiMc1990", allometric_equations$equation_id) & allometric_equations$return_property == "wet weight" & vapply(seq_len(nrow(allometric_equations)), function(z) identical(allometric_equations[z, ]$inputs[[1]]$property, "standard length"), FUN.VALUE = TRUE)
+tmp <- vapply(which(idx),function(z) allometric_equations[z, ]$equation[[1]](100)$allometric_value,FUN.VALUE = 1)
 assert_that(!any(abs(tmp)<1 | abs(tmp)>50))
 
 ## SL from OL
-idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="standard length" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="otolith length",FUN.VALUE=TRUE)
-tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
+idx <- grepl("WiMc1990", allometric_equations$equation_id) & allometric_equations$return_property == "standard length" & vapply(seq_len(nrow(allometric_equations)), function(z) identical(allometric_equations[z, ]$inputs[[1]]$property, "otolith length"), FUN.VALUE = TRUE)
+tmp <- vapply(which(idx),function(z)allometric_equations[z, ]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
 assert_that(!any(abs(tmp)<50 | abs(tmp)>500))
 
 ## SL from OW
-idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="standard length" & vapply(seq_len(nrow(allometric_equations)),function(z)allometric_equations[z,]$inputs[[1]]$property=="otolith width",FUN.VALUE=TRUE)
+idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations$return_property=="standard length" & vapply(seq_len(nrow(allometric_equations)),function(z) identical(allometric_equations[z,]$inputs[[1]]$property, "otolith width"), FUN.VALUE=TRUE)
 tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
 assert_that(!any(abs(tmp)<50 | abs(tmp)>1000))
 
 
-devtools::use_data(allometric_equations, internal = FALSE, overwrite = TRUE)
+usethis::use_data(allometric_equations, internal = FALSE, overwrite = TRUE)
