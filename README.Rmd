@@ -8,7 +8,7 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-",
+  fig.path = "man/figures/README-",
   warning = FALSE, message = FALSE
 )
 ```
@@ -34,7 +34,7 @@ The package currently includes `r nrow(sol_equations())` equations, covering mos
 
 ```{r echo=FALSE, cache=TRUE}
 library(worrms)
-uid <- unique(sol_equations()$taxon_aphia_id)
+uid <- unique(na.omit(sol_equations()$taxon_aphia_id))
 ucl <- lapply(uid, wm_classification)
 uid_cls <- tibble(taxon_aphia_id=uid, taxonomic_class=vapply(ucl, function(z)z$scientificname[z$rank=="Class"], FUN.VALUE=""))
 ```
@@ -202,11 +202,31 @@ Equations are registered against *taxon_name* and *taxon_aphia_id* (the species 
 
 Is equation X included in the package? Call `sol_equations()` to get all equations that are part of the package, and have a rummage through that.
 
-To see all references from which equations have been drawn, do something like:
+To see the references from which equations have been drawn, do something like:
 
 ```{r}
 eqs <- sol_equations()
-unique(eqs$reference)
+## the first few
+head(unique(eqs$reference))
+```
+
+## More examples
+
+Grab all equations from Eastman (2019):
+
+```{r}
+eq <- sol_equations() %>% dplyr::filter(grepl("East2019", equation_id)) %>%
+    ## some equations have been included twice with different species names - drop the duplicates
+    dplyr::filter(!grepl("Accepted taxon name", notes))
+```
+
+Reproduce Figure 2 from that paper:
+
+```{r}
+## extract each maximum length
+max_lengths <- sapply(eq$equation, function(z) z()$allometric_value)
+## histogram
+hist(max_lengths, 20)
 ```
 
 ## Related packages
