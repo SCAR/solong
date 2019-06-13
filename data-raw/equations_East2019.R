@@ -178,7 +178,6 @@ alleq_East2019 <- function(id) {
         tempeq$sp[tempeq$sp == "Trematomus amphitreta"] <- "Cryothenia amphitreta"
         tempeq$sp[tempeq$sp == "Trematomus peninsulae"] <- "Cryothenia peninsulae"
         tempeq$sp[tempeq$sp == "Notothenia dewitti"] <- "Paranotothenia dewitti"
-
         ## find Aphia IDs
         nms <- lapply(tempeq$sp, function(nm) tryCatch(worrms::wm_records_names(nm), error = function(e) NULL))
         if (any(sapply(nms, length) > 1)) stop("ambiguous name(s)")
@@ -187,6 +186,10 @@ alleq_East2019 <- function(id) {
         tempeq$aphia_id <- sapply(nms, function(z) numeric_or_NA(z[[1]]$AphiaID))
         tempeq$valid_name <- sapply(nms, function(z) char_or_NA(z[[1]]$valid_name))
         tempeq$valid_aphia_id <- sapply(nms, function(z) numeric_or_NA(z[[1]]$valid_AphiaID))
+        ## and map those changed ones back so that we have Eastman's published names
+        tempeq$sp[tempeq$sp == "Cryothenia amphitreta"] <- "Trematomus amphitreta"
+        tempeq$sp[tempeq$sp == "Cryothenia peninsulae"] <- "Trematomus peninsulae"
+        tempeq$sp[tempeq$sp == "Paranotothenia dewitti"] <- "Notothenia dewitti"
         saveRDS(tempeq, file = processed_data_file)
     } else {
         tempeq <- readRDS(processed_data_file)
@@ -196,9 +199,12 @@ alleq_East2019 <- function(id) {
     out <- list()
     for (ii in seq_len(nrow(tempeq))) {
         this <- tempeq[ii, ]
-        this_eq_name <- paste0(if (is.na(this$valid_aphia_id)) gsub(" ", "_", this$valid_name) else this$valid_aphia_id, "_maxTL_East2019")
+        ## catch cases where we don't have an Aphia ID
+        tnm <- if (is.na(this$valid_name)) this$sp else this$valid_name
+        ## use aphia ID in the identifier if we can, otherwise taxon name
+        this_eq_name <- paste0(if (is.na(this$valid_aphia_id)) gsub(" ", "_", tnm) else this$valid_aphia_id, "_maxTL_East2019")
         out[[this_eq_name]] <- list(id = this_eq_name,
-                                    taxon_name = this$valid_name,
+                                    taxon_name = if (!is.na(this$valid_name)) this$valid_name else this$sp,
                                     taxon_aphia_id = this$valid_aphia_id,
                                     equation = eval(parse(text = paste0("function(...) tibble(allometric_value = ", this$tl, ")"))),
                                     inputs = tibble(property = character(),units = character()),
@@ -206,9 +212,10 @@ alleq_East2019 <- function(id) {
                                     return_units = "cm",
                                     notes = paste0("Eastman (2019) cites: ", this$ref),
                                     reference=refs$East2019)
-        if (!is.na(this$aphia_id) && this$valid_aphia_id != this$aphia_id) {
+        ## if the name used by Eastman differs from the valid name, enter both
+        if (!is.na(this$aphia_id) && (this$valid_aphia_id != this$aphia_id || this$sp != this$valid_name)) {
             cat("Duplicating", this$valid_name, "equation for", this$sp, "\n")
-            this_eq_name <- paste0(if (is.na(this$aphia_id)) gsub(" ", "_", this$sp) else this$aphia_id, "_maxTL_East2019")
+            this_eq_name <- paste0(if (this$aphia_id != this$valid_aphia_id) this$aphia_id else gsub(" ", "_", this$sp), "_maxTL_East2019")
             out[[this_eq_name]] <- list(id = this_eq_name,
                                         taxon_name = this$sp,
                                         taxon_aphia_id = this$aphia_id,
