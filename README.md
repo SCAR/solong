@@ -1,32 +1,39 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-solong
-======
 
-[![Travis-CI Build Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong) [![codecov](https://codecov.io/gh/SCAR/solong/branch/master/graph/badge.svg)](https://codecov.io/gh/SCAR/solong)
+# solong
 
-Overview
---------
+[![Travis-CI Build
+Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong)
+[![codecov](https://codecov.io/gh/SCAR/solong/branch/master/graph/badge.svg)](https://codecov.io/gh/SCAR/solong)
 
-This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements. It is a component of the [Southern Ocean Diet and Energetics Database](https://www.scar.org/data-products/southern-ocean-diet-energetics/) project.
+## Overview
 
-Packaged equations
-------------------
+This R package provides allometric equations that relate the body size
+of Southern Ocean taxa to their body part measurements. It is a
+component of the [Southern Ocean Diet and Energetics
+Database](https://www.scar.org/data-products/southern-ocean-diet-energetics/)
+project.
 
-The package currently includes 517 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+## Packaged equations
 
-|                |  ash-free dry weight|  carbon weight|  dry weight|  energy density dry weight|  energy density wet weight|  hood length|  lipid content dry weight|  lipid weight|  mantle length|  oxygen consumption rate|  shell-free dry weight|  shell length|  standard length|  total energy content|  total length|  water content wet weight|  wet weight|
-|----------------|--------------------:|--------------:|-----------:|--------------------------:|--------------------------:|------------:|-------------------------:|-------------:|--------------:|------------------------:|----------------------:|-------------:|----------------:|---------------------:|-------------:|-------------------------:|-----------:|
-| Actinopterygii |                    0|              0|           2|                          3|                          3|            0|                         7|             0|              0|                        0|                      0|             0|              108|                     8|             2|                         7|         186|
-| Bivalvia       |                    3|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        1|                      2|             1|                0|                     0|             0|                         0|           0|
-| Cephalopoda    |                    0|              0|           0|                          0|                          0|            8|                         0|             0|             61|                        0|                      0|             0|                0|                     0|             0|                         0|          58|
-| Elasmobranchii |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
-| Malacostraca   |                    0|              0|           0|                          0|                          0|            0|                         0|             4|              0|                        0|                      0|             0|                0|                     0|             5|                         0|          28|
-| Mammalia       |                    0|              0|           0|                          0|                          0|            0|                         0|             0|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           1|
-| Thaliacea      |                    0|              5|           6|                          0|                          0|            0|                         0|             1|              0|                        0|                      0|             0|                0|                     0|             0|                         0|           6|
+The package currently includes 667 equations, covering mostly
+cephalopods and fish. A breakdown of the number of equations by
+taxonomic class and the allometric property that they estimate:
 
-Installing
-----------
+|                | ash-free dry weight | carbon weight | dry weight | energy density dry weight | energy density wet weight | hood length | lipid content dry weight | lipid weight | mantle length | maximum total length | oxygen consumption rate | shell length | shell-free dry weight | standard length | total energy content | total length | water content wet weight | wet weight |
+| -------------- | ------------------: | ------------: | ---------: | ------------------------: | ------------------------: | ----------: | -----------------------: | -----------: | ------------: | -------------------: | ----------------------: | -----------: | --------------------: | --------------: | -------------------: | -----------: | -----------------------: | ---------: |
+| Actinopterygii |                   0 |             0 |          2 |                         3 |                         3 |           0 |                        7 |            0 |             0 |                  147 |                       0 |            0 |                     0 |             108 |                    8 |            2 |                        7 |        186 |
+| Bivalvia       |                   3 |             0 |          0 |                         0 |                         0 |           0 |                        0 |            0 |             0 |                    0 |                       1 |            1 |                     2 |               0 |                    0 |            0 |                        0 |          0 |
+| Cephalopoda    |                   0 |             0 |          0 |                         0 |                         0 |           8 |                        0 |            0 |            61 |                    0 |                       0 |            0 |                     0 |               0 |                    0 |            0 |                        0 |         58 |
+| Elasmobranchii |                   0 |             0 |          0 |                         0 |                         0 |           0 |                        0 |            0 |             0 |                    0 |                       0 |            0 |                     0 |               0 |                    0 |            0 |                        0 |          1 |
+| Malacostraca   |                   0 |             0 |          0 |                         0 |                         0 |           0 |                        0 |            4 |             0 |                    0 |                       0 |            0 |                     0 |               0 |                    0 |            5 |                        0 |         28 |
+| Mammalia       |                   0 |             0 |          0 |                         0 |                         0 |           0 |                        0 |            0 |             0 |                    0 |                       0 |            0 |                     0 |               0 |                    0 |            0 |                        0 |          1 |
+| Thaliacea      |                   0 |             5 |          6 |                         0 |                         0 |           0 |                        0 |            1 |             0 |                    0 |                       0 |            0 |                     0 |               0 |                    0 |            0 |                        0 |          6 |
+
+## Installing
 
 ``` r
 install.packages("devtools")
@@ -34,15 +41,14 @@ library(devtools)
 install_github("SCAR/solong")
 ```
 
-Usage
------
+## Usage
 
 ``` r
 library(solong)
 library(dplyr)
 ```
 
-Let's say we have some measurements of *Architeuthis dux* squid beaks:
+Let’s say we have some measurements of *Architeuthis dux* squid beaks:
 
 ``` r
 x <- tibble(LRL=c(11.3, 13.9), species="Architeuthis dux")
@@ -54,13 +60,17 @@ x
 #> 2  13.9 Architeuthis dux
 ```
 
-It doesn't matter what the column names are, but we do need to set the properties of the columns so that `solong` can find the appropriate data to use in each allometric equation. Here we've measured lower rostral length, so:
+It doesn’t matter what the column names are, but we do need to set the
+properties of the columns so that `solong` can find the appropriate data
+to use in each allometric equation. Here we’ve measured lower rostral
+length, so:
 
 ``` r
 x$LRL <- sol_set_property(x$LRL, "lower rostral length")
 ```
 
-Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
+Now we can apply allometric equations to our data. What equations do we
+have available for our species of interest?
 
 ``` r
 subset(sol_equations(), taxon_name=="Architeuthis dux") %>% summary
@@ -95,39 +105,51 @@ subset(sol_equations(), taxon_name=="Architeuthis dux") %>% summary
 #>   Notes: Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one
 #>   Reference: Roeleveld MAC (2000). "Giant squid beaks: implications for
 #> systematics." _Journal of the Marine Biological Association of the
-#> UK_, *80*, pp. 185-187.
+#> UK_, *80*, 185-187.
 ```
 
-Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
+Here we use the equation with ID `342218_ML_Roel2000`, which is from
+Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based
+on the lower rostral length.
 
 This equation can be applied to to all rows:
 
 ``` r
 sol_allometry(x, "342218_ML_Roel2000")
 #> # A tibble: 2 x 6
-#>   LRL   species allometric_value allometric_valu~ allometric_valu~
-#>   <S3:> <chr>   <S3: sol_proper> <S3: sol_proper> <S3: sol_proper>
-#> 1 11.3~ Archit~ 539.6881 mm      NA mm            NA mm           
-#> 2 13.9~ Archit~ 921.0553 mm      NA mm            NA mm           
-#> # ... with 1 more variable: allometric_property <chr>
+#>     LRL species          allometric_value allometric_value_lower
+#>    [mm] <chr>                        [mm]                   [mm]
+#> 1  11.3 Architeuthis dux         539.6881                     NA
+#> 2  13.9 Architeuthis dux         921.0553                     NA
+#>   allometric_value_upper allometric_property
+#>                     [mm] <chr>              
+#> 1                     NA mantle length      
+#> 2                     NA mantle length
 ```
 
-Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
+Or we can apply a different equation to each row. Here we could use
+different allometric equations for mantle length:
 
 ``` r
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_ML_Clar1986"))
 xa
 #> # A tibble: 2 x 6
-#>   LRL   species allometric_value allometric_valu~ allometric_valu~
-#>   <S3:> <chr>   <S3: sol_proper> <S3: sol_proper> <S3: sol_proper>
-#> 1 11.3~ Archit~ 539.6881 mm      NA mm            NA mm           
-#> 2 13.9~ Archit~ 768.8090 mm      NA mm            NA mm           
-#> # ... with 1 more variable: allometric_property <chr>
+#>     LRL species          allometric_value allometric_value_lower
+#>    [mm] <chr>                        [mm]                   [mm]
+#> 1  11.3 Architeuthis dux         539.6881                     NA
+#> 2  13.9 Architeuthis dux         768.8090                     NA
+#>   allometric_value_upper allometric_property
+#>                     [mm] <chr>              
+#> 1                     NA mantle length      
+#> 2                     NA mantle length
 ```
 
-The `allometric_value` column contains the values that have been estimated, and the `allometric_property` column gives the name of the property that has been estimated.
+The `allometric_value` column contains the values that have been
+estimated, and the `allometric_property` column gives the name of the
+property that has been estimated.
 
-We can also see that the returned `allometric_value` is of that specific property, with appropriate units:
+We can also see that the returned `allometric_value` is of that specific
+property, with appropriate units:
 
 ``` r
 sol_get_property(xa$allometric_value)
@@ -144,10 +166,12 @@ units(xa$allometric_value)
 #> [1] "symbolic_units"
 ```
 
-Details
--------
+## Details
 
-We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_WW_Clar1986` estimates the body weight of the squid *Architeuthis dux* based on lower rostral length measurements:
+We can apply equations that use different inputs, provided that they
+estimate the same output property. For example, equation
+`342218_WW_Clar1986` estimates the body weight of the squid
+*Architeuthis dux* based on lower rostral length measurements:
 
 ``` r
 sol_equation("342218_WW_Clar1986") %>% summary
@@ -163,7 +187,8 @@ sol_equation("342218_WW_Clar1986") %>% summary
 #> Cambridge, British Antarctic Survey, 129pp.
 ```
 
-And equation `195932_WW_GaBu1988` estimates the weight of male Weddell seals based on their standard length:
+And equation `195932_WW_GaBu1988` estimates the weight of male Weddell
+seals based on their standard length:
 
 ``` r
 sol_equation("195932_WW_GaBu1988") %>% summary
@@ -174,12 +199,14 @@ sol_equation("195932_WW_GaBu1988") %>% summary
 #>   It estimates: wet weight (units: kg)
 #>   Indicator of reliability: N=15
 #>   Notes: Applies to male animals
-#>   Reference: Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
+#>   Reference: Gales NJ, Burton HR (1988). "Use of emetics and anaesthesia for
 #> dietary assessment of Weddell seals." _Australian Wildlife
-#> Research_, *15*, pp. 423-433.
+#> Research_, *15*, 423-433.
 ```
 
-Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
+Note that this equation estimates weight in kg, whereas
+`342218_WW_Clar1986` estimates weight in g. We can apply the two
+equations together to a single data set:
 
 ``` r
 x <- tibble(LRL=c(11.3, NA_real_), species=c("Architeuthis dux", "Leptonychotes weddellii"), SL=c(NA_real_,175)) %>%
@@ -190,13 +217,15 @@ xa <- sol_allometry(x, c("342218_WW_Clar1986", "195932_WW_GaBu1988"))
 
 xa %>% select(species,allometric_property, allometric_value)
 #> # A tibble: 2 x 3
-#>   species                 allometric_property allometric_value  
-#>   <chr>                   <chr>               <S3: sol_property>
-#> 1 Architeuthis dux        wet weight          " 11029.72 g"     
-#> 2 Leptonychotes weddellii wet weight          151200.00 g
+#>   species                 allometric_property allometric_value
+#>   <chr>                   <chr>                            [g]
+#> 1 Architeuthis dux        wet weight                  11029.72
+#> 2 Leptonychotes weddellii wet weight                 151200.00
 ```
 
-The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
+The output values are of property “wet weight” and have all been
+provided in g (because the output column `allometric value` must have a
+single set of units):
 
 ``` r
 sol_get_property(xa$allometric_value)
@@ -213,7 +242,8 @@ units(xa$allometric_value)
 #> [1] "symbolic_units"
 ```
 
-If we try to apply equations that estimate different properties, we will get a warning:
+If we try to apply equations that estimate different properties, we will
+get a warning:
 
 ``` r
 x <- tibble(LRL=c(11.3, 13.9),species="Architeuthis dux") %>%
@@ -229,7 +259,10 @@ xa %>% select(species, allometric_property, allometric_value)
 #> 2 Architeuthis dux wet weight                    28417.
 ```
 
-And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
+And while the `allometric_property` column still says which property was
+estimated for each row, the property type and units of the returned
+`allometric_value` will not be set, because they are not consistent
+across the different equations:
 
 ``` r
 sol_get_property(xa$allometric_value)
@@ -238,7 +271,9 @@ sol_get_property(xa$allometric_value)
 
 ### Missing information
 
-What happens if we don't have the required information in our data to use a particular equation? The `234631_SL~OL_WiMc1990` equation is for fish length, and requires otolith length (not present in our test data).
+What happens if we don’t have the required information in our data to
+use a particular equation? The `234631_SL~OL_WiMc1990` equation is for
+fish length, and requires otolith length (not present in our test data).
 
 ``` r
 tryCatch(
@@ -250,25 +285,42 @@ tryCatch(
 
 ### Reliability of equations
 
-Older equations were typically published along with the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
+Older equations were typically published along with the number of
+samples used to fit the equation (N) and the resulting goodness-of-fit
+of the equation to the data (R^2). These two quantities (if provided by
+the original source) can be found in the `reliability` component of an
+equation, and can be used to help decide if a given equation is
+appropriate for your data.
 
-Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
+Some equations, typically from more recent publications, also provide
+the standard errors of the coefficients (or similar information) and
+thereby allow the `allometric_value_lower` and `allometric_value_upper`
+values to be estimated (the upper and lower bounds on the estimate).
+These should give a more reliable indicator of the precision of the
+estimated quantities.
 
 ``` r
 x <- tibble(TL=10 %>% sol_set_property("carapace length", with_units="mm"))
 sol_allometry(x, "369214_WW_Lake2003") %>%
   select(allometric_value, allometric_value_lower, allometric_value_upper)
 #> # A tibble: 1 x 3
-#>   allometric_value   allometric_value_lower allometric_value_upper
-#>   <S3: sol_property> <S3: sol_property>     <S3: sol_property>    
-#> 1 0.8919773 g        0.6986516 g            1.138799 g
+#>   allometric_value allometric_value_lower allometric_value_upper
+#>                [g]                    [g]                    [g]
+#> 1        0.8919773              0.6986516               1.138799
 ```
 
-Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
+Attempts are made to avoid allowing an equation to extrapolate beyond
+its valid input data range. Some equations will explicitly return `NA`
+results for such inputs. The `inputs` component of the equation may also
+hold information about the range of the inputs used to fit the equation,
+which may help assess whether your data lie within its valid range.
 
 ### Other sources of equations
 
-<http://www.fishbase.org> provides estimates of length-weight coefficients. These can be obtained via the `sol_fb_length_weight()` function (which uses the `rfishbase` package under the hood). For example:
+<http://www.fishbase.org> provides estimates of length-weight
+coefficients. These can be obtained via the `sol_fb_length_weight()`
+function (which uses the `rfishbase` package under the hood). For
+example:
 
 ``` r
 myeq <- sol_fb_length_weight("Electrona antarctica")
@@ -280,33 +332,46 @@ summary(myeq)
 #>   It takes as 1st input: standard length (units: cm, sample range: unknown to unknown)
 #>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: R^2=0.957
+#>   Reference: (????). Fishbase reference 91449 : NA . NA.
 
 x <- tibble(SL=10) %>%
    mutate(SL=sol_set_property(SL, "standard length", with_units="cm"))
 sol_allometry(x, myeq)
 #> # A tibble: 1 x 5
-#>   SL    allometric_value allometric_valu~ allometric_valu~ allometric_pro~
-#>   <S3:> <S3: sol_proper> <S3: sol_proper> <S3: sol_proper> <chr>          
-#> 1 10 cm 13.81669 g       NA g             NA g             wet weight
+#>      SL allometric_value allometric_value_lower allometric_value_upper
+#>    [cm]              [g]                    [g]                    [g]
+#> 1    10         13.81669                     NA                     NA
+#>   allometric_property
+#>   <chr>              
+#> 1 wet weight
 ```
 
 ### Adding your own equations
 
-TODO: document, including what to do when a property is not part of the `sol_properties()` collection.
+TODO: document, including what to do when a property is not part of the
+`sol_properties()` collection.
 
 ### Taxonomy
 
-Equations are registered against *taxon\_name* and *taxon\_aphia\_id* (the species identifier in the World Register of Marine Species). The *taxon\_aphia\_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.
+Equations are registered against *taxon\_name* and *taxon\_aphia\_id*
+(the species identifier in the World Register of Marine Species). The
+*taxon\_aphia\_id* may be more reliable than species names, which can
+change over time. Users might like to look at the [worrms
+package](https://cran.r-project.org/package=worrms) for interacting with
+the World Register of Marine Species.
 
 ### Other random stuff
 
-Is equation X included in the package? Call `sol_equations()` to get all equations that are part of the package, and have a rummage through that.
+Is equation X included in the package? Call `sol_equations()` to get all
+equations that are part of the package, and have a rummage through that.
 
-To see all references from which equations have been drawn, do something like:
+To see the references from which equations have been drawn, do something
+like:
 
 ``` r
 eqs <- sol_equations()
-unique(eqs$reference)
+## the first few
+head(unique(eqs$reference))
 #> [[1]]
 #> Clarke MR (1986). "A handbook for the identification of cephalopod
 #> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
@@ -316,257 +381,66 @@ unique(eqs$reference)
 #> [[2]]
 #> Roeleveld MAC (2000). "Giant squid beaks: implications for
 #> systematics." _Journal of the Marine Biological Association of the
-#> UK_, *80*, pp. 185-187.
+#> UK_, *80*, 185-187.
 #> 
 #> [[3]]
-#> Lu CC and Williams R (1994). "Contribution to the biology of squid
-#> in the Prydz Bay region, Antarctica." _Antarctic Science_, *6*,
-#> pp. 223-229. doi: 10.1017/S0954102094000349 (URL:
-#> http://doi.org/10.1017/S0954102094000349).
+#> Lu CC, Williams R (1994). "Contribution to the biology of squid in
+#> the Prydz Bay region, Antarctica." _Antarctic Science_, *6*,
+#> 223-229. doi: 10.1017/S0954102094000349 (URL:
+#> https://doi.org/10.1017/S0954102094000349).
 #> 
 #> [[4]]
-#> Rodhouse PG, Prince PA, Clarke MR and Murray AWA (1990).
-#> "Cephalopod prey of the grey-headed albatross Diomedea
-#> chrysostoma." _Marine Biology_, *104*, pp. 353-362. doi:
-#> 10.1007/BF01314337 (URL: http://doi.org/10.1007/BF01314337), As
-#> cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak
-#> guide for the Southern Ocean. Cambridge, British Antarctic Survey,
-#> 129pp.
+#> Rodhouse PG, Prince PA, Clarke MR, Murray AWA (1990). "Cephalopod
+#> prey of the grey-headed albatross Diomedea chrysostoma." _Marine
+#> Biology_, *104*, 353-362. doi: 10.1007/BF01314337 (URL:
+#> https://doi.org/10.1007/BF01314337), As cited in Xavier J & Cherel
+#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
+#> Ocean. Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> [[5]]
 #> Clarke M (1962). "The identification of cephalopod "beaks" and the
 #> relationship between beak size and total body weight." _Bulletin
-#> of the British Museum of Natural History B_, *8*, pp. 421-480. As
+#> of the British Museum of Natural History B_, *8*, 421-480. As
 #> cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak
 #> guide for the Southern Ocean. Cambridge, British Antarctic Survey,
 #> 129pp.
 #> 
 #> [[6]]
-#> Lu CC and Ickeringill R (2002). "Cephalopod beak identification
-#> and biomass estimation techniques: tools for dietary studies of
+#> Lu CC, Ickeringill R (2002). "Cephalopod beak identification and
+#> biomass estimation techniques: tools for dietary studies of
 #> southern Australian finfishes." _Museum Victoria Science Reports_,
-#> *6*, pp. 1-65.
-#> 
-#> [[7]]
-#> BAS (????). "Unpublished data." As cited in Xavier J & Cherel Y
-#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
-#> Cambridge, British Antarctic Survey, 129pp.
-#> 
-#> [[8]]
-#> Hatfield (2001). Pers. comm., as cited in Piatkowski U, Pütz K,
-#> Heinemann H (2001) Cephalopod prey of king penguins (Aptenodytes
-#> patagonicus) breeding at Volunteer Beach, Falkland Islands, during
-#> austral winter 1996. Fisheries Research 52:79-90.
-#> doi:10.1016/S0165-7836(01)00232-6.
-#> 
-#> [[9]]
-#> Piatkowski U, Pütz K and Heinemann H (2001). "Cephalopod prey of
-#> king penguins (Aptenodytes patagonicus) breeding at Volunteer
-#> Beach, Falkland Islands, during austral winter 1996." _Fisheries
-#> Research_, *52*, pp. 79-90. doi: 10.1016/S0165-7836(01)00232-6
-#> (URL: http://doi.org/10.1016/S0165-7836(01)00232-6).
-#> 
-#> [[10]]
-#> Rodhouse PG and Yeatman J (1990). "Redescription of Martialia
-#> hyadesi Rochbrune and Mabille, 1889 (Mollusca: Cephalopoda) from
-#> the Southern Ocean." _Bulletin of the British Museum of Natural
-#> History (Zoology)_, *56*, pp. 135-143. As cited in Xavier J &
-#> Cherel Y (2009 updated 2016) Cephalopod beak guide for the
-#> Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
-#> 
-#> [[11]]
-#> Santos RA and Haimovici M (2000). "The Argentine short-finned
-#> squid Illex argentinus in the food webs of southern Brazil."
-#> _Sarsia_, *85*, pp. 49-60. doi: 10.1080/00364827.2000.10414554
-#> (URL: http://doi.org/10.1080/00364827.2000.10414554).
-#> 
-#> [[12]]
-#> Brown CR and Klages NT (1987). "Seasonal and annual variation in
-#> diets of macaroni (Eudyptes chrysolophus chrysolophus) and
-#> southern rockhopper (E. chrysocome chrysocome) penguins at
-#> sub-Antarctic Marion Island." _Journal of Zoology, London_, *212*,
-#> pp. 7-28. doi: 10.1111/j.1469-7998.1987.tb05111.x (URL:
-#> http://doi.org/10.1111/j.1469-7998.1987.tb05111.x), As cited in
-#> Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for
-#> the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.
-#> 
-#> [[13]]
-#> Jackson GD (1995). "The use of beaks as tools for biomass
-#> estimation in the deepwater squid Moroteuthis ingens (Cephalopoda:
-#> Onychoteuthidae) in New Zealand waters." _Polar Biology_, *15*,
-#> pp. 9-14. doi: 10.1007/BF00236118 (URL:
-#> http://doi.org/10.1007/BF00236118), As cited in Xavier J & Cherel
-#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
-#> Ocean. Cambridge, British Antarctic Survey, 129pp.
-#> 
-#> [[14]]
-#> Cherel Y (????). "Unpublished data." As cited in Xavier J & Cherel
-#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
-#> Ocean. Cambridge, British Antarctic Survey, 129pp.
-#> 
-#> [[15]]
-#> Gröger J, Piatkowski U and Heinemann H (2000). "Beak length
-#> analysis of the Southern Ocean squid Psychroteuthis glacialis
-#> (Cephalopoda: Psychroteuthidae) and its use for size and biomass
-#> estimation." _Polar Biology_, *23*, pp. 70-74. doi:
-#> 10.1007/s003000050009 (URL: http://doi.org/10.1007/s003000050009).
-#> 
-#> [[16]]
-#> Collins (????). "Unpublished data." As cited in Xavier J & Cherel
-#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
-#> Ocean. Cambridge, British Antarctic Survey, 129pp.
-#> 
-#> [[17]]
-#> Smale MJ, Clarke MR, Klages TW and Roeleveld MA (1993). "Octopod
-#> beak identification: resolution at a regional level (Cephalopoda,
-#> Octopoda: Southern Africa)." _South African Journal of Marine
-#> Sciences_, *13*, pp. 269-293.
-#> 
-#> [[18]]
-#> Williams R and McEldowney A (1990). "A guide to the fish otoliths
-#> from waters off the Australian Antarctic Territory, Heard and
-#> Macquarie Islands." In _ANARE Research Notes_, volume 75.
-#> Antarctic Division, Australian Government.
-#> 
-#> [[19]]
-#> Artigues B, Morales-Nin B and Balguer<U+0EDA>s E (2003). "Fish
-#> length-weight relationships in the Weddell Sea and Bransfield
-#> Strait." _Polar Biology_, *26*, pp. 463-467. doi:
-#> 10.1007/s00300-003-0505-0 (URL:
-#> http://doi.org/10.1007/s00300-003-0505-0).
-#> 
-#> [[20]]
-#> Bushula T, Pakhomov EA, Kaehler S, Davis S and Kalin RM (2005).
-#> "Diet and daily ration of two nototheniid fish on the shelf of the
-#> sub-Antarctic Prince Edward Islands." _Polar Biology_, *28*, pp.
-#> 585-593. doi: 10.1007/s00300-005-0729-2 (URL:
-#> http://doi.org/10.1007/s00300-005-0729-2).
-#> 
-#> [[21]]
-#> La Mesa M, Vacchi M and Zunini Sertorio T (2000). "Feeding
-#> plasticity of Trematomus newnesi (Pisces, Nototheniidae) in Terra
-#> Nova Bay, Ross Sea, in relation to environmental conditions."
-#> _Polar Biology_, *23*, pp. 38-45. doi: 10.1007/s003000050006 (URL:
-#> http://doi.org/10.1007/s003000050006).
-#> 
-#> [[22]]
-#> La Mesa M, Donato F, Riginella E and Mazzoldi C (2018). "Life
-#> history traits of a poorly known pelagic fish, Aethotaxis
-#> mitopteryx (Perciformes, Notothenioidei) from the Weddell Sea."
-#> _Polar Biology_, *41*, pp. 1777-1788. doi:
-#> 10.1007/s00300-018-2318-1 (URL:
-#> http://doi.org/10.1007/s00300-018-2318-1).
-#> 
-#> [[23]]
-#> Goebel ME, Lipsky JD, Reiss CS and Loeb VJ (2007). "Using carapace
-#> measurements to determine the sex of Antarctic krill, Euphausia
-#> superba." _Polar Biology_, *30*, pp. 307-315. doi:
-#> 10.1007/s00300-006-0184-8 (URL:
-#> http://doi.org/10.1007/s00300-006-0184-8).
-#> 
-#> [[24]]
-#> Morris DJ, Watkins JL, Ricketts C, Buchholz F and Priddle J
-#> (1988). "An assessmant of the merits of length and weight
-#> measurements of Antarctic krill Euphausia superba." _British
-#> Antarctic Survey Bulletin_, *79*, pp. 27-50.
-#> 
-#> [[25]]
-#> Hewitt RP, Watkins J, Naganobu M, Sushin V, Brierley AS, Demer D,
-#> Kasatkina S, Takao Y, Goss C, Malyshko A and Brandon M (2004).
-#> "Biomass of Antarctic krill in the Scotia Sea in January/February
-#> 2000 and its use in revising an estimate of precautionary yield."
-#> _Deep Sea Research Part II: Topical Studies in Oceanography_,
-#> *51*, pp. 1215-1236. doi: 10.1016/j.dsr2.2004.06.011 (URL:
-#> http://doi.org/10.1016/j.dsr2.2004.06.011).
-#> 
-#> [[26]]
-#> Mayzaud P, Boutoute M and Alonzo F (2003). "Lipid composition of
-#> the euphausiids Euphausia vallentini and Thysanoessa macrura
-#> during summer in the Southern Indian Ocean." _Antarctic Science_,
-#> *15*, pp. 463-475. doi: 10.1017/S0954102003001573 (URL:
-#> http://doi.org/10.1017/S0954102003001573).
-#> 
-#> [[27]]
-#> Färber-Lorda J (1994). "Length-weight relationships and
-#> coefficient of condition of Euphausia superba and Thysanoessa
-#> macrura (Crustacea: Euphausiacea) in southwest Indian Ocean during
-#> summer." _Marine Biology_, *118*, pp. 645-650. doi:
-#> 10.1007/BF00347512 (URL: http://doi.org/10.1007/BF00347512).
-#> 
-#> [[28]]
-#> Melvin JE, Kawaguchi S, King R and Swadling KM (2018). "The
-#> carapace matters: refinement of the instantaneous growth rate
-#> method for Antarctic krill Euphausia superba Dana, 1850
-#> (Euphausiacea)." _Journal of Crustacean Biology_, pp. 1-8. doi:
-#> 10.1093/jcbiol/ruy069 (URL: http://doi.org/10.1093/jcbiol/ruy069).
-#> 
-#> [[29]]
-#> Gales NJ and Burton HR (1988). "Use of emetics and anaesthesia for
-#> dietary assessment of Weddell seals." _Australian Wildlife
-#> Research_, *15*, pp. 423-433.
-#> 
-#> [[30]]
-#> Lake S, Burton H and van den Hoff J (2003). "Regional, temporal
-#> and fine-scale spatial variation in Weddell seal diet at four
-#> coastal locations in east Antarctica." _Marine Ecology Progress
-#> Series_, *254*, pp. 293-305. doi: 10.3354/meps254293 (URL:
-#> http://doi.org/10.3354/meps254293).
-#> 
-#> [[31]]
-#> Eastman JT and Devries AL (1997). "Biology and phenotypic
-#> plasticity of the Antarctic nototheniid fish Trematomus newnesi in
-#> McMurdo Sound." _Antarctic Science_, *9*, pp. 27-35. doi:
-#> 10.1017/S0954102097000047 (URL:
-#> http://doi.org/10.1017/S0954102097000047).
-#> 
-#> [[32]]
-#> Van de Putte A, Flores H, Volckaert F and van Franeker JA (2006).
-#> "Energy content of Antarctic mesopelagic fishes: implications for
-#> the marine food web." _Polar Biology_, *29*, pp. 1045-1051. doi:
-#> 10.1007/s00300-006-0148-z (URL:
-#> http://doi.org/10.1007/s00300-006-0148-z).
-#> 
-#> [[33]]
-#> Friedrich C and Hagen W (1994). "Lipid contents of five species of
-#> notothenioid fish from high-Antarctic waters and ecological
-#> implications." _Polar Biology_, *14*, pp. 359-369. doi:
-#> 10.1007/BF00240256 (URL: http://doi.org/10.1007/BF00240256).
-#> 
-#> [[34]]
-#> Vanella FA, Calvo J, Morriconi ER and Aureliano DR (2005).
-#> "Somatic energy content and histological analysis of the gonads in
-#> Antarctic fish from the Scotia Arc." _Scientia Marina_, *69*, pp.
-#> S2 305-316. doi: 10.3989/scimar.2005.69s2305 (URL:
-#> http://doi.org/10.3989/scimar.2005.69s2305).
-#> 
-#> [[35]]
-#> Dubischar CD, Pakhomov EA, von Harbou L, Hunt BPV and Bathmann UV
-#> (2012). "Salps in the Lazarev Sea, Southern Ocean: II. Biochemical
-#> composition and potential prey value." _Marine Biology_, *159*,
-#> pp. 15-24. doi: 10.1007/s00227-011-1785-5 (URL:
-#> http://doi.org/10.1007/s00227-011-1785-5).
-#> 
-#> [[36]]
-#> Ahn IY and Shim JH (1998). "Summer metabolism of the Antarctic
-#> clam, Laternula elliptica (King and Broderip) in Maxwell Bay, King
-#> George Island and its implications." _Journal of Experimental
-#> Marine Biology and Ecology_, *224*, pp. 253-264. doi:
-#> 10.1016/S0022-0981(97)00201-3 (URL:
-#> http://doi.org/10.1016/S0022-0981(97)00201-3).
-#> 
-#> [[37]]
-#> Urban HJ and Mercuri G (1998). "Population dynamics of the bivalve
-#> Laternula elliptica from Potter Cove, King George Island, South
-#> Shetland Islands." _Antarctic Science_, *10*, pp. 153-160. doi:
-#> 10.1017/S0954102098000200 (URL:
-#> http://doi.org/10.1017/S0954102098000200).
+#> *6*, 1-65.
 ```
 
-Related packages
-----------------
+## More examples
 
--   [units](https://cran.r-project.org/package=units) for handling units of measurement
--   [worrms](https://cran.r-project.org/package=worrms) for taxonomy
--   [shapeR](https://cran.r-project.org/package=shapeR) for collection and analysis of otolith shape data
--   <https://github.com/James-Thorson/FishLife> for estimating fish life history parameters
--   [rfishbase](https://cran.r-project.org/package=rfishbase) an interface to www.fishbase.org
+Grab all equations from Eastman (2019):
+
+``` r
+eq <- sol_equations() %>% dplyr::filter(grepl("East2019", equation_id)) %>%
+    ## some equations have been included twice with different species names - drop the duplicates
+    dplyr::filter(!grepl("Accepted taxon name", notes))
+```
+
+Reproduce Figure 2 from that paper:
+
+``` r
+## extract each maximum length
+max_lengths <- sapply(eq$equation, function(z) z()$allometric_value)
+## histogram
+hist(max_lengths, 20)
+```
+
+![](man/figures/README-unnamed-chunk-24-1.png)<!-- -->
+
+## Related packages
+
+  - [units](https://cran.r-project.org/package=units) for handling units
+    of measurement
+  - [worrms](https://cran.r-project.org/package=worrms) for taxonomy
+  - [shapeR](https://cran.r-project.org/package=shapeR) for collection
+    and analysis of otolith shape data
+  - <https://github.com/James-Thorson/FishLife> for estimating fish life
+    history parameters
+  - [rfishbase](https://cran.r-project.org/package=rfishbase) an
+    interface to www.fishbase.org
