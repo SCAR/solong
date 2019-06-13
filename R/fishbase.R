@@ -33,36 +33,35 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
     if (nrow(x)<1) return(NULL)
     thisrefs <- NULL
     if (!all(is.na(x$DataRef))) {
-        suppressWarnings(thisrefs <- rfishbase::references(na.omit(x$DataRef),
-                                          fields=c("RefNo","Author","Year","Title","Source","ShortCitation")))
+        suppressMessages(thisrefs <- rfishbase::references(x$DataRef[!is.na(x$DataRef)],
+                                                           fields=c("RefNo","Author","Year","Title","Source","ShortCitation")))
         if (nrow(thisrefs)>0) {
             thisrefs <- thisrefs %>% rowwise %>%
                 summarize_(DataRef=~RefNo,
-                           reference=~bibentry(bibtype="Misc",key=paste0("fishbase::",RefNo),
-                                               author=person(Author),
-                                               year=Year,title=Title,
-                                               howpublished=paste("Fishbase reference",RefNo,":",ShortCitation,".",Source,sep=" ")))
-            x <- x %>% left_join(thisrefs,by="DataRef")
+                           reference = ~list(bibentry(bibtype="Misc",key=paste0("fishbase::",RefNo),
+                                                      author=person(Author),
+                                                      year=Year,title=Title,
+                                                      howpublished=paste("Fishbase reference",RefNo,":",ShortCitation,".",Source,sep=" "))))
+            x <- x %>% left_join(thisrefs, by = "DataRef")
         }
     }
-
 
     mk_eqfun <- function(a,b) {
         ## see also LCLa, UCLa, LCLb, UCLb
         eval(parse(text=sprintf("function(L) tibble(allometric_value=%g*(L^%g))",a,b)))
     }
 
-    do.call(rbind,lapply(seq_len(nrow(x)),function(z) {
+    bind_rows(lapply(seq_len(nrow(x)),function(z) {
         this <- x[z,]
         suppressWarnings(
         out <- sol_make_equation(equation_id=paste0("fishbase::",this$AutoCtr),
-                          taxon_name=this$sciname,
+                          taxon_name=if(!is.null(this$sciname)) this$sciname else this$Species,
                           equation=mk_eqfun(this$a,this$b),
                           inputs=tibble(property=fb_len_map(this$Type),units="cm",sample_minimum=this$LengthMin,sample_maximum=this$LengthMax),
                           return_property="wet weight",
                           return_units="g")
         )
-        if ("reference" %in% names(this)) out$reference[[1]] <- this$reference[[1]]
+        if ("reference" %in% names(this) && !is.null(this$reference[[1]])) out$reference[[1]] <- this$reference[[1]]
         if (worms) {
             wx <- worrms::wm_records_name(out$taxon_name) %>%
                 filter_(~status=="accepted")
@@ -73,8 +72,7 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
             out$reliability[[1]] <- tribble(~type,~value,
                                             "R^2",this$CoeffDetermination)
         out
-    }
-    ))
+    }))
 }
 
 
