@@ -52,6 +52,8 @@ source("data-raw/equations_WiMc1990.R")
 source("data-raw/equations_Bush2005.R")
 source("data-raw/equations_XaCh2016.R")
 source("data-raw/equations_East2019.R")
+source("data-raw/equations_LaMe2020.R")
+
 ## energetics
 source("data-raw/equations_VanD2006.R")
 source("data-raw/equations_FrHa1994.R")
@@ -163,6 +165,7 @@ alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NU
         if (is.null(thiseq)) try(thiseq <- alleq_Dubi2012(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_AhSh1998(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_UrMe1998(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_LaMe2020(id), silent = TRUE)
         if (is.null(thiseq)) stop("equation id not recognized or has an error: ", id)
     } else {
         id <- thiseq$id
@@ -1050,6 +1053,13 @@ build_allometry_df <- function() {
                              taxon_name="Aethotaxis mitopteryx",
                              taxon_aphia_id=234660,
                              notes="Derived from otoliths of animals of both sexes. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+
+    ## La Mesa et al 2020
+    x <- bind_rows(x, alleq_tbl("234720M_WW~TL_LaMe2020"),
+                   alleq_tbl("234720F_WW~TL_LaMe2020"),
+                   alleq_tbl("234720M_TL~age_LaMe2020"),
+                   alleq_tbl("234720F_TL~age_LaMe2020"))
+
     ## ---
     ## Krill
     x <- bind_rows(x,alleq_tbl("236217J_TL_Goeb2007"),
