@@ -1,20 +1,6 @@
 library(dplyr)
 library(assertthat)
 
-if (FALSE) {
-    bibentry(bibtype="Misc",key="",
-             author=c(person(c(""),""),person(c(""),"")),
-             year=,title="",
-             howpublished="As cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.")
-
-    bibentry(bibtype="Article",key="",
-             author=c(person(c("",""),""),person(c(""),"")),
-             year=0000,title="",
-             journal="",
-             volume=00,pages="",
-             note="As cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge, British Antarctic Survey, 129pp.")
-}
-
 refs <- list(
     JaMc1996=bibentry(bibtype="Article",key="JaMc1996",
                       author=c(person(c("G","D"),"Jackson"),person(c("J","F"),"McKinnon")),
@@ -36,11 +22,6 @@ refs <- list(
                       journal="Antarctic Science",volume=9,pages="27-35",
                       doi="10.1017/S0954102097000047")
 )
-
-##oldrefs <- list(
-##    JaMc1996="Jackson GD, McKinnon JF (1996) Beak length analysis of arrow squid Nototodarus sloanii (Cephalopoda: Ommastrephidae) in southern New Zealand waters. Polar Biology 16:227-230. doi:10.1007/BF02329211",
-##    GaBu1988="Gales NJ & Burton HR (1988) Use of emetics and anaesthesia for dietary assessment of Weddell seals. Australian Wildlife Research 15:423-433",
-##    EaDe1997="Eastman JT, Devries AL (1997) Biology and phenotypic plasticity of the Antarctic nototheniid fish Trematomus newnesi in McMurdo Sound. Antarctic Science 9:27-35. doi:10.1017/S0954102097000047")
 
 ## fish
 source("data-raw/equations_Arti2003.R")
