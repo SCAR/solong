@@ -6,14 +6,14 @@ refs$LaMe2020 <- bibentry(bibtype = "Article", key = "LaMe2020",
                                      person(c("C", "D"), "Jones")),
                           year = 2020,
                           title = "Biological parameters of the High-Antarctic icefish, Cryodraco antarcticus (Channichthyidae) from the South Shetland Islands",
-                          journal = "Polar Biology", volume = 30, doi = "10.1007/s00300-019-02617-x")
+                          journal = "Polar Biology", doi = "10.1007/s00300-019-02617-x")
 
 alleq_LaMe2020 <- function(id) {
     switch(id,
            "234720M_WW~TL_LaMe2020" = list(taxon_name = "Cryodraco antarcticus",
                                            taxon_aphia_id = 234720,
                                            equation = function(TL) {
-                                               a = 0.0001405; b = 3.94; se_b = 0.033;
+                                               a <- 0.0001405; b <- 3.94; se_b <- 0.033;
                                                tibble(allometric_value = a*(TL^b))
                                            },
                                            inputs = tibble(property = "total length", units = "cm", sample_minimum = 17.5, sample_maximum = 53.5),
@@ -27,7 +27,7 @@ alleq_LaMe2020 <- function(id) {
            "234720F_WW~TL_LaMe2020" = list(taxon_name = "Cryodraco antarcticus",
                                            taxon_aphia_id = 234720,
                                            equation = function(TL) {
-                                               a = 0.0001604; b = 3.89; se_b = 0.025;
+                                               a <- 0.0001604; b <- 3.89; se_b <- 0.025;
                                                tibble(allometric_value = a*(TL^b))
                                            },
                                            inputs = tibble(property = "total length", units = "cm", sample_minimum = 19.0, sample_maximum = 66.5),

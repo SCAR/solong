@@ -53,6 +53,7 @@ source("data-raw/equations_Bush2005.R")
 source("data-raw/equations_XaCh2016.R")
 source("data-raw/equations_East2019.R")
 source("data-raw/equations_LaMe2020.R")
+source("data-raw/equations_EsFl2020.R")
 
 ## energetics
 source("data-raw/equations_VanD2006.R")
@@ -166,6 +167,7 @@ alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NU
         if (is.null(thiseq)) try(thiseq <- alleq_AhSh1998(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_UrMe1998(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_LaMe2020(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_EsFl2020(id), silent = TRUE)
         if (is.null(thiseq)) stop("equation id not recognized or has an error: ", id)
     } else {
         id <- thiseq$id
@@ -1059,6 +1061,30 @@ build_allometry_df <- function() {
                    alleq_tbl("234720F_WW~TL_LaMe2020"),
                    alleq_tbl("234720M_TL~age_LaMe2020"),
                    alleq_tbl("234720F_TL~age_LaMe2020"))
+
+    ## Escobar-Flores et al 2020
+    x <- bind_rows(x, alleq_tbl("234631_WW~SL_EsFl2020"),
+                   alleq_tbl("127286_WW~SL_EsFl2020"),
+                   alleq_tbl("125819_WW~SL_EsFl2020"),
+                   alleq_tbl("126194_WW~SL_EsFl2020"),
+                   alleq_tbl("217719_WW~SL_EsFl2020"),
+                   alleq_tbl("125832_WW~SL_EsFl2020"),
+                   alleq_tbl("712788_WW~SL_EsFl2020"),
+                   alleq_tbl("220007_WW~SL_EsFl2020"),
+                   alleq_tbl("400296_WW~SL_EsFl2020"),
+                   alleq_tbl("234695_WW~SL_EsFl2020"),
+                   alleq_tbl("221503_WW~SL_EsFl2020"),
+                   alleq_tbl("274968_WW~SL_EsFl2020"),
+                   alleq_tbl("234788_WW~SL_EsFl2020"),
+                   alleq_tbl("313344_WW~SL_EsFl2020"),
+                   alleq_tbl("125825_WW~SL_EsFl2020"),
+                   alleq_tbl("217704_WW~SL_EsFl2020"),
+                   alleq_tbl("234641_WW~SL_EsFl2020"),
+                   alleq_tbl("205276_WW~SL_EsFl2020"),
+                   alleq_tbl("206941_WW~SL_EsFl2020"),
+                   alleq_tbl("125821_WW~SL_EsFl2020"),
+                   alleq_tbl("234638_WW~SL_EsFl2020"),
+                   alleq_tbl("217697_WW~SL_EsFl2020"))
 
     ## ---
     ## Krill

@@ -5,7 +5,7 @@ refs$East2019 <- bibentry(bibtype = "Article", key = "East2019",
                           journal = "Polar Biology", volume = 42, pages = "1131-1145",
                           doi="10.1007/s00300-019-02502-7")
 
-alleq_East2019 <- function(id) {
+alleq_East2019 <- function() {
     processed_data_file <- "data-raw/East2019_processed.rds"
     if (!file.exists(processed_data_file)) {
         tempeq <- tibble::tribble(
