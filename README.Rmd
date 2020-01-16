@@ -77,7 +77,7 @@ x$LRL <- sol_set_property(x$LRL, "lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ```{r}
-subset(sol_equations(), taxon_name=="Architeuthis dux") %>% summary
+sol_equations() %>% dplyr::filter(taxon_name=="Architeuthis dux") %>% summary
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
@@ -164,7 +164,7 @@ tryCatch(
 
 ### Reliability of equations
 
-Older equations were typically published along with the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
+Most equations have been published with the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
 
 Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
 
