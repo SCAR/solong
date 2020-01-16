@@ -45,7 +45,7 @@ library(dplyr)
 Let's say we have some measurements of *Architeuthis dux* squid beaks:
 
 ``` r
-x <- tibble(LRL=c(11.3, 13.9), species="Architeuthis dux")
+x <- tibble(LRL = c(11.3, 13.9), species = "Architeuthis dux")
 x
 #> # A tibble: 2 x 2
 #>     LRL species         
@@ -188,13 +188,15 @@ sol_equation("195932_WW_GaBu1988") %>% summary
 Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
 
 ``` r
-x <- tibble(LRL=c(11.3, NA_real_), species=c("Architeuthis dux", "Leptonychotes weddellii"), SL=c(NA_real_,175)) %>%
-  mutate(LRL=sol_set_property(LRL, "lower rostral length"),
-         SL=sol_set_property(SL, "standard length", "cm"))
+x <- tibble(LRL = c(11.3, NA_real_),
+            species = c("Architeuthis dux", "Leptonychotes weddellii"),
+            SL = c(NA_real_, 175)) %>%
+  mutate(LRL = sol_set_property(LRL, "lower rostral length"),
+         SL = sol_set_property(SL, "standard length", "cm"))
 
 xa <- sol_allometry(x, c("342218_WW_Clar1986", "195932_WW_GaBu1988"))
 
-xa %>% select(species,allometric_property, allometric_value)
+xa %>% select(species, allometric_property, allometric_value)
 #> # A tibble: 2 x 3
 #>   species                 allometric_property allometric_value
 #>   <chr>                   <chr>               <sl_prprt>      
@@ -222,8 +224,8 @@ units(xa$allometric_value)
 If we try to apply equations that estimate different properties, we will get a warning:
 
 ``` r
-x <- tibble(LRL=c(11.3, 13.9),species="Architeuthis dux") %>%
-  mutate(LRL=sol_set_property(LRL, "lower rostral length"))
+x <- tibble(LRL = c(11.3, 13.9), species = "Architeuthis dux") %>%
+  mutate(LRL = sol_set_property(LRL, "lower rostral length"))
 
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986"))
 
@@ -249,7 +251,7 @@ What happens if we don't have the required information in our data to use a part
 ``` r
 tryCatch(
   sol_allometry(x, "234631_SL~OL_WiMc1990"),
-  error=function(e) conditionMessage(e)
+  error = function(e) conditionMessage(e)
 )
 #> [1] "could not find required input properties (otolith length) in data"
 ```
@@ -261,7 +263,7 @@ Most equations have been published with the number of samples used to fit the eq
 Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
 
 ``` r
-x <- tibble(TL=10 %>% sol_set_property("carapace length", with_units="mm"))
+x <- tibble(TL = 10 %>% sol_set_property("carapace length", with_units = "mm"))
 sol_allometry(x, "369214_WW_Lake2003") %>%
   select(allometric_value, allometric_value_lower, allometric_value_upper)
 #> # A tibble: 1 x 3
@@ -288,8 +290,8 @@ summary(myeq)
 #>   Indicator of reliability: R^2=0.957
 #>   Reference: (????). Fishbase reference 91449 : NA . NA.
 
-x <- tibble(SL=10) %>%
-   mutate(SL=sol_set_property(SL, "standard length", with_units="cm"))
+x <- tibble(SL = 10) %>%
+   mutate(SL = sol_set_property(SL, "standard length", with_units = "cm"))
 sol_allometry(x, myeq)
 #> # A tibble: 1 x 5
 #>   SL         allometric_value allometric_value_lower allometric_value_upper
