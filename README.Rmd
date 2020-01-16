@@ -29,6 +29,7 @@ This R package provides allometric equations that relate the body size of Southe
 ```{r include=FALSE}
 devtools::load_all()
 library(dplyr)
+library(ggplot2)
 ```
 The package currently includes `r nrow(sol_equations())` equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
 
@@ -39,7 +40,12 @@ ucl <- lapply(uid, wm_classification)
 uid_cls <- tibble(taxon_aphia_id=uid, taxonomic_class=vapply(ucl, function(z)z$scientificname[z$rank=="Class"], FUN.VALUE=""))
 ```
 ```{r echo=FALSE}
-knitr::kable(sol_equations() %>% left_join(uid_cls, by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property, data=.))
+##knitr::kable(sol_equations() %>% left_join(uid_cls, by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property, data=.))
+ggplot(sol_equations() %>% left_join(uid_cls, by="taxon_aphia_id") %>% dplyr::filter(!is.na(taxonomic_class)), aes(return_property, taxonomic_class)) + stat_bin_2d() +
+  labs(x = "Return property", y = "Taxonomic class") +
+  scale_fill_gradient(name = "Count", trans = "sqrt") +
+  theme_bw() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 ```
 
 

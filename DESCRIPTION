@@ -18,6 +18,7 @@ Imports:
   units (>= 0.5-0)
 Suggests:
   covr,
+  ggplot2,
   knitr,
   rfishbase,
   testthat,
