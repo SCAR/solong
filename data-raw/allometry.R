@@ -36,6 +36,8 @@ source("data-raw/equations_East2019.R")
 source("data-raw/equations_LaMe2020.R")
 source("data-raw/equations_EsFl2020.R")
 
+source("data-raw/equations_crustaceans.R")
+
 ## energetics
 source("data-raw/equations_VanD2006.R")
 source("data-raw/equations_FrHa1994.R")
@@ -136,6 +138,7 @@ alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NU
         if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_fish_other(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_krill(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_crustaceans_other(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_Lake2003(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_Smal1993(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_WiMc1990(id), silent = TRUE)
@@ -1017,6 +1020,10 @@ build_allometry_df <- function() {
     x <- bind_rows(x, alleq_tbl("234628_WW~TL_Dec_LaMe2000"),
                    alleq_tbl("234628_WW~TL_Feb_LaMe2000"))
 
+    x <- bind_rows(x, alleq_tbl("234700_WW~TL_Troc2020"), ## Dissostichus eleginoides
+                   alleq_tbl("234626_WW~TL_Llom2020"), ## Harpagifer bispinus
+                   alleq_tbl("234626_TL~age_Llom2020"))
+
     ## from LaMe2018
     x <- bind_rows(x, alleq_tbl("234661F_WW~SL_LaMe2018"),
                    alleq_tbl("234661F_WW~SL_LaMe2018",
@@ -1111,6 +1118,54 @@ build_allometry_df <- function() {
     ## Melv2018
     x <- bind_rows(x, alleq_tbl("236217F_TL~CL_Melv2018"),
                    alleq_tbl("236217M_TL~CL_Melv2018"))
+
+    x <- bind_rows(x, alleq_tbl("236216_TL~CL_PuJo1988"),
+                   alleq_tbl("236217_TL~CL_PuJo1988"),
+                   alleq_tbl("236219_ED~CL_FaMa2010"),
+                   alleq_tbl("236219_ED~TL_FaMa2010"),
+                   alleq_tbl("236219_ED~WW_FaMa2010"),
+                   alleq_tbl("236219_CL~TL_FaMa2010"),
+                   alleq_tbl("236219_WW~TL_FaMa2010"),
+                   alleq_tbl("236219_WW~CL_FaMa2010"),
+                   ##alleq_tbl("236219M_LpWW~WW_FaMa2010"),
+                   ##alleq_tbl("236219F_LpWW~WW_FaMa2010"),
+                   ##alleq_tbl("236219S_LpWW~WW_FaMa2010"))
+
+    ## crustaceans
+    x <- bind_rows(x, alleq_tbl("369204_TL~CL_ArGo1991"),
+                   alleq_tbl("369214_TL~CL_ArGo1991"),
+                   alleq_tbl("515320_WW~TL_Rido1994"),
+                   alleq_tbl("515320_WW~ED_Kuun1999"),
+                   alleq_tbl("515320_DW~ED_Kuun1999"),
+                   alleq_tbl("515320_AFDW~ED_Kuun1999"),
+                   alleq_tbl("515320_WW~CL_Kuun1999"),
+                   alleq_tbl("515320_DW~CL_Kuun1999"),
+                   alleq_tbl("515320_AFDW~CL_Kuun1999"),
+                   alleq_tbl("515320_WW~TL_Kuun1999"),
+                   alleq_tbl("515320_CL~TL_Kuun1999"),
+                   alleq_tbl("515320_ED~CL_Kuun1999"),
+                   alleq_tbl("515320_DW~WW_Kuun1999"),
+                   alleq_tbl("515320_AFDW~WW_Kuun1999"),
+                   alleq_tbl("392346M_WW~CL_TaLo2006"),
+                   alleq_tbl("392346F_WW~CL_TaLo2006"),
+                   alleq_tbl("392346_WW~CL_TaLo2006"),
+                   alleq_tbl("392346M_DW~CL_TaLo2006"),
+                   alleq_tbl("392346F_DW~CL_TaLo2006"),
+                   alleq_tbl("392346_DW~CL_TaLo2006"),
+                   alleq_tbl("392886M_WW~CL_TaLo2006"),
+                   alleq_tbl("392886F_WW~CL_TaLo2006"),
+                   alleq_tbl("392886M_DW~CL_TaLo2006"),
+                   alleq_tbl("392886F_DW~CL_TaLo2006"),
+                   alleq_tbl("392346_TL~CL_TaLo2006"),
+                   alleq_tbl("392346_ACW~CL_TaLo2006"),
+                   alleq_tbl("392346_MCW~CL_TaLo2006"),
+                   alleq_tbl("392346_RBW~CL_TaLo2006"),
+                   alleq_tbl("392346_RL~CL_TaLo2006"),
+                   alleq_tbl("392886_TL~CL_TaLo2006"),
+                   alleq_tbl("392886_ACW~CL_TaLo2006"),
+                   alleq_tbl("392886_MCW~CL_TaLo2006"),
+                   alleq_tbl("392886_RBW~CL_TaLo2006"),
+                   alleq_tbl("392886_RL~CL_TaLo2006"))
 
     ## ---
     ## Miscellaneous others

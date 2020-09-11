@@ -17,6 +17,27 @@ refs$LaMe2018 <- bibentry(bibtype = "Article", key = "LaMe2018",
                           journal = "Polar Biology",
                           volume = 41, pages = "1777-1788", doi="10.1007/s00300-018-2318-1")
 
+refs$Troc2020 <- bibentry(bibtype = "Article", key = "Troc2020",
+                          author = c(person("Gonzalo Horacio", "Troccoli"),
+                                     person("Eduardo", "Aguilar"),
+                                     person("Patricia Alejandra", "Mart\uednez"),
+                                     person("Mauro", "Belleggia")),
+                          year = 2020,
+                          title = "The diet of the Patagonian toothfish Dissostichus eleginoides, a deep-sea top predator of Southwest Atlantic Ocean",
+                          journal = "Polar Biology",
+                          volume = 43, pages = "1595-1604", doi="10.1007/s00300-020-02730-2")
+
+refs$Llom2020 <- bibentry(bibtype = "Article", key = "Llom2020",
+                          author = c(person("Facundo M", "Llompart"),
+                                     person("Daniel A", "Fern\ue1ndez"),
+                                     person("Daniel", "Aureliano"),
+                                     person("Mario", "La Mesa")),
+                          year = 2020,
+                          title = "Life-history traits of the Magellan plunderfish Harpagifer bispinis (Forster, 1801) in the Beagle Channel (Tierra del Fuego, South America)",
+                          journal = "Polar Biology",
+                          volume = 43, pages = "1643-1654", doi="10.1007/s00300-020-02735-x")
+
+
 alleq_fish_other <- function(id) {
     switch(id,
            ## Trematomus newnesi 234628
@@ -78,6 +99,36 @@ alleq_fish_other <- function(id) {
                                                                 "R^2", 0.91),
                                           notes="Derived from otoliths of animals of both sexes",
                                           reference=refs$LaMe2018),
+
+           "234700_WW~TL_Troc2020" = list(taxon_name = "Dissostichus eleginoides",
+                                          taxon_aphia_id = 234700,
+                                          equation = function(TL) tibble(allometric_value = 6.92e-06 * (TL^3.08)),
+                                          inputs = tibble(property = "total length", units = "cm", sample_minimum = 38, sample_maximum = 190),
+                                          return_property = "wet weight", return_units = "kg",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 318,
+                                                                "R^2", 0.98),
+                                          reference = refs$Troc2020)
+
+           "234626_WW~TL_Llom2020" = list(taxon_name = "Harpagifer bispinus",
+                                          taxon_aphia_id = 234626,
+                                          equation = function(TL) tibble(allometric_value = 0.0000237 * (TL^2.88)),
+                                          inputs = tibble(property = "total length", units = "mm", sample_minimum = 38, sample_maximum = 80),
+                                          return_property = "wet weight", return_units = "g",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 99+84),
+                                          reference = refs$Llom2020),
+
+           "234626_TL~age_Llom2020" = list(taxon_name = "Harpagifer bispinus",
+                                           taxon_aphia_id = 234626,
+                                           equation = function(t) sol_vonbert(t, Linf = 80.7, k = 0.25, t0 = -2.31, Linf_se = 0.82, k_se = 0.01, t0_se = 0),
+                                           inputs = tibble(property = "age", units = "yr", sample_minimum = 0.5, sample_maximum = 7),
+                                           return_property = "total length",
+                                           return_units = "mm",
+                                           reliability = tribble(~type, ~value,
+                                                                   "N", 99+84),
+                                           notes = "von Bertalanffy growth function for male and female animals combined",
+                                           reference = refs$Llom2020),
 
            stop("unrecognized equation ID: ",id))
 }
