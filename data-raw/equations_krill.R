@@ -587,39 +587,17 @@ alleq_krill <- function(id) {
                                           notes = "Sample minimum and maximum are approximate",
                                           reference = refs$FaMa2010),
 
-           ## these next three not exposed in allometry.R yet, if we want them in then add SEs
-           "236219M_LpWW~WW_FaMa2010" = list(taxon_name = "Thysanoessa macrura",
-                                             taxon_aphia_id = 236219,
-                                             equation = function(WW) tibble(allometric_value = 0.0151), ## SE 0.0048
-                                             inputs = tibble(property = "wet weight", units = "mg"),
-                                             return_property = "lipid content wet weight",
-                                             return_units = "%",
-                                             reliability = tribble(~type, ~value,
-                                                                   "N", 10),
-                                             notes = "Applies to male animals",
-                                             reference = refs$FaMa2010),
-
-           "236219F_LpWW~WW_FaMa2010" = list(taxon_name = "Thysanoessa macrura",
-                                             taxon_aphia_id = 236219,
-                                             equation = function(WW) tibble(allometric_value = 0.0775), ## SE 0.0282
-                                             inputs = tibble(property = "wet weight", units = "mg"),
-                                             return_property = "lipid content wet weight",
-                                             return_units = "%",
-                                             reliability = tribble(~type, ~value,
-                                                                   "N", 13),
-                                             notes = "Applies to female animals",
-                                             reference = refs$FaMa2010),
-
-           "236219S_LpWW~WW_FaMa2010" = list(taxon_name = "Thysanoessa macrura",
-                                             taxon_aphia_id = 236219,
-                                             equation = function(WW) tibble(allometric_value = 0.0297), ## SE 0.0170
-                                             inputs = tibble(property = "wet weight", units = "mg"),
-                                             return_property = "lipid content wet weight",
-                                             return_units = "%",
-                                             reliability = tribble(~type, ~value,
-                                                                   "N", 36),
-                                             notes = "Applies to subadult animals",
-                                             reference = refs$FaMa2010),
+           "236219_LpWW~WW_FaMa2010" = list(taxon_name = "Thysanoessa macrura",
+                                            taxon_aphia_id = 236219,
+                                            equation = function(WW) tibble(allometric_value = 0.0003721*(WW^1.098)*100),
+                                            inputs = tibble(property = "wet weight", units = "mg", sample_minimum = 15, sample_maximum = 160),
+                                            return_property = "lipid content wet weight",
+                                            return_units = "%",
+                                            reliability = tribble(~type, ~value,
+                                                                  "N", 60,
+                                                                  "R^2", 0.770),
+                                            notes = "Sample minimum and maximum are approximate. Adapted from F\ue4rber-Lorda & Mayzaud (2010) figure 9 and its corresponding equation",
+                                            reference = refs$FaMa2010),
 
            stop("unrecognized equation ID: ",id))
 }
