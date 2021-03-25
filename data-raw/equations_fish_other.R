@@ -122,7 +122,7 @@ alleq_fish_other <- function(id) {
                                           reliability = tribble(~type, ~value,
                                                                 "N", 318,
                                                                 "R^2", 0.98),
-                                          reference = refs$Troc2020)
+                                          reference = refs$Troc2020),
 
            "234626_WW~TL_Llom2020" = list(taxon_name = "Harpagifer bispinus",
                                           taxon_aphia_id = 234626,

@@ -1150,11 +1150,11 @@ build_allometry_df <- function() {
                    alleq_tbl("236217M1_TL~CL_Farb1990"),
                    alleq_tbl("236217M2_TL~CL_Farb1990"),
                    alleq_tbl("236217F_TL~CL_Farb1990"),
-                   alleq_tbl("236219J_TL~CL_FaMa1990"),
-                   alleq_tbl("236219M_TL~CL_FaMa1990"),
-                   alleq_tbl("236219F_TL~CL_FaMa1990"),
-                   alleq_tbl("236219A_TL~CL_FaMa1990"),
-                   alleq_tbl("236219_TL~CL_FaMa1990"))
+                   alleq_tbl("236219J_TL~CL_Farb1990"),
+                   alleq_tbl("236219M_TL~CL_Farb1990"),
+                   alleq_tbl("236219F_TL~CL_Farb1990"),
+                   alleq_tbl("236219A_TL~CL_Farb1990"),
+                   alleq_tbl("236219_TL~CL_Farb1990"))
 
     ## crustaceans
     x <- bind_rows(x, alleq_tbl("369204_TL~CL_ArGo1991"),
@@ -1325,7 +1325,7 @@ build_allometry_df <- function() {
 
     ## East2019
     temp <- lapply(alleq_East2019(), function(z) alleq_tbl(thiseq = z)) ## all equations from this source
-    x <- bind_rows(x, temp)
+    x <- bind_rows(x, bind_rows(temp))
     x
 }
 

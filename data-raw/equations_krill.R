@@ -74,7 +74,7 @@ refs$PuJo1988 <- bibentry(bibtype = "Article", key = "PuJo1988",
                           journal = "Hydrobiologia",
                           volume = 165, pages = "239-253", doi = "10.1007/bf00025593")
 
-ref$Farb1990 <- bibentry(bibtype = "Article", key = "Farb1990",
+refs$Farb1990 <- bibentry(bibtype = "Article", key = "Farb1990",
                          author = person("J", "F\ue4rber-Lorda"),
                          year = 1990,
                          title = "Somatic length relationships and ontogenetic morphometric differentiation of Euphausia superba and Thysanoessa macrura of the southwest Indian Ocean during summer (February 1981)",

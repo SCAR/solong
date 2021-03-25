@@ -1,6 +1,6 @@
 refs$LaMe2020 <- bibentry(bibtype = "Article", key = "LaMe2020",
                           author = c(person("M", "La Mesa"),
-                                     person("F", "Cal\xec"),
+                                     person("F", "Cal\uec"),
                                      person("E", "Riginella"),
                                      person("C", "Mazzoldi"),
                                      person(c("C", "D"), "Jones")),
