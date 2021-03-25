@@ -60,7 +60,6 @@ sol_allometry <- function(data,equation) {
         idx <- grp_id == gid
         eidx <- if (nrow(equation)==1) 1 else which(idx)[1]
         apply_eq(data[idx, ], equation[eidx, ], use_property_units = use_property_units)
-        apply_eq(data[idx, ], equation[idx[1], ], use_property_units = use_property_units)
     })
     chk_prop <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
     out <- do.call(rbind,out) %>%
