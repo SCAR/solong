@@ -1144,9 +1144,17 @@ build_allometry_df <- function() {
                    alleq_tbl("236219_CL~TL_FaMa2010"),
                    alleq_tbl("236219_WW~TL_FaMa2010"),
                    alleq_tbl("236219_WW~CL_FaMa2010"),
-                   ##alleq_tbl("236219M_LpWW~WW_FaMa2010"),
-                   ##alleq_tbl("236219F_LpWW~WW_FaMa2010"),
-                   ##alleq_tbl("236219S_LpWW~WW_FaMa2010"))
+                   alleq_tbl("236219_LpWW~WW_FaMa2010"))
+
+    x <- bind_rows(x, alleq_tbl("236217SAJ_TL~CL_Farb1990"),
+                   alleq_tbl("236217M1_TL~CL_Farb1990"),
+                   alleq_tbl("236217M2_TL~CL_Farb1990"),
+                   alleq_tbl("236217F_TL~CL_Farb1990"),
+                   alleq_tbl("236219J_TL~CL_FaMa1990"),
+                   alleq_tbl("236219M_TL~CL_FaMa1990"),
+                   alleq_tbl("236219F_TL~CL_FaMa1990"),
+                   alleq_tbl("236219A_TL~CL_FaMa1990"),
+                   alleq_tbl("236219_TL~CL_FaMa1990"))
 
     ## crustaceans
     x <- bind_rows(x, alleq_tbl("369204_TL~CL_ArGo1991"),
