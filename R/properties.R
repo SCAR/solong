@@ -23,17 +23,17 @@ globalVariables("sol_properties_data") # To make R CMD Check happy
 #' x$LRL <- sol_set_property(x$LRL,NULL)
 #'
 #' @export
-sol_set_property <- function(x,prop,with_units,...) {
+sol_set_property <- function(x, prop, with_units, ...) {
     if (is.null(prop)) {
         ## remove property
-        class(x) <- setdiff(class(x),c("sol_property",sol_properties()$class_name))
+        class(x) <- setdiff(class(x), c("sol_property", sol_properties()$class_name))
         strip_units(x)
     } else {
-        x <- sol_set_property(x,NULL)
+        x <- sol_set_property(x, NULL)
         thisprop <- sol_properties(prop)
         if (missing(with_units)) with_units <- thisprop$units
         units(x) <- as_units(with_units)
-        class(x) <- c("sol_property",thisprop$class_name,class(x))
+        class(x) <- c("sol_property", thisprop$class_name, class(x))
         x
     }
 }
@@ -59,20 +59,39 @@ sol_get_property <- function(x) {
 #' @export
 sol_properties <- function(prop) {
     if (missing(prop)) return(sol_properties_data)
-    out <- sol_properties_data %>% filter_(~property==prop)
+    out <- sol_properties_data %>% dplyr::filter(.data$property == prop)
     if (nrow(out)==1) {
         out
     } else {
-        stop("property ",prop," not recognized")
+        stop("property ", prop, " not recognized")
     }
 }
 
 ## so as not to lose class info when subsetting
 #' @method "[" sol_property
 #' @export
-`[.sol_property` <- function(x,i,...) {
-    cls <- intersect(class(x),sol_properties()$class_name)
+`[.sol_property` <- function(x, i, ...) {
+    cls <- intersect(class(x), sol_properties()$class_name)
     r <- NextMethod("[")
-    class(r) <- c("sol_property",cls,class(r))
+    class(r) <- c("sol_property", cls, class(r))
     r
 }
+
+## and so as not to lose class info when subsetting a tibble
+vec_restore.sol_property = function(x, to, ...) {
+    out <- NextMethod()
+    cls <- intersect(class(to), sol_properties()$class_name)
+    class(out) <- c("sol_property", cls, class(out))
+    out
+}
+
+## not needed?
+###' @method "[[" sol_property
+###' @export
+##`[[.sol_property` <- function(x, i, j, ...) {
+##    cls <- intersect(class(x), sol_properties()$class_name)
+##    r <- NextMethod("[[")
+##    class(r) <- c("sol_property", cls, class(r))
+##    r
+##}
+

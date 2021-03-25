@@ -37,12 +37,12 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
                                                            fields=c("RefNo","Author","Year","Title","Source","ShortCitation")))
         if (nrow(thisrefs)>0) {
             thisrefs <- thisrefs %>% rowwise %>%
-                summarize_(DataRef=~RefNo,
-                           reference = ~list(bibentry(bibtype="Misc",key=paste0("fishbase::",RefNo),
-                                                      author=person(Author),
-                                                      year=Year,title=Title,
-                                                      howpublished=paste("Fishbase reference",RefNo,":",ShortCitation,".",Source,sep=" "))))
-            x <- x %>% left_join(thisrefs, by = "DataRef")
+                summarize(DataRef = .data$RefNo,
+                          reference = list(bibentry(bibtype = "Misc", key = paste0("fishbase::", .data$RefNo),
+                                                    author = person(.data$Author),
+                                                    year = .data$Year, title = .data$Title,
+                                                    howpublished = paste("Fishbase reference", .data$RefNo, ":", .data$ShortCitation, ".", .data$Source, sep = " "))))
+            x <- left_join(x, thisrefs, by = "DataRef")
         }
     }
 
@@ -63,8 +63,7 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
         )
         if ("reference" %in% names(this) && !is.null(this$reference[[1]])) out$reference[[1]] <- this$reference[[1]]
         if (worms) {
-            wx <- worrms::wm_records_name(out$taxon_name) %>%
-                filter_(~status=="accepted")
+            wx <- worrms::wm_records_name(out$taxon_name) %>% dplyr::filter(.data$status == "accepted")
             if (nrow(wx)==1)
                 out$taxon_aphia_id=wx$AphiaID
         }

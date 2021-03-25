@@ -49,23 +49,23 @@ sol_allometry <- function(data,equation) {
 ##        arrange_(~SAVE_ROW_ID) %>%
 ##        select_(~-SAVE_ROW_ID)
 ##    )
-    data <- data %>%
-        mutate_(SAVE_ROW_ID=~seq_len(n()))
-    grp_id <- group_indices_(tibble(eqh=equation_hash),~eqh)
+    data <- mutate(data, SAVE_ROW_ID = seq_len(n()))
+    grp_id <- group_indices(group_by(tibble(eqh = equation_hash), .data$eqh))
     ## if we have different return units for the equations being used,
     ## we'll convert the returned value's units to the default for the property in question
     ## otherwise when we combine the chunks with rbind, the values don't get converted for different units
     ## test that we have more than one unique equation, and their return units are different
-    use_property_units <- length(unique(vapply(seq_len(nrow(equation)),function(z)equation$return_units[z],FUN.VALUE="")))>1
-    out <- lapply(unique(grp_id),function(gid) {
-        idx <- grp_id==gid
+    use_property_units <- length(unique(vapply(seq_len(nrow(equation)), function(z) equation$return_units[z], FUN.VALUE = ""))) > 1
+    out <- lapply(unique(grp_id), function(gid) {
+        idx <- grp_id == gid
         eidx <- if (nrow(equation)==1) 1 else which(idx)[1]
-        apply_eq(data[idx,],equation[eidx,],use_property_units=use_property_units)
+        apply_eq(data[idx, ], equation[eidx, ], use_property_units = use_property_units)
+        apply_eq(data[idx, ], equation[idx[1], ], use_property_units = use_property_units)
     })
     chk_prop <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
     out <- do.call(rbind,out) %>%
-        arrange_(~SAVE_ROW_ID) %>%
-        select_(~-SAVE_ROW_ID)
+        arrange(.data$SAVE_ROW_ID) %>%
+        select(-"SAVE_ROW_ID")
     if (length(unique(chk_prop))!=1) {
         warning("return values are not all of the same property")
         out$allometric_value <- strip_units(out$allometric_value)

@@ -1,7 +1,7 @@
 Package: solong
 Type: Package
 Title: Allometric Equations for Southern Ocean Taxa
-Version: 0.1.7
+Version: 0.1.99.9999
 Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
              person("Martin","Cox",role="ctb"))
 Description: Provides allometric equations that relate the body size of Southern Ocean taxa to body part measurements.
@@ -14,7 +14,8 @@ LazyData: true
 Imports:
   assertthat,
   digest,
-  dplyr,
+  dplyr (>= 1.0.0),
+  rlang,
   units (>= 0.5-0)
 Suggests:
   covr,

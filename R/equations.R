@@ -12,8 +12,7 @@
 #' @export
 sol_equation <- function(id) {
     assert_that(is.string(id))
-    eqn <- allometric_equations %>%
-        filter_(~equation_id==id)
+    eqn <- dplyr::filter(allometric_equations, .data$equation_id == id)
     if (nrow(eqn)<1) {
         stop("no equations matching id: ",id)
     } else if (nrow(eqn)>1) {
