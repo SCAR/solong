@@ -11,4 +11,5 @@
 #' @importFrom stats na.omit quantile rnorm
 #' @importFrom units as_units
 #' @importFrom utils bibentry globalVariables person
+#' @importFrom vctrs vec_restore
 NULL

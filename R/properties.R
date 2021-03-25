@@ -78,6 +78,8 @@ sol_properties <- function(prop) {
 }
 
 ## and so as not to lose class info when subsetting a tibble
+#' @method vec_restore sol_property
+#' @export
 vec_restore.sol_property = function(x, to, ...) {
     out <- NextMethod()
     cls <- intersect(class(to), sol_properties()$class_name)

@@ -16,7 +16,8 @@ Imports:
   digest,
   dplyr (>= 1.0.0),
   rlang,
-  units (>= 0.5-0)
+  units (>= 0.5-0),
+  vctrs
 Suggests:
   covr,
   ggplot2,
