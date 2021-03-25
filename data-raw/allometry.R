@@ -1023,6 +1023,23 @@ build_allometry_df <- function() {
     x <- bind_rows(x, alleq_tbl("234700_WW~TL_Troc2020"), ## Dissostichus eleginoides
                    alleq_tbl("234626_WW~TL_Llom2020"), ## Harpagifer bispinus
                    alleq_tbl("234626_TL~age_Llom2020"))
+    ## Pinkerton et al. 2013
+    x <- bind_rows(x, alleq_tbl("712470F_WW~TL_Pink2013"),
+                   alleq_tbl("712470F_WW~PAL_Pink2013"),
+                   alleq_tbl("712470M_WW~TL_Pink2013"),
+                   alleq_tbl("712470M_WW~PAL_Pink2013"),
+                   alleq_tbl("234606_WW~TL_Pink2013"),
+                   alleq_tbl("234606_WW~PAL_Pink2013"),
+                   alleq_tbl("234606_PAL~TL_Pink2013"),
+                   alleq_tbl("234606_TL~PAL_Pink2013"),
+                   alleq_tbl("712470F_PAL~TL_Pink2013"),
+                   alleq_tbl("712470F_TL~PAL_Pink2013"),
+                   alleq_tbl("712470M_PAL~TL_Pink2013"),
+                   alleq_tbl("712470M_TL~PAL_Pink2013"),
+                   alleq_tbl("234606M_TL~age_Pink2013"),
+                   alleq_tbl("234606F_TL~age_Pink2013"),
+                   alleq_tbl("712470M_TL~age_Pink2013"),
+                   alleq_tbl("712470F_TL~age_Pink2013"))
 
     ## from LaMe2018
     x <- bind_rows(x, alleq_tbl("234661F_WW~SL_LaMe2018"),

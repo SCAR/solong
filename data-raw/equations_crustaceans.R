@@ -62,7 +62,7 @@ alleq_crustaceans_other <- function(id) {
                                           return_units = "g",
                                           reliability = tribble(~type, ~value,
                                                                 "N", 30,
-                                                                "R^2", 0.98),
+                                                                "R", 0.98),
                                           reference=refs$Rido1994),
 
 
@@ -426,6 +426,49 @@ alleq_crustaceans_other <- function(id) {
                                                                 "R^2", 0.89),
                                           notes = "Combined sample of male and female animals",
                                           reference=refs$TaLo2006),
+
+           "173742_WW~TL_Rido1994" = list(taxon_name = "Lepas australis",
+                                          taxon_aphia_id = 173742,
+                                          equation = function(TL) tibble(allometric_value = 0.11 * (TL^3)),
+                                          inputs = tibble(property = "total length", units = "cm"),
+                                          return_property = "wet weight",
+                                          return_units = "g",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 11),
+                                          notes = "Accepted name is Lepas (Anatifa) australis aphia_id 733349",
+                                          reference=refs$Rido1994),
+
+           "220837_WW~TL_Rido1994" = list(taxon_name = "Rhincalanus gigas",
+                                          taxon_aphia_id = 220837,
+                                          equation = function(TL) tibble(allometric_value = 0.018 * (TL^3)),
+                                          inputs = tibble(property = "total length", units = "cm"),
+                                          return_property = "wet weight",
+                                          return_units = "g",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 20),
+                                          reference=refs$Rido1994),
+
+           "237480_WW~TL_Rido1994" = list(taxon_name = "Gondogeneia spinicoxa",
+                                          taxon_aphia_id = 237480,
+                                          equation = function(TL) tibble(allometric_value = 0.02 * (TL^3.01)),
+                                          inputs = tibble(property = "total length", units = "cm"),
+                                          return_property = "wet weight",
+                                          return_units = "g",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 8,
+                                                                "R", 0.97),
+                                          notes = "The name given in the original publication was Gondogeneiella spinicoxa",
+                                          reference=refs$Rido1994),
+
+           "102564_WW~TL_Rido1994" = list(taxon_name = "Eurythenes obesus",
+                                          taxon_aphia_id = 102564,
+                                          equation = function(TL) tibble(allometric_value = 0.03 * (TL^3)),
+                                          inputs = tibble(property = "total length", units = "cm"),
+                                          return_property = "wet weight",
+                                          return_units = "g",
+                                          reliability = tribble(~type, ~value,
+                                                                "N", 3),
+                                          reference=refs$Rido1994),
 
            stop("unrecognized equation ID: ",id))
 }
