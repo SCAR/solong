@@ -3,8 +3,4 @@
 \docType{package}
 \name{solong}
 \alias{solong}
-\alias{solong-package}
 \title{\pkg{solong}}
-\description{
-\pkg{solong}
-}

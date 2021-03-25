@@ -4,7 +4,8 @@
 \name{allometric_equations}
 \alias{allometric_equations}
 \title{Allometric equation data.}
-\format{A data frame with variables:
+\format{
+A data frame with variables:
 \describe{
   \item{equation_id}{the identifier of this equation}
   \item{taxon_name}{name of the taxon}
@@ -16,7 +17,8 @@
   \item{reliability}{a data.frame with indicators of the reliability of the equation: type (a description of how the reliability was assessed, e.g. 'R^2' or 'N' the sample size used by the authors of the equation) and value (its value)}
   \item{notes}{notes}
   \item{reference}{the source of the equation}
-}}
+}
+}
 \usage{
 allometric_equations
 }
