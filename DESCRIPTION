@@ -14,7 +14,7 @@ LazyData: true
 Imports:
   assertthat,
   digest,
-  dplyr (>= 1.0.0),
+  dplyr,
   rlang,
   units (>= 0.5-0),
   vctrs
