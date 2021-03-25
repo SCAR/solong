@@ -1,5 +1,7 @@
 #' \pkg{solong}
 #'
+#' Provides allometric equations that relate the body size of Southern Ocean taxa to body part measurements.
+#'
 #' @name solong
 #' @docType package
 #' @importFrom assertthat assert_that is.flag is.number is.string

@@ -4,3 +4,6 @@
 \name{solong}
 \alias{solong}
 \title{\pkg{solong}}
+\description{
+Provides allometric equations that relate the body size of Southern Ocean taxa to body part measurements.
+}
