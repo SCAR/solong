@@ -26,8 +26,7 @@ check_property_units <- function(prop, un) {
 #' @return A tibble with columns \code{allometric_value}, \code{allometric_value_lower}, \code{allometric_value_upper}. If any of the standard error inputs are missing, \code{NULL}, or \code{NA}, the upper and lower estimates will be \code{NA_real_}
 #'
 #' @examples
-#'
-#' sol_vonbert_mc(0:7, Linf = 80.7, Linf_se = 0.82, k = 0.25, k_se = 0.01, t0 = -2.31, t0_se = 0.01)
+#' sol_vonbert(0:7, Linf = 80.7, Linf_se = 0.82, k = 0.25, k_se = 0.01, t0 = -2.31, t0_se = 0.01)
 #'
 #' @export
 sol_vonbert <- function(t, Linf, k, t0, Linf_se, k_se, t0_se, reps = 1000L, ci = 0.95, method = "monte carlo") {

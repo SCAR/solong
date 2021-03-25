@@ -45,7 +45,6 @@ A tibble with columns \code{allometric_value}, \code{allometric_value_lower}, \c
 Intended for use inside of \code{sol_equation} objects.
 }
 \examples{
-
-sol_vonbert_mc(0:7, Linf = 80.7, Linf_se = 0.82, k = 0.25, k_se = 0.01, t0 = -2.31, t0_se = 0.01)
+sol_vonbert(0:7, Linf = 80.7, Linf_se = 0.82, k = 0.25, k_se = 0.01, t0 = -2.31, t0_se = 0.01)
 
 }
