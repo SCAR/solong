@@ -37,6 +37,7 @@ source("data-raw/equations_LaMe2020.R")
 source("data-raw/equations_EsFl2020.R")
 
 source("data-raw/equations_crustaceans.R")
+source("data-raw/equations_Schw2019.R")
 
 ## energetics
 source("data-raw/equations_VanD2006.R")
@@ -152,6 +153,7 @@ alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NU
         if (is.null(thiseq)) try(thiseq <- alleq_UrMe1998(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_LaMe2020(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_EsFl2020(id), silent = TRUE)
+        if (is.null(thiseq)) try(thiseq <- alleq_Schw2019(id), silent = TRUE)
         if (is.null(thiseq)) stop("equation id not recognized or has an error: ", id)
     } else {
         id <- thiseq$id
@@ -515,6 +517,30 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("137676_ML_Smal1993"),
                    alleq_tbl("137676_HL_Smal1993"),
                    alleq_tbl("137676_WW_Smal1993"))
+
+    ## ---
+    ## Schwarz et al 2019
+    x <- bind_rows(x,alleq_tbl("325319_WW~DML_Schw2019"),
+                   alleq_tbl("325319M_WW~DML_Schw2019"),
+                   alleq_tbl("325319F_WW~DML_Schw2019"),
+                   alleq_tbl("325324_WW~DML_Schw2019"),
+                   alleq_tbl("325324M_WW~DML_Schw2019"),
+                   alleq_tbl("325324F_WW~DML_Schw2019"),
+                   alleq_tbl("527162_WW~DML_Schw2019"),
+                   alleq_tbl("527162M_WW~DML_Schw2019"),
+                   alleq_tbl("527162F_WW~DML_Schw2019"),
+                   alleq_tbl("325325_WW~DML_Schw2019"),
+                   alleq_tbl("325325M_WW~DML_Schw2019"),
+                   alleq_tbl("325325F_WW~DML_Schw2019"),
+                   alleq_tbl("239392_WW~DML_Schw2019"),
+                   alleq_tbl("239392M_WW~DML_Schw2019"),
+                   alleq_tbl("239392F_WW~DML_Schw2019"),
+                   alleq_tbl("325336_WW~DML_Schw2019"),
+                   alleq_tbl("325336M_WW~DML_Schw2019"),
+                   alleq_tbl("325336F_WW~DML_Schw2019"),
+                   alleq_tbl("239393_WW~DML_Schw2019"),
+                   alleq_tbl("239393M_WW~DML_Schw2019"),
+                   alleq_tbl("239393F_WW~DML_Schw2019"))
 
 
     ## ---
