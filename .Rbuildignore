@@ -9,3 +9,4 @@
 data-raw
 README_cache
 ^docs$
+^\.github$
