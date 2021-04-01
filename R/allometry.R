@@ -62,15 +62,19 @@ sol_allometry <- function(data,equation) {
         apply_eq(data[idx, ], equation[eidx, ], use_property_units = use_property_units)
     })
     chk_prop <- vapply(out,function(z)sol_get_property(z$allometric_value),FUN.VALUE="",USE.NAMES=FALSE)
-    out <- do.call(rbind,out) %>%
-        arrange(.data$SAVE_ROW_ID) %>%
-        select(-"SAVE_ROW_ID")
     if (length(unique(chk_prop))!=1) {
         warning("return values are not all of the same property")
-        out$allometric_value <- strip_units(out$allometric_value)
-        out$allometric_value <- sol_set_property(out$allometric_value,NULL)
+        out <- lapply(out, function(z) {
+            z$allometric_value <- strip_units(z$allometric_value)
+            z$allometric_value <- sol_set_property(z$allometric_value,NULL)
+            z$allometric_value_lower <- strip_units(z$allometric_value_lower)
+            z$allometric_value_lower <- sol_set_property(z$allometric_value_lower,NULL)
+            z$allometric_value_upper <- strip_units(z$allometric_value_upper)
+            z$allometric_value_upper <- sol_set_property(z$allometric_value_upper,NULL)
+            z
+        })
     }
-    out
+    do.call(rbind,out) %>% dplyr::arrange(.data$SAVE_ROW_ID) %>% dplyr::select(-"SAVE_ROW_ID")
 }
 
 
@@ -94,9 +98,7 @@ sol_allometry <- function(data,equation) {
 #'
 #' @export
 strip_units <- function(x) {
-    class(x) <- setdiff(class(x),"units")
-    attr(x,"units") <- NULL
-    x
+    if (inherits(x, "units")) units::drop_units(x) else x
 }
 
 ## augment data with output of equation
