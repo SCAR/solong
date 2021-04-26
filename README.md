@@ -1,24 +1,32 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-solong
-======
 
-[![R-CMD-check](https://github.com/SCAR/solong/workflows/R-CMD-check/badge.svg)](https://github.com/SCAR/solong/actions) [![Travis-CI Build Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong) [![codecov](https://codecov.io/gh/SCAR/solong/branch/master/graph/badge.svg)](https://codecov.io/gh/SCAR/solong)
+# solong
 
-Overview
---------
+[![R-CMD-check](https://github.com/SCAR/solong/workflows/R-CMD-check/badge.svg)](https://github.com/SCAR/solong/actions)
+[![Travis-CI Build
+Status](https://travis-ci.org/SCAR/solong.svg?branch=master)](https://travis-ci.org/SCAR/solong)
+[![AppVeyor Build
+Status](https://ci.appveyor.com/api/projects/status/github/SCAR/solong?branch=master&svg=true)](https://ci.appveyor.com/project/SCAR/solong)
+[![codecov](https://codecov.io/gh/SCAR/solong/branch/master/graph/badge.svg)](https://codecov.io/gh/SCAR/solong)
 
-This R package provides allometric equations that relate the body size of Southern Ocean taxa to their body part measurements. It is a component of the [Southern Ocean Diet and Energetics Database](https://www.scar.org/data-products/southern-ocean-diet-energetics/) project.
+## Overview
 
-Packaged equations
-------------------
+This R package provides allometric equations that relate the body size
+of Southern Ocean taxa to their body part measurements. It is a
+component of the [Southern Ocean Diet and Energetics
+Database](https://www.scar.org/data-products/southern-ocean-diet-energetics/)
+project.
 
-The package currently includes 693 equations, covering mostly cephalopods and fish. A breakdown of the number of equations by taxonomic class and the allometric property that they estimate:
+## Packaged equations
 
-![](man/figures/README-unnamed-chunk-4-1.png)
+The package currently includes 785 equations, covering mostly
+cephalopods and fish. A breakdown of the number of equations by
+taxonomic class and the allometric property that they estimate:
 
-Installing
-----------
+![](man/figures/README-unnamed-chunk-4-1.png)<!-- -->
+
+## Installing
 
 ``` r
 install.packages("devtools")
@@ -26,15 +34,14 @@ library(devtools)
 install_github("SCAR/solong")
 ```
 
-Usage
------
+## Usage
 
 ``` r
 library(solong)
 library(dplyr)
 ```
 
-Let's say we have some measurements of *Architeuthis dux* squid beaks:
+Let’s say we have some measurements of *Architeuthis dux* squid beaks:
 
 ``` r
 x <- tibble(LRL = c(11.3, 13.9), species = "Architeuthis dux")
@@ -46,16 +53,20 @@ x
 #> 2  13.9 Architeuthis dux
 ```
 
-It doesn't matter what the column names are, but we do need to set the properties of the columns so that `solong` can find the appropriate data to use in each allometric equation. Here we've measured lower rostral length, so:
+It doesn’t matter what the column names are, but we do need to set the
+properties of the columns so that `solong` can find the appropriate data
+to use in each allometric equation. Here we’ve measured lower rostral
+length, so:
 
 ``` r
 x$LRL <- sol_set_property(x$LRL, "lower rostral length")
 ```
 
-Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
+Now we can apply allometric equations to our data. What equations do we
+have available for our species of interest?
 
 ``` r
-sol_equations() %>% dplyr::filter(taxon_name=="Architeuthis dux") %>% summary
+sol_equations() %>% dplyr::filter(taxon_name == "Architeuthis dux") %>% summary
 #> equation_id: 342218_ML_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
 #>   equation: function (...) tibble(allometric_value = -55.6 + 59.31 * ...)
@@ -63,9 +74,9 @@ sol_equations() %>% dplyr::filter(taxon_name=="Architeuthis dux") %>% summary
 #>   It estimates: mantle length (units: mm)
 #>   Indicator of reliability: N=11
 #>   Reference: Clarke MR (1986). "A handbook for the identification of cephalopod
-#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
-#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
-#> Cambridge, British Antarctic Survey, 129pp.
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y (2009
+#> updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge,
+#> British Antarctic Survey, 129pp.
 #> 
 #> equation_id: 342218_WW_Clar1986
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
@@ -74,9 +85,9 @@ sol_equations() %>% dplyr::filter(taxon_name=="Architeuthis dux") %>% summary
 #>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: N=9
 #>   Reference: Clarke MR (1986). "A handbook for the identification of cephalopod
-#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
-#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
-#> Cambridge, British Antarctic Survey, 129pp.
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y (2009
+#> updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge,
+#> British Antarctic Survey, 129pp.
 #> 
 #> equation_id: 342218_ML_Roel2000
 #>   taxon_name: Architeuthis dux, taxon_aphia_id: 342218
@@ -86,46 +97,46 @@ sol_equations() %>% dplyr::filter(taxon_name=="Architeuthis dux") %>% summary
 #>   Indicator of reliability: N=43
 #>   Notes: Noted by Xavier & Cherel: this equation for mantle_length from LRL might be better than the Clarke (1986) one
 #>   Reference: Roeleveld MAC (2000). "Giant squid beaks: implications for
-#> systematics." _Journal of the Marine Biological Association of the
-#> UK_, *80*, 185-187.
+#> systematics." _Journal of the Marine Biological Association of the UK_,
+#> *80*, 185-187.
 ```
 
-Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
+Here we use the equation with ID `342218_ML_Roel2000`, which is from
+Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based
+on the lower rostral length.
 
 This equation can be applied to to all rows:
 
 ``` r
 sol_allometry(x, "342218_ML_Roel2000")
 #> # A tibble: 2 x 6
-#>   LRL        species          allometric_value allometric_value_lower
-#>   <sl_prprt> <chr>            <sl_prprt>       <sl_prprt>            
-#> 1 11.3 [mm]  Architeuthis dux 539.6881 [mm]    NA [mm]               
-#> 2 13.9 [mm]  Architeuthis dux 921.0553 [mm]    NA [mm]               
-#>   allometric_value_upper allometric_property
-#>   <sl_prprt>             <chr>              
-#> 1 NA [mm]                mantle length      
-#> 2 NA [mm]                mantle length
+#>       LRL species       allometric_value allometric_value_l… allometric_value_u…
+#>      [mm] <chr>                     [mm]                [mm]                [mm]
+#> 1    11.3 Architeuthis…         539.6881                  NA                  NA
+#> 2    13.9 Architeuthis…         921.0553                  NA                  NA
+#> # … with 1 more variable: allometric_property <chr>
 ```
 
-Or we can apply a different equation to each row. Here we could use different allometric equations for mantle length:
+Or we can apply a different equation to each row. Here we could use
+different allometric equations for mantle length:
 
 ``` r
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_ML_Clar1986"))
 xa
 #> # A tibble: 2 x 6
-#>   LRL        species          allometric_value allometric_value_lower
-#>   <sl_prprt> <chr>            <sl_prprt>       <sl_prprt>            
-#> 1 11.3 [mm]  Architeuthis dux 539.6881 [mm]    NA [mm]               
-#> 2 13.9 [mm]  Architeuthis dux 768.8090 [mm]    NA [mm]               
-#>   allometric_value_upper allometric_property
-#>   <sl_prprt>             <chr>              
-#> 1 NA [mm]                mantle length      
-#> 2 NA [mm]                mantle length
+#>       LRL species       allometric_value allometric_value_l… allometric_value_u…
+#>      [mm] <chr>                     [mm]                [mm]                [mm]
+#> 1    11.3 Architeuthis…         539.6881                  NA                  NA
+#> 2    13.9 Architeuthis…         768.8090                  NA                  NA
+#> # … with 1 more variable: allometric_property <chr>
 ```
 
-The `allometric_value` column contains the values that have been estimated, and the `allometric_property` column gives the name of the property that has been estimated.
+The `allometric_value` column contains the values that have been
+estimated, and the `allometric_property` column gives the name of the
+property that has been estimated.
 
-We can also see that the returned `allometric_value` is of that specific property, with appropriate units:
+We can also see that the returned `allometric_value` is of that specific
+property, with appropriate units:
 
 ``` r
 sol_get_property(xa$allometric_value)
@@ -142,10 +153,12 @@ units(xa$allometric_value)
 #> [1] "symbolic_units"
 ```
 
-Details
--------
+## Details
 
-We can apply equations that use different inputs, provided that they estimate the same output property. For example, equation `342218_WW_Clar1986` estimates the body weight of the squid *Architeuthis dux* based on lower rostral length measurements:
+We can apply equations that use different inputs, provided that they
+estimate the same output property. For example, equation
+`342218_WW_Clar1986` estimates the body weight of the squid
+*Architeuthis dux* based on lower rostral length measurements:
 
 ``` r
 sol_equation("342218_WW_Clar1986") %>% summary
@@ -156,12 +169,13 @@ sol_equation("342218_WW_Clar1986") %>% summary
 #>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: N=9
 #>   Reference: Clarke MR (1986). "A handbook for the identification of cephalopod
-#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
-#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
-#> Cambridge, British Antarctic Survey, 129pp.
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y (2009
+#> updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge,
+#> British Antarctic Survey, 129pp.
 ```
 
-And equation `195932_WW_GaBu1988` estimates the weight of male Weddell seals based on their standard length:
+And equation `195932_WW_GaBu1988` estimates the weight of male Weddell
+seals based on their standard length:
 
 ``` r
 sol_equation("195932_WW_GaBu1988") %>% summary
@@ -172,12 +186,14 @@ sol_equation("195932_WW_GaBu1988") %>% summary
 #>   It estimates: wet weight (units: kg)
 #>   Indicator of reliability: N=15
 #>   Notes: Applies to male animals
-#>   Reference: Gales NJ, Burton HR (1988). "Use of emetics and anaesthesia for
-#> dietary assessment of Weddell seals." _Australian Wildlife
-#> Research_, *15*, 423-433.
+#>   Reference: Gales NJ, Burton HR (1988). "Use of emetics and anaesthesia for dietary
+#> assessment of Weddell seals." _Australian Wildlife Research_, *15*,
+#> 423-433.
 ```
 
-Note that this equation estimates weight in kg, whereas `342218_WW_Clar1986` estimates weight in g. We can apply the two equations together to a single data set:
+Note that this equation estimates weight in kg, whereas
+`342218_WW_Clar1986` estimates weight in g. We can apply the two
+equations together to a single data set:
 
 ``` r
 x <- tibble(LRL = c(11.3, NA_real_),
@@ -188,15 +204,17 @@ x <- tibble(LRL = c(11.3, NA_real_),
 
 xa <- sol_allometry(x, c("342218_WW_Clar1986", "195932_WW_GaBu1988"))
 
-xa %>% select(species, allometric_property, allometric_value)
+xa %>% dplyr::select(species, allometric_property, allometric_value)
 #> # A tibble: 2 x 3
 #>   species                 allometric_property allometric_value
-#>   <chr>                   <chr>               <sl_prprt>      
-#> 1 Architeuthis dux        wet weight           11029.72 [g]   
-#> 2 Leptonychotes weddellii wet weight          151200.00 [g]
+#>   <chr>                   <chr>                            [g]
+#> 1 Architeuthis dux        wet weight                  11029.72
+#> 2 Leptonychotes weddellii wet weight                 151200.00
 ```
 
-The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
+The output values are of property “wet weight” and have all been
+provided in g (because the output column `allometric value` must have a
+single set of units):
 
 ``` r
 sol_get_property(xa$allometric_value)
@@ -213,7 +231,8 @@ units(xa$allometric_value)
 #> [1] "symbolic_units"
 ```
 
-If we try to apply equations that estimate different properties, we will get a warning:
+If we try to apply equations that estimate different properties, we will
+get a warning:
 
 ``` r
 x <- tibble(LRL = c(11.3, 13.9), species = "Architeuthis dux") %>%
@@ -221,7 +240,7 @@ x <- tibble(LRL = c(11.3, 13.9), species = "Architeuthis dux") %>%
 
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986"))
 
-xa %>% select(species, allometric_property, allometric_value)
+xa %>% dplyr::select(species, allometric_property, allometric_value)
 #> # A tibble: 2 x 3
 #>   species          allometric_property allometric_value
 #>   <chr>            <chr>                          <dbl>
@@ -229,7 +248,10 @@ xa %>% select(species, allometric_property, allometric_value)
 #> 2 Architeuthis dux wet weight                    28417.
 ```
 
-And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
+And while the `allometric_property` column still says which property was
+estimated for each row, the property type and units of the returned
+`allometric_value` will not be set, because they are not consistent
+across the different equations:
 
 ``` r
 sol_get_property(xa$allometric_value)
@@ -238,7 +260,9 @@ sol_get_property(xa$allometric_value)
 
 ### Missing information
 
-What happens if we don't have the required information in our data to use a particular equation? The `234631_SL~OL_WiMc1990` equation is for fish length, and requires otolith length (not present in our test data).
+What happens if we don’t have the required information in our data to
+use a particular equation? The `234631_SL~OL_WiMc1990` equation is for
+fish length, and requires otolith length (not present in our test data).
 
 ``` r
 tryCatch(
@@ -250,29 +274,45 @@ tryCatch(
 
 ### Reliability of equations
 
-Most equations have been published with the number of samples used to fit the equation (N) and the resulting goodness-of-fit of the equation to the data (R^2). These two quantities (if provided by the original source) can be found in the `reliability` component of an equation, and can be used to help decide if a given equation is appropriate for your data.
+Most equations have been published with the number of samples used to
+fit the equation (N) and the resulting goodness-of-fit of the equation
+to the data (R^2). These two quantities (if provided by the original
+source) can be found in the `reliability` component of an equation, and
+can be used to help decide if a given equation is appropriate for your
+data.
 
-Some equations, typically from more recent publications, also provide the standard errors of the coefficients (or similar information) and thereby allow the `allometric_value_lower` and `allometric_value_upper` values to be estimated (the upper and lower bounds on the estimate). These should give a more reliable indicator of the precision of the estimated quantities.
+Some equations, typically from more recent publications, also provide
+the standard errors of the coefficients (or similar information) and
+thereby allow the `allometric_value_lower` and `allometric_value_upper`
+values to be estimated (the upper and lower bounds on the estimate).
+These should give a more reliable indicator of the precision of the
+estimated quantities.
 
 ``` r
 x <- tibble(TL = 10 %>% sol_set_property("carapace length", with_units = "mm"))
 sol_allometry(x, "369214_WW_Lake2003") %>%
-  select(allometric_value, allometric_value_lower, allometric_value_upper)
+  dplyr::select(allometric_value, allometric_value_lower, allometric_value_upper)
 #> # A tibble: 1 x 3
 #>   allometric_value allometric_value_lower allometric_value_upper
-#>   <sl_prprt>       <sl_prprt>             <sl_prprt>            
-#> 1 0.8919773 [g]    0.6986516 [g]          1.138799 [g]
+#>                [g]                    [g]                    [g]
+#> 1        0.8919773              0.6986516               1.138799
 ```
 
-Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
+Attempts are made to avoid allowing an equation to extrapolate beyond
+its valid input data range. Some equations will explicitly return `NA`
+results for such inputs. The `inputs` component of the equation may also
+hold information about the range of the inputs used to fit the equation,
+which may help assess whether your data lie within its valid range.
 
 ### Other sources of equations
 
-<http://www.fishbase.org> provides estimates of length-weight coefficients. These can be obtained via the `sol_fb_length_weight()` function (which uses the `rfishbase` package under the hood). For example:
+<http://www.fishbase.org> provides estimates of length-weight
+coefficients. These can be obtained via the `sol_fb_length_weight()`
+function (which uses the `rfishbase` package under the hood). For
+example:
 
 ``` r
-myeq <- sol_fb_length_weight("Electrona antarctica")
-myeq <- myeq[2, ] ## use the second one of the two that are returned
+myeq <- sol_fb_length_weight("Electrona antarctica", input_properties = "standard length")
 summary(myeq)
 #> equation_id: fishbase::11437
 #>   taxon_name: Electrona antarctica, taxon_aphia_id: 217697
@@ -280,33 +320,37 @@ summary(myeq)
 #>   It takes as 1st input: standard length (units: cm, sample range: unknown to unknown)
 #>   It estimates: wet weight (units: g)
 #>   Indicator of reliability: R^2=0.957
-#>   Reference: (????). Fishbase reference 91449 : NA . NA.
 
 x <- tibble(SL = 10) %>%
    mutate(SL = sol_set_property(SL, "standard length", with_units = "cm"))
 sol_allometry(x, myeq)
 #> # A tibble: 1 x 5
-#>   SL         allometric_value allometric_value_lower allometric_value_upper
-#>   <sl_prprt> <sl_prprt>       <sl_prprt>             <sl_prprt>            
-#> 1 10 [cm]    13.81669 [g]     NA [g]                 NA [g]                
-#>   allometric_property
-#>   <chr>              
-#> 1 wet weight
+#>         SL allometric_value allometric_value… allometric_value… allometric_prop…
+#>       [cm]              [g]               [g]               [g] <chr>           
+#> 1       10         13.81669                NA                NA wet weight
 ```
 
 ### Adding your own equations
 
-TODO: document, including what to do when a property is not part of the `sol_properties()` collection.
+TODO: document, including what to do when a property is not part of the
+`sol_properties()` collection.
 
 ### Taxonomy
 
-Equations are registered against *taxon\_name* and *taxon\_aphia\_id* (the species identifier in the World Register of Marine Species). The *taxon\_aphia\_id* may be more reliable than species names, which can change over time. Users might like to look at the [worrms package](https://cran.r-project.org/package=worrms) for interacting with the World Register of Marine Species.
+Equations are registered against *taxon\_name* and *taxon\_aphia\_id*
+(the species identifier in the World Register of Marine Species). The
+*taxon\_aphia\_id* may be more reliable than species names, which can
+change over time. Users might like to look at the [worrms
+package](https://cran.r-project.org/package=worrms) for interacting with
+the World Register of Marine Species.
 
 ### Other random stuff
 
-Is equation X included in the package? Call `sol_equations()` to get all equations that are part of the package, and have a rummage through that.
+Is equation X included in the package? Call `sol_equations()` to get all
+equations that are part of the package, and have a rummage through that.
 
-To see the references from which equations have been drawn, do something like:
+To see the references from which equations have been drawn, do something
+like:
 
 ``` r
 eqs <- sol_equations()
@@ -314,46 +358,43 @@ eqs <- sol_equations()
 head(unique(eqs$reference))
 #> [[1]]
 #> Clarke MR (1986). "A handbook for the identification of cephalopod
-#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y
-#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
-#> Cambridge, British Antarctic Survey, 129pp.
+#> beaks. Clarendon Press, Oxford." As cited in Xavier J & Cherel Y (2009
+#> updated 2016) Cephalopod beak guide for the Southern Ocean. Cambridge,
+#> British Antarctic Survey, 129pp.
 #> 
 #> [[2]]
 #> Roeleveld MAC (2000). "Giant squid beaks: implications for
-#> systematics." _Journal of the Marine Biological Association of the
-#> UK_, *80*, 185-187.
+#> systematics." _Journal of the Marine Biological Association of the UK_,
+#> *80*, 185-187.
 #> 
 #> [[3]]
-#> Lu CC, Williams R (1994). "Contribution to the biology of squid in
-#> the Prydz Bay region, Antarctica." _Antarctic Science_, *6*,
-#> 223-229. doi: 10.1017/S0954102094000349 (URL:
-#> http://doi.org/10.1017/S0954102094000349).
+#> Lu CC, Williams R (1994). "Contribution to the biology of squid in the
+#> Prydz Bay region, Antarctica." _Antarctic Science_, *6*, 223-229. doi:
+#> 10.1017/S0954102094000349 (URL:
+#> https://doi.org/10.1017/S0954102094000349).
 #> 
 #> [[4]]
-#> Rodhouse PG, Prince PA, Clarke MR, Murray AWA (1990). "Cephalopod
-#> prey of the grey-headed albatross Diomedea chrysostoma." _Marine
-#> Biology_, *104*, 353-362. doi: 10.1007/BF01314337 (URL:
-#> http://doi.org/10.1007/BF01314337), As cited in Xavier J & Cherel
-#> Y (2009 updated 2016) Cephalopod beak guide for the Southern
-#> Ocean. Cambridge, British Antarctic Survey, 129pp.
+#> Rodhouse PG, Prince PA, Clarke MR, Murray AWA (1990). "Cephalopod prey
+#> of the grey-headed albatross Diomedea chrysostoma." _Marine Biology_,
+#> *104*, 353-362. doi: 10.1007/BF01314337 (URL:
+#> https://doi.org/10.1007/BF01314337), As cited in Xavier J & Cherel Y
+#> (2009 updated 2016) Cephalopod beak guide for the Southern Ocean.
+#> Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> [[5]]
 #> Clarke M (1962). "The identification of cephalopod "beaks" and the
-#> relationship between beak size and total body weight." _Bulletin
-#> of the British Museum of Natural History B_, *8*, 421-480. As
-#> cited in Xavier J & Cherel Y (2009 updated 2016) Cephalopod beak
-#> guide for the Southern Ocean. Cambridge, British Antarctic Survey,
-#> 129pp.
+#> relationship between beak size and total body weight." _Bulletin of the
+#> British Museum of Natural History B_, *8*, 421-480. As cited in Xavier
+#> J & Cherel Y (2009 updated 2016) Cephalopod beak guide for the Southern
+#> Ocean. Cambridge, British Antarctic Survey, 129pp.
 #> 
 #> [[6]]
 #> Lu CC, Ickeringill R (2002). "Cephalopod beak identification and
-#> biomass estimation techniques: tools for dietary studies of
-#> southern Australian finfishes." _Museum Victoria Science Reports_,
-#> *6*, 1-65.
+#> biomass estimation techniques: tools for dietary studies of southern
+#> Australian finfishes." _Museum Victoria Science Reports_, *6*, 1-65.
 ```
 
-More examples
--------------
+## More examples
 
 Grab all equations from Eastman (2019):
 
@@ -372,13 +413,16 @@ max_lengths <- sapply(eq$equation, function(z) z()$allometric_value)
 hist(max_lengths, 20)
 ```
 
-![](man/figures/README-unnamed-chunk-24-1.png)
+![](man/figures/README-unnamed-chunk-24-1.png)<!-- -->
 
-Related packages
-----------------
+## Related packages
 
--   [units](https://cran.r-project.org/package=units) for handling units of measurement
--   [worrms](https://cran.r-project.org/package=worrms) for taxonomy
--   [shapeR](https://cran.r-project.org/package=shapeR) for collection and analysis of otolith shape data
--   <https://github.com/James-Thorson/FishLife> for estimating fish life history parameters
--   [rfishbase](https://cran.r-project.org/package=rfishbase) an interface to www.fishbase.org
+  - [units](https://cran.r-project.org/package=units) for handling units
+    of measurement
+  - [worrms](https://cran.r-project.org/package=worrms) for taxonomy
+  - [shapeR](https://cran.r-project.org/package=shapeR) for collection
+    and analysis of otolith shape data
+  - <https://github.com/James-Thorson/FishLife> for estimating fish life
+    history parameters
+  - [rfishbase](https://cran.r-project.org/package=rfishbase) an
+    interface to www.fishbase.org

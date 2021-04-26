@@ -38,11 +38,11 @@ The package currently includes `r nrow(sol_equations())` equations, covering mos
 library(worrms)
 uid <- unique(na.omit(sol_equations()$taxon_aphia_id))
 ucl <- lapply(uid, wm_classification)
-uid_cls <- tibble(taxon_aphia_id=uid, taxonomic_class=vapply(ucl, function(z)z$scientificname[z$rank=="Class"], FUN.VALUE=""))
+uid_cls <- tibble(taxon_aphia_id = uid, taxonomic_class = vapply(ucl, function(z)z$scientificname[z$rank == "Class"], FUN.VALUE = ""))
 ```
 ```{r echo=FALSE}
 ##knitr::kable(sol_equations() %>% left_join(uid_cls, by="taxon_aphia_id") %>% xtabs(~taxonomic_class+return_property, data=.))
-ggplot(sol_equations() %>% left_join(uid_cls, by="taxon_aphia_id") %>% dplyr::filter(!is.na(taxonomic_class)), aes(return_property, taxonomic_class)) + stat_bin_2d() +
+ggplot(sol_equations() %>% left_join(uid_cls, by = "taxon_aphia_id") %>% dplyr::filter(!is.na(taxonomic_class)), aes(return_property, taxonomic_class)) + stat_bin_2d() +
   labs(x = "Return property", y = "Taxonomic class") +
   scale_fill_gradient(name = "Count", trans = "sqrt") +
   theme_bw() + theme(axis.text.x = element_text(angle = 45, hjust = 1))
@@ -84,7 +84,7 @@ x$LRL <- sol_set_property(x$LRL, "lower rostral length")
 Now we can apply allometric equations to our data. What equations do we have available for our species of interest?
 
 ```{r}
-sol_equations() %>% dplyr::filter(taxon_name=="Architeuthis dux") %>% summary
+sol_equations() %>% dplyr::filter(taxon_name == "Architeuthis dux") %>% summary
 ```
 
 Here we use the equation with ID `342218_ML_Roel2000`, which is from Roeleveld (2000) and gives the mantle length of *Architeuthis dux* based on the lower rostral length.
@@ -133,7 +133,7 @@ x <- tibble(LRL = c(11.3, NA_real_),
 
 xa <- sol_allometry(x, c("342218_WW_Clar1986", "195932_WW_GaBu1988"))
 
-xa %>% select(species, allometric_property, allometric_value)
+xa %>% dplyr::select(species, allometric_property, allometric_value)
 ```
 
 The output values are of property "wet weight" and have all been provided in g (because the output column `allometric value` must have a single set of units):
@@ -152,7 +152,7 @@ x <- tibble(LRL = c(11.3, 13.9), species = "Architeuthis dux") %>%
 
 xa <- sol_allometry(x, c("342218_ML_Roel2000", "342218_WW_Clar1986"))
 
-xa %>% select(species, allometric_property, allometric_value)
+xa %>% dplyr::select(species, allometric_property, allometric_value)
 ```
 
 And while the `allometric_property` column still says which property was estimated for each row, the property type and units of the returned `allometric_value` will not be set, because they are not consistent across the different equations:
@@ -180,7 +180,7 @@ Some equations, typically from more recent publications, also provide the standa
 ```{r}
 x <- tibble(TL = 10 %>% sol_set_property("carapace length", with_units = "mm"))
 sol_allometry(x, "369214_WW_Lake2003") %>%
-  select(allometric_value, allometric_value_lower, allometric_value_upper)
+  dplyr::select(allometric_value, allometric_value_lower, allometric_value_upper)
 ```
 
 Attempts are made to avoid allowing an equation to extrapolate beyond its valid input data range. Some equations will explicitly return `NA` results for such inputs. The `inputs` component of the equation may also hold information about the range of the inputs used to fit the equation, which may help assess whether your data lie within its valid range.
@@ -190,8 +190,7 @@ Attempts are made to avoid allowing an equation to extrapolate beyond its valid 
 http://www.fishbase.org provides estimates of length-weight coefficients. These can be obtained via the `sol_fb_length_weight()` function (which uses the `rfishbase` package under the hood). For example:
 
 ```{r}
-myeq <- sol_fb_length_weight("Electrona antarctica")
-myeq <- myeq[2, ] ## use the second one of the two that are returned
+myeq <- sol_fb_length_weight("Electrona antarctica", input_properties = "standard length")
 summary(myeq)
 
 x <- tibble(SL = 10) %>%
