@@ -21,9 +21,9 @@ Experimental. Requires the rfishbase package to be installed.
 \dontrun{
  library(dplyr)
  eq <- sol_fb_length_weight("Electrona antarctica")
- x <- tibble(SL=10) \%>\%
-   mutate(SL=sol_set_property(SL,"standard length",with_units="cm"))
- sol_allometry(x,eq[2,])
+ x <- tibble(SL = 10) \%>\%
+   mutate(SL = sol_set_property(SL, "standard length", with_units = "cm"))
+ sol_allometry(x, eq[1, ])
 }
 
 }

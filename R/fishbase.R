@@ -15,9 +15,9 @@
 #' \dontrun{
 #'  library(dplyr)
 #'  eq <- sol_fb_length_weight("Electrona antarctica")
-#'  x <- tibble(SL=10) %>%
-#'    mutate(SL=sol_set_property(SL,"standard length",with_units="cm"))
-#'  sol_allometry(x,eq[2,])
+#'  x <- tibble(SL = 10) %>%
+#'    mutate(SL = sol_set_property(SL, "standard length", with_units = "cm"))
+#'  sol_allometry(x, eq[1, ])
 #' }
 #'
 #' @export
@@ -33,8 +33,7 @@ sol_fb_length_weight <- function(...,worms=requireNamespace("worrms",quietly=TRU
     if (nrow(x)<1) return(NULL)
     thisrefs <- NULL
     if (!all(is.na(x$DataRef))) {
-        suppressMessages(thisrefs <- rfishbase::references(x$DataRef[!is.na(x$DataRef)],
-                                                           fields=c("RefNo","Author","Year","Title","Source","ShortCitation")))
+        suppressMessages(thisrefs <- rfishbase::references(x$DataRef[!is.na(x$DataRef)], fields = c("RefNo", "Author", "Year", "Title", "Source", "ShortCitation")))
         if (nrow(thisrefs)>0) {
             thisrefs <- thisrefs %>% rowwise %>%
                 summarize(DataRef = .data$RefNo,
