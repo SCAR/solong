@@ -4,15 +4,24 @@
 \alias{sol_fb_length_weight}
 \title{Create allometric equation from Fishbase}
 \usage{
-sol_fb_length_weight(..., worms = requireNamespace("worrms", quietly = TRUE))
+sol_fb_length_weight(
+  ...,
+  input_properties,
+  return_properties,
+  worms = requireNamespace("worrms", quietly = TRUE)
+)
 }
 \arguments{
 \item{...}{: arguments passed to rfishbase::length_weight}
 
+\item{input_properties}{character: an optional vector of properties (see \code{link{sol_properties}}). Only equations that take an input in \code{input_properties} will be returned}
+
+\item{return_properties}{character: an optional vector of properties (see \code{link{sol_properties}}). Only equations that return a value in \code{return_properties} will be returned}
+
 \item{worms}{logical: if TRUE, and if the worrms package is installed, try and find the AphiaID for the taxon in the World Register of Marine Species}
 }
 \value{
-equation object
+A tibble of equation(s)
 }
 \description{
 Experimental. Requires the rfishbase package to be installed.
@@ -20,10 +29,10 @@ Experimental. Requires the rfishbase package to be installed.
 \examples{
 \dontrun{
  library(dplyr)
- eq <- sol_fb_length_weight("Electrona antarctica")
+ eq <- sol_fb_length_weight("Electrona antarctica", input_properties = "standard length")
  x <- tibble(SL = 10) \%>\%
    mutate(SL = sol_set_property(SL, "standard length", with_units = "cm"))
- sol_allometry(x, eq[1, ])
+ sol_allometry(x, eq)
 }
 
 }
