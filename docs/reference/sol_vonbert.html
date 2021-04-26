@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Set or get the property name — sol_set_property • solong</title>
+<title>Von Bertalanffy growth equation with optional propagation of uncertainty — sol_vonbert • solong</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Set or get the property name — sol_set_property" />
-<meta property="og:description" content="Set or get the property name" />
+<meta property="og:title" content="Von Bertalanffy growth equation with optional propagation of uncertainty — sol_vonbert" />
+<meta property="og:description" content="Intended for use inside of sol_equation objects." />
 
 
 
@@ -108,58 +108,91 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Set or get the property name</h1>
-    <small class="dont-index">Source: <a href='https://github.com/SCAR/solong/blob/master/R/properties.R'><code>R/properties.R</code></a></small>
-    <div class="hidden name"><code>sol_set_property.Rd</code></div>
+    <h1>Von Bertalanffy growth equation with optional propagation of uncertainty</h1>
+    <small class="dont-index">Source: <a href='https://github.com/SCAR/solong/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>sol_vonbert.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Set or get the property name</p>
+    <p>Intended for use inside of <code>sol_equation</code> objects.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>sol_set_property</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>prop</span>, <span class='va'>with_units</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>sol_get_property</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>sol_vonbert</span><span class='op'>(</span>
+  <span class='va'>t</span>,
+  <span class='va'>Linf</span>,
+  <span class='va'>k</span>,
+  <span class='va'>t0</span>,
+  <span class='va'>Linf_se</span>,
+  <span class='va'>k_se</span>,
+  <span class='va'>t0_se</span>,
+  reps <span class='op'>=</span> <span class='fl'>1000L</span>,
+  ci <span class='op'>=</span> <span class='fl'>0.95</span>,
+  method <span class='op'>=</span> <span class='st'>"monte carlo"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x</th>
-      <td><p>vector: data</p></td>
+      <th>t</th>
+      <td><p>numeric: prediction times</p></td>
     </tr>
     <tr>
-      <th>prop</th>
-      <td><p>string: property name</p></td>
+      <th>Linf</th>
+      <td><p>numeric: Linf parameter estimate</p></td>
     </tr>
     <tr>
-      <th>with_units</th>
-      <td><p>string: units of measurement to use. If missing, the default units for the property will be used</p></td>
+      <th>k</th>
+      <td><p>numeric: k parameter estimate</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>: extra arguments, currently ignored</p></td>
+      <th>t0</th>
+      <td><p>numeric: t0 parameter estimate</p></td>
+    </tr>
+    <tr>
+      <th>Linf_se</th>
+      <td><p>numeric: Linf parameter standard error estimate</p></td>
+    </tr>
+    <tr>
+      <th>k_se</th>
+      <td><p>numeric: k parameter standard error estimate</p></td>
+    </tr>
+    <tr>
+      <th>t0_se</th>
+      <td><p>numeric: t0 parameter standard error estimate</p></td>
+    </tr>
+    <tr>
+      <th>reps</th>
+      <td><p>integer: number of Monte-Carlo samples to draw</p></td>
+    </tr>
+    <tr>
+      <th>ci</th>
+      <td><p>numeric: confidence level</p></td>
+    </tr>
+    <tr>
+      <th>method</th>
+      <td><p>string: method to use for uncertainty propagation (only "monte carlo" supported at the moment)</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>x with additional class set</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p><code><a href='sol_properties.html'>sol_properties</a></code></p></div>
+    <p>A tibble with columns <code>allometric_value</code>, <code>allometric_value_lower</code>, <code>allometric_value_upper</code>. If any of the standard error inputs are missing, <code>NULL</code>, or <code>NA</code>, the upper and lower estimates will be <code>NA_real_</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>LRL<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>11.3</span>,<span class='fl'>13.9</span><span class='op'>)</span>,species<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Architeuthis dux"</span><span class='op'>)</span>,
-  stringsAsFactors<span class='op'>=</span><span class='cn'>FALSE</span><span class='op'>)</span>
-<span class='co'>## it doesn't matter what the column names are, but we</span>
-<span class='co'>## need to set the property types correctly</span>
-<span class='va'>x</span><span class='op'>$</span><span class='va'>LRL</span> <span class='op'>&lt;-</span> <span class='fu'>sol_set_property</span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>LRL</span>,<span class='st'>"lower rostral length"</span><span class='op'>)</span>
-
-<span class='co'>## remove the property</span>
-<span class='va'>x</span><span class='op'>$</span><span class='va'>LRL</span> <span class='op'>&lt;-</span> <span class='fu'>sol_set_property</span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>LRL</span>,<span class='cn'>NULL</span><span class='op'>)</span>
-
-</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>sol_vonbert</span><span class='op'>(</span><span class='fl'>0</span><span class='op'>:</span><span class='fl'>7</span>, Linf <span class='op'>=</span> <span class='fl'>80.7</span>, Linf_se <span class='op'>=</span> <span class='fl'>0.82</span>, k <span class='op'>=</span> <span class='fl'>0.25</span>, k_se <span class='op'>=</span> <span class='fl'>0.01</span>, t0 <span class='op'>=</span> <span class='op'>-</span><span class='fl'>2.31</span>, t0_se <span class='op'>=</span> <span class='fl'>0.01</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 8 x 3</span><span>
+#&gt;   allometric_value allometric_value_lower allometric_value_upper
+#&gt;              </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>                  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>                  </span><span style='color: #949494;font-style: italic;'>&lt;dbl&gt;</span><span>
+#&gt; </span><span style='color: #BCBCBC;'>1</span><span>             35.4                   33.3                   37.5
+#&gt; </span><span style='color: #BCBCBC;'>2</span><span>             45.4                   43.0                   47.8
+#&gt; </span><span style='color: #BCBCBC;'>3</span><span>             53.2                   50.7                   55.7
+#&gt; </span><span style='color: #BCBCBC;'>4</span><span>             59.3                   56.9                   61.7
+#&gt; </span><span style='color: #BCBCBC;'>5</span><span>             64.0                   61.7                   66.4
+#&gt; </span><span style='color: #BCBCBC;'>6</span><span>             67.7                   65.4                   69.9
+#&gt; </span><span style='color: #BCBCBC;'>7</span><span>             70.6                   68.4                   72.7
+#&gt; </span><span style='color: #BCBCBC;'>8</span><span>             72.8                   70.7                   74.8</div><div class='input'>
+</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -8,23 +8,29 @@
 
 <title>Create an allometric equation object — sol_make_equation • solong</title>
 
+
 <!-- jquery -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous" />
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script>
+
+<!-- bootstrap-toc -->
+<link rel="stylesheet" href="../bootstrap-toc.css">
+<script src="../bootstrap-toc.js"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script>
 
 <!-- headroom.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -32,10 +38,10 @@
 
 
 
-<meta property="og:title" content="Create an allometric equation object — sol_make_equation" />
 
+<meta property="og:title" content="Create an allometric equation object — sol_make_equation" />
 <meta property="og:description" content="Create an allometric equation object" />
-<meta name="twitter:card" content="summary" />
+
 
 
 
@@ -52,7 +58,7 @@
 
   </head>
 
-  <body>
+  <body data-spy="scroll" data-target="#toc">
     <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">solong</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.6</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.99.9999</span>
       </span>
     </div>
 
@@ -74,7 +80,7 @@
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -82,11 +88,10 @@
   <a href="../reference/index.html">Reference</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
-  <a href="https://github.com/SCAR/solong">
-    <span class="fab fa fab fa-github fa-lg"></span>
+  <a href="https://github.com/SCAR/solong/">
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -109,15 +114,24 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Create an allometric equation object</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>sol_make_equation</span>(<span class='no'>equation_id</span>, <span class='no'>taxon_name</span>, <span class='no'>taxon_aphia_id</span>, <span class='no'>equation</span>,
-  <span class='no'>inputs</span>, <span class='no'>return_property</span>, <span class='no'>return_units</span>, <span class='no'>reliability</span>, <span class='no'>notes</span>, <span class='no'>reference</span>,
-  <span class='kw'>check_packaged_ids</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>warn_recommended</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>sol_make_equation</span><span class='op'>(</span>
+  <span class='va'>equation_id</span>,
+  <span class='va'>taxon_name</span>,
+  <span class='va'>taxon_aphia_id</span>,
+  <span class='va'>equation</span>,
+  <span class='va'>inputs</span>,
+  <span class='va'>return_property</span>,
+  <span class='va'>return_units</span>,
+  <span class='va'>reliability</span>,
+  <span class='va'>notes</span>,
+  <span class='va'>reference</span>,
+  check_packaged_ids <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  warn_recommended <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span></pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -170,57 +184,50 @@
       <td><p>logical: issue a warning if "recommended" informations is not supplied?</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>equation object</p>
-    
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p><code><a href='sol_equation.html'>sol_equation</a></code> <code><a href='sol_equation.html'>sol_equations</a></code> <code><a href='sol_properties.html'>sol_properties</a></code></p></div>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>dplyr</span>)</div><div class='output co'>#&gt; <span class='message'></span>
-#&gt; <span class='message'>Attaching package: 'dplyr'</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:stats':</span>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘dplyr’</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:stats’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from 'package:base':</span>
+#&gt; <span class='message'>    filter, lag</span></div><div class='output co'>#&gt; <span class='message'>The following objects are masked from ‘package:base’:</span>
 #&gt; <span class='message'></span>
-#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='no'>my_ref</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/bibentry.html'>bibentry</a></span>(<span class='kw'>bibtype</span><span class='kw'>=</span><span class='st'>"Article"</span>,<span class='kw'>key</span><span class='kw'>=</span><span class='st'>"Lake2003"</span>,
-            <span class='kw'>author</span><span class='kw'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"S"</span>,<span class='st'>"Lake"</span>),<span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"H"</span>,<span class='st'>"Burton"</span>),
-              <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span>(<span class='st'>"J"</span>,<span class='st'>"van den Hoff"</span>)),
-            <span class='kw'>year</span><span class='kw'>=</span><span class='fl'>2003</span>,
-            <span class='kw'>title</span><span class='kw'>=</span><span class='st'>"Regional, temporal and fine-scale spatial variation in
+#&gt; <span class='message'>    intersect, setdiff, setequal, union</span></div><div class='input'><span class='va'>my_ref</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/utils/bibentry.html'>bibentry</a></span><span class='op'>(</span>bibtype<span class='op'>=</span><span class='st'>"Article"</span>,key<span class='op'>=</span><span class='st'>"Lake2003"</span>,
+            author<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"S"</span>,<span class='st'>"Lake"</span><span class='op'>)</span>,<span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"H"</span>,<span class='st'>"Burton"</span><span class='op'>)</span>,
+              <span class='fu'><a href='https://rdrr.io/r/utils/person.html'>person</a></span><span class='op'>(</span><span class='st'>"J"</span>,<span class='st'>"van den Hoff"</span><span class='op'>)</span><span class='op'>)</span>,
+            year<span class='op'>=</span><span class='fl'>2003</span>,
+            title<span class='op'>=</span><span class='st'>"Regional, temporal and fine-scale spatial variation in
               Weddell seal diet at four coastal locations in east Antarctica"</span>,
-            <span class='kw'>journal</span><span class='kw'>=</span><span class='st'>"Marine Ecology Progress Series"</span>,
-            <span class='kw'>volume</span><span class='kw'>=</span><span class='fl'>254</span>,<span class='kw'>pages</span><span class='kw'>=</span><span class='st'>"293-305"</span>,<span class='kw'>doi</span><span class='kw'>=</span><span class='st'>"10.3354/meps254293"</span>)
+            journal<span class='op'>=</span><span class='st'>"Marine Ecology Progress Series"</span>,
+            volume<span class='op'>=</span><span class='fl'>254</span>,pages<span class='op'>=</span><span class='st'>"293-305"</span>,doi<span class='op'>=</span><span class='st'>"10.3354/meps254293"</span><span class='op'>)</span>
 
-<span class='no'>eq</span> <span class='kw'>&lt;-</span> <span class='fu'>sol_make_equation</span>(<span class='kw'>equation_id</span><span class='kw'>=</span><span class='st'>"my_equation_id"</span>,
-                        <span class='kw'>taxon_name</span><span class='kw'>=</span><span class='st'>"Chorismus antarcticus"</span>,
-                        <span class='kw'>taxon_aphia_id</span><span class='kw'>=</span><span class='fl'>369214</span>,
-                        <span class='kw'>equation</span><span class='kw'>=</span><span class='kw'>function</span>(<span class='no'>L</span>)
-                           <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>allometric_value</span><span class='kw'>=</span><span class='fl'>0.000943</span>*(<span class='no'>L</span>^<span class='fl'>2.976</span>)),
-                        <span class='kw'>inputs</span><span class='kw'>=</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span>(<span class='kw'>property</span><span class='kw'>=</span><span class='st'>"carapace length"</span>,<span class='kw'>units</span><span class='kw'>=</span><span class='st'>"mm"</span>,
-                                      <span class='kw'>sample_minimum</span><span class='kw'>=</span><span class='fl'>6</span>,<span class='kw'>sample_maximum</span><span class='kw'>=</span><span class='fl'>16</span>),
-                        <span class='kw'>return_property</span><span class='kw'>=</span><span class='st'>"wet weight"</span>,
-                        <span class='kw'>return_units</span><span class='kw'>=</span><span class='st'>"g"</span>,
-                        <span class='kw'>reliability</span><span class='kw'>=</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/reexports.html'>tribble</a></span>(~<span class='no'>type</span>,~<span class='no'>value</span>,
+<span class='va'>eq</span> <span class='op'>&lt;-</span> <span class='fu'>sol_make_equation</span><span class='op'>(</span>equation_id<span class='op'>=</span><span class='st'>"my_equation_id"</span>,
+                        taxon_name<span class='op'>=</span><span class='st'>"Chorismus antarcticus"</span>,
+                        taxon_aphia_id<span class='op'>=</span><span class='fl'>369214</span>,
+                        equation<span class='op'>=</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>L</span><span class='op'>)</span>
+                           <span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>allometric_value<span class='op'>=</span><span class='fl'>0.000943</span><span class='op'>*</span><span class='op'>(</span><span class='va'>L</span><span class='op'>^</span><span class='fl'>2.976</span><span class='op'>)</span><span class='op'>)</span>,
+                        inputs<span class='op'>=</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tibble.html'>tibble</a></span><span class='op'>(</span>property<span class='op'>=</span><span class='st'>"carapace length"</span>,units<span class='op'>=</span><span class='st'>"mm"</span>,
+                                      sample_minimum<span class='op'>=</span><span class='fl'>6</span>,sample_maximum<span class='op'>=</span><span class='fl'>16</span><span class='op'>)</span>,
+                        return_property<span class='op'>=</span><span class='st'>"wet weight"</span>,
+                        return_units<span class='op'>=</span><span class='st'>"g"</span>,
+                        reliability<span class='op'>=</span><span class='fu'><a href='https://tibble.tidyverse.org/reference/tribble.html'>tribble</a></span><span class='op'>(</span><span class='op'>~</span><span class='va'>type</span>,<span class='op'>~</span><span class='va'>value</span>,
                                              <span class='st'>"N"</span>,<span class='fl'>35</span>,
-                                             <span class='st'>"R^2"</span>,<span class='fl'>0.976</span>),
-                        <span class='kw'>reference</span><span class='kw'>=</span><span class='no'>my_ref</span>)</div></pre>
+                                             <span class='st'>"R^2"</span>,<span class='fl'>0.976</span><span class='op'>)</span>,
+                        reference<span class='op'>=</span><span class='va'>my_ref</span><span class='op'>)</span>
+
+</div></pre>
   </div>
-  <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
-    <h2>Contents</h2>
-    <ul class="nav nav-pills nav-stacked">
-      <li><a href="#arguments">Arguments</a></li>
-      
-      <li><a href="#value">Value</a></li>
-
-      <li><a href="#see-also">See also</a></li>
-      
-      <li><a href="#examples">Examples</a></li>
-    </ul>
-
+  <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
+    <nav id="toc" data-toggle="toc" class="sticky-top">
+      <h2 data-toc-skip>Contents</h2>
+    </nav>
   </div>
 </div>
 
@@ -231,7 +238,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
