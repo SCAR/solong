@@ -3,7 +3,8 @@ Type: Package
 Title: Allometric Equations for Southern Ocean Taxa
 Version: 0.2.0
 Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
-             person("Martin","Cox",role="ctb"))
+             person("Anton", "Van de Putte", role = "ctb"),
+             person("Martin", "Cox", role = "ctb"))
 Description: Provides allometric equations that relate the body size of Southern Ocean taxa to body part measurements.
 URL: https://github.com/SCAR/solong
 BugReports: https://github.com/SCAR/solong/issues
