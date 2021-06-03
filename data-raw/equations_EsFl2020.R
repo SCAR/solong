@@ -63,7 +63,7 @@ alleq_EsFl2020 <- function(id) {
                                                                  "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
                                            reference=refs$EsFl2020),
 
-           "217719_WW~SL_EsFl2020" = list(taxon_name = "Symbolophorus boobs",
+           "217719_WW~SL_EsFl2020" = list(taxon_name = "Symbolophorus boops",
                                            taxon_aphia_id = 217719,
                                            equation = function(SL) {
                                                a <- 0.007001; b <- 3.171734;
