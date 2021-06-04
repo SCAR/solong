@@ -139,8 +139,8 @@ alleq_Vane2005 <- function(id) {
 
            ## Lepidonotothen kempi 313344 158 0.0042·LT  3.42 0.99 8 0.0279·TL  3.38 0.97 75.5 7253 5.40 (0.48)
            ## valid is Lepidonotothen squamifrons 234788
-           "234788_WW~TL_Vane2005"=list(taxon_name="Lepidonotothen squamifrons",
-                                        taxon_aphia_id=234788,
+           "313344_WW~TL_Vane2005"=list(taxon_name="Lepidonotothen kempi",
+                                        taxon_aphia_id=313344,
                                         equation=function(...)tibble(allometric_value=0.0042*(...^3.42)),
                                         inputs=tibble(property="total length",units="cm"),
                                         return_property="wet weight",
@@ -149,8 +149,8 @@ alleq_Vane2005 <- function(id) {
                                                             "N",158,
                                                             "R^2",0.99),
                                         reference=refs$Vane2005),
-           "234788_TEC~TL_Vane2005"=list(taxon_name="Lepidonotothen squamifrons",
-                                         taxon_aphia_id=234788,
+           "313344_TEC~TL_Vane2005"=list(taxon_name="Lepidonotothen kempi",
+                                         taxon_aphia_id=313344,
                                          equation=function(...)tibble(allometric_value=0.0279*(...^3.38)),
                                          inputs=tibble(property="total length",units="cm"),
                                          return_property="total energy content",

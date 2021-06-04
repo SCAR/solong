@@ -102,19 +102,6 @@ alleq_EsFl2020 <- function(id) {
                                                                  "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
                                            reference=refs$EsFl2020),
 
-           "220007_WW~SL_EsFl2020" = list(taxon_name = "Phosichthys argenteus",
-                                           taxon_aphia_id = 220007,
-                                           equation = function(SL) {
-                                               a <- 0.001737; b <- 3.278296
-                                               tibble(allometric_value = a*(SL^b))
-                                           },
-                                           inputs = tibble(property = "standard length", units = "cm"),
-                                           return_property = "wet weight",
-                                           return_units = "g",
-                                           reliability = tribble(~type, ~value,
-                                                                 "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
-                                           reference=refs$EsFl2020),
-
            "400296_WW~SL_EsFl2020" = list(taxon_name = "Photichthys argenteus",
                                            taxon_aphia_id = 400296,
                                            equation = function(SL) {
@@ -124,7 +111,6 @@ alleq_EsFl2020 <- function(id) {
                                            inputs = tibble(property = "standard length", units = "cm"),
                                            return_property = "wet weight",
                                            return_units = "g",
-                                           notes = "Valid taxon name is Phosichthys argenteus",
                                            reliability = tribble(~type, ~value,
                                                                  "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
                                            reference=refs$EsFl2020),
@@ -168,19 +154,6 @@ alleq_EsFl2020 <- function(id) {
                                                                  "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
                                            reference=refs$EsFl2020),
 
-           "234788_WW~SL_EsFl2020" = list(taxon_name = "Lepidonotothen squamifrons",
-                                           taxon_aphia_id = 234788,
-                                           equation = function(SL) {
-                                               a <- 0.001351; b <- 3.679298;
-                                               tibble(allometric_value = a*(SL^b))
-                                           },
-                                           inputs = tibble(property = "standard length", units = "cm"),
-                                           return_property = "wet weight",
-                                           return_units = "g",
-                                           reliability = tribble(~type, ~value,
-                                                                 "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
-                                           reference=refs$EsFl2020),
-
            "313344_WW~SL_EsFl2020" = list(taxon_name = "Lepidonotothen kempi",
                                            taxon_aphia_id = 313344,
                                            equation = function(SL) {
@@ -190,7 +163,6 @@ alleq_EsFl2020 <- function(id) {
                                            inputs = tibble(property = "standard length", units = "cm"),
                                            return_property = "wet weight",
                                            return_units = "g",
-                                           notes = "Accepted taxon name is Lepidonotothen squamifrons",
                                            reliability = tribble(~type, ~value,
                                                                  "Informal", "Equation was based on up to 20 individuals weighed to the nearest 1g"),
                                            reference=refs$EsFl2020),

@@ -1,5 +1,12 @@
+## NOTES for new equation entry
+## Prior to June 2021 we entered equations using the valid name and aphia ID. If the equation was published under an unaccepted name, that would also be entered by manually adding a row here. As of June 2021 we have alleq_tbl(..., check_name = TRUE) will automatically add a duplicate equation with the valid name, so we can just enter the equation under the invalid name in data-raw
+
 library(dplyr)
 library(assertthat)
+requireNamespace("dietdataentry")
+
+#worms_cache_directory <- "~/.cache/R/R.cache/"
+#worms_cache_dir(worms_cache_directory)
 
 refs <- list(
     JaMc1996=bibentry(bibtype="Article",key="JaMc1996",
@@ -130,10 +137,11 @@ alleq_other <- function(id) {
            stop("unrecognized equation ID: ",id))
 }
 
-
 ## wrapper function around alleq. Can override the taxon, if e.g. applying an equation developed for one species to another species
 ## can override reference. Notes get added to any notes in the original equation
-alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NULL, notes = NULL, reference = NULL, thiseq = NULL) {
+alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NULL, notes = NULL, reference = NULL, thiseq = NULL, check_name) {
+    if (missing(check_name)) check_name <- is.null(with_id)
+    was_as_eq <- FALSE
     if (is.null(thiseq)) {
         try(thiseq <- alleq_other(id), silent = TRUE)
         if (is.null(thiseq)) try(thiseq <- alleq_Arti2003(id), silent = TRUE)
@@ -156,9 +164,13 @@ alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NU
         if (is.null(thiseq)) try(thiseq <- alleq_Schw2019(id), silent = TRUE)
         if (is.null(thiseq)) stop("equation id not recognized or has an error: ", id)
     } else {
+        was_as_eq <- TRUE
         id <- thiseq$id
     }
-
+    if (!is.null(thiseq$check_name) && isTRUE(thiseq$check_name) != isTRUE(check_name)) {
+        message("equation ", id, " specifies check_name = ", isTRUE(thiseq$check_name), ", using this")
+        check_name <- isTRUE(thiseq$check_name)
+    }
     ## use the equation defaults for some things, if not already specified
     if (is.null(with_id)) with_id <- id
     if (is.null(taxon_name)) taxon_name <- thiseq$taxon_name
@@ -182,25 +194,44 @@ alleq_tbl <- function(id, with_id = NULL, taxon_name = NULL, taxon_aphia_id = NU
     ## old direct code
     ## tribble(~equation_id,~taxon_name,~taxon_aphia_id,~equation,~inputs,~return_property,~return_units,~reliability,~notes,~reference,
     ##        id,taxon_name,taxon_aphia_id,thiseq$equation,thiseq$inputs,thiseq$return_property,thiseq$return_units,thiseq$reliability,notes,reference)
-    e2 <- sol_make_equation(equation_id=with_id,
-                      taxon_name=taxon_name,
-                      taxon_aphia_id=taxon_aphia_id,
-                      equation=thiseq$equation,
-                      inputs=thiseq$inputs,
-                      return_property=thiseq$return_property,
-                      return_units=thiseq$return_units,
-                      reliability=thiseq$reliability,
-                      notes=notes,
-                      reference=reference,
-                      check_packaged_ids=FALSE)
-    class(e2) <- setdiff(class(e2),"sol_equation")
+    e2 <- sol_make_equation(equation_id = with_id,
+                            taxon_name = taxon_name,
+                            taxon_aphia_id = taxon_aphia_id,
+                            equation = thiseq$equation,
+                            inputs = thiseq$inputs,
+                            return_property = thiseq$return_property,
+                            return_units = thiseq$return_units,
+                            reliability = thiseq$reliability,
+                            notes = notes,
+                            reference = reference,
+                            check_packaged_ids = FALSE)
+    class(e2) <- setdiff(class(e2), "sol_equation")
+
+    ## finally check the taxonomy
+    if (isTRUE(check_name)) {
+        ar <- dietdataentry::search_worms(scientific = e2$taxon_name)
+        if (nrow(ar) > 0 && !is.na(ar$AphiaID) && (is.na(e2$taxon_aphia_id) || (e2$taxon_aphia_id != ar$AphiaID))) {
+            ## the existing name resolves to a different taxon_id than listed in the data-raw code
+            ##cat(str(ar))
+            ##cat(str(e2))
+            message(e2$taxon_name, " (aphia_id ", e2$taxon_aphia_id, " resolves to ", ar$scientificname, " (aphia_id ", ar$AphiaID, "), adding note and duplicate record")
+            e2$notes <- sub("^[[:space:]]+", "", paste0(e2$notes, " Accepted taxon name is ", ar$scientificname))
+            ## create duplicate record
+            if (was_as_eq) {
+                duprec <- alleq_tbl(thiseq = thiseq, with_id = sub(paste0("^", e2$taxon_aphia_id), ar$AphiaID, id), taxon_name = ar$scientificname, taxon_aphia_id = ar$AphiaID)
+            } else {
+                duprec <- alleq_tbl(id = id, with_id = sub(paste0("^", e2$taxon_aphia_id), ar$AphiaID, id), taxon_name = ar$scientificname, taxon_aphia_id = ar$AphiaID, notes = notes)
+            }
+            e2 <- bind_rows(e2, duprec)
+        }
+    }
     e2
 }
 
 build_allometry_df <- function() {
     ## equations from Xavier and Cherel
-    ## Ancistrocheirus lesueuri
-    x <- bind_rows(alleq_tbl("138747_ML_Clar1986"),alleq_tbl("138747_WW_Clar1986"))
+    ## Ancistrocheirus lesueurii
+    x <- bind_rows(alleq_tbl("138747_ML_Clar1986"), alleq_tbl("138747_WW_Clar1986"))
 
     ## Architeuthis dux
     x <- bind_rows(x,alleq_tbl("342218_ML_Clar1986"),alleq_tbl("342218_WW_Clar1986"),alleq_tbl("342218_ML_Roel2000"))
@@ -309,8 +340,7 @@ build_allometry_df <- function() {
     ## Histioteuthis arcturi (no specific equations)
 
     ## Histioteuthis bonnellii corpuscula (valid name Histioteuthis bonnellii)
-    x <- bind_rows(x,alleq_tbl("140111_ML_Clar1986"),alleq_tbl("140111_ML_LuIc2002"),
-                   alleq_tbl("140111_WW_LuIc2002"))
+    x <- bind_rows(x,alleq_tbl("140111_ML_Clar1986"),alleq_tbl("140111_ML_LuIc2002"), alleq_tbl("140111_WW_LuIc2002"))
 
     ## Histioteuthis macrohista
     x <- bind_rows(x,alleq_tbl("341870_ML_LuIc2002"),alleq_tbl("341870_WW_LuIc2002"))
@@ -333,24 +363,14 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("140193_ML_BASUnpub"),alleq_tbl("140193_WW_BASUnpub"),alleq_tbl("140193_ML_LuIc2002"))
 
     ## Loligo gahi (accepted name Doryteuthis (Amerigo) gahi)
-    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub"),alleq_tbl("410351_WW_HatfUnpub"))
-    ## also with common name alternatives
-    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",
-                               with_id="341880_ML_HatfUnpub",
-                               taxon_name="Loligo gahi",
-                               taxon_aphia_id=341880,
-                               notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"),
-                   alleq_tbl("410351_WW_HatfUnpub",
-                             with_id="341880_WW_HatfUnpub",
-                             taxon_name="Loligo gahi",
-                             taxon_aphia_id=341880,
-                             notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"))
-    x <- bind_rows(x,alleq_tbl("410351_ML_HatfUnpub",
+    x <- bind_rows(x,alleq_tbl("341880_ML_HatfUnpub"),alleq_tbl("341880_WW_HatfUnpub"))
+    ## also manually add one for Doryteuthis gahi
+    x <- bind_rows(x,alleq_tbl("341880_ML_HatfUnpub",
                                with_id="574538_ML_HatfUnpub",
                                taxon_name="Doryteuthis gahi",
                                taxon_aphia_id=574538,
                                notes="Accepted taxon name is Doryteuthis (Amerigo) gahi"),
-                   alleq_tbl("410351_WW_HatfUnpub",
+                   alleq_tbl("341880_WW_HatfUnpub",
                              with_id="574538_WW_HatfUnpub",
                              taxon_name="Doryteuthis gahi",
                              taxon_aphia_id=574538,
@@ -393,29 +413,10 @@ build_allometry_df <- function() {
                    alleq_tbl("410381M_WW_Jack1995"),alleq_tbl("410381F_WW_Jack1995"))
 
     ## Moroteuthis knipovitchi (valid name is Filippovia knipovitchi)
-    x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub"),alleq_tbl("550403_WW_CherUnpub"))
-    x <- bind_rows(x,alleq_tbl("550403_ML_CherUnpub",
-                               with_id="325310_ML_CherUnpub",
-                               taxon_name="Moroteuthis knipovitchi",
-                               taxon_aphia_id=325310,
-                               notes="Accepted taxon name is Filippovia knipovitchi"),
-                   alleq_tbl("550403_WW_CherUnpub",
-                             with_id="325310_WW_CherUnpub",
-                             taxon_name="Moroteuthis knipovitchi",
-                             taxon_aphia_id=325310,
-                             notes="Accepted taxon name is Filippovia knipovitchi"))
+    x <- bind_rows(x,alleq_tbl("325310_ML_CherUnpub"),alleq_tbl("325310_WW_CherUnpub"))
 
     ## Moroteuthis robsoni (valid name Onykia robsoni)
-    x <- bind_rows(x,alleq_tbl("410384_ML_LuIc2002"),alleq_tbl("410384_WW_LuIc2002"))
-    x <- bind_rows(x,alleq_tbl("410384_ML_LuIc2002",
-                               with_id="342256_ML_LuIc2002",
-                               taxon_name="Moroteuthis robsoni",
-                               taxon_aphia_id=342256,
-                               notes="Valid_name is Onykia robsoni"),
-                   alleq_tbl("410384_WW_LuIc2002",
-                             with_id="342256_WW_LuIc2002",
-                             taxon_name="Moroteuthis robsoni",
-                             taxon_aphia_id=342256,notes="Valid_name is Onykia robsoni"))
+    x <- bind_rows(x,alleq_tbl("342256_ML_LuIc2002"),alleq_tbl("342256_WW_LuIc2002"))
 
     ## Moroteuthis sp . B (Imber) (no specific equations)
 
@@ -444,17 +445,7 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("325319_ML_CollUnpub"),alleq_tbl("325319_WW_CollUnpub"))
 
     ## Benthoctopus thielei (valid name is Muusoctopus thielei)
-    x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub"),alleq_tbl("884005_WW_CherUnpub"))
-    x <- bind_rows(x,alleq_tbl("884005_ML_CherUnpub",
-                               with_id="341931_ML_CherUnpub",
-                               taxon_name="Benthoctopus thielei",
-                               taxon_aphia_id=341931,
-                               notes="Accepted taxon name is Muusoctopus thielei"),
-                   alleq_tbl("884005_WW_CherUnpub",
-                             with_id="341931_WW_CherUnpub",
-                             taxon_name="Benthoctopus thielei",
-                             taxon_aphia_id=341931,
-                             notes="Accepted taxon name is Muusoctopus thielei"))
+    x <- bind_rows(x,alleq_tbl("341931_ML_CherUnpub"),alleq_tbl("341931_WW_CherUnpub"))
 
     ## Graneledone gonzalezi
     x <- bind_rows(x,alleq_tbl("342224_ML_CherUnpub"),alleq_tbl("342224_WW_CherUnpub"))
@@ -474,25 +465,9 @@ build_allometry_df <- function() {
                    alleq_tbl("140605_WW_Smal1993"))
 
     ## Enteroctopus magnificus
-    x <- bind_rows(x,alleq_tbl("535784_ML_Smal1993"),
-                   alleq_tbl("535784_HL_Smal1993"),
-                   alleq_tbl("535784_WW_Smal1993"))
-    ## old name Octopus magnificus 225568
-    x <- bind_rows(x,alleq_tbl("535784_ML_Smal1993",
-                               with_id="225568_ML_Smal1993",
-                               taxon_name="Octopus magnificus",
-                               taxon_aphia_id=225568,
-                               notes="Accepted taxon name is Enteroctopus magnificus"),
-                   alleq_tbl("535784_HL_Smal1993",
-                             with_id="225568_HL_Smal1993",
-                             taxon_name="Octopus magnificus",
-                             taxon_aphia_id=225568,
-                             notes="Accepted taxon name is Enteroctopus magnificus"),
-                   alleq_tbl("535784_WW_Smal1993",
-                             with_id="225568_WW_Smal1993",
-                             taxon_name="Octopus magnificus",
-                             taxon_aphia_id=225568,
-                             notes="Accepted taxon name is Enteroctopus magnificus"))
+    x <- bind_rows(x,alleq_tbl("225568_ML_Smal1993"),
+                   alleq_tbl("225568_HL_Smal1993"),
+                   alleq_tbl("225568_WW_Smal1993"))
 
     ## Velodona togata
     x <- bind_rows(x,alleq_tbl("342415_ML_Smal1993"),
@@ -556,25 +531,10 @@ build_allometry_df <- function() {
                    alleq_tbl("234641_WW~SL_WiMc1990"))
 
     ## Pleuragramma antarctica
-    x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990"),
-                   alleq_tbl("712788_SL~OW_WiMc1990"),
-                   alleq_tbl("712788_WW~SL_WiMc1990"))
-    ## used to be P.antarcticum, still a common misuse
-    x <- bind_rows(x,alleq_tbl("712788_SL~OL_WiMc1990",
-                               with_id="234721_SL~OL_WiMc1990",
-                               taxon_name="Pleuragramma antarcticum",
-                               taxon_aphia_id=234721,
-                               notes="Accepted taxon name is Pleuragramma antarctica"),
-                   alleq_tbl("712788_SL~OW_WiMc1990",
-                             with_id="234721_SL~OW_WiMc1990",
-                             taxon_name="Pleuragramma antarcticum",
-                             taxon_aphia_id=234721,
-                             notes="Accepted taxon name is Pleuragramma antarctica"),
-                   alleq_tbl("712788_WW~SL_WiMc1990",
-                             with_id="234721_WW~SL_WiMc1990",
-                             taxon_name="Pleuragramma antarcticum",
-                             taxon_aphia_id=234721,
-                             notes="Accepted taxon name is Pleuragramma antarctica"))
+    x <- bind_rows(x,alleq_tbl("234721_SL~OL_WiMc1990"),
+                   alleq_tbl("234721_SL~OW_WiMc1990"),
+                   alleq_tbl("234721_WW~SL_WiMc1990"))
+
     ## Protomyctophum bolini
     x <- bind_rows(x,alleq_tbl("234714_SL~OL_WiMc1990"),
                    alleq_tbl("234714_SL~OW_WiMc1990"),
@@ -611,24 +571,9 @@ build_allometry_df <- function() {
                    alleq_tbl("234657_WW~SL_WiMc1990"))
 
     ## Muraenolepis marmoratus, valid name Muraenolepis marmorata
-    x <- bind_rows(x,alleq_tbl("313346_SL~OL_WiMc1990"),
-                   alleq_tbl("313346_SL~OW_WiMc1990"),
-                   alleq_tbl("313346_WW~SL_WiMc1990"))
-    x <- bind_rows(x,alleq_tbl("313346_SL~OL_WiMc1990",
-                               with_id="234705_SL~OL_WiMc1990",
-                               taxon_name="Muraenolepis marmoratus",
-                               taxon_aphia_id=234705,
-                               notes="Accepted taxon name is Muraenolepis marmorata"),
-                   alleq_tbl("313346_SL~OW_WiMc1990",
-                             with_id="234705_SL~OW_WiMc1990",
-                             taxon_name="Muraenolepis marmoratus",
-                             taxon_aphia_id=234705,
-                             notes="Accepted taxon name is Muraenolepis marmorata"),
-                   alleq_tbl("313346_WW~SL_WiMc1990",
-                             with_id="234705_WW~SL_WiMc1990",
-                             taxon_name="Muraenolepis marmoratus",
-                             taxon_aphia_id=234705,
-                             notes="Accepted taxon name is Muraenolepis marmorata"))
+    x <- bind_rows(x,alleq_tbl("234705_SL~OL_WiMc1990"),
+                   alleq_tbl("234705_SL~OW_WiMc1990"),
+                   alleq_tbl("234705_WW~SL_WiMc1990"))
 
     ## Macrourus holotrachys
     x <- bind_rows(x,alleq_tbl("234831_TL~OL_WiMc1990"),
@@ -640,33 +585,15 @@ build_allometry_df <- function() {
                    alleq_tbl("234683_SL~OW_WiMc1990"),
                    alleq_tbl("234683_WW~SL_WiMc1990"))
 
-    ## Dolloidraco longedorsali
+    ## Dolloidraco longedorsalis
     x <- bind_rows(x,alleq_tbl("234696_SL~OL_WiMc1990"),
                    alleq_tbl("234696_SL~OW_WiMc1990"),
                    alleq_tbl("234696_WW~SL_WiMc1990"))
 
-
-
     ## Pogonophryne phyllopogon, valid name is Pogonophryne scotti
-    x <- bind_rows(x,alleq_tbl("234837_SL~OL_WiMc1990"),
-                   alleq_tbl("234837_SL~OW_WiMc1990"),
-                   alleq_tbl("234837_WW~SL_WiMc1990"))
-
-    x <- bind_rows(x,alleq_tbl("234837_SL~OL_WiMc1990",
-                               with_id="313416_SL~OL_WiMc1990",
-                               taxon_name="Pogonophryne phyllopogon",
-                               taxon_aphia_id=313416,
-                               notes="Accepted taxon name is Pogonophryne scotti"),
-                   alleq_tbl("234837_SL~OW_WiMc1990",
-                             with_id="313416_SL~OW_WiMc1990",
-                             taxon_name="Pogonophryne phyllopogon",
-                             taxon_aphia_id=313416,
-                             notes="Accepted taxon name is Pogonophryne scotti"),
-                   alleq_tbl("234837_WW~SL_WiMc1990",
-                             with_id="313416_WW~SL_WiMc1990",
-                             taxon_name="Pogonophryne phyllopogon",
-                             taxon_aphia_id=313416,
-                             notes="Accepted taxon name is Pogonophryne scotti"))
+    x <- bind_rows(x,alleq_tbl("313416_SL~OL_WiMc1990"),
+                   alleq_tbl("313416_SL~OW_WiMc1990"),
+                   alleq_tbl("313416_WW~SL_WiMc1990"))
 
     ## Dissostichus eleginoides
     x <- bind_rows(x,alleq_tbl("234700_SL~OL_WiMc1990"),
@@ -709,45 +636,15 @@ build_allometry_df <- function() {
                    alleq_tbl("234624_SL~OW_WiMc1990"),
                    alleq_tbl("234624_WW~SL_WiMc1990"))
 
-    ## Lepidonotothen mizops
-    x <- bind_rows(x,alleq_tbl("234812_SL~OL_WiMc1990"),
-                   alleq_tbl("234812_SL~OW_WiMc1990"),
-                   alleq_tbl("234812_WW~SL_WiMc1990"))
-    x <- bind_rows(x,alleq_tbl("234812_SL~OL_WiMc1990",
-                               with_id="313401_SL~OL_WiMc1990",
-                               taxon_name="Nototheniops mizops",
-                               taxon_aphia_id=313401,
-                               notes="Accepted taxon name is Lepidonotothen mizops"),
-                   alleq_tbl("234812_SL~OW_WiMc1990",
-                             with_id="313401_SL~OW_WiMc1990",
-                             taxon_name="Nototheniops mizops",
-                             taxon_aphia_id=313401,
-                             notes="Accepted taxon name is Lepidonotothen mizops"),
-                   alleq_tbl("234812_WW~SL_WiMc1990",
-                             with_id="313401_WW~SL_WiMc1990",
-                             taxon_name="Nototheniops mizops",
-                             taxon_aphia_id=313401,
-                             notes="Accepted taxon name is Lepidonotothen mizops"))
+    ## Nototheniops mizops
+    x <- bind_rows(x,alleq_tbl("313401_SL~OL_WiMc1990"),
+                   alleq_tbl("313401_SL~OW_WiMc1990"),
+                   alleq_tbl("313401_WW~SL_WiMc1990"))
 
-    ## Trematomus bernacchii
-    x <- bind_rows(x,alleq_tbl("234802_SL~OL_WiMc1990"),
-                   alleq_tbl("234802_SL~OW_WiMc1990"),
-                   alleq_tbl("234802_WW~SL_WiMc1990"))
-    x <- bind_rows(x,alleq_tbl("234802_SL~OL_WiMc1990",
-                               with_id="313391_SL~OL_WiMc1990",
-                               taxon_name="Pagothenia bernacchii",
-                               taxon_aphia_id=313391,
-                               notes="Accepted taxon name is Trematomus bernacchii"),
-                   alleq_tbl("234802_SL~OW_WiMc1990",
-                             with_id="313391_SL~OW_WiMc1990",
-                             taxon_name="Pagothenia bernacchii",
-                             taxon_aphia_id=313391,
-                             notes="Accepted taxon name is Trematomus bernacchii"),
-                   alleq_tbl("234802_WW~SL_WiMc1990",
-                             with_id="313391_WW~SL_WiMc1990",
-                             taxon_name="Pagothenia bernacchii",
-                             taxon_aphia_id=313391,
-                             notes="Accepted taxon name is Trematomus bernacchii"))
+    ## Pagothenia bernacchii
+    x <- bind_rows(x,alleq_tbl("313391_SL~OL_WiMc1990"),
+                   alleq_tbl("313391_SL~OW_WiMc1990"),
+                   alleq_tbl("313391_WW~SL_WiMc1990"))
 
     ## Pagothenia borchgrevinki
     x <- bind_rows(x,alleq_tbl("234801_SL~OL_WiMc1990"),
@@ -755,44 +652,14 @@ build_allometry_df <- function() {
                    alleq_tbl("234801_WW~SL_WiMc1990"))
 
     ## Trematomus hansoni
-    x <- bind_rows(x,alleq_tbl("234772_SL~OL_WiMc1990"),
-                   alleq_tbl("234772_SL~OW_WiMc1990"),
-                   alleq_tbl("234772_WW~SL_WiMc1990"))
-    x <- bind_rows(x,alleq_tbl("234772_SL~OL_WiMc1990",
-                               with_id="313392_SL~OL_WiMc1990",
-                               taxon_name="Pagothenia hansoni",
-                               taxon_aphia_id=313392,
-                               notes="Accepted taxon name is Trematomus hansoni"),
-                   alleq_tbl("234772_SL~OW_WiMc1990",
-                             with_id="313392_SL~OW_WiMc1990",
-                             taxon_name="Pagothenia hansoni",
-                             taxon_aphia_id=313392,
-                             notes="Accepted taxon name is Trematomus hansoni"),
-                   alleq_tbl("234772_WW~SL_WiMc1990",
-                             with_id="313392_WW~SL_WiMc1990",
-                             taxon_name="Pagothenia hansoni",
-                             taxon_aphia_id=313392,
-                             notes="Accepted taxon name is Trematomus hansoni"))
+    x <- bind_rows(x,alleq_tbl("313392_SL~OL_WiMc1990"),
+                   alleq_tbl("313392_SL~OW_WiMc1990"),
+                   alleq_tbl("313392_WW~SL_WiMc1990"))
 
     ## Trematomus pennellii
-    x <- bind_rows(x,alleq_tbl("234709_SL~OL_WiMc1990"),
-                   alleq_tbl("234709_SL~OW_WiMc1990"),
-                   alleq_tbl("234709_WW~SL_WiMc1990"))
-    x <- bind_rows(x,alleq_tbl("234709_SL~OL_WiMc1990",
-                               with_id="313409_SL~OL_WiMc1990",
-                               taxon_name="Trematomus centronotus",
-                               taxon_aphia_id=313409,
-                               notes="Accepted taxon name is Trematomus pennellii"),
-                   alleq_tbl("234709_SL~OW_WiMc1990",
-                             with_id="313409_SL~OW_WiMc1990",
-                             taxon_name="Trematomus centronotus",
-                             taxon_aphia_id=313409,
-                             notes="Accepted taxon name is Trematomus pennellii"),
-                   alleq_tbl("234709_WW~SL_WiMc1990",
-                             with_id="313409_WW~SL_WiMc1990",
-                             taxon_name="Trematomus centronotus",
-                             taxon_aphia_id=313409,
-                             notes="Accepted taxon name is Trematomus pennellii"))
+    x <- bind_rows(x,alleq_tbl("313409_SL~OL_WiMc1990"),
+                   alleq_tbl("313409_SL~OW_WiMc1990"),
+                   alleq_tbl("313409_WW~SL_WiMc1990"))
 
     ## Trematomus eulepidotus
     x <- bind_rows(x,alleq_tbl("234754_SL~OL_WiMc1990"),
@@ -894,24 +761,9 @@ build_allometry_df <- function() {
     ## ---
     ## Artigues 2003 equations
 
-    x <- bind_rows(x,alleq_tbl("234661_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("234661_WW~TL_Arti2003",
-                               with_id="234660_WW~TL_Arti2003",
-                               taxon_name="Aethotaxis mitopteryx",
-                               taxon_aphia_id=234660,
-                               notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-    x <- bind_rows(x,alleq_tbl("234661M_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("234661M_WW~TL_Arti2003",
-                               with_id="234660M_WW~TL_Arti2003",
-                               taxon_name="Aethotaxis mitopteryx",
-                               taxon_aphia_id=234660,
-                               notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-    x <- bind_rows(x,alleq_tbl("234661F_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("234661F_WW~TL_Arti2003",
-                               with_id="234660F_WW~TL_Arti2003",
-                               taxon_name="Aethotaxis mitopteryx",
-                               taxon_aphia_id=234660,
-                               notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+    x <- bind_rows(x,alleq_tbl("234660_WW~TL_Arti2003"))
+    x <- bind_rows(x,alleq_tbl("234660M_WW~TL_Arti2003"))
+    x <- bind_rows(x,alleq_tbl("234660F_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234836_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234704_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234704M_WW~TL_Arti2003"))
@@ -945,24 +797,9 @@ build_allometry_df <- function() {
     x <- bind_rows(x,alleq_tbl("234665_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234665M_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234665F_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("712789_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("712789_WW~TL_Arti2003",
-                               with_id="234615_WW~TL_Arti2003",
-                               taxon_name="Artedidraco loennbergi",
-                               taxon_aphia_id=234615,
-                               notes="Accepted taxon name is Artedidraco lonnbergi"))
-    x <- bind_rows(x,alleq_tbl("712789M_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("712789M_WW~TL_Arti2003",
-                               with_id="234615M_WW~TL_Arti2003",
-                               taxon_name="Artedidraco loennbergi",
-                               taxon_aphia_id=234615,
-                               notes="Accepted taxon name is Artedidraco lonnbergi"))
-    x <- bind_rows(x,alleq_tbl("712789F_WW~TL_Arti2003"))
-    x <- bind_rows(x,alleq_tbl("712789F_WW~TL_Arti2003",
-                               with_id="234615F_WW~TL_Arti2003",
-                               taxon_name="Artedidraco loennbergi",
-                               taxon_aphia_id=234615,
-                               notes="Accepted taxon name is Artedidraco lonnbergi"))
+    x <- bind_rows(x,alleq_tbl("234615_WW~TL_Arti2003"))
+    x <- bind_rows(x,alleq_tbl("234615M_WW~TL_Arti2003"))
+    x <- bind_rows(x,alleq_tbl("234615F_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234592_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234592M_WW~TL_Arti2003"))
     x <- bind_rows(x,alleq_tbl("234592F_WW~TL_Arti2003"))
@@ -1068,24 +905,9 @@ build_allometry_df <- function() {
                    alleq_tbl("712470F_TL~age_Pink2013"))
 
     ## from LaMe2018
-    x <- bind_rows(x, alleq_tbl("234661F_WW~SL_LaMe2018"),
-                   alleq_tbl("234661F_WW~SL_LaMe2018",
-                             with_id="234660F_WW~SL_LaMe2018",
-                             taxon_name="Aethotaxis mitopteryx",
-                             taxon_aphia_id=234660,
-                             notes="Applies to female animals. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-    x <- bind_rows(x, alleq_tbl("234661M_WW~SL_LaMe2018"),
-                   alleq_tbl("234661M_WW~SL_LaMe2018",
-                             with_id="234660M_WW~SL_LaMe2018",
-                             taxon_name="Aethotaxis mitopteryx",
-                             taxon_aphia_id=234660,
-                             notes="Applies to male animals. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-    x <- bind_rows(x, alleq_tbl("234661_SL~OL_LaMe2018"),
-                   alleq_tbl("234661_SL~OL_LaMe2018",
-                             with_id="234660_SL~OL_LaMe2018",
-                             taxon_name="Aethotaxis mitopteryx",
-                             taxon_aphia_id=234660,
-                             notes="Derived from otoliths of animals of both sexes. Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+    x <- bind_rows(x, alleq_tbl("234660F_WW~SL_LaMe2018"))
+    x <- bind_rows(x, alleq_tbl("234660M_WW~SL_LaMe2018"))
+    x <- bind_rows(x, alleq_tbl("234660_SL~OL_LaMe2018"))
 
     ## La Mesa et al 2020
     x <- bind_rows(x, alleq_tbl("234720M_WW~TL_LaMe2020"),
@@ -1101,12 +923,10 @@ build_allometry_df <- function() {
                    alleq_tbl("217719_WW~SL_EsFl2020"),
                    alleq_tbl("125832_WW~SL_EsFl2020"),
                    alleq_tbl("712788_WW~SL_EsFl2020"),
-                   alleq_tbl("220007_WW~SL_EsFl2020"),
                    alleq_tbl("400296_WW~SL_EsFl2020"),
                    alleq_tbl("234695_WW~SL_EsFl2020"),
                    alleq_tbl("221503_WW~SL_EsFl2020"),
                    alleq_tbl("274968_WW~SL_EsFl2020"),
-                   alleq_tbl("234788_WW~SL_EsFl2020"),
                    alleq_tbl("313344_WW~SL_EsFl2020"),
                    alleq_tbl("125825_WW~SL_EsFl2020"),
                    alleq_tbl("217704_WW~SL_EsFl2020"),
@@ -1245,39 +1065,14 @@ build_allometry_df <- function() {
                    alleq_tbl("217697_EDDW~DW_VanD2006"),
                    alleq_tbl("217697_EDWW~DW_VanD2006"))
 
-    ## Aethotaxis mitopteryx 234660, proper name is Aethotaxis mitopteryx mitopteryx
-    x <- bind_rows(x,alleq_tbl("234661_LpDW~SL_FrHa1994"),
-                   alleq_tbl("234661_LpDW~SL_FrHa1994",
-                             with_id="234660_LpDW~SL_FrHa1994",
-                             taxon_name="Aethotaxis mitopteryx",
-                             taxon_aphia_id=234660,
-                             notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-    x <- bind_rows(x,alleq_tbl("234661_LpDW~WW_FrHa1994"),
-                   alleq_tbl("234661_LpDW~WW_FrHa1994",
-                             with_id="234660_LpDW~WW_FrHa1994",
-                             taxon_name="Aethotaxis mitopteryx",
-                             taxon_aphia_id=234660,
-                             notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
-    x <- bind_rows(x,alleq_tbl("234661_WC~LpWW_FrHa1994"),
-                   alleq_tbl("234661_WC~LpWW_FrHa1994",
-                             with_id="234660_WC~LpWW_FrHa1994",
-                             taxon_name="Aethotaxis mitopteryx",
-                             taxon_aphia_id=234660,
-                             notes="Accepted taxon name is Aethotaxis mitopteryx mitopteryx"))
+    ## Aethotaxis mitopteryx
+    x <- bind_rows(x,alleq_tbl("234660_LpDW~SL_FrHa1994"))
+    x <- bind_rows(x,alleq_tbl("234660_LpDW~WW_FrHa1994"))
+    x <- bind_rows(x,alleq_tbl("234660_WC~LpWW_FrHa1994"))
 
     ## Pleuragramma antarcticum 234721, proper name is Pleuragramma antarctica
-    x <- bind_rows(x,alleq_tbl("712788_LpDW~SL_FrHa1994"),
-                   alleq_tbl("712788_LpDW~SL_FrHa1994",
-                             with_id="234721_LpDW~SL_FrHa1994",
-                             taxon_name="Pleuragramma antarcticum",
-                             taxon_aphia_id=234721,
-                             notes="Accepted taxon name is Pleuragramma antarctica"))
-    x <- bind_rows(x,alleq_tbl("712788_WC~LpWW_FrHa1994"),
-                   alleq_tbl("712788_WC~LpWW_FrHa1994",
-                             with_id="234721_WC~LpWW_FrHa1994",
-                             taxon_name="Pleuragramma antarcticum",
-                             taxon_aphia_id=234721,
-                             notes="Accepted taxon name is Pleuragramma antarctica"))
+    x <- bind_rows(x,alleq_tbl("234721_LpDW~SL_FrHa1994"),
+                   alleq_tbl("234721_WC~LpWW_FrHa1994"))
 
     ## Trematomus lepidorhinus
     x <- bind_rows(x,alleq_tbl("234770_LpDW~SL_FrHa1994"),
@@ -1303,19 +1098,8 @@ build_allometry_df <- function() {
                    alleq_tbl("234704_TEC~TL_Vane2005"),
                    alleq_tbl("234700_WW~TL_Vane2005"),
                    alleq_tbl("234700_TEC~TL_Vane2005"),
-                   alleq_tbl("234788_WW~TL_Vane2005"),
-                   alleq_tbl("234788_TEC~TL_Vane2005"))
-    ## Lepidonotothen kempi 313344 valid is Lepidonotothen squamifrons 234788
-    x <- bind_rows(x,alleq_tbl("234788_WW~TL_Vane2005",
-                               with_id="313344_WW~TL_Vane2005",
-                               taxon_name="Lepidonotothen kempi",
-                               taxon_aphia_id=313344,
-                               notes="Accepted taxon name is Lepidonotothen squamifrons"),
-                   alleq_tbl("234788_TEC~TL_Vane2005",
-                             with_id="313344_TEC~TL_Vane2005",
-                             taxon_name="Lepidonotothen kempi",
-                             taxon_aphia_id=313344,
-                             notes="Accepted taxon name is Lepidonotothen squamifrons"))
+                   alleq_tbl("313344_WW~TL_Vane2005"),
+                   alleq_tbl("313344_TEC~TL_Vane2005"))
 
     ## from Dubi2012
     x <- bind_rows(x, alleq_tbl("266542_WW~OAL_summer_Dubi2012"),
@@ -1391,5 +1175,11 @@ idx <- grepl("WiMc1990",allometric_equations$equation_id) & allometric_equations
 tmp <- vapply(which(idx),function(z)allometric_equations[z,]$equation[[1]](4)$allometric_value,FUN.VALUE = 1)
 assert_that(!any(abs(tmp)<50 | abs(tmp)>1000))
 
+## taxonomy check
+utn <- allometric_equations %>% mutate(noted_invalid = grepl("Accepted taxon name is", .data$notes)) %>% distinct(.data$taxon_name, .data$taxon_aphia_id, .data$noted_invalid) %>% dplyr::arrange(.data$taxon_name)
+if (any(duplicated(utn$taxon_name))) stop("There must be at least one invalid taxon that is not noted as invalid")
+chk <- utn %>% rowwise %>% mutate(taxon_aphia_id_new = { tmp <- search_worms(.data$taxon_name); if (nrow(tmp) == 1) tmp$AphiaID else NA_integer_ }) %>% ungroup %>% as.data.frame
+##chk %>% dplyr::filter(.data$taxon_aphia_id != .data$taxon_aphia_id_new | is.na(.data$taxon_aphia_id_new)) %>% count(.data$taxon_name, .data$taxon_aphia_id, .data$noted_invalid, .data$taxon_aphia_id_new)
+chk %>% dplyr::filter(.data$taxon_aphia_id != .data$taxon_aphia_id_new | is.na(.data$taxon_aphia_id_new)) %>% count(.data$taxon_name, .data$taxon_aphia_id, .data$noted_invalid, .data$taxon_aphia_id_new) %>% dplyr::filter(!noted_invalid)
 
-usethis::use_data(allometric_equations, internal = FALSE, overwrite = TRUE)
+## usethis::use_data(allometric_equations, internal = FALSE, overwrite = TRUE)

@@ -79,9 +79,9 @@ alleq_fish_other <- function(id) {
                                              notes="Calculated on specimens of both sexes, collected during February 1998",
                                              reference=refs$LaMe2000),
 
-           ## Aethotaxis mitopteryx, accepted name is Aethotaxis mitopteryx mitopteryx
-           "234661F_WW~SL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx mitopteryx",
-                                          taxon_aphia_id = 234661,
+           ## Aethotaxis mitopteryx
+           "234660F_WW~SL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx",
+                                          taxon_aphia_id = 234660,
                                           equation = function(SL) tibble(allometric_value = 0.0057 * (SL ^ 3.20)),
                                           inputs = tibble(property = "standard length", units = "cm", sample_minimum = 18, sample_maximum = 45),
                                           return_property = "wet weight",
@@ -91,8 +91,8 @@ alleq_fish_other <- function(id) {
                                           notes="Applies to female animals",
                                           reference=refs$LaMe2018),
 
-           "234661M_WW~SL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx mitopteryx",
-                                           taxon_aphia_id = 234661,
+           "234660M_WW~SL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx",
+                                           taxon_aphia_id = 234660,
                                            equation = function(SL) tibble(allometric_value = 0.0111 * (SL ^ 2.99)),
                                            inputs = tibble(property = "standard length", units = "cm", sample_minimum = 13, sample_maximum = 31),
                                            return_property = "wet weight",
@@ -102,8 +102,8 @@ alleq_fish_other <- function(id) {
                                            notes="Applies to male animals",
                                            reference=refs$LaMe2018),
 
-           "234661_SL~OL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx mitopteryx",
-                                          taxon_aphia_id = 234661,
+           "234660_SL~OL_LaMe2018" = list(taxon_name = "Aethotaxis mitopteryx",
+                                          taxon_aphia_id = 234660,
                                           equation = function(OL) tibble(allometric_value = -1.95 + 5.24 * OL),
                                           inputs = tibble(property = "otolith length", units = "mm", sample_minimum = 3.2, sample_maximum = 9.4),
                                           return_property = "standard length",
@@ -124,7 +124,7 @@ alleq_fish_other <- function(id) {
                                                                 "R^2", 0.98),
                                           reference = refs$Troc2020),
 
-           "234626_WW~TL_Llom2020" = list(taxon_name = "Harpagifer bispinus",
+           "234626_WW~TL_Llom2020" = list(taxon_name = "Harpagifer bispinis",
                                           taxon_aphia_id = 234626,
                                           equation = function(TL) tibble(allometric_value = 0.0000237 * (TL^2.88)),
                                           inputs = tibble(property = "total length", units = "mm", sample_minimum = 38, sample_maximum = 80),
@@ -133,7 +133,7 @@ alleq_fish_other <- function(id) {
                                                                 "N", 99+84),
                                           reference = refs$Llom2020),
 
-           "234626_TL~age_Llom2020" = list(taxon_name = "Harpagifer bispinus",
+           "234626_TL~age_Llom2020" = list(taxon_name = "Harpagifer bispinis",
                                            taxon_aphia_id = 234626,
                                            equation = function(t) sol_vonbert(t, Linf = 80.7, k = 0.25, t0 = -2.31, Linf_se = 0.82, k_se = 0.01, t0_se = 0),
                                            inputs = tibble(property = "age", units = "yr", sample_minimum = 0.5, sample_maximum = 7),

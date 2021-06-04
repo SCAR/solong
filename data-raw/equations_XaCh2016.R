@@ -123,9 +123,9 @@ refs <- c(refs,list(
 
 alleq_XaCh2016 <- function(id) {
     switch(id,
-           ## Ancistrocheirus lesueuri
+           ## Ancistrocheirus lesueurii
            ## ML=-41.3+40.75LRL ; ln M=-0.194+3.56ln LRL (n=23 for ML, n=21 for M) (Clarke 1986)
-           "138747_ML_Clar1986"=list(taxon_name="Ancistrocheirus lesueuri",
+           "138747_ML_Clar1986"=list(taxon_name="Ancistrocheirus lesueurii",
                                      taxon_aphia_id=138747,
                                      equation=function(...)tibble(allometric_value=-41.3+40.75*...),
                                      inputs=tibble(property="lower rostral length",
@@ -134,7 +134,7 @@ alleq_XaCh2016 <- function(id) {
                                      return_units="mm",
                                      reliability=tibble(type="N",value=23),
                                      reference=refs$Clar1986),
-           "138747_WW_Clar1986"=list(taxon_name="Ancistrocheirus lesueuri",
+           "138747_WW_Clar1986"=list(taxon_name="Ancistrocheirus lesueurii",
                                        taxon_aphia_id=138747,
                                        equation=function(...)tibble(allometric_value=exp(-0.194+3.56*log(...))),
                                        inputs=tibble(property="lower rostral length",
@@ -614,24 +614,24 @@ alleq_XaCh2016 <- function(id) {
 
            ## Loligo gahi (accepted name Doryteuthis (Amerigo) gahi)
            ## ln ML= 4.23+1.01lnLRL ; ln M=2.25+2.39lnLRL (n=446) (British Antarctic Survey, unpublished data)
-           "410351_ML_HatfUnpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
-                                     taxon_aphia_id=410351,
+           "341880_ML_HatfUnpub"=list(taxon_name="Loligo gahi",
+                                     taxon_aphia_id=341880,
                                      equation=function(...)tibble(allometric_value=exp(4.23+1.01*log(...))),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
                                      return_property="mantle length",
                                      return_units="mm",
                                      reliability=tibble(type="N",value=446),
-                                     reference=refs$HatfPersComm),##paste0("Hatfield (pers. comm.) in ",refs$Piat2001)),
-           "410351_WW_HatfUnpub"=list(taxon_name="Doryteuthis (Amerigo) gahi",
-                                      taxon_aphia_id=410351,
+                                     reference=refs$HatfPersComm),
+           "341880_WW_HatfUnpub"=list(taxon_name="Loligo gahi",
+                                      taxon_aphia_id=341880,
                                       equation=function(...)tibble(allometric_value=exp(2.25+2.39*log(...))),
                                       inputs=tibble(property="lower rostral length",
                                                      units="mm"),
                                       return_property="wet weight",
                                       return_units="g",
                                       reliability=tibble(type="N",value=446),
-                                      reference=refs$HatfPersComm),##paste0("Hatfield (pers. comm.) in ",refs$Piat2001)),
+                                      reference=refs$HatfPersComm),
 
            ## Lycoteuthis lorigera
            ## ML=-13.04+34.56LRL; ln M= 0.32+3.00lnLRL (n=45 for ML and M, using total weight
@@ -888,8 +888,8 @@ alleq_XaCh2016 <- function(id) {
            ## Moroteuthis knipovitchi (valid name is Filippovia knipovitchi)
            ## ML=-105.707+62.369LRL; ln M=-0.881+3.798lnLRL (n=7 for ML, n=5 for M) (Cherel,
            ## unpublished data)
-           "550403_ML_CherUnpub"=list(taxon_name="Filippovia knipovitchi",
-                                      taxon_aphia_id=550403,
+           "325310_ML_CherUnpub"=list(taxon_name="Moroteuthis knipovitchi",
+                                      taxon_aphia_id=325310,
                                       equation=function(...)tibble(allometric_value=-105.707+62.369*...),
                                       inputs=tibble(property="lower rostral length",
                                       units="mm"),
@@ -897,8 +897,8 @@ alleq_XaCh2016 <- function(id) {
                                       return_units="mm",
                                       reliability=tibble(type="N",value=7),
                                       reference=refs$CherUnpub),
-           "550403_WW_CherUnpub"=list(taxon_name="Filippovia knipovitchi",
-                                        taxon_aphia_id=550403,
+           "325310_WW_CherUnpub"=list(taxon_name="Moroteuthis knipovitchi",
+                                        taxon_aphia_id=325310,
                                         equation=function(...)tibble(allometric_value=exp(-0.881+3.798*log(...))),
                                         inputs=tibble(property="lower rostral length",
                                         units="mm"),
@@ -911,8 +911,8 @@ alleq_XaCh2016 <- function(id) {
     ## Moroteuthis robsoni (valid name Onykia robsoni)
     ## ML=-652.91+151.03LRL; ln M= -9.15+8.07lnLRL (n=8 for ML, n=6 for M, using total
     ## weight of preserved specimens) (Lu & Ickeringill 2002)
-           "410384_ML_LuIc2002"=list(taxon_name="Onykia robsoni",
-                                     taxon_aphia_id=410384,
+           "342256_ML_LuIc2002"=list(taxon_name="Moroteuthis robsoni",
+                                     taxon_aphia_id=342256,
                                      equation=function(...)tibble(allometric_value=-652.91+151.03*...),
                                      inputs=tibble(property="lower rostral length",
                                      units="mm"),
@@ -922,8 +922,8 @@ alleq_XaCh2016 <- function(id) {
                                                          "N",8,
                                                          "R^2",0.87),
                                      reference=refs$LuIc2002),
-           "410384_WW_LuIc2002"=list(taxon_name="Onykia robsoni",
-                                       taxon_aphia_id=410384,
+           "342256_WW_LuIc2002"=list(taxon_name="Moroteuthis robsoni",
+                                       taxon_aphia_id=342256,
                                        equation=function(...)tibble(allometric_value=exp(-9.15+8.07*log(...))),
                                        inputs=tibble(property="lower rostral length",
                                        units="mm"),
@@ -1073,8 +1073,8 @@ alleq_XaCh2016 <- function(id) {
            ## Benthoctopus thielei (valid name is Muusoctopus thielei)
            ## ML = 7.398+12.569LHL; lnM= 0.471+2.706lnLHL (n=48 for ML and M) (Cherel,
            ## unpublished data)
-           "884005_ML_CherUnpub"=list(taxon_name="Muusoctopus thielei",
-                                      taxon_aphia_id=884005,
+           "341931_ML_CherUnpub"=list(taxon_name="Benthoctopus thielei",
+                                      taxon_aphia_id=341931,
                                       equation=function(...)tibble(allometric_value=7.398+12.569*...),
                                       inputs=tibble(property="lower hood length",
                                       units="mm"),
@@ -1083,8 +1083,8 @@ alleq_XaCh2016 <- function(id) {
                                       reliability=tribble(~type,~value,
                                                          "N",48),
                                       reference=refs$CherUnpub),
-           "884005_WW_CherUnpub"=list(taxon_name="Muusoctopus thielei",
-                                        taxon_aphia_id=884005,
+           "341931_WW_CherUnpub"=list(taxon_name="Benthoctopus thielei",
+                                        taxon_aphia_id=341931,
                                         equation=function(...)tibble(allometric_value=exp(0.471+2.706*log(...))),
                                         inputs=tibble(property="lower hood length",
                                         units="mm"),

@@ -242,8 +242,8 @@ refs$Arti2003 <- bibentry(bibtype="Article",key="Arti2003",
 alleq_Arti2003 <- function(id) {
     switch(id,
 
-           "234661_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
-                                          taxon_aphia_id=234661,
+           "234660_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx",
+                                          taxon_aphia_id=234660,
                                           equation=function(...){a=0.00619; b=3.019; se=0.166;
                                               tibble(allometric_value=a*(...^b))##,
                                                      ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
@@ -256,8 +256,8 @@ alleq_Arti2003 <- function(id) {
                                                               "N",51,
                                                               "R^2",0.991),
                                           reference=refs$Arti2003),
-           "234661M_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
-                                          taxon_aphia_id=234661,
+           "234660M_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx",
+                                          taxon_aphia_id=234660,
                                           equation=function(...){a=0.00463; b=3.119; se=0.883;
                                               tibble(allometric_value=a*(...^b))##,
                                                      ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
@@ -271,8 +271,8 @@ alleq_Arti2003 <- function(id) {
                                                               "R^2",0.976),
                                           notes="Applies to male animals",
                                           reference=refs$Arti2003),
-           "234661F_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx mitopteryx",
-                                          taxon_aphia_id=234661,
+           "234660F_WW~TL_Arti2003"=list(taxon_name="Aethotaxis mitopteryx",
+                                          taxon_aphia_id=234660,
                                           equation=function(...){a=0.00593; b=3.045; se=0.575;
                                               tibble(allometric_value=a*(...^b))##,
                                                      ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
@@ -768,8 +768,8 @@ alleq_Arti2003 <- function(id) {
                                                               "R^2",0.979),
                                           notes="Applies to female animals",
                                           reference=refs$Arti2003),
-           "712789_WW~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
-                                          taxon_aphia_id=712789,
+           "234615_WW~TL_Arti2003"=list(taxon_name="Artedidraco loennbergi",
+                                          taxon_aphia_id=234615,
                                           equation=function(...){a=0.00675; b=3.014; se=0.416;
                                               tibble(allometric_value=a*(...^b))##,
                                                      ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
@@ -782,8 +782,8 @@ alleq_Arti2003 <- function(id) {
                                                               "N",97,
                                                               "R^2",0.897),
                                           reference=refs$Arti2003),
-           "712789M_WW~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
-                                          taxon_aphia_id=712789,
+           "234615M_WW~TL_Arti2003"=list(taxon_name="Artedidraco loennbergi",
+                                          taxon_aphia_id=234615,
                                           equation=function(...){a=0.01323; b=2.688; se=0.796;
                                               tibble(allometric_value=a*(...^b))##,
                                                      ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),
@@ -797,8 +797,8 @@ alleq_Arti2003 <- function(id) {
                                                               "R^2",0.851),
                                           notes="Applies to male animals",
                                           reference=refs$Arti2003),
-           "712789F_WW~TL_Arti2003"=list(taxon_name="Artedidraco lonnbergi",
-                                          taxon_aphia_id=712789,
+           "234615F_WW~TL_Arti2003"=list(taxon_name="Artedidraco loennbergi",
+                                          taxon_aphia_id=234615,
                                           equation=function(...){a=0.00655; b=3.035; se=0.428;
                                               tibble(allometric_value=a*(...^b))##,
                                                      ##allometric_value_lower=10^(log10(a)+b*log10(...)-1.96*se),

@@ -1,7 +1,7 @@
 Package: solong
 Type: Package
 Title: Allometric Equations for Southern Ocean Taxa
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
              person("Anton", "Van de Putte", role = "ctb"),
              person("Martin", "Cox", role = "ctb"))
@@ -21,6 +21,7 @@ Imports:
   vctrs
 Suggests:
   covr,
+  dietdataentry,
   ggplot2,
   knitr,
   rfishbase (>= 3.1.7),
@@ -28,3 +29,4 @@ Suggests:
   worrms
 RoxygenNote: 7.1.1
 VignetteBuilder: knitr
+Remotes: SCAR/DietAndEnergetics/R/dietdataentry
