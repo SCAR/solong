@@ -187,6 +187,7 @@ alleq_East2019 <- function() {
     } else {
         tempeq <- readRDS(processed_data_file)
     }
+    Encoding(tempeq$ref) <- "UTF-8"
     ## return all equations in list
     ## include both name and valid_name as separate records, if they are different
     out <- list()

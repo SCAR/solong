@@ -1,7 +1,7 @@
 Package: solong
 Type: Package
 Title: Allometric Equations for Southern Ocean Taxa
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: c(person("Ben", "Raymond", email = "ben.raymond@aad.gov.au", role = c("aut", "cre")),
              person("Anton", "Van de Putte", role = "ctb"),
              person("Martin", "Cox", role = "ctb"))
