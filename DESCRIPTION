@@ -21,7 +21,6 @@ Imports:
   vctrs
 Suggests:
   covr,
-  dietdataentry,
   ggplot2,
   knitr,
   rfishbase (>= 3.1.7),
@@ -29,4 +28,3 @@ Suggests:
   worrms
 RoxygenNote: 7.2.0
 VignetteBuilder: knitr
-Remotes: SCAR/DietAndEnergetics/R/dietdataentry
